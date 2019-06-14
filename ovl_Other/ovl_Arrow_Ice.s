@@ -4,93 +4,93 @@
 
 .section .text
 func_80A60750:
-    sw      a1, 0x0158(a0)             ## 00000158
+    sw      a1, 0x0158(a0)             # 00000158
     jr      $ra                        
     nop
 
 
 func_80A6075C:
-    addiu   $sp, $sp, 0xFFE0           ## $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
     sw      s0, 0x0018($sp)            
-    or      s0, a0, $zero              ## s0 = 00000000
+    or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)           
     sw      a1, 0x0024($sp)            
-    lui     a1, %hi(var_80A62510)      ## a1 = 80A60000
-    addiu   a1, a1, %lo(var_80A62510)  ## a1 = 80A62510
+    lui     a1, %hi(var_80A62510)      # a1 = 80A60000
+    addiu   a1, a1, %lo(var_80A62510)  # a1 = 80A62510
     jal     func_80063F7C              
-    or      a0, s0, $zero              ## a0 = 00000000
-    lui     $at, 0x3F80                ## $at = 3F800000
-    mtc1    $at, $f4                   ## $f4 = 1.00
-    lui     a1, %hi(func_80A607FC)     ## a1 = 80A60000
-    sh      $zero, 0x013C(s0)          ## 0000013C
-    addiu   a1, a1, %lo(func_80A607FC) ## a1 = 80A607FC
-    or      a0, s0, $zero              ## a0 = 00000000
+    or      a0, s0, $zero              # a0 = 00000000
+    lui     $at, 0x3F80                # $at = 3F800000
+    mtc1    $at, $f4                   # $f4 = 1.00
+    lui     a1, %hi(func_80A607FC)     # a1 = 80A60000
+    sh      $zero, 0x013C(s0)          # 0000013C
+    addiu   a1, a1, %lo(func_80A607FC) # a1 = 80A607FC
+    or      a0, s0, $zero              # a0 = 00000000
     jal     func_80A60750              
-    swc1    $f4, 0x0150(s0)            ## 00000150
-    lui     a1, 0x3C23                 ## a1 = 3C230000
-    ori     a1, a1, 0xD70A             ## a1 = 3C23D70A
+    swc1    $f4, 0x0150(s0)            # 00000150
+    lui     a1, 0x3C23                 # a1 = 3C230000
+    ori     a1, a1, 0xD70A             # a1 = 3C23D70A
     jal     func_80020F88              
-    or      a0, s0, $zero              ## a0 = 00000000
-    mtc1    $zero, $f6                 ## $f6 = 0.00
-    addiu   t6, $zero, 0x0064          ## t6 = 00000064
-    sb      t6, 0x0140(s0)             ## 00000140
-    sh      $zero, 0x013E(s0)          ## 0000013E
-    swc1    $f6, 0x0154(s0)            ## 00000154
+    or      a0, s0, $zero              # a0 = 00000000
+    mtc1    $zero, $f6                 # $f6 = 0.00
+    addiu   t6, $zero, 0x0064          # t6 = 00000064
+    sb      t6, 0x0140(s0)             # 00000140
+    sh      $zero, 0x013E(s0)          # 0000013E
+    swc1    $f6, 0x0154(s0)            # 00000154
     lw      $ra, 0x001C($sp)           
     lw      s0, 0x0018($sp)            
-    addiu   $sp, $sp, 0x0020           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp = 00000000
     jr      $ra                        
     nop
 
 
 func_80A607D8:
-    addiu   $sp, $sp, 0xFFE8           ## $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
     sw      $ra, 0x0014($sp)           
     sw      a0, 0x0018($sp)            
     jal     func_80072548              
-    or      a0, a1, $zero              ## a0 = 00000000
+    or      a0, a1, $zero              # a0 = 00000000
     lw      $ra, 0x0014($sp)           
-    addiu   $sp, $sp, 0x0018           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp = 00000000
     jr      $ra                        
     nop
 
 
 func_80A607FC:
-    addiu   $sp, $sp, 0xFFE0           ## $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
     sw      $ra, 0x0014($sp)           
     sw      a1, 0x0024($sp)            
-    lw      v0, 0x0118(a0)             ## 00000118
+    lw      v0, 0x0118(a0)             # 00000118
     beq     v0, $zero, lbl_80A60820    
     nop
-    lw      t6, 0x0130(v0)             ## 00000130
+    lw      t6, 0x0130(v0)             # 00000130
     bnel    t6, $zero, lbl_80A60834    
-    lh      v1, 0x013C(a0)             ## 0000013C
+    lh      v1, 0x013C(a0)             # 0000013C
 lbl_80A60820:
     jal     func_80020EB4              
     nop
     beq     $zero, $zero, lbl_80A608E4 
     lw      $ra, 0x0014($sp)           
-    lh      v1, 0x013C(a0)             ## 0000013C
+    lh      v1, 0x013C(a0)             # 0000013C
 lbl_80A60834:
     slti    $at, v1, 0x000A            
     beq     $at, $zero, lbl_80A60844   
-    addiu   t7, v1, 0x0001             ## t7 = 00000001
-    sh      t7, 0x013C(a0)             ## 0000013C
+    addiu   t7, v1, 0x0001             # t7 = 00000001
+    sh      t7, 0x013C(a0)             # 0000013C
 lbl_80A60844:
-    lw      t9, 0x0024(v0)             ## 00000024
-    addiu   v1, a0, 0x0024             ## v1 = 00000024
-    addiu   a1, $zero, 0x007E          ## a1 = 0000007E
-    sw      t9, 0x0000(v1)             ## 00000024
-    lw      t8, 0x0028(v0)             ## 00000028
-    sw      t8, 0x0004(v1)             ## 00000028
-    lw      t9, 0x002C(v0)             ## 0000002C
-    sw      t9, 0x0008(v1)             ## 0000002C
-    lwl     t1, 0x00B4(v0)             ## 000000B4
-    lwr     t1, 0x00B7(v0)             ## 000000B7
-    swl     t1, 0x00B4(a0)             ## 000000B4
-    swr     t1, 0x00B7(a0)             ## 000000B7
-    lhu     t1, 0x00B8(v0)             ## 000000B8
-    sh      t1, 0x00B8(a0)             ## 000000B8
+    lw      t9, 0x0024(v0)             # 00000024
+    addiu   v1, a0, 0x0024             # v1 = 00000024
+    addiu   a1, $zero, 0x007E          # a1 = 0000007E
+    sw      t9, 0x0000(v1)             # 00000024
+    lw      t8, 0x0028(v0)             # 00000028
+    sw      t8, 0x0004(v1)             # 00000028
+    lw      t9, 0x002C(v0)             # 0000002C
+    sw      t9, 0x0008(v1)             # 0000002C
+    lwl     t1, 0x00B4(v0)             # 000000B4
+    lwr     t1, 0x00B7(v0)             # 000000B7
+    swl     t1, 0x00B4(a0)             # 000000B4
+    swr     t1, 0x00B7(a0)             # 000000B7
+    lhu     t1, 0x00B8(v0)             # 000000B8
+    sh      t1, 0x00B8(a0)             # 000000B8
     sw      a0, 0x0020($sp)            
     sw      v1, 0x0018($sp)            
     jal     func_8002313C              
@@ -98,571 +98,571 @@ lbl_80A60844:
     lw      v0, 0x001C($sp)            
     lw      v1, 0x0018($sp)            
     lw      a0, 0x0020($sp)            
-    lw      t2, 0x0118(v0)             ## 00000118
+    lw      t2, 0x0118(v0)             # 00000118
     bnel    t2, $zero, lbl_80A608E4    
     lw      $ra, 0x0014($sp)           
-    lw      t4, 0x0000(v1)             ## 00000000
-    addiu   t5, $zero, 0x000A          ## t5 = 0000000A
-    lui     a1, %hi(func_80A60B14)     ## a1 = 80A60000
-    sw      t4, 0x0144(a0)             ## 00000144
-    lw      t3, 0x0004(v1)             ## 00000004
-    addiu   a1, a1, %lo(func_80A60B14) ## a1 = 80A60B14
-    sw      t3, 0x0148(a0)             ## 00000148
-    lw      t4, 0x0008(v1)             ## 00000008
-    sh      t5, 0x013C(a0)             ## 0000013C
-    sw      t4, 0x014C(a0)             ## 0000014C
+    lw      t4, 0x0000(v1)             # 00000000
+    addiu   t5, $zero, 0x000A          # t5 = 0000000A
+    lui     a1, %hi(func_80A60B14)     # a1 = 80A60000
+    sw      t4, 0x0144(a0)             # 00000144
+    lw      t3, 0x0004(v1)             # 00000004
+    addiu   a1, a1, %lo(func_80A60B14) # a1 = 80A60B14
+    sw      t3, 0x0148(a0)             # 00000148
+    lw      t4, 0x0008(v1)             # 00000008
+    sh      t5, 0x013C(a0)             # 0000013C
+    sw      t4, 0x014C(a0)             # 0000014C
     jal     func_80A60750              
     sw      a0, 0x0020($sp)            
     lw      a0, 0x0020($sp)            
-    addiu   t6, $zero, 0x00FF          ## t6 = 000000FF
-    sb      t6, 0x0140(a0)             ## 00000140
+    addiu   t6, $zero, 0x00FF          # t6 = 000000FF
+    sb      t6, 0x0140(a0)             # 00000140
     lw      $ra, 0x0014($sp)           
 lbl_80A608E4:
-    addiu   $sp, $sp, 0x0020           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp = 00000000
     jr      $ra                        
     nop
 
 
 func_80A608F0:
-    mtc1    a2, $f12                   ## $f12 = 0.00
+    mtc1    a2, $f12                   # $f12 = 0.00
     nop
-    lwc1    $f0, 0x0000(a0)            ## 00000000
-    lwc1    $f4, 0x0000(a1)            ## 00000000
-    lwc1    $f2, 0x0004(a0)            ## 00000004
-    lwc1    $f14, 0x0008(a0)           ## 00000008
+    lwc1    $f0, 0x0000(a0)            # 00000000
+    lwc1    $f4, 0x0000(a1)            # 00000000
+    lwc1    $f2, 0x0004(a0)            # 00000004
+    lwc1    $f14, 0x0008(a0)           # 00000008
     sub.s   $f6, $f4, $f0              
     mul.s   $f8, $f6, $f12             
     add.s   $f10, $f0, $f8             
-    swc1    $f10, 0x0000(a0)           ## 00000000
-    lwc1    $f16, 0x0004(a1)           ## 00000004
+    swc1    $f10, 0x0000(a0)           # 00000000
+    lwc1    $f16, 0x0004(a1)           # 00000004
     sub.s   $f18, $f16, $f2            
     mul.s   $f4, $f18, $f12            
     add.s   $f6, $f2, $f4              
-    swc1    $f6, 0x0004(a0)            ## 00000004
-    lwc1    $f8, 0x0008(a1)            ## 00000008
+    swc1    $f6, 0x0004(a0)            # 00000004
+    lwc1    $f8, 0x0008(a1)            # 00000008
     sub.s   $f10, $f8, $f14            
     mul.s   $f16, $f10, $f12           
     add.s   $f18, $f14, $f16           
-    swc1    $f18, 0x0008(a0)           ## 00000008
+    swc1    $f18, 0x0008(a0)           # 00000008
     jr      $ra                        
     nop
 
 
 func_80A60948:
-    addiu   $sp, $sp, 0xFFE8           ## $sp = FFFFFFE8
-    lui     $at, 0x4248                ## $at = 42480000
-    mtc1    $at, $f2                   ## $f2 = 50.00
+    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    lui     $at, 0x4248                # $at = 42480000
+    mtc1    $at, $f2                   # $f2 = 50.00
     sw      $ra, 0x0014($sp)           
     sw      a1, 0x001C($sp)            
-    lwc1    $f0, 0x00F0(a0)            ## 000000F0
-    lui     $at, %hi(var_80A62528)     ## $at = 80A60000
+    lwc1    $f0, 0x00F0(a0)            # 000000F0
+    lui     $at, %hi(var_80A62528)     # $at = 80A60000
     c.lt.s  $f0, $f2                   
     nop
     bc1f    lbl_80A60984               
     nop
-    lui     $at, 0x4120                ## $at = 41200000
-    mtc1    $at, $f12                  ## $f12 = 10.00
+    lui     $at, 0x4120                # $at = 41200000
+    mtc1    $at, $f12                  # $f12 = 10.00
     beq     $zero, $zero, lbl_80A609C8 
-    lhu     v1, 0x013E(a0)             ## 0000013E
+    lhu     v1, 0x013E(a0)             # 0000013E
 lbl_80A60984:
     lwc1    $f4, %lo(var_80A62528)($at) 
-    lui     $at, %hi(var_80A6252C)     ## $at = 80A60000
+    lui     $at, %hi(var_80A6252C)     # $at = 80A60000
     c.lt.s  $f4, $f0                   
     nop
     bc1fl   lbl_80A609B0               
     sub.s   $f6, $f0, $f2              
-    lui     $at, 0x439B                ## $at = 439B0000
-    mtc1    $at, $f12                  ## $f12 = 310.00
+    lui     $at, 0x439B                # $at = 439B0000
+    mtc1    $at, $f12                  # $f12 = 310.00
     beq     $zero, $zero, lbl_80A609C8 
-    lhu     v1, 0x013E(a0)             ## 0000013E
+    lhu     v1, 0x013E(a0)             # 0000013E
     sub.s   $f6, $f0, $f2              
 lbl_80A609B0:
     lwc1    $f8, %lo(var_80A6252C)($at) 
-    lui     $at, 0x4120                ## $at = 41200000
-    mtc1    $at, $f16                  ## $f16 = 10.00
+    lui     $at, 0x4120                # $at = 41200000
+    mtc1    $at, $f16                  # $f16 = 10.00
     mul.s   $f10, $f6, $f8             
     add.s   $f12, $f10, $f16           
-    lhu     v1, 0x013E(a0)             ## 0000013E
+    lhu     v1, 0x013E(a0)             # 0000013E
 lbl_80A609C8:
-    addiu   t2, $zero, 0x00FF          ## t2 = 000000FF
+    addiu   t2, $zero, 0x00FF          # t2 = 000000FF
     beq     v1, $zero, lbl_80A60A74    
-    addiu   t6, v1, 0xFFFF             ## t6 = FFFFFFFF
-    andi    v1, t6, 0xFFFF             ## v1 = 0000FFFF
+    addiu   t6, v1, 0xFFFF             # t6 = FFFFFFFF
+    andi    v1, t6, 0xFFFF             # v1 = 0000FFFF
     slti    $at, v1, 0x0008            
-    sh      t6, 0x013E(a0)             ## 0000013E
+    sh      t6, 0x013E(a0)             # 0000013E
     bne     $at, $zero, lbl_80A60A74   
-    or      v0, v1, $zero              ## v0 = 0000FFFF
-    addiu   t7, v0, 0xFFF8             ## t7 = 0000FFF7
-    mtc1    t7, $f18                   ## $f18 = 0.00
-    lui     $at, %hi(var_80A62530)     ## $at = 80A60000
+    or      v0, v1, $zero              # v0 = 0000FFFF
+    addiu   t7, v0, 0xFFF8             # t7 = 0000FFF7
+    mtc1    t7, $f18                   # $f18 = 0.00
+    lui     $at, %hi(var_80A62530)     # $at = 80A60000
     lwc1    $f6, %lo(var_80A62530)($at) 
     cvt.s.w $f4, $f18                  
-    lui     $at, 0x3F80                ## $at = 3F800000
-    mtc1    $at, $f8                   ## $f8 = 1.00
-    lui     $at, 0x4120                ## $at = 41200000
-    mtc1    $at, $f18                  ## $f18 = 10.00
-    lui     $at, 0x4000                ## $at = 40000000
+    lui     $at, 0x3F80                # $at = 3F800000
+    mtc1    $at, $f8                   # $f8 = 1.00
+    lui     $at, 0x4120                # $at = 41200000
+    mtc1    $at, $f18                  # $f18 = 10.00
+    lui     $at, 0x4000                # $at = 40000000
     mul.s   $f0, $f4, $f6              
-    lwc1    $f2, 0x0150(a0)            ## 00000150
+    lwc1    $f2, 0x0150(a0)            # 00000150
     sll     t0, v0,  3                 
     addu    t0, t0, v0                 
     sll     t0, t0,  2                 
     subu    t0, t0, v0                 
-    addiu   t1, t0, 0xFEE8             ## t1 = FFFFFEE8
+    addiu   t1, t0, 0xFEE8             # t1 = FFFFFEE8
     mul.s   $f0, $f0, $f0              
     sub.s   $f10, $f8, $f0             
-    mtc1    $at, $f8                   ## $f8 = 2.00
-    lui     $at, %hi(var_80A62534)     ## $at = 80A60000
+    mtc1    $at, $f8                   # $f8 = 2.00
+    lui     $at, %hi(var_80A62534)     # $at = 80A60000
     mul.s   $f16, $f10, $f12           
     sub.s   $f10, $f8, $f2             
     add.s   $f4, $f16, $f18            
     trunc.w.s $f6, $f4                   
     mfc1    t9, $f6                    
     nop
-    sh      t9, 0x013C(a0)             ## 0000013C
+    sh      t9, 0x013C(a0)             # 0000013C
     lwc1    $f16, %lo(var_80A62534)($at) 
     slti    $at, v0, 0x0010            
     mul.s   $f18, $f10, $f16           
     add.s   $f4, $f2, $f18             
     beq     $at, $zero, lbl_80A60A74   
-    swc1    $f4, 0x0150(a0)            ## 00000150
-    sb      t1, 0x0140(a0)             ## 00000140
+    swc1    $f4, 0x0150(a0)            # 00000150
+    sb      t1, 0x0140(a0)             # 00000140
 lbl_80A60A74:
     slti    $at, v1, 0x0009            
     bne     $at, $zero, lbl_80A60AB4   
-    or      v0, v1, $zero              ## v0 = 0000FFFF
-    lui     $at, 0x3F80                ## $at = 3F800000
-    mtc1    $at, $f6                   ## $f6 = 1.00
-    lwc1    $f0, 0x0154(a0)            ## 00000154
-    lui     $at, 0x3E80                ## $at = 3E800000
+    or      v0, v1, $zero              # v0 = 0000FFFF
+    lui     $at, 0x3F80                # $at = 3F800000
+    mtc1    $at, $f6                   # $f6 = 1.00
+    lwc1    $f0, 0x0154(a0)            # 00000154
+    lui     $at, 0x3E80                # $at = 3E800000
     c.lt.s  $f0, $f6                   
     nop
     bc1fl   lbl_80A60AE4               
     slti    $at, v0, 0x0008            
-    mtc1    $at, $f8                   ## $f8 = 0.25
-    lhu     v0, 0x013E(a0)             ## 0000013E
+    mtc1    $at, $f8                   # $f8 = 0.25
+    lhu     v0, 0x013E(a0)             # 0000013E
     add.s   $f10, $f0, $f8             
     beq     $zero, $zero, lbl_80A60AE0 
-    swc1    $f10, 0x0154(a0)           ## 00000154
+    swc1    $f10, 0x0154(a0)           # 00000154
 lbl_80A60AB4:
-    lwc1    $f0, 0x0154(a0)            ## 00000154
-    mtc1    $zero, $f16                ## $f16 = 0.00
-    lui     $at, 0x3E00                ## $at = 3E000000
+    lwc1    $f0, 0x0154(a0)            # 00000154
+    mtc1    $zero, $f16                # $f16 = 0.00
+    lui     $at, 0x3E00                # $at = 3E000000
     c.lt.s  $f16, $f0                  
     nop
     bc1fl   lbl_80A60AE4               
     slti    $at, v0, 0x0008            
-    mtc1    $at, $f18                  ## $f18 = 0.13
-    lhu     v0, 0x013E(a0)             ## 0000013E
+    mtc1    $at, $f18                  # $f18 = 0.13
+    lhu     v0, 0x013E(a0)             # 0000013E
     sub.s   $f4, $f0, $f18             
-    swc1    $f4, 0x0154(a0)            ## 00000154
+    swc1    $f4, 0x0154(a0)            # 00000154
 lbl_80A60AE0:
     slti    $at, v0, 0x0008            
 lbl_80A60AE4:
     beq     $at, $zero, lbl_80A60AF4   
     nop
-    sb      $zero, 0x0140(a0)          ## 00000140
-    lhu     v0, 0x013E(a0)             ## 0000013E
+    sb      $zero, 0x0140(a0)          # 00000140
+    lhu     v0, 0x013E(a0)             # 0000013E
 lbl_80A60AF4:
     bnel    v0, $zero, lbl_80A60B08    
     lw      $ra, 0x0014($sp)           
     jal     func_80020EB4              
-    sh      t2, 0x013E(a0)             ## 0000013E
+    sh      t2, 0x013E(a0)             # 0000013E
     lw      $ra, 0x0014($sp)           
 lbl_80A60B08:
-    addiu   $sp, $sp, 0x0018           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp = 00000000
     jr      $ra                        
     nop
 
 
 func_80A60B14:
-    addiu   $sp, $sp, 0xFFC8           ## $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      s0, 0x0018($sp)            
-    or      s0, a0, $zero              ## s0 = 00000000
+    or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)           
     sw      a1, 0x003C($sp)            
-    lw      v0, 0x0118(s0)             ## 00000118
+    lw      v0, 0x0118(s0)             # 00000118
     beq     v0, $zero, lbl_80A60B40    
     nop
-    lw      t6, 0x0130(v0)             ## 00000130
+    lw      t6, 0x0130(v0)             # 00000130
     bnel    t6, $zero, lbl_80A60B54    
-    lw      t8, 0x0024(v0)             ## 00000024
+    lw      t8, 0x0024(v0)             # 00000024
 lbl_80A60B40:
     jal     func_80020EB4              
-    or      a0, s0, $zero              ## a0 = 00000000
+    or      a0, s0, $zero              # a0 = 00000000
     beq     $zero, $zero, lbl_80A60C58 
     lw      $ra, 0x001C($sp)           
-    lw      t8, 0x0024(v0)             ## 00000024
+    lw      t8, 0x0024(v0)             # 00000024
 lbl_80A60B54:
-    addiu   a1, s0, 0x0024             ## a1 = 00000024
-    addiu   a0, s0, 0x0144             ## a0 = 00000144
-    sw      t8, 0x0000(a1)             ## 00000024
-    lw      t7, 0x0028(v0)             ## 00000028
-    sw      t7, 0x0004(a1)             ## 00000028
-    lw      t8, 0x002C(v0)             ## 0000002C
-    sw      t8, 0x0008(a1)             ## 0000002C
-    lwl     t0, 0x00B4(v0)             ## 000000B4
-    lwr     t0, 0x00B7(v0)             ## 000000B7
-    swl     t0, 0x00B4(s0)             ## 000000B4
-    swr     t0, 0x00B7(s0)             ## 000000B7
-    lhu     t0, 0x00B8(v0)             ## 000000B8
-    sh      t0, 0x00B8(s0)             ## 000000B8
+    addiu   a1, s0, 0x0024             # a1 = 00000024
+    addiu   a0, s0, 0x0144             # a0 = 00000144
+    sw      t8, 0x0000(a1)             # 00000024
+    lw      t7, 0x0028(v0)             # 00000028
+    sw      t7, 0x0004(a1)             # 00000028
+    lw      t8, 0x002C(v0)             # 0000002C
+    sw      t8, 0x0008(a1)             # 0000002C
+    lwl     t0, 0x00B4(v0)             # 000000B4
+    lwr     t0, 0x00B7(v0)             # 000000B7
+    swl     t0, 0x00B4(s0)             # 000000B4
+    swr     t0, 0x00B7(s0)             # 000000B7
+    lhu     t0, 0x00B8(v0)             # 000000B8
+    sh      t0, 0x00B8(s0)             # 000000B8
     sw      a1, 0x0028($sp)            
     sw      a0, 0x0024($sp)            
     jal     func_80063E18              
     sw      v0, 0x0034($sp)            
-    lui     $at, 0x3F80                ## $at = 3F800000
-    mtc1    $at, $f12                  ## $f12 = 1.00
-    lui     $at, %hi(var_80A62538)     ## $at = 80A60000
+    lui     $at, 0x3F80                # $at = 3F800000
+    mtc1    $at, $f12                  # $f12 = 1.00
+    lui     $at, %hi(var_80A62538)     # $at = 80A60000
     lwc1    $f4, %lo(var_80A62538)($at) 
     lw      v0, 0x0034($sp)            
     lw      a0, 0x0024($sp)            
     mul.s   $f2, $f0, $f4              
     lw      a1, 0x0028($sp)            
-    lui     a2, 0x3D4C                 ## a2 = 3D4C0000
-    ori     a2, a2, 0xCCCD             ## a2 = 3D4CCCCD
+    lui     a2, 0x3D4C                 # a2 = 3D4C0000
+    ori     a2, a2, 0xCCCD             # a2 = 3D4CCCCD
     c.lt.s  $f2, $f12                  
-    swc1    $f2, 0x0150(s0)            ## 00000150
+    swc1    $f2, 0x0150(s0)            # 00000150
     bc1f    lbl_80A60BD4               
     nop
-    swc1    $f12, 0x0150(s0)           ## 00000150
+    swc1    $f12, 0x0150(s0)           # 00000150
 lbl_80A60BD4:
     jal     func_80A608F0              
     sw      v0, 0x0034($sp)            
     lw      v0, 0x0034($sp)            
-    or      a0, s0, $zero              ## a0 = 00000000
-    lbu     t1, 0x0239(v0)             ## 00000239
-    andi    t2, t1, 0x0001             ## t2 = 00000000
+    or      a0, s0, $zero              # a0 = 00000000
+    lbu     t1, 0x0239(v0)             # 00000239
+    andi    t2, t1, 0x0001             # t2 = 00000000
     beql    t2, $zero, lbl_80A60C24    
-    lbu     t5, 0x0238(v0)             ## 00000238
+    lbu     t5, 0x0238(v0)             # 00000238
     jal     func_80022FD0              
-    addiu   a1, $zero, 0x183B          ## a1 = 0000183B
-    lui     a1, %hi(func_80A60948)     ## a1 = 80A60000
-    addiu   a1, a1, %lo(func_80A60948) ## a1 = 80A60948
+    addiu   a1, $zero, 0x183B          # a1 = 0000183B
+    lui     a1, %hi(func_80A60948)     # a1 = 80A60000
+    addiu   a1, a1, %lo(func_80A60948) # a1 = 80A60948
     jal     func_80A60750              
-    or      a0, s0, $zero              ## a0 = 00000000
-    addiu   t3, $zero, 0x0020          ## t3 = 00000020
-    addiu   t4, $zero, 0x00FF          ## t4 = 000000FF
-    sh      t3, 0x013E(s0)             ## 0000013E
+    or      a0, s0, $zero              # a0 = 00000000
+    addiu   t3, $zero, 0x0020          # t3 = 00000020
+    addiu   t4, $zero, 0x00FF          # t4 = 000000FF
+    sh      t3, 0x013E(s0)             # 0000013E
     beq     $zero, $zero, lbl_80A60C54 
-    sb      t4, 0x0140(s0)             ## 00000140
-    lbu     t5, 0x0238(v0)             ## 00000238
+    sb      t4, 0x0140(s0)             # 00000140
+    lbu     t5, 0x0238(v0)             # 00000238
 lbl_80A60C24:
     slti    $at, t5, 0x0022            
     beql    $at, $zero, lbl_80A60C58   
     lw      $ra, 0x001C($sp)           
-    lbu     v0, 0x0140(s0)             ## 00000140
+    lbu     v0, 0x0140(s0)             # 00000140
     slti    $at, v0, 0x0023            
     beq     $at, $zero, lbl_80A60C50   
-    addiu   t6, v0, 0xFFE7             ## t6 = FFFFFFE7
+    addiu   t6, v0, 0xFFE7             # t6 = FFFFFFE7
     jal     func_80020EB4              
-    or      a0, s0, $zero              ## a0 = 00000000
+    or      a0, s0, $zero              # a0 = 00000000
     beq     $zero, $zero, lbl_80A60C58 
     lw      $ra, 0x001C($sp)           
 lbl_80A60C50:
-    sb      t6, 0x0140(s0)             ## 00000140
+    sb      t6, 0x0140(s0)             # 00000140
 lbl_80A60C54:
     lw      $ra, 0x001C($sp)           
 lbl_80A60C58:
     lw      s0, 0x0018($sp)            
-    addiu   $sp, $sp, 0x0038           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp = 00000000
     jr      $ra                        
     nop
 
 
 func_80A60C68:
-    addiu   $sp, $sp, 0xFFE8           ## $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
     sw      $ra, 0x0014($sp)           
-    lui     v0, 0x0001                 ## v0 = 00010000
+    lui     v0, 0x0001                 # v0 = 00010000
     addu    v0, v0, a1                 
-    lbu     v0, 0x03DC(v0)             ## 000103DC
-    addiu   $at, $zero, 0x000D         ## $at = 0000000D
+    lbu     v0, 0x03DC(v0)             # 000103DC
+    addiu   $at, $zero, 0x000D         # $at = 0000000D
     beq     v0, $at, lbl_80A60C90      
-    addiu   $at, $zero, 0x0011         ## $at = 00000011
+    addiu   $at, $zero, 0x0011         # $at = 00000011
     bnel    v0, $at, lbl_80A60CA4      
-    lw      t9, 0x0158(a0)             ## 00000158
+    lw      t9, 0x0158(a0)             # 00000158
 lbl_80A60C90:
     jal     func_80020EB4              
     nop
     beq     $zero, $zero, lbl_80A60CB0 
     lw      $ra, 0x0014($sp)           
-    lw      t9, 0x0158(a0)             ## 00000158
+    lw      t9, 0x0158(a0)             # 00000158
 lbl_80A60CA4:
     jalr    $ra, t9                    
     nop
     lw      $ra, 0x0014($sp)           
 lbl_80A60CB0:
-    addiu   $sp, $sp, 0x0018           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp = 00000000
     jr      $ra                        
     nop
 
 
 func_80A60CBC:
-    addiu   $sp, $sp, 0xFF80           ## $sp = FFFFFF80
+    addiu   $sp, $sp, 0xFF80           # $sp = FFFFFF80
     sw      s1, 0x0038($sp)            
-    or      s1, a0, $zero              ## s1 = 00000000
+    or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)           
     sw      s0, 0x0034($sp)            
-    lw      t6, 0x009C(a1)             ## 0000009C
+    lw      t6, 0x009C(a1)             # 0000009C
     sw      t6, 0x0070($sp)            
-    lw      v1, 0x0118(s1)             ## 00000118
+    lw      v1, 0x0118(s1)             # 00000118
     beql    v1, $zero, lbl_80A610BC    
     lw      $ra, 0x003C($sp)           
-    lw      t7, 0x0130(v1)             ## 00000130
+    lw      t7, 0x0130(v1)             # 00000130
     beql    t7, $zero, lbl_80A610BC    
     lw      $ra, 0x003C($sp)           
-    lhu     t8, 0x013E(s1)             ## 0000013E
-    or      a3, $zero, $zero           ## a3 = 00000000
+    lhu     t8, 0x013E(s1)             # 0000013E
+    or      a3, $zero, $zero           # a3 = 00000000
     slti    $at, t8, 0x00FF            
     beql    $at, $zero, lbl_80A610BC   
     lw      $ra, 0x003C($sp)           
-    lbu     t9, 0x0239(v1)             ## 00000239
-    andi    t6, t9, 0x0002             ## t6 = 00000000
+    lbu     t9, 0x0239(v1)             # 00000239
+    andi    t6, t9, 0x0002             # t6 = 00000000
     beql    t6, $zero, lbl_80A60D20    
-    or      v0, v1, $zero              ## v0 = 00000000
+    or      v0, v1, $zero              # v0 = 00000000
     beq     $zero, $zero, lbl_80A60D20 
-    or      v0, s1, $zero              ## v0 = 00000000
-    or      v0, v1, $zero              ## v0 = 00000000
+    or      v0, s1, $zero              # v0 = 00000000
+    or      v0, v1, $zero              # v0 = 00000000
 lbl_80A60D20:
-    lw      s0, 0x0000(a1)             ## 00000000
-    lwc1    $f12, 0x0024(v0)           ## 00000024
-    lwc1    $f14, 0x0028(v0)           ## 00000028
-    lw      a2, 0x002C(v0)             ## 0000002C
+    lw      s0, 0x0000(a1)             # 00000000
+    lwc1    $f12, 0x0024(v0)           # 00000024
+    lwc1    $f14, 0x0028(v0)           # 00000028
+    lw      a2, 0x002C(v0)             # 0000002C
     sw      a1, 0x0084($sp)            
     jal     func_800AA7F4              
     sw      v0, 0x0074($sp)            
     lw      v0, 0x0074($sp)            
-    lui     $at, %hi(var_80A6253C)     ## $at = 80A60000
+    lui     $at, %hi(var_80A6253C)     # $at = 80A60000
     lwc1    $f8, %lo(var_80A6253C)($at) 
-    lh      t7, 0x00B6(v0)             ## 000000B6
-    addiu   a1, $zero, 0x0001          ## a1 = 00000001
-    mtc1    t7, $f4                    ## $f4 = 0.00
+    lh      t7, 0x00B6(v0)             # 000000B6
+    addiu   a1, $zero, 0x0001          # a1 = 00000001
+    mtc1    t7, $f4                    # $f4 = 0.00
     nop
     cvt.s.w $f6, $f4                   
     mul.s   $f12, $f6, $f8             
     jal     func_800AAB94              
     nop
     lw      v0, 0x0074($sp)            
-    lui     $at, %hi(var_80A62540)     ## $at = 80A60000
+    lui     $at, %hi(var_80A62540)     # $at = 80A60000
     lwc1    $f18, %lo(var_80A62540)($at) 
-    lh      t8, 0x00B4(v0)             ## 000000B4
-    addiu   a1, $zero, 0x0001          ## a1 = 00000001
-    mtc1    t8, $f10                   ## $f10 = 0.00
+    lh      t8, 0x00B4(v0)             # 000000B4
+    addiu   a1, $zero, 0x0001          # a1 = 00000001
+    mtc1    t8, $f10                   # $f10 = 0.00
     nop
     cvt.s.w $f16, $f10                 
     mul.s   $f12, $f16, $f18           
     jal     func_800AA9E0              
     nop
     lw      v0, 0x0074($sp)            
-    lui     $at, %hi(var_80A62544)     ## $at = 80A60000
+    lui     $at, %hi(var_80A62544)     # $at = 80A60000
     lwc1    $f8, %lo(var_80A62544)($at) 
-    lh      t9, 0x00B8(v0)             ## 000000B8
-    addiu   a1, $zero, 0x0001          ## a1 = 00000001
-    mtc1    t9, $f4                    ## $f4 = 0.00
+    lh      t9, 0x00B8(v0)             # 000000B8
+    addiu   a1, $zero, 0x0001          # a1 = 00000001
+    mtc1    t9, $f4                    # $f4 = 0.00
     nop
     cvt.s.w $f6, $f4                   
     mul.s   $f12, $f6, $f8             
     jal     func_800AAD4C              
     nop
-    lui     $at, %hi(var_80A62548)     ## $at = 80A60000
+    lui     $at, %hi(var_80A62548)     # $at = 80A60000
     lwc1    $f12, %lo(var_80A62548)($at) 
-    addiu   a3, $zero, 0x0001          ## a3 = 00000001
+    addiu   a3, $zero, 0x0001          # a3 = 00000001
     mfc1    a2, $f12                   
     jal     func_800AA8FC              
     mov.s   $f14, $f12                 
-    mtc1    $zero, $f10                ## $f10 = 0.00
-    lwc1    $f16, 0x0154(s1)           ## 00000154
+    mtc1    $zero, $f10                # $f10 = 0.00
+    lwc1    $f16, 0x0154(s1)           # 00000154
     c.lt.s  $f10, $f16                 
     nop
     bc1fl   lbl_80A60ED0               
     lw      t6, 0x0084($sp)            
     jal     func_8007E008              
-    lw      a0, 0x02D0(s0)             ## 000002D0
-    addiu   t6, v0, 0x0008             ## t6 = 00000008
-    sw      t6, 0x02D0(s0)             ## 000002D0
-    lui     t7, 0xFA00                 ## t7 = FA000000
-    sw      t7, 0x0000(v0)             ## 00000000
-    lui     $at, 0x4120                ## $at = 41200000
-    mtc1    $at, $f18                  ## $f18 = 10.00
-    lwc1    $f0, 0x0154(s1)            ## 00000154
-    lui     $at, 0x4248                ## $at = 42480000
-    mtc1    $at, $f8                   ## $f8 = 50.00
+    lw      a0, 0x02D0(s0)             # 000002D0
+    addiu   t6, v0, 0x0008             # t6 = 00000008
+    sw      t6, 0x02D0(s0)             # 000002D0
+    lui     t7, 0xFA00                 # t7 = FA000000
+    sw      t7, 0x0000(v0)             # 00000000
+    lui     $at, 0x4120                # $at = 41200000
+    mtc1    $at, $f18                  # $f18 = 10.00
+    lwc1    $f0, 0x0154(s1)            # 00000154
+    lui     $at, 0x4248                # $at = 42480000
+    mtc1    $at, $f8                   # $f8 = 50.00
     mul.s   $f4, $f0, $f18             
-    lui     $at, 0x4316                ## $at = 43160000
-    mtc1    $at, $f18                  ## $f18 = 150.00
+    lui     $at, 0x4316                # $at = 43160000
+    mtc1    $at, $f18                  # $f18 = 150.00
     mul.s   $f10, $f8, $f0             
     trunc.w.s $f6, $f4                   
     mul.s   $f4, $f18, $f0             
     mfc1    t6, $f6                    
     trunc.w.s $f16, $f10                 
-    andi    t7, t6, 0x00FF             ## t7 = 00000008
+    andi    t7, t6, 0x00FF             # t7 = 00000008
     sll     t8, t7, 16                 
     trunc.w.s $f6, $f4                   
     mfc1    t7, $f16                   
     nop
-    andi    t9, t7, 0x00FF             ## t9 = 00000008
+    andi    t9, t7, 0x00FF             # t9 = 00000008
     sll     t6, t9,  8                 
-    or      t7, t8, t6                 ## t7 = 00000008
+    or      t7, t8, t6                 # t7 = 00000008
     mfc1    t6, $f6                    
     nop
-    andi    t9, t6, 0x00FF             ## t9 = 00000008
-    or      t8, t7, t9                 ## t8 = 00000008
-    sw      t8, 0x0004(v0)             ## 00000004
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t7, 0xE300                 ## t7 = E3000000
-    ori     t7, t7, 0x1A01             ## t7 = E3001A01
-    addiu   t6, v1, 0x0008             ## t6 = 00000008
-    sw      t6, 0x02D0(s0)             ## 000002D0
-    addiu   t9, $zero, 0x0030          ## t9 = 00000030
-    sw      t9, 0x0004(v1)             ## 00000004
-    sw      t7, 0x0000(v1)             ## 00000000
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t6, 0xE300                 ## t6 = E3000000
-    ori     t6, t6, 0x1801             ## t6 = E3001801
-    addiu   t8, v1, 0x0008             ## t8 = 00000008
-    sw      t8, 0x02D0(s0)             ## 000002D0
-    addiu   t7, $zero, 0x00C0          ## t7 = 000000C0
-    sw      t7, 0x0004(v1)             ## 00000004
-    sw      t6, 0x0000(v1)             ## 00000000
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t8, 0xF64F                 ## t8 = F64F0000
-    ori     t8, t8, 0xC3BC             ## t8 = F64FC3BC
-    addiu   t9, v1, 0x0008             ## t9 = 00000008
-    sw      t9, 0x02D0(s0)             ## 000002D0
-    sw      $zero, 0x0004(v1)          ## 00000004
-    sw      t8, 0x0000(v1)             ## 00000000
+    andi    t9, t6, 0x00FF             # t9 = 00000008
+    or      t8, t7, t9                 # t8 = 00000008
+    sw      t8, 0x0004(v0)             # 00000004
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t7, 0xE300                 # t7 = E3000000
+    ori     t7, t7, 0x1A01             # t7 = E3001A01
+    addiu   t6, v1, 0x0008             # t6 = 00000008
+    sw      t6, 0x02D0(s0)             # 000002D0
+    addiu   t9, $zero, 0x0030          # t9 = 00000030
+    sw      t9, 0x0004(v1)             # 00000004
+    sw      t7, 0x0000(v1)             # 00000000
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t6, 0xE300                 # t6 = E3000000
+    ori     t6, t6, 0x1801             # t6 = E3001801
+    addiu   t8, v1, 0x0008             # t8 = 00000008
+    sw      t8, 0x02D0(s0)             # 000002D0
+    addiu   t7, $zero, 0x00C0          # t7 = 000000C0
+    sw      t7, 0x0004(v1)             # 00000004
+    sw      t6, 0x0000(v1)             # 00000000
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t8, 0xF64F                 # t8 = F64F0000
+    ori     t8, t8, 0xC3BC             # t8 = F64FC3BC
+    addiu   t9, v1, 0x0008             # t9 = 00000008
+    sw      t9, 0x02D0(s0)             # 000002D0
+    sw      $zero, 0x0004(v1)          # 00000004
+    sw      t8, 0x0000(v1)             # 00000000
     lw      t6, 0x0084($sp)            
 lbl_80A60ED0:
     jal     func_8007E2C0              
-    lw      a0, 0x0000(t6)             ## E3001801
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t9, 0xFA00                 ## t9 = FA000000
-    ori     t9, t9, 0x8080             ## t9 = FA008080
-    addiu   t7, v1, 0x0008             ## t7 = 00000008
-    sw      t7, 0x02D0(s0)             ## 000002D0
-    sw      t9, 0x0000(v1)             ## 00000000
-    lbu     t6, 0x0140(s1)             ## 00000140
-    lui     $at, 0xAAFF                ## $at = AAFF0000
-    ori     $at, $at, 0xFF00           ## $at = AAFFFF00
-    or      t7, t6, $at                ## t7 = AAFFFF00
-    sw      t7, 0x0004(v1)             ## 00000004
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t8, 0xFB00                 ## t8 = FB000000
-    ori     t6, $zero, 0xFF80          ## t6 = 0000FF80
-    addiu   t9, v1, 0x0008             ## t9 = 00000008
-    sw      t9, 0x02D0(s0)             ## 000002D0
-    sw      t6, 0x0004(v1)             ## 00000004
-    sw      t8, 0x0000(v1)             ## 00000000
-    addiu   a0, $zero, 0x4000          ## a0 = 00004000
-    or      a1, $zero, $zero           ## a1 = 00000000
-    or      a2, $zero, $zero           ## a2 = 00000000
+    lw      a0, 0x0000(t6)             # E3001801
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t9, 0xFA00                 # t9 = FA000000
+    ori     t9, t9, 0x8080             # t9 = FA008080
+    addiu   t7, v1, 0x0008             # t7 = 00000008
+    sw      t7, 0x02D0(s0)             # 000002D0
+    sw      t9, 0x0000(v1)             # 00000000
+    lbu     t6, 0x0140(s1)             # 00000140
+    lui     $at, 0xAAFF                # $at = AAFF0000
+    ori     $at, $at, 0xFF00           # $at = AAFFFF00
+    or      t7, t6, $at                # t7 = AAFFFF00
+    sw      t7, 0x0004(v1)             # 00000004
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t8, 0xFB00                 # t8 = FB000000
+    ori     t6, $zero, 0xFF80          # t6 = 0000FF80
+    addiu   t9, v1, 0x0008             # t9 = 00000008
+    sw      t9, 0x02D0(s0)             # 000002D0
+    sw      t6, 0x0004(v1)             # 00000004
+    sw      t8, 0x0000(v1)             # 00000000
+    addiu   a0, $zero, 0x4000          # a0 = 00004000
+    or      a1, $zero, $zero           # a1 = 00000000
+    or      a2, $zero, $zero           # a2 = 00000000
     jal     func_800AAF00              
-    addiu   a3, $zero, 0x0001          ## a3 = 00000001
-    lhu     t7, 0x013E(s1)             ## 0000013E
-    lui     $at, %hi(var_80A6254C)     ## $at = 80A60000
-    addiu   a2, $zero, 0x0000          ## a2 = 00000000
+    addiu   a3, $zero, 0x0001          # a3 = 00000001
+    lhu     t7, 0x013E(s1)             # 0000013E
+    lui     $at, %hi(var_80A6254C)     # $at = 80A60000
+    addiu   a2, $zero, 0x0000          # a2 = 00000000
     beq     t7, $zero, lbl_80A60F64    
-    addiu   a3, $zero, 0x0001          ## a3 = 00000001
-    mtc1    $zero, $f12                ## $f12 = 0.00
-    addiu   a3, $zero, 0x0001          ## a3 = 00000001
+    addiu   a3, $zero, 0x0001          # a3 = 00000001
+    mtc1    $zero, $f12                # $f12 = 0.00
+    addiu   a3, $zero, 0x0001          # a3 = 00000001
     mfc1    a2, $f12                   
     jal     func_800AA7F4              
     mov.s   $f14, $f12                 
     beq     $zero, $zero, lbl_80A60F74 
-    lh      t9, 0x013C(s1)             ## 0000013C
+    lh      t9, 0x013C(s1)             # 0000013C
 lbl_80A60F64:
-    mtc1    $zero, $f12                ## $f12 = 0.00
+    mtc1    $zero, $f12                # $f12 = 0.00
     jal     func_800AA7F4              
     lwc1    $f14, %lo(var_80A6254C)($at) 
-    lh      t9, 0x013C(s1)             ## 0000013C
+    lh      t9, 0x013C(s1)             # 0000013C
 lbl_80A60F74:
-    lui     $at, %hi(var_80A62550)     ## $at = 80A60000
+    lui     $at, %hi(var_80A62550)     # $at = 80A60000
     lwc1    $f16, %lo(var_80A62550)($at) 
-    mtc1    t9, $f8                    ## $f8 = 0.00
-    lui     $at, 0x4040                ## $at = 40400000
-    mtc1    $at, $f4                   ## $f4 = 3.00
+    mtc1    t9, $f8                    # $f8 = 0.00
+    lui     $at, 0x4040                # $at = 40400000
+    mtc1    $at, $f4                   # $f4 = 3.00
     cvt.s.w $f10, $f8                  
-    lwc1    $f18, 0x0150(s1)           ## 00000150
-    addiu   a3, $zero, 0x0001          ## a3 = 00000001
+    lwc1    $f18, 0x0150(s1)           # 00000150
+    addiu   a3, $zero, 0x0001          # a3 = 00000001
     mul.s   $f12, $f10, $f16           
     mfc1    a2, $f12                   
     mul.s   $f14, $f18, $f4            
     jal     func_800AA8FC              
     nop
-    mtc1    $zero, $f12                ## $f12 = 0.00
-    lui     $at, 0xC42F                ## $at = C42F0000
-    mtc1    $at, $f14                  ## $f14 = -700.00
+    mtc1    $zero, $f12                # $f12 = 0.00
+    lui     $at, 0xC42F                # $at = C42F0000
+    mtc1    $at, $f14                  # $f14 = -700.00
     mfc1    a2, $f12                   
     jal     func_800AA7F4              
-    addiu   a3, $zero, 0x0001          ## a3 = 00000001
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t6, 0xDA38                 ## t6 = DA380000
-    ori     t6, t6, 0x0003             ## t6 = DA380003
-    addiu   t8, v1, 0x0008             ## t8 = 00000008
-    sw      t8, 0x02D0(s0)             ## 000002D0
-    sw      t6, 0x0000(v1)             ## 00000000
+    addiu   a3, $zero, 0x0001          # a3 = 00000001
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t6, 0xDA38                 # t6 = DA380000
+    ori     t6, t6, 0x0003             # t6 = DA380003
+    addiu   t8, v1, 0x0008             # t8 = 00000008
+    sw      t8, 0x02D0(s0)             # 000002D0
+    sw      t6, 0x0000(v1)             # 00000000
     lw      t7, 0x0084($sp)            
-    lw      a0, 0x0000(t7)             ## 00000000
+    lw      a0, 0x0000(t7)             # 00000000
     jal     func_800AB900              
     sw      v1, 0x0048($sp)            
     lw      t2, 0x0048($sp)            
     lw      t5, 0x0070($sp)            
-    addiu   t4, $zero, 0x01FF          ## t4 = 000001FF
-    lui     s1, 0xDE00                 ## s1 = DE000000
-    sw      v0, 0x0004(t2)             ## 00000004
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t8, %hi(var_80A62380)      ## t8 = 80A60000
-    addiu   t8, t8, %lo(var_80A62380)  ## t8 = 80A62380
-    addiu   t9, v1, 0x0008             ## t9 = 00000008
-    sw      t9, 0x02D0(s0)             ## 000002D0
-    sw      t8, 0x0004(v1)             ## 00000004
-    sw      s1, 0x0000(v1)             ## 00000000
-    lw      v1, 0x02D0(s0)             ## 000002D0
+    addiu   t4, $zero, 0x01FF          # t4 = 000001FF
+    lui     s1, 0xDE00                 # s1 = DE000000
+    sw      v0, 0x0004(t2)             # 00000004
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t8, %hi(var_80A62380)      # t8 = 80A60000
+    addiu   t8, t8, %lo(var_80A62380)  # t8 = 80A62380
+    addiu   t9, v1, 0x0008             # t9 = 00000008
+    sw      t9, 0x02D0(s0)             # 000002D0
+    sw      t8, 0x0004(v1)             # 00000004
+    sw      s1, 0x0000(v1)             # 00000000
+    lw      v1, 0x02D0(s0)             # 000002D0
     sll     t9, t5,  2                 
     addu    t9, t9, t5                 
-    addiu   t6, v1, 0x0008             ## t6 = 00000008
-    sw      t6, 0x02D0(s0)             ## 000002D0
-    sw      s1, 0x0000(v1)             ## 00000000
+    addiu   t6, v1, 0x0008             # t6 = 00000008
+    sw      t6, 0x02D0(s0)             # 000002D0
+    sw      s1, 0x0000(v1)             # 00000000
     lw      t7, 0x0084($sp)            
-    andi    t8, t9, 0x01FF             ## t8 = 00000008
+    andi    t8, t9, 0x01FF             # t8 = 00000008
     subu    a2, t4, t8                 
-    lw      a0, 0x0000(t7)             ## 00000000
+    lw      a0, 0x0000(t7)             # 00000000
     sll     t8, t5,  2                 
     addu    t8, t8, t5                 
-    addiu   t6, $zero, 0x0080          ## t6 = 00000080
+    addiu   t6, $zero, 0x0080          # t6 = 00000080
     sw      t6, 0x0010($sp)            
     sll     t8, t8,  1                 
-    addiu   t7, $zero, 0x0020          ## t7 = 00000020
-    addiu   t9, $zero, 0x0001          ## t9 = 00000001
+    addiu   t7, $zero, 0x0020          # t7 = 00000020
+    addiu   t9, $zero, 0x0001          # t9 = 00000001
     sw      t9, 0x0018($sp)            
     sw      t7, 0x0014($sp)            
-    andi    t6, t8, 0x01FF             ## t6 = 00000008
+    andi    t6, t8, 0x01FF             # t6 = 00000008
     subu    t1, t4, t6                 
-    addiu   t7, $zero, 0x0004          ## t7 = 00000004
-    addiu   t9, $zero, 0x0010          ## t9 = 00000010
+    addiu   t7, $zero, 0x0004          # t7 = 00000004
+    addiu   t9, $zero, 0x0010          # t9 = 00000010
     sw      t9, 0x0028($sp)            
     sw      t7, 0x0024($sp)            
     sw      t1, 0x001C($sp)            
     sw      t1, 0x0020($sp)            
-    or      a1, $zero, $zero           ## a1 = 00000000
-    or      a3, $zero, $zero           ## a3 = 00000000
+    or      a1, $zero, $zero           # a1 = 00000000
+    or      a3, $zero, $zero           # a3 = 00000000
     jal     func_8007EB84              
     sw      v1, 0x0040($sp)            
     lw      t3, 0x0040($sp)            
-    sw      v0, 0x0004(t3)             ## 00000004
-    lw      v1, 0x02D0(s0)             ## 000002D0
-    lui     t6, %hi(var_80A62430)      ## t6 = 80A60000
-    addiu   t6, t6, %lo(var_80A62430)  ## t6 = 80A62430
-    addiu   t8, v1, 0x0008             ## t8 = 00000008
-    sw      t8, 0x02D0(s0)             ## 000002D0
-    sw      t6, 0x0004(v1)             ## 00000004
-    sw      s1, 0x0000(v1)             ## 00000000
+    sw      v0, 0x0004(t3)             # 00000004
+    lw      v1, 0x02D0(s0)             # 000002D0
+    lui     t6, %hi(var_80A62430)      # t6 = 80A60000
+    addiu   t6, t6, %lo(var_80A62430)  # t6 = 80A62430
+    addiu   t8, v1, 0x0008             # t8 = 00000008
+    sw      t8, 0x02D0(s0)             # 000002D0
+    sw      t6, 0x0004(v1)             # 00000004
+    sw      s1, 0x0000(v1)             # 00000000
     lw      $ra, 0x003C($sp)           
 lbl_80A610BC:
     lw      s0, 0x0034($sp)            
     lw      s1, 0x0038($sp)            
     jr      $ra                        
-    addiu   $sp, $sp, 0x0080           ## $sp = 00000000
+    addiu   $sp, $sp, 0x0080           # $sp = 00000000
     nop
 
 .section .data
