@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80B62530:
     lh      v1, 0x001C(a0)             # 0000001C

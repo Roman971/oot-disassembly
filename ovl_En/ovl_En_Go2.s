@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80B56910:
     addiu   v0, a0, 0x0260             # v0 = 00000260

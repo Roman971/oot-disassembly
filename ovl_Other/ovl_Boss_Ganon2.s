@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80B05470:
     lui     $at, %hi(var_80B18208)     # $at = 80B20000

@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80B6A940:
     lui     t6, 0x8012                 # t6 = 80120000

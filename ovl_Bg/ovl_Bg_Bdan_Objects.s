@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_809BBA50:
     beq     a1, $zero, lbl_809BBA70    

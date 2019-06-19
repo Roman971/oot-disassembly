@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80B7C150:
     mtc1    a2, $f12                   # $f12 = 0.00

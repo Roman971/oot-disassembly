@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80977770:
     addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0

@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80AC5610:
     lbu     t6, 0x014C(a0)             # 0000014C

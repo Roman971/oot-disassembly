@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80803880:
     lui     $at, 0x0001                # $at = 00010000

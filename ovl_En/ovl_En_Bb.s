@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80913EA0:
     sw      a1, 0x0248(a0)             # 00000248

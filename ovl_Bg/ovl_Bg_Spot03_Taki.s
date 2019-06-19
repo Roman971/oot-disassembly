@@ -1,7 +1,3 @@
-#include <mips.h>
-.set noreorder
-.set noat
-
 .section .text
 func_80A79180:
     or      a2, a0, $zero              # a2 = 00000000
