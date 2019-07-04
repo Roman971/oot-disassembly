@@ -1,7 +1,7 @@
 .section .text
 func_80B38D30:
-    sw      a0, 0x0000($sp)            
-    sw      a1, 0x0004($sp)            
+    sw      a0, 0x0000($sp)
+    sw      a1, 0x0004($sp)
     lw      t7, 0x0000(a3)             # 00000000
     addiu   t2, $zero, 0x0002          # t2 = 00000002
     lui     t4, %hi(func_80B38DBC)     # t4 = 80B40000
@@ -33,25 +33,25 @@ func_80B38D30:
     sh      t5, 0x0056(a2)             # 00000056
     lhu     t6, 0x0024(a3)             # 00000024
     sh      t6, 0x0054(a2)             # 00000054
-    jr      $ra                        
+    jr      $ra
     nop
 
 
 func_80B38DBC:
     addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
-    sw      a1, 0x0024($sp)            
+    sw      a1, 0x0024($sp)
     or      a1, a2, $zero              # a1 = 00000000
-    sw      $ra, 0x001C($sp)           
-    sw      a0, 0x0020($sp)            
+    sw      $ra, 0x001C($sp)
+    sw      a0, 0x0020($sp)
     lh      v1, 0x0056(a1)             # 00000056
     addiu   $at, $zero, 0x0001         # $at = 00000001
-    beq     v1, $at, lbl_80B38DF4      
+    beq     v1, $at, lbl_80B38DF4
     or      v0, v1, $zero              # v0 = 00000000
     addiu   $at, $zero, 0x0002         # $at = 00000002
-    beq     v0, $at, lbl_80B38DFC      
+    beq     v0, $at, lbl_80B38DFC
     nop
-    beq     $zero, $zero, lbl_80B38E24 
-    lw      $ra, 0x001C($sp)           
+    beq     $zero, $zero, lbl_80B38E24
+    lw      $ra, 0x001C($sp)
 lbl_80B38DF4:
     addiu   t6, v1, 0xFFFF             # t6 = FFFFFFFF
     sh      t6, 0x0056(a1)             # 00000056
@@ -61,14 +61,14 @@ lbl_80B38DFC:
     addiu   a3, a3, 0x43A0             # a3 = 801043A0
     addiu   t7, t7, 0x43A8             # t7 = 801043A8
     lhu     a0, 0x0054(a1)             # 00000054
-    sw      t7, 0x0014($sp)            
-    sw      a3, 0x0010($sp)            
-    jal     func_800C806C              
+    sw      t7, 0x0014($sp)
+    sw      a3, 0x0010($sp)
+    jal     func_800C806C
     addiu   a2, $zero, 0x0004          # a2 = 00000004
-    lw      $ra, 0x001C($sp)           
+    lw      $ra, 0x001C($sp)
 lbl_80B38E24:
     addiu   $sp, $sp, 0x0020           # $sp = 00000000
-    jr      $ra                        
+    jr      $ra
     nop
 
 .section .data
