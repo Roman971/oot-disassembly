@@ -4360,7 +4360,7 @@ lbl_801CA7FC:
     jal     func_80004480              # osSetThreadPri
     or      a0, $zero, $zero           # a0 = 00000000
 lbl_801CA82C:
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     nop
     addiu   t9, $zero, 0x0001          # t9 = 00000001
     lui     $at, 0x801E                # $at = 801E0000
@@ -6135,7 +6135,7 @@ func_801CC0F0:
     addiu   a0, a0, 0x5F04             # a0 = 801E5F04
     jal     func_80002E80              # bzero
     addiu   a1, $zero, 0x0060          # a1 = 00000060
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     nop
     lui     v1, 0x8000                 # v1 = 80000000
     addiu   v1, v1, 0x638C             # v1 = 8000638C
@@ -13168,4 +13168,3 @@ lbl_801D2E3C:
 0x00000000, 0x00000000, 0x00000000, 0x040F0000, \
 0x630C1F17, 0x3B3B0000, 0x001F1C1F, 0x1E1F1E1F, \
 0x1F1E1F1E, 0x1F000000, 0x00000000, 0x00000000
-

@@ -3624,6 +3624,9 @@ lbl_800CF344:
 
 
 func_800CF370:
+# OSIntMask osGetIntMask(void)
+# Get the mask of currently enabled hardware interrupts
+# V0 = OSIntMask interrupt mask
     mfc0    v0, Status
     andi    v0, v0, 0xFF01             # v0 = 00000000
     lui     t0, 0x8000                 # t0 = 80000000
@@ -4957,13 +4960,14 @@ func_800D0570:
 
 
 func_800D05D0:
+# s32 __osSpRawStartDma(s32 direction, u32 devAddr, void* dramAddr, u32 size)
 # Transfer To/From RCP IMEM or DMEM
-# Transer fails if dma busy, dma full, or io full
-# A0 = 0 if Write to RDRAM, 1 if Read into I/DMEM
-# A1 = Value to set SP_MEM_ADDR_REG to
-# A2 = RDRAM Address to read from/write from
-# A3 = Read/Write length
-# V0 = -1 if SP_STATUS_REG is dma busy, dma full, or io full, else 0
+# Aborts with return -1 if the interface is busy (dma busy, dma full, or io full)
+# A0 = s32 direction (0 to write to RDRAM, 1 to read into I/DMEM)
+# A1 = u32 value to set SP_MEM_ADDR_REG to
+# A2 = void* RDRAM Address to read/write from
+# A3 = u32 transfer size
+# V0 = 0 if the operation could be done, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -5470,6 +5474,7 @@ func_800D0C58:
 
 
 func_800D0CD0:
+# osStopTimer?
     addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
     sw      a0, 0x0030($sp)
     lw      t6, 0x0030($sp)
@@ -5481,7 +5486,7 @@ func_800D0CD0:
     beq     $zero, $zero, lbl_800D0DA4
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_800D0CF8:
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     nop
     lw      t8, 0x0030($sp)
     lui     t0, 0x8000                 # t0 = 80000000
@@ -5523,7 +5528,7 @@ lbl_800D0D4C:
     jal     func_80004DB0              # __osSetCompare
     or      a0, $zero, $zero           # a0 = 00000000
 lbl_800D0D98:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_800D0DA4:
@@ -5544,6 +5549,8 @@ func_800D0DC0:
 
 
 func_800D0DD0:
+# Zero the RSP Program Counter
+# V0 = 0 if the operation could be done, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
     sw      $ra, 0x0014($sp)
     jal     func_800D5D90
@@ -7114,7 +7121,9 @@ lbl_800D23DC:
 
 
 func_800D23F0:
-# Check SP_STATUS_REG for dma busy or full or io full
+# s32 __osSpDeviceBusy(void)
+# Check if the RSP is busy performing IO operations
+# RSP is busy if SP_STATUS_REG is set for dma busy (0x0004), dma full (0x0008) or IO full (0x0010)
 # V0 = 1 if true, else 0
     lui     t6, 0xA404                 # t6 = A4040000
     lw      a0, 0x0010(t6)             # A4040010
@@ -7135,7 +7144,7 @@ lbl_800D2414:
 func_800D2420:
     addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
     sw      $ra, 0x0014($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      a0, 0x0020($sp)
     lui     t7, 0x8000                 # t7 = 80000000
     lw      t7, 0x64C4(t7)             # 800064C4
@@ -7147,7 +7156,7 @@ func_800D2420:
     lhu     t9, 0x0000(t8)             # 80000000
     ori     t0, t9, 0x0010             # t0 = 00000010
     sh      t0, 0x0000(t8)             # 80000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     lw      a0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0020           # $sp = 00000000
@@ -7607,6 +7616,9 @@ func_800D2A60:
 
 
 func_800D2AF0:
+# u32 __osDpGetStatus(void)
+# Get the RDP status (DP_STATUS_REG)
+# V0 = u32 current status
     lui     t6, 0xA410                 # t6 = A4100000
     jr      $ra
     lw      v0, 0x000C(t6)             # A410000C
@@ -7614,6 +7626,9 @@ func_800D2AF0:
 
 
 func_800D2B00:
+# void __osDpSetStatus(u32 status)
+# Set the RDP status (DP_STATUS_REG)
+# A0 = u32 new status
     lui     t6, 0xA410                 # t6 = A4100000
     jr      $ra
     sw      a0, 0x000C(t6)             # A410000C
@@ -7848,7 +7863,7 @@ lbl_800D2E2C:
 func_800D2E40:
     addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
     sw      $ra, 0x0014($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      a0, 0x0018($sp)
     lw      a0, 0x0018($sp)
     or      a1, v0, $zero              # a1 = 00000000
@@ -7935,7 +7950,7 @@ lbl_800D2F78:
     or      a0, a1, $zero              # a0 = 00000000
     lhu     t7, 0x0000(v0)             # 00000000
     ori     t8, t7, 0x0008             # t8 = 00000008
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sh      t8, 0x0000(v0)             # 00000000
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp = 00000000
@@ -7964,6 +7979,7 @@ func_800D2FA0:
 
 
 func_800D2FD0:
+# osSetTime?
     sw      a0, 0x0000($sp)
     lw      t6, 0x0000($sp)
     sw      a1, 0x0004($sp)
@@ -7984,7 +8000,7 @@ func_800D3000:
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t7, 0x8000                 # t7 = 80000000
     lw      t7, 0x64C4(t7)             # 800064C4
@@ -7999,7 +8015,7 @@ func_800D3000:
     sw      t8, 0x0014(t9)             # 80000014
     lw      t1, 0x64C4(t1)             # 800064C4
     lw      t0, 0x0030($sp)
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sh      t0, 0x0002(t1)             # 80000002
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -8187,6 +8203,9 @@ lbl_800D32B0:
 
 
 func_800D32E0:
+# u32 osAiGetLength(void)
+# Get the number of bytes remaining in the current DMA buffer (AI_LEN_REG)
+# V0 = u32 length
     lui     t6, 0xA450                 # t6 = A4500000
     jr      $ra
     lw      v0, 0x0004(t6)             # A4500004
@@ -9398,6 +9417,12 @@ lbl_800D436C:
 
 
 func_800D4390:
+# s32 bcmp(const void* s1, const void* s2, u32 size)
+# Compare memory blocks
+# A0 = Pointer to the first memory block
+# A1 = Pointer to the second memory block
+# A2 = u32 size of area to compare
+# V0 = 0 if memory blocks are identical, else 1
     slti    $at, a2, 0x0010
     bne     $at, $zero, lbl_800D4474
     xor     v0, a0, a1
@@ -11070,6 +11095,9 @@ lbl_800D5A58:
 
 
 func_800D5A80:
+# u32 __osSpGetStatus(void)
+# Get the RSP status (SP_STATUS_REG)
+# V0 = u32 current status
     lui     t6, 0xA404                 # t6 = A4040000
     jr      $ra
     lw      v0, 0x0010(t6)             # A4040010
@@ -11077,6 +11105,9 @@ func_800D5A80:
 
 
 func_800D5A90:
+# void __osSpSetStatus(u32 status)
+# Set the RSP status (SP_STATUS_REG)
+# A0 = u32 new status
     lui     t6, 0xA404                 # t6 = A4040000
     jr      $ra
     sw      a0, 0x0010(t6)             # A4040010
@@ -11084,6 +11115,9 @@ func_800D5A90:
 
 
 func_800D5AA0:
+# void osWritebackDCacheAll(void)
+# Writes back all CPU data cache lines that are not invalid and invalidates them
+# Seems to be the same as calling osWritebackDCache with a number of bytes >= 0x2000
     lui     t0, 0x8000                 # t0 = 80000000
     addiu   t2, $zero, 0x2000          # t2 = 00002000
     addu    t1, t0, t2
@@ -11107,6 +11141,7 @@ func_800D5AD0:
 
 
 func_800D5AE0:
+# __d_to_ll?
     trunc.l.d $f4, $f12
     dmfc1   v0, $f4
     nop
@@ -11117,6 +11152,7 @@ func_800D5AE0:
 
 
 func_800D5AFC:
+# __f_to_ll?
     trunc.l.s $f4, $f12
     dmfc1   v0, $f4
     nop
@@ -11127,6 +11163,7 @@ func_800D5AFC:
 
 
 func_800D5B18:
+# __d_to_ull?
     cfc1    t6, $f31
     addiu   v0, $zero, 0x0001          # v0 = 00000001
     ctc1    v0, $f31
@@ -11173,6 +11210,7 @@ lbl_800D5BA4:
 
 
 func_800D5BB8:
+# __f_to_ull?
     cfc1    t6, $f31
     addiu   v0, $zero, 0x0001          # v0 = 00000001
     ctc1    v0, $f31
@@ -11218,6 +11256,7 @@ lbl_800D5C40:
 
 
 func_800D5C54:
+# __ll_to_d?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     ld      t6, 0x0000($sp)
@@ -11227,6 +11266,7 @@ func_800D5C54:
 
 
 func_800D5C6C:
+# __ll_to_f?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     ld      t6, 0x0000($sp)
@@ -11236,6 +11276,7 @@ func_800D5C6C:
 
 
 func_800D5C84:
+# __ull_to_d?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     ld      t6, 0x0000($sp)
@@ -11253,6 +11294,7 @@ lbl_800D5CB0:
 
 
 func_800D5CB8:
+# __ull_to_f?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     ld      t6, 0x0000($sp)
@@ -11274,7 +11316,7 @@ func_800D5CF0:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     swc1    $f12, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x64C4(t6)             # 800064C4
@@ -11286,7 +11328,7 @@ func_800D5CF0:
     or      a0, s0, $zero              # a0 = 00000000
     lhu     t8, 0x0000(t7)             # 80000000
     ori     t9, t8, 0x0004             # t9 = 00000004
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sh      t9, 0x0000(t7)             # 80000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -11300,14 +11342,14 @@ func_800D5CF0:
 func_800D5D50:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x64C0(t6)             # 800064C0
     or      s0, v0, $zero              # s0 = 00000000
     or      a0, s0, $zero              # a0 = 00000000
     lw      t7, 0x0004(t6)             # 80000004
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t7, 0x0020($sp)
     lw      $ra, 0x001C($sp)
     lw      v0, 0x0020($sp)
@@ -11317,6 +11359,11 @@ func_800D5D50:
 
 
 func_800D5D90:
+# s32 __osSpSetPc(u32 value)
+# Set the RSP Program Counter (SP_PC_REG)
+# Aborts with return -1 if the RSP is not halted (SP_STATUS_REG & 0x0001 == 0)
+# A0 = u32 value to set
+# V0 = 0 if the operation could be done, else -1
     lui     t6, 0xA404                 # t6 = A4040000
     lw      a1, 0x0010(t6)             # A4040010
     addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8

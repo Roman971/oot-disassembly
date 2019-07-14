@@ -1392,14 +1392,14 @@ func_80091310:
     sb      t0, 0x0007(s0)             # 800FC0B7
     jal     func_80002E80              # bzero
     sw      t1, 0x0010(s0)             # 800FC0C0
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     nop
     lui     v1, 0x8000                 # v1 = 80000000
     addiu   v1, v1, 0x638C             # v1 = 8000638C
     lw      t2, 0x0000(v1)             # 8000638C
     sw      s0, 0x0000(v1)             # 8000638C
     or      a0, v0, $zero              # a0 = 00000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t2, 0x0000(s0)             # 800FC0B0
     lw      t4, 0x0020($sp)
     lui     t3, 0x8010                 # t3 = 80100000

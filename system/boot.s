@@ -628,7 +628,16 @@ lbl_80000D10:
 
 
 func_80000D28:
-# DMARomToRam (more immediate?)
+# s32 RequestRomToRam(z_getfile_t* getfile_buf, void* dram_addr, u32 vrom_addr, u32 size, s32 ?, OSMesgQueue* notify_mq, OSMesg notify_msg)
+# Request data transfer from ROM to RAM
+# A0 = Pointer to the transfer request struct
+# A1 = void* DRAM start address to write to
+# A2 = u32 VROM start address to read from
+# A3 = u32 size of the data to load
+# SP + 0x10 = s32 ? (always 0)
+# SP + 0x14 = OSMesgQueue* queue to use for the completion notification
+# SP + 0x18 = OSMesg message to use for the completion notification
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -685,7 +694,12 @@ lbl_80000DDC:
 
 
 func_80000DF0:
-# DMARomToRam [?]
+# s32 LoadRomToRam(void* dram_addr, u32 vrom_addr, u32 size)
+# Transfers data from ROM to RAM
+# A0 = void* DRAM start address to write to
+# A1 = u32 VROM start address to read from
+# A2 = u32 size of data to load
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0068($sp)
@@ -1277,6 +1291,9 @@ func_800015D8:
     sw      a3, 0x0014($sp)
     jr      $ra
     addiu   $sp, $sp, 0x0008           # $sp = 00000000
+
+
+func_800015F4:
     jr      $ra
     nop
     nop
@@ -1387,14 +1404,14 @@ lbl_80001698:
     sll     t9, t2,  2
     addu    t4, v1, t9
     lw      t6, 0x0000(t4)             # A0000000
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sb      t7, 0x0008(t6)             # 00000008
     lui     v1, 0x8000                 # v1 = 80000000
     addiu   v1, v1, 0x638C             # v1 = 8000638C
     lw      t3, 0x0000(v1)             # 8000638C
     sw      s0, 0x0000(v1)             # 8000638C
     or      a0, v0, $zero              # a0 = 00000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t3, 0x0000(s0)             # 80010000
     jal     func_80001DF4
     nop
@@ -1884,7 +1901,14 @@ func_80001DF4:
 
 
 func_80001E20:
-# osSendMesg
+# s32 osSendMesg(OSMesgQueue* mq, OSMesg msg, s32 flag)
+# Copies a message to the end of a given message queue
+# In case the message queue is full, the operation blocks the thread and waits for an empty spot,
+# unless the flag is set to OS_MESG_NOBLOCK (0), in which case it aborts immediately and returns -1
+# A0 = OSMesgQueue* queue to put the message in
+# A1 = OSMesg message to copy
+# A2 = s32 flag which indicates the blocking mode, either OS_MESG_BLOCK (1) or OS_MESG_NOBLOCK (0)
+# V0 = 0 if a message could be copied, else -1
     addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
@@ -1892,7 +1916,7 @@ func_80001E20:
     sw      a2, 0x0040($sp)
     sw      s2, 0x0020($sp)
     sw      s1, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t6, 0x0038($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -1916,7 +1940,7 @@ lbl_80001E60:
     beq     $zero, $zero, lbl_80001EA4
     nop
 lbl_80001E94:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     beq     $zero, $zero, lbl_80001F54
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
@@ -1966,7 +1990,7 @@ lbl_80001F14:
     jal     func_80005EC0              # osStartThread
     or      a0, s2, $zero              # a0 = 00000000
 lbl_80001F48:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80001F54:
@@ -1980,13 +2004,16 @@ lbl_80001F54:
 
 
 func_80001F70:
-# osStopThread
+# void osStopThread(OSThread* thread)
+# Suspends a given thread, preventing it from becoming runnable until the next osStartThread call on that thread
+# If targeting the thread currently running, the dispatcher is invoked to run the new highest priority runnable thread
+# A0 = OSThread* thread, or NULL to default to the thread currently running
     addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
     sw      s2, 0x0020($sp)
     sw      s1, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t6, 0x0038($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -2026,7 +2053,7 @@ lbl_80001FF4:
     jal     func_80002D30              # __osDequeueThread
     or      a1, t2, $zero              # a1 = 00000000
 lbl_80002010:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0018($sp)
@@ -2037,14 +2064,21 @@ lbl_80002010:
 
 
 func_80002030:
-# osRecvMesg
+# s32 osRecvMesg(OSMesgQueue* mq, OSMesg* msg, s32 flag)
+# Copies the first message in the given message queue into the address specified by the msg argument
+# In case the queue is empty, the operation blocks the thread and waits for a message,
+# unless the flag is set to OS_MESG_NOBLOCK (0), in which case it aborts immediately and returns -1
+# A0 = OSMesgQueue* queue to get the message from
+# A1 = OSMesg* pointer where the message received should be stored (if NULL the message is discarded instead)
+# A2 = s32 flag which indicates the blocking mode, either OS_MESG_BLOCK (1) or OS_MESG_NOBLOCK (0)
+# V0 = 0 if a message could be received, else -1
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
     sw      s1, 0x0018($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0014($sp)
     lw      t6, 0x0028($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -2055,7 +2089,7 @@ lbl_80002064:
     lw      t8, 0x0030($sp)
     bne     t8, $zero, lbl_80002080
     nop
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     beq     $zero, $zero, lbl_80002154
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
@@ -2115,7 +2149,7 @@ lbl_80002114:
     jal     func_80005EC0              # osStartThread
     or      a0, s1, $zero              # a0 = 00000000
 lbl_80002148:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80002154:
@@ -2129,6 +2163,7 @@ lbl_80002154:
 
 
 func_80002170:
+# __ull_rshift?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2143,6 +2178,7 @@ func_80002170:
 
 
 func_8000219C:
+# __ull_rem?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2162,6 +2198,7 @@ lbl_800021C4:
 
 
 func_800021D8:
+# __ull_div?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2181,6 +2218,7 @@ lbl_80002200:
 
 
 func_80002214:
+# __ll_lshift?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2195,6 +2233,7 @@ func_80002214:
 
 
 func_80002240:
+# __ll_rem?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2214,6 +2253,7 @@ lbl_80002268:
 
 
 func_8000227C:
+# __ll_div?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2242,6 +2282,7 @@ lbl_800022C4:
 
 
 func_800022D8:
+# __ll_mul?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2257,6 +2298,7 @@ func_800022D8:
 
 
 func_80002308:
+# __ull_divremi?
     lh      t7, 0x0012($sp)
     sw      a2, 0x0008($sp)
     sw      a3, 0x000C($sp)
@@ -2286,6 +2328,7 @@ lbl_80002358:
 
 
 func_80002368:
+# __ll_mod?
     addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
     sw      a0, 0x0008($sp)
     sw      a1, 0x000C($sp)
@@ -2333,6 +2376,7 @@ lbl_800023F4:
 
 
 func_80002404:
+# __ll_rshift?
     sw      a0, 0x0000($sp)
     sw      a1, 0x0004($sp)
     sw      a2, 0x0008($sp)
@@ -2347,10 +2391,15 @@ func_80002404:
 
 
 func_80002430:
+# __osExceptionPreamble?
     lui     k0, 0x8000                 # k0 = 80000000
     addiu   k0, k0, 0x2440             # k0 = 80002440
     jr      k0
     nop
+
+
+func_80002440:
+# __osExceptionHandler?
     lui     k0, 0x8001                 # k0 = 80010000
     addiu   k0, k0, 0x9C30             # k0 = 80009C30
     sd      $at, 0x0020(k0)            # 80009C50
@@ -2766,6 +2815,7 @@ lbl_80002A18:
 
 
 func_80002A4C:
+# __osEnqueueAndYield?
     lui     a1, 0x8000                 # a1 = 80000000
     lw      a1, 0x6340(a1)             # 80006340
     mfc0    t0, Status
@@ -2837,6 +2887,7 @@ lbl_80002B44:
 
 
 func_80002B4C:
+# __osEnqueueThread?
     lw      t8, 0x0000(a0)             # 00000000
     lw      t7, 0x0004(a1)             # 00000004
     or      t9, a0, $zero              # t9 = 00000000
@@ -2860,6 +2911,7 @@ lbl_80002B80:
 
 
 func_80002B94:
+# __osPopThread?
     lw      v0, 0x0000(a0)             # 00000000
     lw      t9, 0x0000(v0)             # 00000000
     jr      $ra
@@ -2867,6 +2919,7 @@ func_80002B94:
 
 
 func_80002BA4:
+# __osDispatchThread?
     lui     a0, 0x8000                 # a0 = 80000000
     jal     func_80002B94
     addiu   a0, a0, 0x6338             # a0 = 80006338
@@ -2963,6 +3016,12 @@ lbl_80002CD4:
     nop
     nop
     eret
+
+
+func_80002D20:
+# __osCleanupThread?
+# Destroy the thread currently running
+# Simply calls osDestroyThread with argument NULL
     jal     func_80002D70
     or      a0, $zero, $zero           # a0 = 00000000
     nop
@@ -2970,7 +3029,10 @@ lbl_80002CD4:
 
 
 func_80002D30:
-# __osDequeueThread
+# void __osDequeueThread(OSThread** queue, OSThread* thread)
+# Remove a given thread from the given queue
+# A0 = OSThread** thread queue
+# A1 = OSThread* thread
     or      a2, a0, $zero              # a2 = 00000000
     lw      a3, 0x0000(a2)             # 00000000
     addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
@@ -2993,12 +3055,16 @@ lbl_80002D68:
 
 
 func_80002D70:
+# void osDestroyThread(OSThread* thread)
+# Removes a given thread from any queues it may be on
+# If targeting the thread currently running, the dispatcher is invoked to run the new highest priority runnable thread
+# A0 = OSThread* thread, or NULL to default to the thread currently running
     addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
     sw      s2, 0x0020($sp)
     sw      s1, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t6, 0x0038($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -3057,7 +3123,7 @@ lbl_80002E38:
     jal     func_80002BA4
     nop
 lbl_80002E54:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0018($sp)
@@ -3071,7 +3137,10 @@ lbl_80002E54:
 
 
 func_80002E80:
-# bzero
+# void bzero(void* dest, u32 size)
+# Erase a block of memory
+# A0 = Pointer to the start of the block
+# A1 = u32 block size
     slti    $at, a1, 0x000C
     bne     $at, $zero, lbl_80002EFC
     subu    v1, $zero, a0
@@ -3122,7 +3191,14 @@ lbl_80002F14:
 
 
 func_80002F20:
-# osCreateThread
+# void osCreateThread(OSThread* thread, OSId id, void (*entry)(void*), void* arg, void* sp, OSPri pri)
+# Initialize a given thread in the stopped state and puts it on the active gvd queue (for the N64 debugger)
+# A0 = OSThread* pointer to the thread to create
+# A1 = OSId thread id (for debugging purposes)
+# A2 = Entrypoint procedure to use for this thread (jumped to when the thread is started)
+# A3 = Argument passed to the entrypoint procedure
+# SP + 0x10 = Pointer to the location where the stack should be initialized for this thread
+# SP + 0x14 = OSPri priority value, ranges from OS_PRIORITY_IDLE (0) to OS_PRIORITY_APPMAX (127)
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -3187,7 +3263,7 @@ func_80002F20:
     lw      t0, 0x0028($sp)
     sh      t8, 0x0010(t0)             # 0000FF13
     lw      t1, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sh      $zero, 0x0012(t1)          # 00000012
     lui     t2, 0x8000                 # t2 = 80000000
     lw      t2, 0x633C(t2)             # 8000633C
@@ -3197,7 +3273,7 @@ func_80002F20:
     sw      t2, 0x000C(t3)             # 0000000C
     lw      t9, 0x0028($sp)
     or      a0, s0, $zero              # a0 = 00000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t9, 0x633C($at)            # 8000633C
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -3462,7 +3538,9 @@ func_80003318:
 
 
 func_80003420:
-# __osSetSR
+# void __osSetSR(u32 value)
+# Set the value of the R4300 Status register
+# A0 = new value
     mtc0    a0, Status
     nop
     jr      $ra
@@ -3470,7 +3548,9 @@ func_80003420:
 
 
 func_80003430:
-# __osGetSR
+# u32 __osGetSR(void)
+# Get the value of the R4300 Status register
+# V0 = current value
     mfc0    v0, Status
     jr      $ra
     nop
@@ -3478,7 +3558,11 @@ func_80003430:
 
 
 func_80003440:
-# osWritebackDCache
+# void osWritebackDCache(void* vaddr, s32 nbytes)
+# Writes back CPU data cache lines containing the region [vaddr, vaddr + nbytes- 1]
+# If the number of bytes is >= 0x2000, writes back all data cache lines that are not invalid and invalidates them
+# A0 = CPU virtual address to start writing back from
+# A1 = s32 number of bytes for the region to write back
     blez    a1, lbl_80003488
     nop
     addiu   t3, $zero, 0x2000          # t3 = 00002000
@@ -3520,14 +3604,14 @@ lbl_8000349C:
 func_800034C0:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x64C4(t6)             # 800064C4
     or      s0, v0, $zero              # s0 = 00000000
     or      a0, s0, $zero              # a0 = 00000000
     lw      t7, 0x0004(t6)             # 80000004
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t7, 0x0020($sp)
     lw      $ra, 0x001C($sp)
     lw      v0, 0x0020($sp)
@@ -3582,7 +3666,7 @@ lbl_80003568:
     jal     func_80004480              # osSetThreadPri
     sw      v0, 0x0028($sp)
 lbl_800035AC:
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     nop
     lw      t1, 0x0034($sp)
     lw      t7, 0x0030($sp)
@@ -3617,7 +3701,7 @@ lbl_800035AC:
     lui     a0, 0x8001                 # a0 = 80010000
     jal     func_80005EC0              # osStartThread
     addiu   a0, a0, 0x8A60             # a0 = 80008A60
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     lw      a0, 0x002C($sp)
     lw      t8, 0x0028($sp)
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
@@ -3977,7 +4061,10 @@ lbl_80003B48:
 
 
 func_80003B60:
-# osVirtualToPhysical
+# u32 osVirtualToPhysical(void* vaddr)
+# Translate a CPU virtual address to its physical memory address
+# A0 = CPU virtual address to translate
+# V0 = u32 corresponding physical address, or -1 if the address couldn't be translated
     addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -4019,7 +4106,7 @@ func_80003BE0:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lbu     t6, 0x002B($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -4039,7 +4126,7 @@ lbl_80003C1C:
     and     t2, t1, $at
     sh      t2, 0x0000(t0)             # 80000000
 lbl_80003C34:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -4074,7 +4161,10 @@ lbl_80003C8C:
 
 
 func_80003CA0:
-# osGetThreadId
+# OSId osGetThreadId(OSThread* thread)
+# Get the debugger id of a given thread
+# A0 = OSThread* thread, or NULL to default to the invoking thread (currently running)
+# V0 = OSId id
     bne     a0, $zero, lbl_80003CB0
     nop
     lui     a0, 0x8000                 # a0 = 80000000
@@ -4087,7 +4177,9 @@ lbl_80003CB0:
 
 
 func_80003CC0:
-# osSetIntMask
+# void osSetIntMask(OSIntMask im)
+# Enable or disable hardware interrupts based on the provided mask
+# A0 = OSIntMask interrupt mask
     mfc0    t4, Status
     andi    v0, t4, 0xFF01             # v0 = 00000000
     lui     t0, 0x8000                 # t0 = 80000000
@@ -4135,7 +4227,7 @@ func_80003D60:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t7, 0x8000                 # t7 = 80000000
     lw      t7, 0x64C4(t7)             # 800064C4
@@ -4151,7 +4243,7 @@ func_80003D60:
     or      a0, s0, $zero              # a0 = 00000000
     lw      t1, 0x0008(t0)             # 80000008
     lw      t2, 0x0004(t1)             # 00000004
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t2, 0x000C(t0)             # 8000000C
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -4298,12 +4390,18 @@ lbl_80003F9C:
 
 
 func_80003FB0:
+# void osSetEventMesg(OSEvent e, OSMesgQueue* mq, OSMesg msg)
+# Associates a message queue and message with an event
+# The event takes values of OS_EVENT_* and generally corresponds to an interrupt or an exception
+# A0 = OSEvent event associated
+# A1 = OSMesgQueue* queue to associate
+# A2 = OSMesg message to associate
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t6, 0x0028($sp)
     lui     t8, 0x8001                 # t8 = 80010000
@@ -4338,7 +4436,7 @@ lbl_8000403C:
     lui     $at, 0x8000                # $at = 80000000
     sw      t6, 0x63A0($at)            # 800063A0
 lbl_80004048:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -4440,7 +4538,10 @@ lbl_80004180:
 
 
 func_800041A0:
-# osInvalICache
+# void osInvalICache(void* vaddr, s32 nbytes)
+# Invalidates CPU instruction cache lines containing the region [vaddr, vaddr+nbytes-1]
+# A0 = CPU virtual address to start invalidating from
+# A1 = s32 number of bytes for the region to invalidate (>= 0x4000 will invalidate all instruction cache lines)
     blez    a1, lbl_800041E8
     nop
     addiu   t3, $zero, 0x4000          # t3 = 00004000
@@ -4480,7 +4581,11 @@ lbl_800041FC:
 
 
 func_80004220:
-# osCreateMesgQueue
+# void osCreateMesgQueue(OSMesgQueue* mq, OSMesg* msg, s32 count)
+# Initializes a given message queue to an empty state
+# A0 = OSMesgQueue* queue to initialize
+# A1 = OSMesg* message array to use when storing messages
+# A2 = s32 number of messages the queue should be able to hold
     lui     t6, 0x8000                 # t6 = 80000000
     lui     t7, 0x8000                 # t7 = 80000000
     addiu   t6, t6, 0x6330             # t6 = 80006330
@@ -4496,7 +4601,10 @@ func_80004220:
 
 
 func_80004250:
-# osInvalDCache
+# void osInvalDCache(void* vaddr, s32 nbytes)
+# Invalidates CPU data cache lines containing the region [vaddr, vaddr+nbytes-1]
+# A0 = CPU virtual address to start invalidating from
+# A1 = s32 number of bytes for the region to invalidate (>= 0x2000 will invalidate all data cache lines)
     blez    a1, lbl_800042D0
     nop
     addiu   t3, $zero, 0x2000          # t3 = 00002000
@@ -4566,14 +4674,20 @@ lbl_80004324:
 
 
 func_80004330:
-# osJamMesg
+# s32 osJamMesg(OSMesgQueue* mq, OSMesg msg, s32 flag)
+# Works like osSendMesg (80001E20) except it copies the message to the front of the queue
+# Used to deliver high priority messages
+# A0 = OSMesgQueue* queue to put the message in
+# A1 = OSMesg message to copy
+# A2 = s32 flag which indicates the blocking mode, either OS_MESG_BLOCK (1) or OS_MESG_NOBLOCK (0)
+# V0 = 0 if a message could be copied, else -1
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
     sw      s1, 0x0018($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0014($sp)
     lw      t6, 0x0028($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -4597,7 +4711,7 @@ lbl_8000436C:
     beq     $zero, $zero, lbl_800043B0
     nop
 lbl_800043A0:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     beq     $zero, $zero, lbl_8000446C
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
@@ -4650,7 +4764,7 @@ lbl_80004414:
     jal     func_80005EC0              # osStartThread
     or      a0, s1, $zero              # a0 = 00000000
 lbl_80004460:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_8000446C:
@@ -4662,12 +4776,15 @@ lbl_8000446C:
 
 
 func_80004480:
-# osSetThreadPri
+# void osSetThreadPri(OSThread* thread, OSPri pri)
+# Set the priority of a given thread
+# A0 = OSThread* thread, or NULL to default to the invoking thread (currently running)
+# A1 = OSPri priority value
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t6, 0x0028($sp)
     or      s0, v0, $zero              # s0 = 00000000
@@ -4715,11 +4832,7 @@ lbl_8000450C:
     jal     func_80002A4C
     addiu   a0, a0, 0x6338             # a0 = 80006338
 lbl_80004544:
-    jal     func_800051A0
-
-
-func_80004548:
-# osGetThreadPri
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -4729,6 +4842,10 @@ func_80004548:
 
 
 func_80004560:
+# OSPri osGetThreadPri(OSThread* thread)
+# Get the priority of a given thread
+# A0 = OSThread* thread, or NULL to default to the invoking thread (currently running)
+# V0 = OSPri priority value
     bne     a0, $zero, lbl_80004570
     nop
     lui     a0, 0x8000                 # a0 = 80000000
@@ -4986,7 +5103,7 @@ func_800048C0:
 # osGetTime
     addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      $ra, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     jal     func_80004D50              # osGetCount
     or      s0, v0, $zero              # s0 = 00000000
@@ -5002,7 +5119,7 @@ func_800048C0:
     sw      t8, 0x0030($sp)
     or      a0, s0, $zero              # a0 = 00000000
     sw      t1, 0x002C($sp)
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t0, 0x0028($sp)
     lw      t9, 0x0030($sp)
     lw      t5, 0x002C($sp)
@@ -5168,7 +5285,7 @@ func_80004B54:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      a1, 0x002C($sp)
     jal     func_80004D50              # osGetCount
     sw      v0, 0x001C($sp)
@@ -5188,7 +5305,7 @@ func_80004B54:
     sw      t3, 0x0024($sp)
     jal     func_80004DB0              # __osSetCompare
     or      a0, t3, $zero              # a0 = 00000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     lw      a0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0028           # $sp = 00000000
@@ -5199,7 +5316,7 @@ func_80004B54:
 func_80004BC8:
     addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      $ra, 0x0014($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      a0, 0x0038($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x63B0(t6)             # 800063B0
@@ -5291,7 +5408,7 @@ lbl_80004CFC:
     lw      t2, 0x0034($sp)
     lw      t1, 0x0038($sp)
     sw      t1, 0x0004(t2)             # 00000004
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     lw      a0, 0x0024($sp)
     lw      $ra, 0x0014($sp)
     lw      v0, 0x0028($sp)
@@ -5301,7 +5418,9 @@ lbl_80004CFC:
 
 
 func_80004D50:
-# osGetCount
+# u32 osGetCount(void)
+# Get the value of the R4300 Count register
+# V0 = u32 current value
     mfc0    v0, Count
     jr      $ra
     nop
@@ -5313,7 +5432,7 @@ func_80004D60:
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x6360(t6)             # 80006360
@@ -5322,7 +5441,7 @@ func_80004D60:
     lui     $at, 0x8000                # $at = 80000000
     or      t8, t6, t7                 # t8 = 80000000
     sw      t8, 0x6360($at)            # 80006360
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -5333,7 +5452,9 @@ func_80004D60:
 
 
 func_80004DB0:
-# __osSetCompare
+# void __osSetCompare(u32 value)
+# Set the value of the R4300 Compare register
+# A0 = u32 new value
     mtc0    a0, Compare
     jr      $ra
     nop
@@ -5341,8 +5462,11 @@ func_80004DB0:
 
 
 func_80004DC0:
-# bcopy
-# copy a block of memory
+# void bcopy(const void* src, void* dest, u32 size)
+# Copy a block of memory
+# A0 = Pointer to the start of the block to copy
+# A1 = Pointer to where the block should be written
+# A2 = u32 block size
     beq     a2, $zero, lbl_80004E2C
     or      a3, a1, $zero              # a3 = 00000000
     beq     a0, a1, lbl_80004E2C
@@ -5565,10 +5689,11 @@ lbl_800050A4:
 
 
 func_800050D0:
+# __osResetGlobalIntMask
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t7, 0x0028($sp)
     lui     t6, 0x8000                 # t6 = 80000000
@@ -5580,7 +5705,7 @@ func_800050D0:
     lui     $at, 0x8000                # $at = 80000000
     and     t0, t6, t9
     sw      t0, 0x6360($at)            # 80006360
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -5592,7 +5717,7 @@ func_800050D0:
 
 
 func_80005130:
-# __osResetGlobalIntMask
+# __osDisableInt
 # enter kernel mode? or disable all interrupts?
     lui     t2, 0x8000                 # t2 = 80000000
     addiu   t2, t2, 0x6360             # t2 = 80006360
@@ -5626,6 +5751,7 @@ lbl_80005198:
 
 
 func_800051A0:
+# __osRestoreInt
 # exit kernel mode? or re-enable interrupts?
     mfc0    t0, Status
     or      t0, t0, a0                 # t0 = 00000000
@@ -6043,14 +6169,14 @@ lbl_80005714:
     sw      v1, 0x0000(a3)             # A4600014
     sw      a0, 0x0000(t0)             # A460001C
     sw      a1, 0x0000(t1)             # A4600020
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      a2, 0x0000(t2)             # A4600018
     lui     v1, 0x8000                 # v1 = 80000000
     addiu   v1, v1, 0x638C             # v1 = 8000638C
     lw      t8, 0x0000(v1)             # 8000638C
     sw      s0, 0x0000(v1)             # 8000638C
     or      a0, v0, $zero              # a0 = 00000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t8, 0x0000(s0)             # 80010000
     jal     func_80001DF4
     nop
@@ -6067,7 +6193,10 @@ lbl_800057C0:
 
 
 func_800057E0:
-# __osSetFpcCsr
+# u32 __osSetFpcCsr(u32 value)
+# Set the value of the R4300 floating-point control/status register and returns the original value
+# A0 = u32 new value
+# V0 = u32 old value
     cfc1    v0, $f31
     ctc1    a0, $f31
     jr      $ra
@@ -6075,7 +6204,9 @@ func_800057E0:
 
 
 func_800057F0:
-# __osGetFpcCsr
+# u32 __osGetFpcCsr(void)
+# Get the value of the R4300 floating-point control/status register
+# V0 = u32 current value
     cfc1    v0, $f31
     jr      $ra
     nop
@@ -6134,10 +6265,14 @@ func_80005850:
 
 
 func_800058B0:
-# osYieldThread
+# void osYieldThread(void)
+# Yields the CPU and invokes the thread dispatcher
+# Inserts the calling thread back into the run queue following all other threads of the same priority,
+# Then the dispatcher is invoked to run the (possibly different) thread at the front of the run queue.
+# If the calling thread is the only thread at its priority level, then this call effectively does nothing.
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lui     t7, 0x8000                 # t7 = 80000000
     lw      t7, 0x6340(t7)             # 80006340
@@ -6147,7 +6282,7 @@ func_800058B0:
     addiu   a0, a0, 0x6338             # a0 = 80006338
     jal     func_80002A4C
     sh      t6, 0x0010(t7)             # 80000010
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -6158,7 +6293,9 @@ func_800058B0:
 
 
 func_80005900:
-# __osGetCause
+# u32 __osGetCause(void)
+# Get the value of the R4300 Cause register
+# V0 = u32 current value
     mfc0    v0, Cause
     jr      $ra
     nop
@@ -6269,6 +6406,7 @@ lbl_80005A50:
 
 
 func_80005A70:
+# osSetTimer?
     addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
     sw      a0, 0x0020($sp)
     lw      t6, 0x0020($sp)
@@ -6410,7 +6548,7 @@ func_80005BA0:
     jal     func_80004480              # osSetThreadPri
     sw      v0, 0x0028($sp)
 lbl_80005C70:
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     nop
     lw      t3, 0x0030($sp)
     lui     v1, 0x8001                 # v1 = 80010000
@@ -6440,7 +6578,7 @@ lbl_80005C70:
     lui     a0, 0x8001                 # a0 = 80010000
     jal     func_80005EC0              # osStartThread
     addiu   a0, a0, 0x9F20             # a0 = 80009F20
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     lw      a0, 0x002C($sp)
     lw      t4, 0x0028($sp)
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
@@ -6575,12 +6713,15 @@ func_80005EB0:
 
 
 func_80005EC0:
-# osStartThread
+# void osStartThread(OSThread* thread)
+# Starts or resumes a given thread
+# Makes a thread created by osCreateThread runnable or resumes a thread previously suspended by osStopThread
+# A0 = OSThread* thread to start/resume
     addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      s1, 0x0018($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0014($sp)
     lw      t6, 0x0028($sp)
     addiu   $at, $zero, 0x0001         # $at = 00000001
@@ -6659,7 +6800,7 @@ lbl_80005FBC:
     jal     func_80002A4C
     addiu   a0, a0, 0x6338             # a0 = 80006338
 lbl_80005FF4:
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0014($sp)
@@ -6674,7 +6815,7 @@ func_80006010:
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
-    jal     func_80005130              # __osResetGlobalIntMask
+    jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
     lw      t7, 0x0028($sp)
     lw      t6, 0x002C($sp)
@@ -6689,7 +6830,7 @@ func_80006010:
     or      s0, v0, $zero              # s0 = 00000000
     addu    $at, $at, t1
     or      a0, s0, $zero              # a0 = 00000000
-    jal     func_800051A0
+    jal     func_800051A0              # __osRestoreInt
     sw      t9, 0x6304($at)            # 80006304
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -6712,4 +6853,3 @@ func_80006080:
     jr      $ra
     sw      t9, 0x0000(a2)             # 00000000
     nop
-
