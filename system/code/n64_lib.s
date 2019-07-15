@@ -7617,8 +7617,8 @@ func_800D2A60:
 
 func_800D2AF0:
 # u32 __osDpGetStatus(void)
-# Get the RDP status (DP_STATUS_REG)
-# V0 = u32 current status
+# Get the value of the RDP status register (DPC_STATUS_REG)
+# V0 = u32 current value
     lui     t6, 0xA410                 # t6 = A4100000
     jr      $ra
     lw      v0, 0x000C(t6)             # A410000C
@@ -7626,9 +7626,9 @@ func_800D2AF0:
 
 
 func_800D2B00:
-# void __osDpSetStatus(u32 status)
-# Set the RDP status (DP_STATUS_REG)
-# A0 = u32 new status
+# void __osDpSetStatus(u32 value)
+# Set the value of the RDP status register (DPC_STATUS_REG)
+# A0 = u32 new value
     lui     t6, 0xA410                 # t6 = A4100000
     jr      $ra
     sw      a0, 0x000C(t6)             # A410000C
