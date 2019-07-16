@@ -598,7 +598,6 @@ func_800CCDA0:
 
 
 func_800CCDC0:
-# JR RA
     jr      $ra
     nop
 

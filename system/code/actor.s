@@ -6470,7 +6470,6 @@ lbl_800241A8:
 
 func_8002420C:
 # Textlog related, Print actor name?
-# Actor name related.
 # A0 = Actor Instance
 # A1 = ?
     addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
