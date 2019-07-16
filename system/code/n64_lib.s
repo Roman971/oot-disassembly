@@ -5474,7 +5474,10 @@ func_800D0C58:
 
 
 func_800D0CD0:
-# osStopTimer?
+# s32 osStopTimer(OSTimer* timer)
+# Stop a given interval timer
+# A0 = OSTimer* timer to stop
+# V0 = 0 for success, else -1
     addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
     sw      a0, 0x0030($sp)
     lw      t6, 0x0030($sp)
@@ -7979,7 +7982,9 @@ func_800D2FA0:
 
 
 func_800D2FD0:
-# osSetTime?
+# void osSetTime(OSTime time)
+# Set the real time counter value (expressed in units of CPU count register cycles)
+# A0/A1 = OSTime new time value
     sw      a0, 0x0000($sp)
     lw      t6, 0x0000($sp)
     sw      a1, 0x0004($sp)

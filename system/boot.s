@@ -5100,7 +5100,9 @@ lbl_800048AC:
 
 
 func_800048C0:
-# osGetTime
+# OSTime osGetTime(void)
+# Get the real time counter value (expressed in units of CPU count register cycles)
+# V0/V1 = OSTime current time value
     addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
     sw      $ra, 0x001C($sp)
     jal     func_80005130              # __osDisableInt
@@ -6406,7 +6408,16 @@ lbl_80005A50:
 
 
 func_80005A70:
-# osSetTimer?
+# s32 osSetTimer(OSTimer* timer, ?, OSTime countdown, OSTime interval, OSMesgQueue* mq, OSMesg msg)
+# Start a countdown or interval timer
+# Times are expressed in CPU count register cycles
+# A0 = OSTimer* where to store the timer
+# A1 = unused argument
+# A2/A3 = OSTime countdown (duration to the next end of the timer, defaults to interval if zero)
+# SP + 0x10/0x14 = OSTime interval time (value used when resetting the timer after it ends)
+# SP + 0x18 = OSMesgQueue* message queue to put the ending message
+# SP + 0x1C = OSMesg message to send when the timer ends
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
     sw      a0, 0x0020($sp)
     lw      t6, 0x0020($sp)
