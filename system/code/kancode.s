@@ -1,6 +1,6 @@
 # "Kanji Code" part of the code file
 #
-# The purpose of this file's content is unclear but it supposedly handles Kanji character codes and contains a local char table.
+# Handles mapping japanese character codes to their corresponding indexes for the jpn_font_static table.
 #
 # General Documentation about Text:
 # https://wiki.cloudmodding.com/oot/Text_Format
@@ -10,6 +10,9 @@
 
 .section .text
 func_800AF790:
+# Map text character to its offset in the jpn_font_static table
+# A0 = u16 character code
+# V0 = u32 offset
     ori     $at, $zero, 0x8800         # $at = 00008800
     slt     $at, a0, $at
     bne     $at, $zero, lbl_800AF7DC
