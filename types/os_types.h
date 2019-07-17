@@ -48,6 +48,17 @@ typedef struct OSThread {
   /* 0x01F4 */
 } OSThread;
 
+typedef struct __OSStackContext {
+  /* 0x00 */ __OSStackContext*      next;     // Next stack
+  /* 0x04 */ __OSStackContext*      prev;     // Previous stack
+  /* 0x08 */ void*                  start;    // Stack start address
+  /* 0x0C */ void*                  end;      // Stack end address
+  /* 0x10 */ u32                    init;     // Stack initial value
+  /* 0x14 */ u32                    unk_0x14;
+  /* 0x18 */ char*                  thrname;  // Pointer to thread name
+  /* 0x20 */
+} __OSStackContext;
+
 /************************* Message **************************/
 
 #define OS_NUM_EVENTS           15  // Number of valid events
@@ -86,8 +97,8 @@ typedef struct OSMesgQueue {
 
 /************************* Time *****************************/
 
-#define OS_CLOCK_RATE       62500000
-#define OS_CPU_COUNTER      (OS_CLOCK_RATE*3/4)
+#define OS_CLOCK_RATE     62500000
+#define OS_CPU_COUNTER    46875000
 
 typedef u64 OSTime;
 
@@ -127,5 +138,101 @@ typedef struct OSTimer {
 
 typedef u32 OSIntMask; // Interrupt Mask
 typedef u32 OSHWIntr;
+
+/******************** Peripheral Interface ********************/
+
+#define DEVICE_TYPE_CART        0  // ROM Cartridge
+#define DEVICE_TYPE_BULK        1  // ROM Bulk
+#define DEVICE_TYPE_64DD        2  // N64 Disk Drive
+#define DEVICE_TYPE_SRAM        3  // SRAM
+#define DEVICE_TYPE_INIT        7  // Initial value
+
+#define OS_READ                 0  // Flag for device -> RDRAM transfer
+#define OS_WRITE                1  // Flag for device <- RDRAM transfer
+#define OS_OTHERS               2
+
+#define OS_MESG_TYPE_LOOPBACK   10
+#define OS_MESG_TYPE_DMAREAD    11
+#define OS_MESG_TYPE_DMAWRITE   12
+#define OS_MESG_TYPE_VRETRACE   13
+#define OS_MESG_TYPE_COUNTER    14
+#define OS_MESG_TYPE_EDMAREAD   15
+#define OS_MESG_TYPE_EDMAWRITE  16
+
+#define OS_MESG_PRI_NORMAL      0
+#define OS_MESG_PRI_HIGH        1
+
+#define PI_DOMAIN1              0
+#define PI_DOMAIN2              1
+
+typedef struct __OSBlockInfo {
+  /* 0x00 */ u32       errStatus;      // Error Status
+  /* 0x04 */ void*     dramAddr;       // RDRAM buffer address (DMA)
+  /* 0x08 */ void*     C2Addr;         // C2 buffer address
+  /* 0x0C */ u32       sectorSize;     // Size of transfering sector
+  /* 0x10 */ u32       C1ErrNum;       // Number of C1 errors
+  /* 0x14 */ u32       C1ErrSector[4]; // Error Sectors
+  /* 0x18 */
+} __OSBlockInfo;
+
+typedef struct __OSTranxInfo {
+  /* 0x00 */ u32               cmdType;      // Command Type
+  /* 0x04 */ u16               transferMode; // Transfer Mode (block, track, or sector?)
+  /* 0x06 */ u16               blockNum;     // Which block is transfering
+  /* 0x08 */ s32               sectorNum;    // Which sector is transfering
+  /* 0x0C */ u32               devAddr;      // Device buffer address
+  /* 0x10 */ u32               bmCtlShadow;
+  /* 0x14 */ u32               seqCtlShadow;
+  /* 0x18 */ __OSBlockInfo     block[2];     // Block transfer info
+  /* 0x30 */
+} __OSTranxInfo;
+
+typedef struct OSPiHandle {
+  /* 0x00 */ OSPiHandle*     next;         // Points to next handle in the table
+  /* 0x04 */ u8              type;         // Device Type (DEVICE_TYPE_*)
+  /* 0x05 */ u8              latency;      // Domain latency
+  /* 0x06 */ u8              pageSize;     // Domain page size
+  /* 0x07 */ u8              relDuration;  // Domain release duration
+  /* 0x08 */ u8              pulse;        // Domain pulse width
+  /* 0x09 */ u8              domain;       // Which Domain (PI_DOMAIN*)
+  /* 0x10 */ u32             baseAddress;  // Domain address
+  /* 0x14 */ u32             speed;
+  /* 0x18 */ __OSTranxInfo   transferInfo; // Transfer Info
+  /* 0x48 */
+} OSPiHandle;
+
+typedef struct OSPiInfo {
+  /* 0x00 */ u8    type;
+  /* 0x01 */ u32   address;
+  /* 0x05 */
+} OSPiInfo;
+
+typedef struct OSIoMesgHdr {
+  /* 0x00 */ u16           type;     // Message type (OS_MESG_TYPE_*)
+  /* 0x02 */ u8            pri;      // Message priority (OS_MESG_PRI_*)
+  /* 0x03 */ u8            status;   // Return status
+  /* 0x04 */ OSMesgQueue*  retQueue; // Return message queue to notify I/O completion
+  /* 0x08 */
+} OSIoMesgHdr;
+
+typedef struct OSIoMesg {
+  /* 0x00 */ OSIoMesgHdr   hdr;      // Message header
+  /* 0x08 */ void*         dramAddr; // RDRAM buffer address (DMA)
+  /* 0x0C */ u32           devAddr;  // Device buffer address (DMA)
+  /* 0x10 */ u32           size;     // DMA transfer size in bytes
+  /* 0x14 */ OSPiHandle*   piHandle; // PI device handle
+  /* 0x18 */
+} OSIoMesg;
+
+typedef struct OSDevMgr {
+  /* 0x00 */ s32               active;   // Status flag
+  /* 0x04 */ OSThread*         thread;   // Calling thread
+  /* 0x08 */ OSMesgQueue*      cmdQueue; // Command queue
+  /* 0x0C */ OSMesgQueue*      evtQueue; // Event queue
+  /* 0x10 */ OSMesgQueue*      acsQueue; // Access queue
+  /* 0x14 */ s32               (*dma)(s32, u32, void*, u32);
+  /* 0x18 */ s32               (*edma)(OSPiHandle*, s32, u32, void*, u32);
+  /* 0x1C */
+} OSDevMgr;
 
 #endif
