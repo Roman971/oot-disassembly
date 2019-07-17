@@ -619,7 +619,7 @@ lbl_801C7684:
     sw      t8, 0x0014($sp)
     addiu   a0, a0, 0xAF88             # a0 = 801DAF88
     or      a2, s0, $zero              # a2 = 801DAF88
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     a0, 0x801E                 # a0 = 801E0000
     lui     a2, 0x801C                 # a2 = 801C0000
@@ -658,7 +658,7 @@ lbl_801C7684:
     addiu   a1, a1, 0xAFA8             # a1 = 801DAFA8
     addiu   a0, a0, 0xBFA8             # a0 = 801DBFA8
     sw      t1, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     s0, 0x801E                 # s0 = 801E0000
     addiu   s0, s0, 0x9D50             # s0 = 801D9D50
@@ -1693,7 +1693,7 @@ func_801C8554:
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x801E                 # a0 = 801E0000
-    jal     func_80002D70
+    jal     func_80002D70              # osDestroyThread
     addiu   a0, a0, 0x0DB0             # a0 = 801E0DB0
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -3795,7 +3795,7 @@ func_801CA0B0:
     sw      a1, 0x0064($sp)
     sw      a2, 0x0068($sp)
     sw      a3, 0x006C($sp)
-    jal     func_80001600
+    jal     func_80001600              # osCartRomInit
     nop
     slti    $at, s0, 0x0020
     bne     $at, $zero, lbl_801CA110
@@ -3852,7 +3852,7 @@ lbl_801CA158:
     sw      t5, 0x0014(t6)             # 00000014
     lw      a0, 0x0058($sp)
     addiu   a1, $sp, 0x0024            # a1 = FFFFFFC4
-    jal     func_800040C0
+    jal     func_800040C0              # osEPiStartDma
     or      a2, $zero, $zero           # a2 = 00000000
     addiu   a0, $sp, 0x0040            # a0 = FFFFFFE0
     or      a1, $zero, $zero           # a1 = 00000000
@@ -4350,7 +4350,7 @@ lbl_801CA7FC:
     addiu   t8, $zero, 0xFFFF          # t8 = FFFFFFFF
     sw      t8, 0x0028($sp)
     or      a0, $zero, $zero           # a0 = 00000000
-    jal     func_80004560
+    jal     func_80004560              # osGetThreadPri
     sw      a1, 0x0020($sp)
     lw      a1, 0x0020($sp)
     slt     $at, v0, a1
@@ -4434,7 +4434,7 @@ lbl_801CA82C:
     lui     a1, 0x801E                 # a1 = 801E0000
     addiu   a1, a1, 0x5E00             # a1 = 801E5E00
     addiu   a0, $zero, 0x0002          # a0 = 00000002
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     lui     a2, 0x0003                 # a2 = 00030000
     lui     a0, 0x801E                 # a0 = 801E0000
     addiu   a0, a0, 0x5E48             # a0 = 801E5E48
@@ -4902,7 +4902,7 @@ lbl_801CAF84:
     lui     a1, 0x801E                 # a1 = 801E0000
     addiu   a1, a1, 0x5EC8             # a1 = 801E5EC8
     lw      a0, 0x0000(s5)             # 801E5EC0
-    jal     func_800040C0
+    jal     func_800040C0              # osEPiStartDma
     or      a2, s7, $zero              # a2 = 00000001
     lui     a0, 0x801E                 # a0 = 801E0000
     addiu   a0, a0, 0x5E30             # a0 = 801E5E30
@@ -4953,7 +4953,7 @@ lbl_801CB080:
     lui     a1, 0x801E                 # a1 = 801E0000
     addiu   a1, a1, 0x5EC8             # a1 = 801E5EC8
     lw      a0, 0x0000(s5)             # 801E5EC0
-    jal     func_800040C0
+    jal     func_800040C0              # osEPiStartDma
     or      a2, $zero, $zero           # a2 = 00000000
     lbu     t0, 0x0009(s2)             # 801E5E99
     or      s0, $zero, $zero           # s0 = 00000000
@@ -8321,7 +8321,7 @@ lbl_801CDEF8:
     addiu   t7, $zero, 0x0002          # t7 = 00000002
     sw      t7, 0x0014(t9)             # 00000014
     lw      a0, 0x0000(s2)             # 801E5EC0
-    jal     func_800040C0
+    jal     func_800040C0              # osEPiStartDma
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lui     a0, 0x801E                 # a0 = 801E0000
     addiu   a0, a0, 0x5E30             # a0 = 801E5E30
@@ -10511,7 +10511,7 @@ lbl_801D219C:
 lbl_801D21B4:
     jal     func_801CC0F0
     nop
-    jal     func_80001600
+    jal     func_80001600              # osCartRomInit
     nop
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     lui     $at, 0x801E                # $at = 801E0000
@@ -11159,7 +11159,7 @@ lbl_801D2AAC:
 lbl_801D2AC4:
     jal     func_801CC0F0
     nop
-    jal     func_80001600
+    jal     func_80001600              # osCartRomInit
     nop
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     lui     $at, 0x801E                # $at = 801E0000

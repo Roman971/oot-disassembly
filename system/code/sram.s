@@ -1441,7 +1441,7 @@ func_800913E8:
     lui     a1, 0x8010                 # a1 = 80100000
     addiu   a1, a1, 0xC124             # a1 = 800FC124
     addiu   a0, a0, 0xC0B0             # a0 = 800FC0B0
-    jal     func_800040C0
+    jal     func_800040C0              # osEPiStartDma
     lw      a2, 0x0028($sp)
     lui     a0, 0x8010                 # a0 = 80100000
     addiu   a0, a0, 0xC13C             # a0 = 800FC13C

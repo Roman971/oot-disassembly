@@ -159,7 +159,7 @@ lbl_800AD760:
     bne     t1, s0, lbl_800AD714
     addu    v0, v0, t4
 lbl_800AD774:
-    jal     func_800D5AA0
+    jal     func_800D5AA0              # osWritebackDCacheAll
     nop
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
@@ -260,7 +260,7 @@ lbl_800AD8A4:
     addiu   a3, a3, 0xFFF0             # a3 = FFFFFFF2
     bnel    t1, a1, lbl_800AD888
     or      v0, t2, $zero              # v0 = 00000000
-    jal     func_800D5AA0
+    jal     func_800D5AA0              # osWritebackDCacheAll
     nop
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -1003,7 +1003,7 @@ lbl_800ADF6C:
     addiu   a2, $zero, 0x001E          # a2 = 0000001E
     jal     func_800ADC58
     addiu   a3, s1, 0x018C             # a3 = 000001BD
-    jal     func_800D5AA0
+    jal     func_800D5AA0              # osWritebackDCacheAll
     nop
     lw      $ra, 0x0024($sp)
     lw      s0, 0x001C($sp)
@@ -2060,12 +2060,12 @@ lbl_800AF1A0:
     lui     a1, 0x8012                 # a1 = 80120000
     addiu   a1, a1, 0x1840             # a1 = 80121840
     addiu   a0, $zero, 0x000A          # a0 = 0000000A
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lui     a1, 0x8012                 # a1 = 80120000
     addiu   a1, a1, 0x1840             # a1 = 80121840
     addiu   a0, $zero, 0x000C          # a0 = 0000000C
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     addiu   a2, $zero, 0x0002          # a2 = 00000002
     lui     s8, 0x8011                 # s8 = 80110000
     lui     s7, 0x8011                 # s7 = 80110000
@@ -2282,7 +2282,7 @@ lbl_800AF46C:
     addiu   a1, a1, 0x1868             # a1 = 80121868
     addiu   a0, a0, 0x1C68             # a0 = 80121C68
     sw      t4, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     t5, 0x8012                 # t5 = 80120000
     addiu   t5, t5, 0x1C68             # t5 = 80121C68

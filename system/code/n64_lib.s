@@ -10,9 +10,9 @@
 func_800CC5C0:
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
-    jal     func_800D5A80
+    jal     func_800D5A80              # __osSpGetStatus
     nop
-    jal     func_800D2AF0
+    jal     func_800D2AF0              # __osDpGetStatus
     sw      v0, 0x001C($sp)
     lui     a0, 0x8011                 # a0 = 80110000
     sw      v0, 0x0018($sp)
@@ -231,9 +231,9 @@ func_800CC8B8:
     sw      $ra, 0x0014($sp)
     jal     func_800CC5C0
     nop
-    jal     func_800D2B00
+    jal     func_800D2B00              # __osDpSetStatus
     addiu   a0, $zero, 0x0028          # a0 = 00000028
-    jal     func_800D5A90
+    jal     func_800D5A90              # __osSpSetStatus
     addiu   a0, $zero, 0x4082          # a0 = 00004082
     jal     func_800CC5C0
     nop
@@ -3980,17 +3980,17 @@ lbl_800CF840:
     lw      a0, 0x001C($sp)
     jal     func_80003440              # osWritebackDCache
     addiu   a1, $zero, 0x0040          # a1 = 00000040
-    jal     func_800D5A90
+    jal     func_800D5A90              # __osSpSetStatus
     addiu   a0, $zero, 0x2B00          # a0 = 00002B00
     lui     a0, 0x0400                 # a0 = 04000000
-    jal     func_800D5D90
+    jal     func_800D5D90              # __osSpSetPc
     ori     a0, a0, 0x1000             # a0 = 04001000
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     bne     v0, $at, lbl_800CF884
     nop
 lbl_800CF86C:
     lui     a0, 0x0400                 # a0 = 04000000
-    jal     func_800D5D90
+    jal     func_800D5D90              # __osSpSetPc
     ori     a0, a0, 0x1000             # a0 = 04001000
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     beq     v0, $at, lbl_800CF86C
@@ -4000,7 +4000,7 @@ lbl_800CF884:
     ori     a1, a1, 0x0FC0             # a1 = 04000FC0
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a2, 0x001C($sp)
-    jal     func_800D05D0
+    jal     func_800D05D0              # __osSpRawStartDma
     addiu   a3, $zero, 0x0040          # a3 = 00000040
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     bne     v0, $at, lbl_800CF8CC
@@ -4010,18 +4010,18 @@ lbl_800CF8A8:
     ori     a1, a1, 0x0FC0             # a1 = 04000FC0
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a2, 0x001C($sp)
-    jal     func_800D05D0
+    jal     func_800D05D0              # __osSpRawStartDma
     addiu   a3, $zero, 0x0040          # a3 = 00000040
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     beq     v0, $at, lbl_800CF8A8
     nop
 lbl_800CF8CC:
-    jal     func_800D23F0
+    jal     func_800D23F0              # __osSpDeviceBusy
     nop
     beq     v0, $zero, lbl_800CF8EC
     nop
 lbl_800CF8DC:
-    jal     func_800D23F0
+    jal     func_800D23F0              # __osSpDeviceBusy
     nop
     bne     v0, $zero, lbl_800CF8DC
     nop
@@ -4031,7 +4031,7 @@ lbl_800CF8EC:
     ori     a1, a1, 0x1000             # a1 = 04001000
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a2, 0x0008(t4)             # 00000008
-    jal     func_800D05D0
+    jal     func_800D05D0              # __osSpRawStartDma
     lw      a3, 0x000C(t4)             # 0000000C
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     bne     v0, $at, lbl_800CF93C
@@ -4042,7 +4042,7 @@ lbl_800CF914:
     ori     a1, a1, 0x1000             # a1 = 04001000
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a2, 0x0008(t2)             # 00000008
-    jal     func_800D05D0
+    jal     func_800D05D0              # __osSpRawStartDma
     lw      a3, 0x000C(t2)             # 0000000C
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     beq     v0, $at, lbl_800CF914
@@ -4057,17 +4057,17 @@ lbl_800CF93C:
 func_800CF94C:
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
-    jal     func_800D23F0
+    jal     func_800D23F0              # __osSpDeviceBusy
     sw      a0, 0x0018($sp)
     beq     v0, $zero, lbl_800CF974
     nop
 lbl_800CF964:
-    jal     func_800D23F0
+    jal     func_800D23F0              # __osSpDeviceBusy
     nop
     bne     v0, $zero, lbl_800CF964
     nop
 lbl_800CF974:
-    jal     func_800D5A90
+    jal     func_800D5A90              # __osSpSetStatus
     addiu   a0, $zero, 0x0125          # a0 = 00000125
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -4456,7 +4456,7 @@ lbl_800CFE4C:
     sw      t5, 0x0014($sp)
     sw      t4, 0x0010($sp)
     addiu   a0, $sp, 0x0040            # a0 = FFFFFFD0
-    jal     func_80005A70
+    jal     func_80005A70              # osSetTimer
     subu    a3, t3, t1
     addiu   a0, $sp, 0x0028            # a0 = FFFFFFB8
     addiu   a1, $sp, 0x006C            # a1 = FFFFFFFC
@@ -4972,7 +4972,7 @@ func_800D05D0:
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
-    jal     func_800D23F0
+    jal     func_800D23F0              # __osSpDeviceBusy
     sw      a3, 0x0024($sp)
     beq     v0, $zero, lbl_800D05FC
     lw      t6, 0x001C($sp)
@@ -5065,7 +5065,7 @@ lbl_800D06FC:
 func_800D0710:
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
-    jal     func_800D5A90
+    jal     func_800D5A90              # __osSpSetStatus
     addiu   a0, $zero, 0x0400          # a0 = 00000400
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -5555,7 +5555,7 @@ func_800D0DD0:
 # V0 = 0 if the operation could be done, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
-    jal     func_800D5D90
+    jal     func_800D5D90              # __osSpSetPc
     or      a0, $zero, $zero           # a0 = 00000000
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -7311,7 +7311,7 @@ func_800D2620:
 func_800D2690:
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
-    jal     func_800D5A80
+    jal     func_800D5A80              # __osSpGetStatus
     sw      a0, 0x0020($sp)
     sw      v0, 0x001C($sp)
     lw      t6, 0x001C($sp)

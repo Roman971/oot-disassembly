@@ -195,7 +195,7 @@ func_800AD070:
     sw      t0, 0x0010($sp)
     ori     a3, a3, 0xA0BC             # a3 = 0165A0BC
     addiu   a0, s0, 0x0258             # a0 = 00000258
-    jal     func_80005A70
+    jal     func_80005A70              # osSetTimer
     addiu   a2, $zero, 0x0000          # a2 = 00000000
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_800AD00C
@@ -245,7 +245,7 @@ func_800AD128:
     sw      t1, 0x0014($sp)
     sw      t0, 0x0010($sp)
     addiu   a2, $zero, 0x0000          # a2 = 00000000
-    jal     func_80005A70
+    jal     func_80005A70              # osSetTimer
     ori     a3, $zero, 0xB71B          # a3 = 0000B71B
 lbl_800AD198:
     jal     func_800AD108
@@ -396,7 +396,7 @@ func_800AD33C:
     addiu   a2, $zero, 0x0008          # a2 = 00000008
     addiu   a0, $zero, 0x000E          # a0 = 0000000E
     lw      a1, 0x002C($sp)
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     addiu   a2, $zero, 0x029D          # a2 = 0000029D
     lw      a0, 0x002C($sp)
     addiu   a1, $zero, 0x029A          # a1 = 0000029A

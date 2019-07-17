@@ -6350,7 +6350,7 @@ lbl_800B5A28:
     sh      t5, 0x0004(s6)             # 80125634
     jal     func_80003CC0              # osSetIntMask
     addiu   a0, $zero, 0x0001          # a0 = 00000001
-    jal     func_800D5AA0
+    jal     func_800D5AA0              # osWritebackDCacheAll
     or      s0, v0, $zero              # s0 = 00000000
     jal     func_80003CC0              # osSetIntMask
     or      a0, s0, $zero              # a0 = 00000000
@@ -12005,7 +12005,7 @@ lbl_800BA70C:
     nop
     break   # 0x01800
 lbl_800BA724:
-    jal     func_800D32E0
+    jal     func_800D32E0              # osAiGetLength
     nop
     lw      t1, 0x2984(s2)             # 80127FB4
     srl     t9, v0,  2

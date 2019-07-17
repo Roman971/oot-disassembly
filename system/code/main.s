@@ -71,7 +71,7 @@ lbl_800A1CE0:
     lui     a1, 0x8012                 # a1 = 80120000
     addiu   a1, a1, 0x0F10             # a1 = 80120F10
     addiu   a0, $zero, 0x0005          # a0 = 00000005
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     or      a2, $zero, $zero           # a2 = 00000000
     addiu   a0, $sp, 0x0120            # a0 = FFFFFFE0
     addiu   a1, $sp, 0x0030            # a1 = FFFFFEF0
@@ -88,7 +88,7 @@ lbl_800A1CE0:
     addiu   a1, a1, 0x0698             # a1 = 80120698
     addiu   a0, a0, 0x0C18             # a0 = 80120C18
     sw      t6, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     a0, 0x8012                 # a0 = 80120000
     lui     a1, 0x8012                 # a1 = 80120000
@@ -108,7 +108,7 @@ lbl_800A1CE0:
     addiu   a1, a1, 0xF598             # a1 = 8011F598
     addiu   a0, a0, 0x0BB8             # a0 = 80120BB8
     sw      t8, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     t0, 0x8012                 # t0 = 80120000
     addiu   t0, t0, 0xD968             # t0 = 8011D968
@@ -143,7 +143,7 @@ lbl_800A1CE0:
     addiu   a1, a1, 0xF998             # a1 = 8011F998
     addiu   a0, a0, 0x0BD8             # a0 = 80120BD8
     sw      t2, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     t3, 0x8012                 # t3 = 80120000
     lui     t4, 0x8012                 # t4 = 80120000
@@ -169,7 +169,7 @@ lbl_800A1CE0:
     addiu   a1, a1, 0x0198             # a1 = 80120198
     addiu   a0, a0, 0x0BF8             # a0 = 80120BF8
     sw      t6, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     t8, 0x8012                 # t8 = 80120000
     addiu   t8, t8, 0x0698             # t8 = 80120698
@@ -198,7 +198,7 @@ lbl_800A1CE0:
     addiu   a1, a1, 0xDD98             # a1 = 8011DD98
     addiu   a0, a0, 0x0B98             # a0 = 80120B98
     sw      t0, 0x0014($sp)
-    jal     func_80001890
+    jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
     lui     t1, 0x8012                 # t1 = 80120000
     addiu   t1, t1, 0xF598             # t1 = 8011F598
@@ -238,7 +238,7 @@ lbl_800A1F80:
     sw      $zero, 0x0024($sp)
 lbl_800A1FCC:
     lui     a0, 0x8012                 # a0 = 80120000
-    jal     func_80002D70
+    jal     func_80002D70              # osDestroyThread
     addiu   a0, a0, 0xDBE8             # a0 = 8011DBE8
     jal     func_800CC8B8
     nop

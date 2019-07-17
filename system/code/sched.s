@@ -401,7 +401,7 @@ lbl_800A3044:
     addiu   $at, $zero, 0xFFCF         # $at = FFFFFFCF
     and     t4, t3, $at
     sw      t4, 0x0004(s0)             # 00000004
-    jal     func_800D5AA0
+    jal     func_800D5AA0              # osWritebackDCacheAll
     sw      a0, 0x0028($sp)
     addiu   a0, s0, 0x0010             # a0 = 00000010
     jal     func_800CF7BC
@@ -961,11 +961,11 @@ func_800A37D0:
     addiu   a0, $zero, 0x0042          # a0 = 00000042
     addiu   a0, $zero, 0x0004          # a0 = 00000004
     or      a1, s0, $zero              # a1 = 00000000
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     addiu   a2, $zero, 0x029B          # a2 = 0000029B
     addiu   a0, $zero, 0x0009          # a0 = 00000009
     or      a1, s0, $zero              # a1 = 00000000
-    jal     func_80003FB0
+    jal     func_80003FB0              # osSetEventMesg
     addiu   a2, $zero, 0x029C          # a2 = 0000029C
     lw      a0, 0x0044($sp)
     addiu   a1, s0, 0x0250             # a1 = 00000250

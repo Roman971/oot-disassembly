@@ -320,13 +320,13 @@ func_800A1354:
     sw      t6, 0x0010($sp)
     ori     a3, a3, 0xC468             # a3 = 0861C468
     addiu   a0, $sp, 0x0068            # a0 = FFFFFFD8
-    jal     func_80005A70
+    jal     func_80005A70              # osSetTimer
     addiu   a2, $zero, 0x0000          # a2 = 00000000
     lw      a0, 0x003C($sp)
     addiu   a1, $sp, 0x0064            # a1 = FFFFFFD4
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
-    jal     func_800D0CD0
+    jal     func_800D0CD0              # osStopTimer
     addiu   a0, $sp, 0x0068            # a0 = FFFFFFD8
     lw      t8, 0x0064($sp)
     addiu   $at, $zero, 0x029A         # $at = 0000029A
