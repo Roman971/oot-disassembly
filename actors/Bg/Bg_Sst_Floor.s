@@ -1,6 +1,6 @@
 .section .text
 func_80AD8160:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -25,11 +25,11 @@ func_80AD8160:
     sw      v0, 0x013C(t6)             # 0000013C
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80AD81C8:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -39,13 +39,13 @@ func_80AD81C8:
     jal     func_80031638              # DynaPolyInfo_delReserve
     lw      a2, 0x013C(t6)             # 0000013C
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80AD81FC:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s1, 0x001C($sp)
     lui     a2, 0x8012                 # a2 = 80120000
     lui     a3, 0x00FF                 # a3 = 00FF0000
@@ -279,11 +279,11 @@ lbl_80AD854C:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80AD8570:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0030($sp)
@@ -327,7 +327,7 @@ func_80AD8570:
     sw      t3, 0x0000(v1)             # 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
     nop

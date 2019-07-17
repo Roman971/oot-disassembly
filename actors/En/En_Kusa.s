@@ -7,7 +7,7 @@ func_80A7F8B0:
 
 
 func_80A7F8C0:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x001C($sp)
     sw      a1, 0x0044($sp)
     sw      a2, 0x0048($sp)
@@ -46,13 +46,13 @@ func_80A7F8C0:
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80A7F954:
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_80A7F964:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -106,7 +106,7 @@ lbl_80A7FA18:
 lbl_80A7FA20:
     lw      $ra, 0x0014($sp)
 lbl_80A7FA24:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -129,7 +129,7 @@ lbl_80A7FA5C:
 
 
 func_80A7FA64:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     mtc1    a1, $f12                   # $f12 = 0.00
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -161,7 +161,7 @@ func_80A7FA64:
     swc1    $f4, 0x0008(a0)            # 00000008
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80A7FAE8:
@@ -177,7 +177,7 @@ func_80A7FAE8:
 
 
 func_80A7FB0C:
-    addiu   $sp, $sp, 0xFF30           # $sp = FFFFFF30
+    addiu   $sp, $sp, 0xFF30           # $sp -= 0xD0
     sw      s3, 0x0084($sp)
     sw      s0, 0x0078($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -393,11 +393,11 @@ lbl_80A7FDFC:
     lw      s7, 0x0094($sp)
     lw      s8, 0x0098($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00D0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00D0           # $sp += 0xD0
 
 
 func_80A7FE64:
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s2, 0x0040($sp)
     sw      s1, 0x003C($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -445,11 +445,11 @@ lbl_80A7FEFC:
     lw      s3, 0x0044($sp)
     lw      s4, 0x0048($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
 
 
 func_80A7FF20:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a1, 0x0024($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -468,13 +468,13 @@ func_80A7FF20:
     jal     func_80050B00
     lw      a1, 0x0018($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80A7FF78:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -550,13 +550,13 @@ lbl_80A80084:
     lw      $ra, 0x001C($sp)
 lbl_80A80090:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80A800A0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
     or      a2, a1, $zero              # a2 = 00000000
@@ -564,25 +564,25 @@ func_80A800A0:
     jal     func_8004ABCC
     addiu   a1, a3, 0x0140             # a1 = 00000140
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80A800CC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, %hi(func_80A800F0)     # a1 = 80A80000
     jal     func_80A7F8B0
     addiu   a1, a1, %lo(func_80A800F0) # a1 = 80A800F0
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80A800F0:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -618,13 +618,13 @@ lbl_80A8014C:
     lw      $ra, 0x001C($sp)
 lbl_80A80170:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80A80180:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, %hi(func_80A801B8)     # a1 = 80A80000
     addiu   a1, a1, %lo(func_80A801B8) # a1 = 80A801B8
@@ -637,11 +637,11 @@ func_80A80180:
     sw      t7, 0x0004(a0)             # 00000004
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80A801B8:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -762,11 +762,11 @@ lbl_80A80370:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_80A80380:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, %hi(func_80A803BC)     # a1 = 80A80000
     addiu   a1, a1, %lo(func_80A803BC) # a1 = 80A803BC
@@ -780,11 +780,11 @@ func_80A80380:
     sw      t8, 0x0004(a0)             # 00000004
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80A803BC:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x0024($sp)
@@ -838,13 +838,13 @@ func_80A803BC:
 lbl_80A80488:
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80A8049C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, %hi(func_80A80508)     # a1 = 80A80000
     jal     func_80A7F8B0
@@ -870,11 +870,11 @@ func_80A8049C:
     lui     $at, %hi(var_80A80ACC)     # $at = 80A80000
     sh      $zero, %lo(var_80A80ACC)($at)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80A80508:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s1, 0x0020($sp)
     sw      s0, 0x001C($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -1043,11 +1043,11 @@ lbl_80A80788:
     lw      s0, 0x001C($sp)
     lw      s1, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80A80798:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lh      v0, 0x001C(a0)             # 0000001C
     addiu   $at, $zero, 0x0001         # $at = 00000001
@@ -1067,13 +1067,13 @@ lbl_80A807D0:
 lbl_80A807D8:
     lw      $ra, 0x0014($sp)
 lbl_80A807DC:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80A807E8:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     lh      t6, 0x018C(a0)             # 0000018C
@@ -1084,7 +1084,7 @@ func_80A807E8:
     nop
     lw      $ra, 0x0014($sp)
 lbl_80A80810:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1097,7 +1097,7 @@ func_80A8081C:
 
 
 func_80A8082C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     $at, 0x4110                # $at = 41100000
     mtc1    $at, $f8                   # $f8 = 9.00
@@ -1121,13 +1121,13 @@ func_80A8082C:
     jal     func_80A7F8B0
     sh      t7, 0x00B8(a0)             # 000000B8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80A80898:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -1151,13 +1151,13 @@ func_80A80898:
 lbl_80A808EC:
     lw      $ra, 0x0014($sp)
 lbl_80A808F0:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80A808FC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, %hi(func_80A80954)     # a1 = 80A80000
     addiu   a1, a1, %lo(func_80A80954) # a1 = 80A80954
@@ -1178,11 +1178,11 @@ func_80A808FC:
     sh      t7, 0x00B8(a0)             # 000000B8
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80A80954:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -1218,13 +1218,13 @@ func_80A80954:
 lbl_80A809D8:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80A809EC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lh      t6, 0x018C(a0)             # 0000018C
     addiu   t7, t6, 0x0001             # t7 = 00000001
@@ -1248,13 +1248,13 @@ lbl_80A80A38:
     swc1    $f6, 0x00BC(a0)            # 000000BC
 lbl_80A80A40:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80A80A50:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     or      a3, a1, $zero              # a3 = 00000000
@@ -1279,7 +1279,7 @@ lbl_80A80A8C:
     lw      a1, %lo(var_80A80B84)(a1)
     lw      $ra, 0x0014($sp)
 lbl_80A80AAC:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

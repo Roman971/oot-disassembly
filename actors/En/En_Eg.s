@@ -1,11 +1,11 @@
 .section .text
 func_80B7BE50:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80064738
     addiu   a0, $zero, 0x5801          # a0 = 00005801
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -25,7 +25,7 @@ func_80B7BE80:
 
 
 func_80B7BE90:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -61,13 +61,13 @@ func_80B7BE90:
     sw      t1, %lo(var_80B7BF80)($at)
     lw      $ra, 0x0014($sp)
 lbl_80B7BF1C:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80B7BF28:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lw      v0, 0x013C(a0)             # 0000013C
     bltzl   v0, lbl_80B7BF64
@@ -84,7 +84,7 @@ func_80B7BF28:
 lbl_80B7BF60:
     lw      $ra, 0x0014($sp)
 lbl_80B7BF64:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 

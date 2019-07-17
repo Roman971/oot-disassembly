@@ -45,7 +45,7 @@ func_80052364:
 # Uses Cutscene Struct + 0x08 to index jump table at 800EFCD8 if Cutscene Number < 0xFFF0
 # A0 = Global Context
 # A1 = Cutscene Struct ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8012                 # t6 = 80120000
     lw      t6, -0x5A28(t6)            # 8011A5D8
@@ -62,13 +62,13 @@ func_80052364:
     nop
     lw      $ra, 0x0014($sp)
 lbl_800523A4:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800523B0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v1, 0x8012                 # v1 = 80120000
     addiu   v1, v1, 0xA5D0             # v1 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -113,7 +113,7 @@ lbl_80052414:
     nop
     lw      $ra, 0x0014($sp)
 lbl_80052458:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -130,7 +130,7 @@ func_80052464:
 
 
 func_80052474:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     mtc1    a2, $f12                   # $f12 = 0.00
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -141,7 +141,7 @@ func_80052474:
     jal     func_8006385C
     addiu   a0, a3, 0x000C             # a0 = 0000000C
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -150,7 +150,7 @@ func_800524AC:
 # Related to 80052364
 # A0 = Global Context
 # A1 = Cutscene Struct ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -172,7 +172,7 @@ func_800524AC:
     sb      t8, 0x0008(t6)             # 00000008
     lw      $ra, 0x0014($sp)
 lbl_80052500:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -181,7 +181,7 @@ func_8005250C:
 # Related to 80052364
 # A0 = Global Context
 # A1 = Cutscene Struct ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -206,14 +206,14 @@ func_8005250C:
     sb      t8, 0x0008(t6)             # 00000008
     lw      $ra, 0x0014($sp)
 lbl_8005256C:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80052578:
 # Cutscene command 0x03 (special execution)
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x002C($sp)
@@ -714,7 +714,7 @@ lbl_80052D00:
     lw      $ra, 0x002C($sp)
 lbl_80052D04:
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
@@ -748,7 +748,7 @@ func_80052D54:
 # A0 = Global Context
 # A1 = Cutscene Struct
 # A2 = Data
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lhu     t6, 0x0002(a2)             # 00000002
@@ -761,13 +761,13 @@ func_80052D54:
     andi    a0, a0, 0xFFFF             # a0 = 0000FFFF
     lw      $ra, 0x0014($sp)
 lbl_80052D84:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80052D90:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lhu     t6, 0x0002(a2)             # 00000002
@@ -780,13 +780,13 @@ func_80052D90:
     andi    a0, a0, 0xFFFF             # a0 = 0000FFFF
     lw      $ra, 0x0014($sp)
 lbl_80052DC0:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80052DCC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lhu     v0, 0x0002(a2)             # 00000002
@@ -817,13 +817,13 @@ lbl_80052E28:
     or      a0, a0, $at                # a0 = 100000FF
     lw      $ra, 0x0014($sp)
 lbl_80052E40:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80052E4C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a0, 0x0018($sp)
     or      a0, a2, $zero              # a0 = 00000000
     sw      $ra, 0x0014($sp)
@@ -838,7 +838,7 @@ func_80052E4C:
     lbu     a3, 0x0008(a0)             # 00000008
     lw      $ra, 0x0014($sp)
 lbl_80052E84:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -898,7 +898,7 @@ func_80052F34:
 # A0 = Global Context
 # A1 = Cutscene Struct
 # A2 = Command Data ptr
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     lui     v1, 0x8012                 # v1 = 80120000
     addiu   v1, v1, 0xA5D0             # v1 = 8011A5D0
@@ -2781,13 +2781,13 @@ lbl_80054C3C:
     lw      $ra, 0x0024($sp)
 lbl_80054C40:
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_80054C50:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -3464,13 +3464,13 @@ lbl_80055614:
 lbl_80055620:
     lw      $ra, 0x001C($sp)
 lbl_80055624:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80055630:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s3, 0x0028($sp)
     sw      s0, 0x001C($sp)
     or      s0, a2, $zero              # s0 = 00000000
@@ -3558,11 +3558,11 @@ lbl_8005575C:
     lw      s2, 0x0024($sp)
     lw      s3, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_80055784:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s3, 0x0028($sp)
     sw      s0, 0x001C($sp)
     or      s0, a2, $zero              # s0 = 00000000
@@ -3652,7 +3652,7 @@ lbl_800558B8:
     lw      s2, 0x0024($sp)
     lw      s3, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_800558E0:
@@ -3661,7 +3661,7 @@ func_800558E0:
 # A1 = Cutscene Struct
 # A2 = Command Data ptr
 # A3 = ?
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -3782,11 +3782,11 @@ lbl_80055AA8:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
 
 
 func_80055ABC:
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -3894,11 +3894,11 @@ lbl_80055C50:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
 
 
 func_80055C64:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     sw      a1, 0x0034($sp)
@@ -4092,7 +4092,7 @@ lbl_80055F04:
     sh      $zero, -0x032C($at)        # 800EFCD4
     lw      $ra, 0x0014($sp)
 lbl_80055F2C:
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -4102,7 +4102,7 @@ func_80055F38:
 # A0 = Global Context
 # A1 = Cutscene Struct (GC + 0x1D64)
 # A2 = Cutscene Pointer
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s3, 0x0020($sp)
     sw      s2, 0x001C($sp)
     sw      s1, 0x0018($sp)
@@ -4770,14 +4770,14 @@ lbl_800568E4:
     lw      s4, 0x0024($sp)
     lw      s5, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_80056908:
 # Related to 80052364
 # A0 = Global Context
 # A1 = Cutscene Struct ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8012                 # t6 = 80120000
     lw      t6, -0x5A28(t6)            # 8011A5D8
@@ -4792,7 +4792,7 @@ func_80056908:
     lw      a2, 0x1D68(a0)             # 00001D68
     lw      $ra, 0x0014($sp)
 lbl_80056940:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -4801,7 +4801,7 @@ func_8005694C:
 # Related to 80052364
 # A0 = Global Context
 # A1 = Cutscene Struct ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     lw      a1, 0x001C($sp)
@@ -4815,13 +4815,13 @@ func_8005694C:
     sb      $zero, 0x0008(t6)          # 00000008
     lw      $ra, 0x0014($sp)
 lbl_80056980:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8005698C:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -4889,13 +4889,13 @@ lbl_80056A74:
 lbl_80056A80:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80056A94:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -4994,7 +4994,7 @@ lbl_80056BF8:
     lw      $ra, 0x001C($sp)
 lbl_80056C04:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -5032,7 +5032,7 @@ lbl_80056C68:
 
 func_80056C70:
 # Calls entrance cutscene table in code.
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0034($sp)
     sw      s7, 0x0030($sp)
     sw      s6, 0x002C($sp)
@@ -5108,7 +5108,7 @@ lbl_80056D64:
     lw      s6, 0x002C($sp)
     lw      s7, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80056D90:
@@ -5117,7 +5117,7 @@ func_80056D90:
 # Learning Requiem, Starting Kakariko Fire -> Learning Nocturne,
 # Getting Fairy Ocarina, Starting Light Arrow cutscene sequence, Ganon's Tower Collapses cutscene
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     lui     s0, 0x8012                 # s0 = 80120000
     addiu   s0, s0, 0xA5D0             # s0 = 8011A5D0
@@ -5251,7 +5251,7 @@ lbl_80056F84:
     lw      $ra, 0x001C($sp)
 lbl_80056F88:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -5261,7 +5261,7 @@ func_80056F98:
 # Contains Disk Drive Hook
 # A0 = Global Context
 # A1 = Segment Offset
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     v0, 0x8012                 # v0 = 80120000
     lw      v0, 0x1220(v0)             # 80121220
@@ -5298,7 +5298,7 @@ lbl_80057018:
     sw      a1, 0x1D68(a0)             # 00001D68
 lbl_8005701C:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

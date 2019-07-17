@@ -1,6 +1,6 @@
 .section .text
 func_80B30DF0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -151,13 +151,13 @@ lbl_80B31000:
     addiu   v0, $zero, 0x0001          # v0 = 00000001
     sh      t3, 0x0054(a2)             # 00000054
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80B31044:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s0, 0x0014($sp)
     or      s0, a2, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -304,11 +304,11 @@ lbl_80B311EC:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80B31284:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -337,7 +337,7 @@ func_80B31284:
     swc1    $f8, 0x0008(a2)            # 00000008
     lw      $ra, 0x0014($sp)
 lbl_80B312F4:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 

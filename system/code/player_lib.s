@@ -123,7 +123,7 @@ func_8007938C:
 # A0 = Global Context
 # A1 = Link Instance
 # V0 = 1 if true, 0 if false
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a1, $zero              # a2 = 00000000
     lw      v1, 0x066C(a2)             # 0000066C
@@ -165,7 +165,7 @@ func_8007938C:
     xori    v0, v0, 0x0001             # v0 = 00000001
     lw      $ra, 0x0014($sp)
 lbl_80079430:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -174,7 +174,7 @@ func_8007943C:
 # Tests if Link is busy (Calls 8007938C, but also checks if talking?)
 # A0 = Global Context
 # V0 = 1 if true, 0 if false
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lw      a1, 0x1C44(a0)             # 00001C44
     jal     func_8007938C
@@ -187,7 +187,7 @@ func_8007943C:
     sltiu   v0, v0, 0x0001
 lbl_80079468:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -223,7 +223,7 @@ func_800794B0:
 # A0 = Link Instance
 # A1 = Link Instance + 0x141
 # V0 = 1 if true, 0 if false
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lui     v1, 0x800F                 # v1 = 800F0000
     addu    v1, v1, a1
@@ -241,13 +241,13 @@ lbl_800794E8:
     or      v0, v1, $zero              # v0 = 00000000
 lbl_800794EC:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_800794FC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lw      t6, 0x066C(a0)             # 0000066C
     sll     t7, t6,  9
@@ -308,7 +308,7 @@ lbl_800795AC:
 lbl_800795D8:
     lw      $ra, 0x0014($sp)
 lbl_800795DC:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -318,7 +318,7 @@ func_800795E8:
 # Update Child Link's held item?
 # A0 = Link Instance
 # A1 = Held Item Index
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v1, 0x8012                 # v1 = 80120000
     lui     a2, 0x800F                 # a2 = 800F0000
     addiu   a2, a2, 0x7A10             # a2 = 800F7A10
@@ -369,7 +369,7 @@ func_800795E8:
     jal     func_800794FC
     sw      t0, 0x015C(a0)             # 0000015C
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -378,7 +378,7 @@ func_800796C0:
 # ? Related to updating Child Link's state if Hylian Shield is equipped
 # A0 = Link Instance
 # A1 = 1 if 800794B0 returns 1, 0 if false
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   $at, $zero, 0x0001         # $at = 00000001
     bne     a1, $at, lbl_800796DC
@@ -405,13 +405,13 @@ lbl_80079714:
     jal     func_800795E8
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8007972C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lb      a1, 0x0141(a0)             # 00000141
     sb      a1, 0x0144(a0)             # 00000144
@@ -424,14 +424,14 @@ func_8007972C:
     sb      $zero, 0x069D(a0)          # 0000069D
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80079764:
 # Update Link Instance's Equipment
 # A0 = Global Context
 # A1 = Link Instance
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a2, a1, $zero              # a2 = 00000000
@@ -492,7 +492,7 @@ lbl_80079820:
     lw      a0, 0x0018($sp)
 lbl_80079844:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -504,7 +504,7 @@ func_80079854:
 # A1 = Link Instance
 # A2 = Item Index (C-Item)
 # A3 = Action Parameter
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
@@ -523,7 +523,7 @@ func_80079854:
 lbl_80079894:
     sb      a0, 0x0144(v0)             # 00000144
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -539,7 +539,7 @@ func_800798A8:
 
 
 func_800798C4:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lhu     t6, 0x0088(a0)             # 00000088
     andi    t7, t6, 0x0001             # t7 = 00000000
@@ -581,13 +581,13 @@ lbl_80079950:
     jal     func_800798A8
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80079968:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -617,7 +617,7 @@ func_80079968:
     jal     func_80049330
     addiu   a1, $zero, 0x0002          # a1 = 00000002
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -642,7 +642,7 @@ func_80079A04:
 
 
 func_80079A20:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     mtc1    a2, $f12                   # $f12 = 0.00
     sw      $ra, 0x0014($sp)
     sw      a3, 0x003C($sp)
@@ -697,7 +697,7 @@ lbl_80079AC0:
 lbl_80079AE8:
     lw      $ra, 0x0014($sp)
 lbl_80079AEC:
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -817,7 +817,7 @@ func_80079BF8:
 # Test if Link Item Action is Hookshot/Longshot, and is not holding an item (Instance + 0x039C)
 # A0 = Link Instance
 # V0 = 1 if true, 0 if false
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     jal     func_80079BD4
@@ -830,7 +830,7 @@ func_80079BF8:
     sltiu   v0, v0, 0x0001
 lbl_80079C24:
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80079C2C:
@@ -855,13 +855,13 @@ func_80079C54:
 # Wrapper for 80079C2C (A0 = Link Instance + 0x141)
 # A0 = Link Instance
 # V0 = 1 if true, 0 if false
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
     jal     func_80079C2C
     lb      a0, 0x0141(a1)             # 00000141
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -929,12 +929,12 @@ lbl_80079D20:
 
 
 func_80079D28:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80079CFC
     lb      a1, 0x0141(a0)             # 00000141
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -964,12 +964,12 @@ func_80079D74:
 # Wrapper for 80079D48 (A0 = Link Instance + 0x141)
 # A0 = Link Instance
 # V0 = 0 if Bomb, 1 if Bombchu, -1 otherwise
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80079D48
     lb      a1, 0x0141(a0)             # 00000141
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -996,7 +996,7 @@ lbl_80079DC8:
 
 
 func_80079DD0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     lui     t6, 0x0001                 # t6 = 00010000
     addu    t6, t6, a0
@@ -1099,7 +1099,7 @@ lbl_80079F34:
     addiu   v0, v1, 0x0001             # v0 = 00000001
 lbl_80079F38:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -1110,7 +1110,7 @@ func_80079F48:
 # A0 = Global Context
 # A1 = Some object_link_boy/_child pointer
 # A2 = Link Instance + 0x1F0 pointer (animation data)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
     lh      v0, 0x0084(a2)             # 00000084
@@ -1352,13 +1352,13 @@ lbl_8007A2B4:
 lbl_8007A2E4:
     lw      $ra, 0x0024($sp)
 lbl_8007A2E8:
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8007A2F4:
-    addiu   $sp, $sp, 0xFF50           # $sp = FFFFFF50
+    addiu   $sp, $sp, 0xFF50           # $sp -= 0xB0
     sw      $ra, 0x0024($sp)
     sdc1    $f20, 0x0018($sp)
     sw      a0, 0x00B0($sp)
@@ -1639,13 +1639,13 @@ lbl_8007A72C:
     lw      $ra, 0x0024($sp)
 lbl_8007A730:
     ldc1    $f20, 0x0018($sp)
-    addiu   $sp, $sp, 0x00B0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00B0           # $sp += 0xB0
     jr      $ra
     nop
 
 
 func_8007A740:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s1, 0x0028($sp)
     or      s1, a3, $zero              # s1 = 00000000
     sw      $ra, 0x002C($sp)
@@ -1873,7 +1873,7 @@ lbl_8007AA80:
     lw      s0, 0x0024($sp)
     lw      s1, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_8007AA94:
@@ -1881,7 +1881,7 @@ func_8007AA94:
 # A0 = Global Context
 # A1 = ? (0x01 to 0x15 in testing, possibly limbs?)
 # A2 = Pointer to segment address (possibly limb dlist)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     lw      s0, 0x003C($sp)
     sw      $ra, 0x0024($sp)
@@ -2081,13 +2081,13 @@ lbl_8007AD68:
 lbl_8007AD6C:
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8007AD80:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lw      t6, 0x0030($sp)
     lw      t7, 0x0034($sp)
@@ -2175,13 +2175,13 @@ lbl_8007AE98:
 lbl_8007AEBC:
     or      v0, $zero, $zero           # v0 = 00000000
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8007AED0:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a2, 0x0028($sp)
     lw      t6, 0x0030($sp)
@@ -2196,13 +2196,13 @@ func_8007AED0:
 lbl_8007AF00:
     or      v0, $zero, $zero           # v0 = 00000000
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8007AF14:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s1, 0x0020($sp)
     sw      s0, 0x001C($sp)
     or      s0, a2, $zero              # s0 = 00000000
@@ -2305,11 +2305,11 @@ lbl_8007B088:
     lw      s0, 0x001C($sp)
     lw      s1, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8007B09C:
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0058($sp)
     sw      a1, 0x005C($sp)
@@ -2360,13 +2360,13 @@ func_8007B09C:
     lw      a2, 0x0060($sp)
     lw      $ra, 0x001C($sp)
 lbl_8007B164:
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8007B170:
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s0, 0x0020($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x0024($sp)
@@ -2434,7 +2434,7 @@ lbl_8007B238:
     lw      $ra, 0x0024($sp)
 lbl_8007B270:
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
@@ -2445,7 +2445,7 @@ func_8007B280:
 # A1 = Link instance
 # A2 = Constant 8011BF48
 # A3 = Get Item Model Id
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0038($sp)
     sw      a2, 0x0040($sp)
@@ -2545,13 +2545,13 @@ lbl_8007B2C4:
     jal     func_800570C0
     sra     a1, a1, 16
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8007B414:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -2582,13 +2582,13 @@ lbl_8007B46C:
     lw      $ra, 0x001C($sp)
 lbl_8007B47C:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8007B48C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     a2, 0x800F                 # a2 = 800F0000
     lui     a3, 0x800F                 # a3 = 800F0000
     addiu   a3, a3, 0x7B50             # a3 = 800F7B50
@@ -2639,13 +2639,13 @@ lbl_8007B4FC:
     jal     func_800AB958
     addiu   a1, a1, 0x0018             # a1 = 00000018
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8007B560:
-    addiu   $sp, $sp, 0xFF68           # $sp = FFFFFF68
+    addiu   $sp, $sp, 0xFF68           # $sp -= 0x98
     sw      s0, 0x0034($sp)
     sdc1    $f20, 0x0028($sp)
     lui     s0, 0x800F                 # s0 = 800F0000
@@ -2764,11 +2764,11 @@ lbl_8007B720:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0098           # $sp = 00000000
+    addiu   $sp, $sp, 0x0098           # $sp += 0x98
 
 
 func_8007B734:
-    addiu   $sp, $sp, 0xFE90           # $sp = FFFFFE90
+    addiu   $sp, $sp, 0xFE90           # $sp -= 0x170
     sw      $ra, 0x0024($sp)
     sw      s0, 0x0020($sp)
     sw      a0, 0x0170($sp)
@@ -3404,13 +3404,13 @@ lbl_8007C088:
     lw      $ra, 0x0024($sp)
 lbl_8007C08C:
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0170           # $sp = 00000000
+    addiu   $sp, $sp, 0x0170           # $sp += 0x170
     jr      $ra
     nop
 
 
 func_8007C09C:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     lui     v1, 0x8010                 # v1 = 80100000
     addiu   v1, v1, 0x8FF8             # v1 = 800F8FF8
     sw      $ra, 0x002C($sp)
@@ -3482,7 +3482,7 @@ func_8007C09C:
     addu    v0, s0, $at
     lw      $ra, 0x002C($sp)
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
@@ -3605,7 +3605,7 @@ lbl_8007C340:
 
 
 func_8007C36C:
-    addiu   $sp, $sp, 0xFEC8           # $sp = FFFFFEC8
+    addiu   $sp, $sp, 0xFEC8           # $sp -= 0x138
     sw      s3, 0x0040($sp)
     or      s3, a0, $zero              # s3 = 00000000
     sw      $ra, 0x0044($sp)
@@ -4046,11 +4046,11 @@ func_8007C36C:
     lw      s2, 0x003C($sp)
     lw      s3, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0138           # $sp = 00000000
+    addiu   $sp, $sp, 0x0138           # $sp += 0x138
 
 
 func_8007CA54:
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s0, 0x0050($sp)
     lui     t0, 0x8012                 # t0 = 80120000
     addiu   t0, t0, 0x0C38             # t0 = 80120C38
@@ -4171,7 +4171,7 @@ lbl_8007CB78:
     sw      v0, 0x0040($sp)
     lw      $ra, 0x0054($sp)
     lw      s0, 0x0050($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
     nop

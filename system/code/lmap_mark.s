@@ -10,12 +10,12 @@
 
 .section .text
 func_800E1BF0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_8006C2CC
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -23,7 +23,7 @@ func_800E1BF0:
 func_800E1C10:
 # Initializes data related to the HUD, called on every scene load
 # ROM: icon_item_static, do_action_static, parameter_static
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     lui     t0, 0x8012                 # t0 = 80120000
     addiu   t0, t0, 0xA5D0             # t0 = 8011A5D0
     sw      $ra, 0x001C($sp)
@@ -293,11 +293,11 @@ lbl_800E1F68:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
 
 
 func_800E2008:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -337,11 +337,11 @@ func_800E2008:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_800E20AC:
-    addiu   $sp, $sp, 0xFFF0           # $sp = FFFFFFF0
+    addiu   $sp, $sp, 0xFFF0           # $sp -= 0x10
     sw      s1, 0x000C($sp)
     sw      s0, 0x0008($sp)
     lui     v0, 0x8012                 # v0 = 80120000
@@ -1294,17 +1294,17 @@ lbl_800E2CE0:
     lw      s0, 0x0008($sp)
     lw      s1, 0x000C($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0010           # $sp = 00000000
+    addiu   $sp, $sp, 0x0010           # $sp += 0x10
 
 
 func_800E2F90:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     jal     func_800E20AC
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

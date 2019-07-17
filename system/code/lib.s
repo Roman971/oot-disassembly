@@ -42,7 +42,7 @@ func_80063684:
 # Math, Get cosine of short rotation angle
 # A0 = s16 rotation
 # F0 = cosine of A0
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sll     a1, a0, 16
     sra     a1, a1, 16
     sw      $ra, 0x0014($sp)
@@ -57,7 +57,7 @@ func_80063684:
     mul.s   $f0, $f6, $f8
     nop
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800636C4:
@@ -65,7 +65,7 @@ func_800636C4:
 # Math, Get sine of short rotation angle
 # A0 = s16 rotation
 # F0 = sine of A0
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sll     a1, a0, 16
     sra     a1, a1, 16
     sw      $ra, 0x0014($sp)
@@ -80,7 +80,7 @@ func_800636C4:
     mul.s   $f0, $f6, $f8
     nop
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80063704:
@@ -426,7 +426,7 @@ lbl_80063B6C:
 
 
 func_80063B74:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     $at, 0x4270                # $at = 42700000
     mtc1    $at, $f14                  # $f14 = 60.00
     sw      $ra, 0x0014($sp)
@@ -458,7 +458,7 @@ lbl_80063BD4:
     sh      v0, 0x0000(t8)             # 00000000
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80063BF0:
@@ -467,7 +467,7 @@ func_80063BF0:
 # A0 = s16 Offset
 # A1 = s16 Range
 # V0 = s16 Result
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -487,7 +487,7 @@ func_80063BF0:
     sll     v0, v0, 16
     sra     v0, v0, 16
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80063C44:
@@ -497,7 +497,7 @@ func_80063C44:
 # A1 = s16 Multiplier
 # A2 = s16 Range
 # V0 = result
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -522,7 +522,7 @@ func_80063C44:
     sll     v0, v0, 16
     sra     v0, v0, 16
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80063CAC:
@@ -752,7 +752,7 @@ func_80063F00:
 # A0 = Coord A ptr
 # A1 = Coord B ptr
 # V0 = s16 rotation
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lwc1    $f4, 0x0000(a1)            # 00000000
     lwc1    $f6, 0x0000(a0)            # 00000000
@@ -762,7 +762,7 @@ func_80063F00:
     jal     func_800AA4F8
     sub.s   $f12, $f8, $f10
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -773,7 +773,7 @@ func_80063F34:
 # A0 = Coord A ptr
 # A1 = Coord B ptr
 # V0 = s16 rotation
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -788,7 +788,7 @@ func_80063F34:
     jal     func_800AA4F8
     sub.s   $f14, $f4, $f6
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -797,7 +797,7 @@ func_80063F7C:
 # Instance Init, Initialize Variable Chain
 # A0 = Actor Instance
 # A1 = Variable Initializer List ptr
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s1, 0x001C($sp)
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -827,7 +827,7 @@ lbl_80063FA4:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80063FF4:
@@ -1137,7 +1137,7 @@ lbl_80064338:
 
 
 func_80064344:
-    addiu   $sp, $sp, 0xFFF0           # $sp = FFFFFFF0
+    addiu   $sp, $sp, 0xFFF0           # $sp -= 0x10
     mtc1    a1, $f12                   # $f12 = 0.00
     mtc1    a3, $f14                   # $f14 = 0.00
     mtc1    $zero, $f2                 # $f2 = 0.00
@@ -1260,7 +1260,7 @@ lbl_800644E0:
     mov.s   $f0, $f16
 lbl_80064500:
     jr      $ra
-    addiu   $sp, $sp, 0x0010           # $sp = 00000000
+    addiu   $sp, $sp, 0x0010           # $sp += 0x10
 
 
 func_80064508:
@@ -1417,7 +1417,7 @@ func_800646C8:
 func_800646F0:
 # Play SFX (limited set, identical to 80064738)
 # A0 = SFX
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a0, 0x0020($sp)
     lui     a3, 0x8010                 # a3 = 80100000
     addiu   a3, a3, 0x43A0             # a3 = 801043A0
@@ -1432,7 +1432,7 @@ func_800646F0:
     jal     func_800C806C
     sw      a3, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -1440,7 +1440,7 @@ func_800646F0:
 func_80064738:
 # Play SFX (limited set, Identical to 800646F0)
 # A0 = SFX
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a0, 0x0020($sp)
     lui     a3, 0x8010                 # a3 = 80100000
     addiu   a3, a3, 0x43A0             # a3 = 801043A0
@@ -1455,7 +1455,7 @@ func_80064738:
     jal     func_800C806C
     sw      a3, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -1464,7 +1464,7 @@ func_80064780:
 # Play SFX (limited set)
 # Used by medallions
 # A0 = SFX
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a1, 0x0024($sp)
     lui     a3, 0x8010                 # a3 = 80100000
     addiu   a3, a3, 0x43A0             # a3 = 801043A0
@@ -1479,7 +1479,7 @@ func_80064780:
     jal     func_800C806C
     sw      a3, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop

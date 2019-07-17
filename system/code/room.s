@@ -20,7 +20,7 @@ func_8007F540:
 
 func_8007F558:
 # Room Command 0x0A, Type 0
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0058($sp)
@@ -146,14 +146,14 @@ lbl_8007F71C:
 lbl_8007F730:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8007F744:
 # Room Command 0x0A, Type 1
-    addiu   $sp, $sp, 0xFB50           # $sp = FFFFFB50
+    addiu   $sp, $sp, 0xFB50           # $sp -= 0x4B0
     sw      s0, 0x0018($sp)
     or      s0, a2, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -464,12 +464,12 @@ lbl_8007FBAC:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x04B0           # $sp = 00000000
+    addiu   $sp, $sp, 0x04B0           # $sp += 0x4B0
 
 
 func_8007FBCC:
 # Room Command 0x0A, Type 2
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -501,7 +501,7 @@ func_8007FBCC:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_8007FC44:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -520,7 +520,7 @@ func_8007FC54:
 # SP+0x20 = u16, T1 + 0x1C imageFlip
 # SP+0x24 = float
 # SP+0x28 = float
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a2, 0x0028($sp)
@@ -715,11 +715,11 @@ lbl_8007FF2C:
     sw      v0, 0x0000(t9)             # FFFCFC7E
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_8007FF50:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a3, 0x0044($sp)
     andi    a3, a3, 0xFFFF             # a3 = 00000000
     sw      $ra, 0x0034($sp)
@@ -738,14 +738,14 @@ func_8007FF50:
     jal     func_8007FC54
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8007FFA8:
 # draw pre-rendered background?
-    addiu   $sp, $sp, 0xFF60           # $sp = FFFFFF60
+    addiu   $sp, $sp, 0xFF60           # $sp -= 0xA0
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
     sw      a0, 0x00A0($sp)
@@ -988,14 +988,14 @@ lbl_800802C8:
     lw      $ra, 0x003C($sp)
 lbl_80080350:
     lw      s0, 0x0038($sp)
-    addiu   $sp, $sp, 0x00A0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A0           # $sp += 0xA0
     jr      $ra
     nop
 
 
 func_80080360:
 # ../z_room.c related.
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -1056,13 +1056,13 @@ lbl_80080428:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_8008043C:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8008044C:
-    addiu   $sp, $sp, 0xFF58           # $sp = FFFFFF58
+    addiu   $sp, $sp, 0xFF58           # $sp -= 0xA8
     sw      a1, 0x00AC($sp)
     or      a1, a0, $zero              # a1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -1312,14 +1312,14 @@ lbl_80080788:
     lw      $ra, 0x003C($sp)
 lbl_80080810:
     lw      s0, 0x0038($sp)
-    addiu   $sp, $sp, 0x00A8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A8           # $sp += 0xA8
     jr      $ra
     nop
 
 
 func_80080820:
 # Room Command 0x0A, Type 1
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lw      v0, 0x0008(a1)             # 00000008
     addiu   $at, $zero, 0x0001         # $at = 00000001
@@ -1345,7 +1345,7 @@ lbl_80080868:
     addiu   a1, $zero, 0x0351          # a1 = 00000351
     lw      $ra, 0x0014($sp)
 lbl_8008087C:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1363,7 +1363,7 @@ func_800808A0:
 # Initial Room Allocation
 # Allocates space for two rooms
 # Result is whichever's bigger: largest room file, or sum of two rooms linked by the transition actor list
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0058($sp)
@@ -1476,7 +1476,7 @@ lbl_80080A18:
     or      v0, s0, $zero              # v0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
@@ -1486,7 +1486,7 @@ func_80080A3C:
 # A0 = Global Context
 # A1 = Global Context + 0x11CBC (Room Context)
 # A2 = Room ID
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0028($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x002C($sp)
@@ -1577,7 +1577,7 @@ lbl_80080B7C:
 lbl_80080B90:
     lw      $ra, 0x002C($sp)
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
@@ -1586,7 +1586,7 @@ func_80080BA4:
 # Update? Room
 # A0 = Global Context
 # A1 = Room Context
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -1627,13 +1627,13 @@ lbl_80080C30:
 lbl_80080C34:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80080C48:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lw      v0, 0x000C(a1)             # 0000000C
     lui     $at, 0x8000                # $at = 80000000
@@ -1651,13 +1651,13 @@ func_80080C48:
     nop
 lbl_80080C88:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80080C98:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -1693,7 +1693,7 @@ lbl_80080D0C:
     lb      a0, 0x1CC0(a0)             # 00011CC0
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop

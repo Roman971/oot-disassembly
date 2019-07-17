@@ -45,7 +45,7 @@ func_8005BF04:
 # Graph?
 # A0 = Graphics Context
 # A1 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -59,13 +59,13 @@ func_8005BF04:
     jal     func_80066804
     lw      a0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8005BF48:
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s1, 0x0028($sp)
     sw      s0, 0x0024($sp)
     lui     t0, 0x8012                 # t0 = 80120000
@@ -384,7 +384,7 @@ lbl_8005C3F8:
     lw      s0, 0x0024($sp)
     lw      s1, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_8005C418:
@@ -614,7 +614,7 @@ lbl_8005C704:
 
 
 func_8005C714:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
@@ -736,7 +736,7 @@ lbl_8005C8C4:
 lbl_8005C8C8:
     ldc1    $f22, 0x0010($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_8005C8D4:
@@ -807,7 +807,7 @@ lbl_8005C9C0:
 
 
 func_8005C9C8:
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s0, 0x0028($sp)
     sw      a0, 0x0058($sp)
     andi    a0, a0, 0x00FF             # a0 = 00000000
@@ -1415,7 +1415,7 @@ lbl_8005D2A0:
     lw      $ra, 0x002C($sp)
 lbl_8005D2A4:
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
@@ -1501,7 +1501,7 @@ func_8005D3A4:
 # SP+10 = Ptr to Global Context + 0x20D8
 # SP+14 = Ptr to Global Context + 0x10A20
 # SP+18 = Ptr to Graphics Context
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      s0, 0x0018($sp)
     lui     t4, 0x8012                 # t4 = 80120000
     addiu   t4, t4, 0xA5D0             # t4 = 8011A5D0
@@ -3550,14 +3550,14 @@ lbl_8005F198:
     lw      $ra, 0x001C($sp)
 lbl_8005F1C4:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
 
 func_8005F1D4:
 # gameplay_keep d. list: Sun I & Sun II [?], Moon
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x0020($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0024($sp)
@@ -4110,11 +4110,11 @@ lbl_8005FA08:
     lw      s0, 0x001C($sp)
     lw      s1, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_8005FA18:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x003C($sp)
@@ -4165,14 +4165,14 @@ func_8005FA18:
     lw      $ra, 0x003C($sp)
 lbl_8005FADC:
     lw      s0, 0x0038($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_8005FAEC:
 # gameplay_keep d. list: Effect_Ss_Dead_Dd & Ss_Dead_Ds, 37C38
-    addiu   $sp, $sp, 0xFE40           # $sp = FFFFFE40
+    addiu   $sp, $sp, 0xFE40           # $sp -= 0x1C0
     sw      s7, 0x0068($sp)
     sw      s3, 0x0058($sp)
     sw      s2, 0x0054($sp)
@@ -4998,11 +4998,11 @@ lbl_800606F0:
     lw      s6, 0x0064($sp)
     lw      s7, 0x0068($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x01C0           # $sp = 00000000
+    addiu   $sp, $sp, 0x01C0           # $sp += 0x1C0
 
 
 func_80060730:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_800CDCCC              # Rand.Next() float
     nop
@@ -5011,12 +5011,12 @@ func_80060730:
     lw      $ra, 0x0014($sp)
     sub.s   $f0, $f0, $f4
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80060758:
 # gameplay_keep d. list: 4D690, Effect_Ss_Blast [?]
-    addiu   $sp, $sp, 0xFEE0           # $sp = FFFFFEE0
+    addiu   $sp, $sp, 0xFEE0           # $sp -= 0x120
     sw      s7, 0x0064($sp)
     sw      s1, 0x004C($sp)
     or      s1, a2, $zero              # s1 = 00000000
@@ -5383,7 +5383,7 @@ lbl_80060CA4:
     lw      s7, 0x0064($sp)
     lw      s8, 0x0068($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0120           # $sp = 00000000
+    addiu   $sp, $sp, 0x0120           # $sp += 0x120
 
 
 func_80060CE8:
@@ -5425,7 +5425,7 @@ lbl_80060D64:
 
 
 func_80060D6C:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     lui     $at, 0x0001                # $at = 00010000
@@ -5567,13 +5567,13 @@ lbl_80060F00:
     sw      t0, 0x0000(v0)             # 00000000
     lw      $ra, 0x0014($sp)
 lbl_80060F80:
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_80060F8C:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -5608,13 +5608,13 @@ func_80060F8C:
     sw      $zero, 0x0004(v0)          # 00000004
     sw      t7, 0x0000(v0)             # 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80061024:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
     lw      v0, 0x0020($sp)
@@ -5817,7 +5817,7 @@ lbl_800612E4:
     sw      t8, 0x0010($sp)
     lw      $ra, 0x001C($sp)
 lbl_80061320:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -5856,7 +5856,7 @@ lbl_8006138C:
 
 func_80061394:
 # gameplay_keep d. list: 2D3D0
-    addiu   $sp, $sp, 0xFF28           # $sp = FFFFFF28
+    addiu   $sp, $sp, 0xFF28           # $sp -= 0xD8
     sw      s4, 0x0058($sp)
     or      s4, a0, $zero              # s4 = 00000000
     sw      $ra, 0x006C($sp)
@@ -6138,11 +6138,11 @@ lbl_8006177C:
     lw      s7, 0x0064($sp)
     lw      s8, 0x0068($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00D8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00D8           # $sp += 0xD8
 
 
 func_800617DC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     a1, 0x8012                 # a1 = 80120000
     addiu   a1, a1, 0xA5D0             # a1 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -6279,7 +6279,7 @@ lbl_800619AC:
     lb      a0, 0x1CC0(a0)             # 00011CC0
     lw      $ra, 0x0014($sp)
 lbl_800619C0:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -6289,7 +6289,7 @@ func_800619CC:
 # Update rain count, hatches eggs
 # Updates the number of rain drops that should be drawn
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -6496,11 +6496,11 @@ lbl_80061CD4:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_80061CE4:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0034($sp)
     lui     t6, 0x8012                 # t6 = 80120000
     lbu     t6, -0x4326(t6)            # 8011BCDA
@@ -6541,13 +6541,13 @@ func_80061CE4:
     swc1    $f10, 0x0024($sp)
 lbl_80061D80:
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_80061D90:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     lui     $at, 0x4120                # $at = 41200000
     mtc1    $at, $f0                   # $f0 = 10.00
     sw      $ra, 0x0024($sp)
@@ -6666,13 +6666,13 @@ func_80061D90:
     lui     $at, 0x8012                # $at = 80120000
     sw      v0, -0x42F0($at)           # 8011BD10
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_80061F78:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     lui     $at, 0x4120                # $at = 41200000
     sw      s0, 0x0028($sp)
     mtc1    $at, $f0                   # $f0 = 10.00
@@ -6848,13 +6848,13 @@ lbl_800621EC:
 lbl_80062218:
     lw      $ra, 0x002C($sp)
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8006222C:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s2, 0x002C($sp)
     lui     s2, 0x8012                 # s2 = 80120000
     sw      s5, 0x0038($sp)
@@ -7060,7 +7060,7 @@ lbl_80062528:
     lw      s4, 0x0034($sp)
     lw      s5, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80062548:
@@ -7096,7 +7096,7 @@ lbl_800625A8:
 
 
 func_800625B0:
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -7212,13 +7212,13 @@ lbl_80062718:
 lbl_8006276C:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_80062780:
-    addiu   $sp, $sp, 0xFF70           # $sp = FFFFFF70
+    addiu   $sp, $sp, 0xFF70           # $sp -= 0x90
     sw      a1, 0x0094($sp)
     andi    a1, a1, 0x00FF             # a1 = 00000000
     sw      $ra, 0x0034($sp)
@@ -7933,11 +7933,11 @@ lbl_80062F6C:
     sh      t8, 0x0000(v0)             # 8011BD28
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0090           # $sp = 00000000
+    addiu   $sp, $sp, 0x0090           # $sp += 0x90
 
 
 func_800631D8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     mtc1    a1, $f12                   # $f12 = 0.00
     or      a2, a0, $zero              # a2 = 00000000
@@ -8086,7 +8086,7 @@ lbl_800633CC:
 lbl_800633F4:
     lw      $ra, 0x0014($sp)
 lbl_800633F8:
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -8145,7 +8145,7 @@ lbl_8006346C:
 
 
 func_80063474:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lbu     a1, 0x07A5(a0)             # 000007A5
     addiu   $at, $zero, 0x0013         # $at = 00000013
@@ -8168,13 +8168,13 @@ lbl_800634A8:
     jal     func_800C7A78
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800634D4:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     addiu   a0, $zero, 0x000E          # a0 = 0000000E
@@ -8196,7 +8196,7 @@ func_800634D4:
     lw      a0, 0x0018($sp)
 lbl_80063524:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -8205,7 +8205,7 @@ func_80063534:
 # Update Next Spawn (Warp Songs)
 # Copies entrance index from "grotto" portion of zoneout spawns
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v0, 0x8012                 # v0 = 80120000
     addiu   v0, v0, 0xA5D0             # v0 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -8268,7 +8268,7 @@ lbl_8006360C:
 lbl_80063614:
     lw      $ra, 0x0014($sp)
 lbl_80063618:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

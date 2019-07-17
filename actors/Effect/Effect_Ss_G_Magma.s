@@ -1,6 +1,6 @@
 .section .text
 func_80B30230:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a0, 0x0038($sp)
     addiu   a0, $sp, 0x0028            # a0 = FFFFFFF0
     sw      $ra, 0x0014($sp)
@@ -83,13 +83,13 @@ func_80B30230:
     sh      t1, 0x0042(a2)             # 00000042
     sh      $zero, 0x0054(a2)          # 00000054
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_80B30388:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     or      a1, a2, $zero              # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -110,7 +110,7 @@ lbl_80B303C8:
     jal     func_8001BAA0
     lw      a2, %lo(var_80B30424)(a2)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 

@@ -1,6 +1,6 @@
 .section .text
 func_80B30490:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
     addiu   a1, $zero, 0x00FF          # a1 = 000000FF
@@ -79,11 +79,11 @@ func_80B30490:
     sh      $zero, 0x0054(a2)          # 00000054
     addiu   v0, $zero, 0x0001          # v0 = 00000001
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_80B305D0:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a1, 0x0044($sp)
     addiu   v1, $sp, 0x0020            # v1 = FFFFFFE0
@@ -122,7 +122,7 @@ func_80B305D0:
     jal     func_8001BAA0
     lw      a2, 0x0000(t0)             # 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 

@@ -10,7 +10,7 @@ func_800AA6B0:
 # Allocates a 0x500 byte Float Matrix Stack
 # 80121200 stores start address, 80121204 stores top matrix
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     addiu   a0, a2, 0x0074             # a0 = 00000074
@@ -22,7 +22,7 @@ func_800AA6B0:
     lui     $at, 0x8012                # $at = 80120000
     sw      v0, 0x1200($at)            # 80121200
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -30,7 +30,7 @@ func_800AA6B0:
 func_800AA6EC:
 # Clones the top level matrix in the Float Matrix Stack
 # (Increments Append Start by 0x40)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, 0x8012                 # a1 = 80120000
     lw      a1, 0x1204(a1)             # 80121204
@@ -43,7 +43,7 @@ func_800AA6EC:
     sw      t7, 0x0000(v0)             # 80121204
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800AA724:
@@ -60,13 +60,13 @@ func_800AA724:
 func_800AA740:
 # Copies the top level matrix in the Float Matrix Stack
 # A0 = Destination
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a1, 0x8012                 # a1 = 80120000
     jal     func_800ABA10
     lw      a1, 0x1204(a1)             # 80121204
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -74,14 +74,14 @@ func_800AA740:
 func_800AA764:
 # Overwrites top level matrix in the Float Matrix Stack
 # A0 = Source Matrix
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
     lui     a0, 0x8012                 # a0 = 80120000
     jal     func_800ABA10
     lw      a0, 0x1204(a0)             # 80121204
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -96,7 +96,7 @@ func_800AA78C:
 
 
 func_800AA79C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -117,7 +117,7 @@ lbl_800AA7D8:
     lw      a0, 0x1204(a0)             # 80121204
     lw      $ra, 0x0014($sp)
 lbl_800AA7E8:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -128,7 +128,7 @@ func_800AA7F4:
 # F14 = y
 # A2 = float z
 # A3 = 0 initializes new matrix, 1 transforms stored matrix
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sdc1    $f20, 0x0010($sp)
     sw      a3, 0x002C($sp)
     mtc1    a2, $f20                   # $f20 = 0.00
@@ -193,7 +193,7 @@ lbl_800AA8D4:
 lbl_800AA8E8:
     lw      $ra, 0x001C($sp)
     ldc1    $f20, 0x0010($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -204,7 +204,7 @@ func_800AA8FC:
 # F14 = y
 # A2 = float z
 # A3 = 0 initializes new matrix, 1 transforms stored matrix
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sdc1    $f20, 0x0010($sp)
     sw      a3, 0x002C($sp)
     mtc1    a2, $f20                   # $f20 = 0.00
@@ -260,13 +260,13 @@ lbl_800AA9B8:
 lbl_800AA9CC:
     lw      $ra, 0x001C($sp)
     ldc1    $f20, 0x0010($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_800AA9E0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a1, 0x002C($sp)
     andi    a1, a1, 0x00FF             # a1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -377,13 +377,13 @@ lbl_800AAB80:
     lw      $ra, 0x001C($sp)
 lbl_800AAB84:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_800AAB94:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a1, 0x002C($sp)
     andi    a1, a1, 0x00FF             # a1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -495,13 +495,13 @@ lbl_800AAD38:
     lw      $ra, 0x001C($sp)
 lbl_800AAD3C:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_800AAD4C:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a1, 0x002C($sp)
     andi    a1, a1, 0x00FF             # a1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -612,7 +612,7 @@ lbl_800AAEEC:
     lw      $ra, 0x001C($sp)
 lbl_800AAEF0:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -623,7 +623,7 @@ func_800AAF00:
 # A1 = u16 y rotation
 # A2 = u16 z rotation
 # A3 = 0 initializes new matrix, 1 transforms stored matrix
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a3, 0x0034($sp)
     andi    a3, a3, 0x00FF             # a3 = 00000000
     sw      $ra, 0x0024($sp)
@@ -801,11 +801,11 @@ lbl_800AB1AC:
     ldc1    $f20, 0x0018($sp)
     lw      s0, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800AB1BC:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s1, 0x0020($sp)
     or      s1, a1, $zero              # s1 = 00000000
     sw      $ra, 0x0024($sp)
@@ -1019,7 +1019,7 @@ lbl_800AB4FC:
     lw      s0, 0x001C($sp)
     lw      s1, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800AB510:
@@ -1028,7 +1028,7 @@ func_800AB510:
 # F14 = float y
 # A2 = float z
 # A3 = ptr to u16 rotation
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s1, 0x0018($sp)
     or      s1, a3, $zero              # s1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -1137,7 +1137,7 @@ lbl_800AB6A8:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_800AB6BC:
@@ -1286,14 +1286,14 @@ func_800AB6BC:
 func_800AB8D8:
 # Converts the Top in the Float Matrix Stack to a fixed point matrix
 # A0 = Destination for the Fixed Point Matrix
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
     lui     a0, 0x8012                 # a0 = 80120000
     jal     func_800AB6BC              # guMtxF2L
     lw      a0, 0x1204(a0)             # 80121204
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1301,7 +1301,7 @@ func_800AB8D8:
 func_800AB900:
 # Converts and Appends the Float Matrix Stack's top matrix to POLY_OPA_DISP end
 # A0 = Graphics Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
     lw      a0, 0x02C4(a1)             # 000002C4
@@ -1309,7 +1309,7 @@ func_800AB900:
     jal     func_800AB8D8
     sw      a0, 0x02C4(a1)             # 000002C4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1318,7 +1318,7 @@ func_800AB92C:
 # Converts and Appends a matrix to POLY_OPA_DISP end
 # A0 = Source Float Matrix
 # A1 = Graphics Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a1, $zero              # a2 = 00000000
     lw      a1, 0x02C4(a2)             # 000002C4
@@ -1326,7 +1326,7 @@ func_800AB92C:
     jal     func_800AB6BC              # guMtxF2L
     sw      a1, 0x02C4(a2)             # 000002C4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1738,7 +1738,7 @@ func_800ABE54:
 
 
 func_800ABF50:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x0024($sp)
@@ -1843,11 +1843,11 @@ lbl_800AC0D4:
     ldc1    $f20, 0x0018($sp)
     lw      s0, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800AC0E8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x0024($sp)
@@ -1952,11 +1952,11 @@ lbl_800AC26C:
     ldc1    $f20, 0x0018($sp)
     lw      s0, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800AC280:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sdc1    $f20, 0x0018($sp)
     sw      a2, 0x0048($sp)
     andi    a2, a2, 0x00FF             # a2 = 00000000
@@ -2241,7 +2241,7 @@ lbl_800AC6CC:
     ldc1    $f26, 0x0030($sp)
     lw      s0, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_800AC6E8:
@@ -2274,7 +2274,7 @@ func_800AC6E8:
 
 
 func_800AC750:
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     mtc1    a1, $f12                   # $f12 = 0.00
     mtc1    a2, $f14                   # $f14 = 0.00
     sw      $ra, 0x001C($sp)
@@ -2291,7 +2291,7 @@ func_800AC750:
     jal     func_800D0730
     lw      a1, 0x0060($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 

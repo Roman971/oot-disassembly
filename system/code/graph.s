@@ -26,7 +26,7 @@ func_800A1010:
 # A0 = Region struct
 # A1 = Allocate Size
 # V0 = Allocate Start
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -52,7 +52,7 @@ lbl_800A1068:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_800A106C:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -60,7 +60,7 @@ lbl_800A106C:
 func_800A107C:
 # Deallocates main heap memory for the graph thread
 # unreserves memory for last game state
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     beql    a1, $zero, lbl_800A10BC
@@ -77,13 +77,13 @@ func_800A107C:
     sw      t0, 0x0010(a2)             # 00000010
     lw      $ra, 0x0014($sp)
 lbl_800A10BC:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800A10C8:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -104,7 +104,7 @@ lbl_800A10F8:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_800A1118:
@@ -119,7 +119,7 @@ func_800A1118:
 func_800A1130:
 # Initialize Frame Display List Buffers for rendering the next frame
 # Switches Frame Display List Buffers
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s0, 0x0014($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -189,14 +189,14 @@ lbl_800A1224:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_800A1248:
 # Jump Table for determining what "Game Context" to load into memory next
 # A0 = Glboal Context
 # V0 = Address to Game Context Overlay record to load
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_800A0FA0
     nop
@@ -246,11 +246,11 @@ lbl_800A12EC:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_800A12F0:
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800A12F8:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
     or      a0, a3, $zero              # a0 = 00000000
@@ -267,7 +267,7 @@ func_800A12F8:
     jal     func_80004220              # osCreateMesgQueue
     addiu   a1, a3, 0x0038             # a1 = 00000038
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -281,7 +281,7 @@ func_800A1348:
 func_800A1354:
 # Start New Frame Task
 # A0 = Graphics Context
-    addiu   $sp, $sp, 0xFF70           # $sp = FFFFFF70
+    addiu   $sp, $sp, 0xFF70           # $sp -= 0x90
     sw      s1, 0x0028($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x002C($sp)
@@ -490,13 +490,13 @@ lbl_800A15F0:
     lw      s0, 0x0024($sp)
     lw      s1, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0090           # $sp = 00000000
+    addiu   $sp, $sp, 0x0090           # $sp += 0x90
 
 
 func_800A1688:
 # Main graph update/draw function?
 # A0 = ?
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -672,7 +672,7 @@ lbl_800A1914:
     sw      v1, -0x2D6C($at)           # 8011D294
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
@@ -681,7 +681,7 @@ func_800A1934:
 # graph thread entrypoint
 # ../graph.c related., main game (rendering?) loop?
 # Called once, loops indefinitely, never seems to return under normal circumstances.
-    addiu   $sp, $sp, 0xFCC8           # $sp = FFFFFCC8
+    addiu   $sp, $sp, 0xFCC8           # $sp -= 0x338
     sw      s0, 0x0018($sp)
     lui     s0, 0x800F                 # s0 = 800F0000
     sw      s1, 0x001C($sp)
@@ -747,11 +747,11 @@ lbl_800A1A04:
     lw      s3, 0x0024($sp)
     lw      s4, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0338           # $sp = 00000000
+    addiu   $sp, $sp, 0x0338           # $sp += 0x338
 
 
 func_800A1A2C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     or      a3, a1, $zero              # a3 = 00000000
@@ -761,13 +761,13 @@ func_800A1A2C:
     jal     func_800A0024
     addiu   a0, a2, 0x02B8             # a0 = 000002B8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800A1A60:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     or      a3, a1, $zero              # a3 = 00000000
@@ -777,7 +777,7 @@ func_800A1A60:
     jal     func_800A0024
     addiu   a0, a2, 0x02B8             # a0 = 000002B8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
@@ -827,7 +827,7 @@ func_800A1B00:
 
 
 func_800A1B14:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     addiu   a0, a1, 0x0008             # a0 = 00000008
@@ -854,13 +854,13 @@ lbl_800A1B54:
     addiu   v0, a0, 0x0008             # v0 = 00000008
 lbl_800A1B70:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800A1B80:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     lw      t6, -0x0008(a1)            # FFFFFFF8
@@ -893,14 +893,14 @@ lbl_800A1BE8:
     jal     func_800CDB00
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800A1C00:
 # Crash debugger related.
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -919,6 +919,6 @@ lbl_800A1C34:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     nop
     nop

@@ -12,7 +12,7 @@
 .section .text
 func_80051B50:
 # Initializes the "Static Context" on the main heap
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_800CDA20
     addiu   a0, $zero, 0x15D4          # a0 = 000015D4
@@ -46,7 +46,7 @@ lbl_80051B98:
     bne     v1, v0, lbl_80051B98
     sh      $zero, 0x001A(t8)          # 0000001A
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -61,7 +61,7 @@ func_80051BE0:
 
 
 func_80051BF4:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      s0, 0x0004($sp)
     sw      a0, 0x0008($sp)
     sw      a1, 0x000C($sp)
@@ -110,11 +110,11 @@ lbl_80051C94:
 lbl_80051CA4:
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_80051CB0:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s6, 0x0038($sp)
     lui     s6, 0x800F                 # s6 = 800F0000
     sw      s3, 0x002C($sp)
@@ -172,11 +172,11 @@ lbl_80051D6C:
     lw      s5, 0x0034($sp)
     lw      s6, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80051D94:
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0068($sp)
     jal     func_800CC4AC
@@ -224,7 +224,7 @@ lbl_80051E08:
     jal     func_800CC500
     addiu   a0, $sp, 0x0030            # a0 = FFFFFFC8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
     jr      $ra
     nop
     nop

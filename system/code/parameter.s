@@ -122,7 +122,7 @@ lbl_8006DA44:
 
 
 func_8006DA4C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
     sll     a2, a2, 16
@@ -183,13 +183,13 @@ lbl_8006DAFC:
 lbl_8006DB10:
     lw      $ra, 0x0014($sp)
 lbl_8006DB14:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8006DB20:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a1, 0x002C($sp)
     sll     a1, a1, 16
     sra     a1, a1, 16
@@ -816,13 +816,13 @@ lbl_8006E2FC:
 lbl_8006E330:
     lw      $ra, 0x0014($sp)
 lbl_8006E334:
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8006E340:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     lui     a2, 0x8012                 # a2 = 80120000
     addiu   a2, a2, 0xA5D0             # a2 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -1921,7 +1921,7 @@ lbl_8006F214:
     addiu   a0, $zero, 0x0032          # a0 = 00000032
     lw      $ra, 0x0014($sp)
 lbl_8006F250:
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
@@ -2014,7 +2014,7 @@ lbl_8006F380:
 
 
 func_8006F3A4:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a2, 0x0028($sp)
     sw      a3, 0x002C($sp)
     sll     a3, a3, 16
@@ -2160,11 +2160,11 @@ lbl_8006F4B4:
     sw      t7, 0x0004(t0)             # 0000004C
     or      v0, a0, $zero              # v0 = 00000050
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_8006F5D4:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a2, 0x0028($sp)
     sw      a3, 0x002C($sp)
     sll     a3, a3, 16
@@ -2310,7 +2310,7 @@ lbl_8006F6E4:
     sw      t7, 0x0004(t0)             # 0000004C
     or      v0, a0, $zero              # v0 = 00000050
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_8006F804:
@@ -2526,7 +2526,7 @@ func_8006FA88:
 
 
 func_8006FAD0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v1, 0x8012                 # v1 = 80120000
     lui     a1, 0x8010                 # a1 = 80100000
     addiu   a1, a1, 0x8BF0             # a1 = 800F8BF0
@@ -2557,7 +2557,7 @@ lbl_8006FB38:
     jal     func_8006FB50
     or      a1, $zero, $zero           # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -2567,7 +2567,7 @@ func_8006FB50:
 # ROM st: icon_item_static
 # A0 = Global Context
 # A1 = u16 Button Index
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0024($sp)
     sw      a1, 0x0034($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -2608,7 +2608,7 @@ func_8006FB50:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -2616,7 +2616,7 @@ func_8006FB50:
 func_8006FC00:
 # Update B/C-Button Texture (Unused?, Identical to 8006FB50)
 # ROM st: icon_item_static
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0024($sp)
     sw      a1, 0x0034($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -2657,13 +2657,13 @@ func_8006FC00:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8006FCB0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -2739,7 +2739,7 @@ lbl_8006FDA0:
     or      a0, a3, $zero              # a0 = 00000000
     lw      $ra, 0x0014($sp)
 lbl_8006FDC0:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -2749,7 +2749,7 @@ func_8006FDCC:
 # one of them at least
 # A0 = Global Context
 # A1 = Item Index
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     lui     t2, 0x8010                 # t2 = 80100000
     addiu   t2, t2, 0x8F34             # t2 = 800F8F34
     sw      $ra, 0x0014($sp)
@@ -4293,7 +4293,7 @@ lbl_800713F4:
     sb      t8, 0x0074(t5)             # 00000074
 lbl_80071410:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -4759,7 +4759,7 @@ func_800719E0:
 # A1 = Old Item Index
 # A2 = New Item Index
 # V0 = 1 if successful, else 0
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
     andi    a2, a2, 0xFFFF             # a2 = 00000000
@@ -4806,7 +4806,7 @@ lbl_80071A74:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80071A84:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -4890,7 +4890,7 @@ func_80071B7C:
 # A0 = Global Context
 # A1 = Item Slot Index (C-Item)
 # A2 = u8 Button Index (0 = B, 1 = C-Left, 2 = C-Down, 3 = C-Right)
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a2, 0x0028($sp)
     lui     t0, 0x8012                 # t0 = 80120000
     addiu   t0, t0, 0xA5D0             # t0 = 8011A5D0
@@ -4927,7 +4927,7 @@ lbl_80071BD4:
     sh      a3, 0x099E($at)            # 0001099E
     sb      $zero, 0x13E2(v1)          # 000013E2
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -4936,7 +4936,7 @@ func_80071C14:
 # Related to checking if Link should revive from a fairy
 # A0 = Global Context
 # V0 = 1 if should revive from fairy, else 0?
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     lui     a3, 0x8010                 # a3 = 80100000
@@ -4993,7 +4993,7 @@ lbl_80071CC4:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80071CDC:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -5019,7 +5019,7 @@ lbl_80071D1C:
 
 func_80071D24:
 # ROM st: do_action_static
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s0, 0x0028($sp)
     sw      a1, 0x003C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
@@ -5102,13 +5102,13 @@ lbl_80071E00:
     lw      $ra, 0x002C($sp)
 lbl_80071E5C:
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_80071E6C:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a1, 0x002C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -5141,13 +5141,13 @@ func_80071E6C:
 lbl_80071EE4:
     lw      $ra, 0x0014($sp)
 lbl_80071EE8:
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80071EF4:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      a1, 0x0034($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -5216,14 +5216,14 @@ lbl_80071FC8:
 lbl_80071FE8:
     lw      $ra, 0x001C($sp)
 lbl_80071FEC:
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_80071FF8:
 # ROM st: do_action_static
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x002C($sp)
     sw      s0, 0x0028($sp)
     sw      a0, 0x0040($sp)
@@ -5270,7 +5270,7 @@ lbl_80072030:
     sh      t0, 0x01FA(s0)             # 000001FA
     lw      $ra, 0x002C($sp)
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
@@ -5280,7 +5280,7 @@ func_800720BC:
 # A0 = Global Context
 # A1 = s16 Increment Health (e.g. -4 deals 1/4th heart damage)
 # V0 = ?
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     sll     s0, a1, 16
     sra     s0, s0, 16
@@ -5341,7 +5341,7 @@ lbl_80072188:
 lbl_8007218C:
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -5628,7 +5628,7 @@ lbl_80072580:
 
 
 func_80072588:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a1, 0x0024($sp)
     sw      a2, 0x0028($sp)
     sll     a2, a2, 16
@@ -5817,13 +5817,13 @@ lbl_8007282C:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80072830:
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80072840:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     v1, 0x8012                 # v1 = 80120000
     addiu   v1, v1, 0xA5D0             # v1 = 8011A5D0
     sw      $ra, 0x001C($sp)
@@ -6429,14 +6429,14 @@ lbl_800730D8:
 lbl_800730DC:
     lw      $ra, 0x001C($sp)
 lbl_800730E0:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_800730EC:
 # parameter_static texture: Magic Meter Side & Middle & Fill
-    addiu   $sp, $sp, 0xFF10           # $sp = FFFFFF10
+    addiu   $sp, $sp, 0xFF10           # $sp -= 0xF0
     sw      $ra, 0x002C($sp)
     lui     $ra, 0x8012                # $ra = 80120000
     addiu   $ra, $ra, 0xA5D0           # $ra = 8011A5D0
@@ -6949,7 +6949,7 @@ lbl_8007372C:
 lbl_800738D8:
     lw      $ra, 0x002C($sp)
 lbl_800738DC:
-    addiu   $sp, $sp, 0x00F0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00F0           # $sp += 0xF0
     jr      $ra
     nop
 
@@ -7088,7 +7088,7 @@ func_800739CC:
 func_80073AB4:
 # HUD Draw Function Related
 # Contains draw commands for displaying "Navi" text from parameter_static, parameter_static texture: Action Button
-    addiu   $sp, $sp, 0xFEB0           # $sp = FFFFFEB0
+    addiu   $sp, $sp, 0xFEB0           # $sp -= 0x150
     sw      s2, 0x0038($sp)
     lui     s2, 0x8012                 # s2 = 80120000
     addiu   s2, s2, 0xBA00             # s2 = 8011BA00
@@ -8008,7 +8008,7 @@ lbl_800748AC:
     lw      s1, 0x0034($sp)
     lw      s2, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0150           # $sp = 00000000
+    addiu   $sp, $sp, 0x0150           # $sp += 0x150
 
 
 func_800748DC:
@@ -8122,7 +8122,7 @@ func_800748DC:
 
 func_80074A84:
 # Item upgrade related. parameter_static texture: Item Amount Digit 0 x2
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     lui     a3, 0x8012                 # a3 = 80120000
     addiu   a3, a3, 0xA5D0             # a3 = 8011A5D0
     sw      $ra, 0x002C($sp)
@@ -8436,14 +8436,14 @@ lbl_80074EA0:
     sw      v0, 0x02B0(t1)             # 000002B0
 lbl_80074F14:
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_80074F24:
 # parameter_static texture: Action Button
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     mtc1    $zero, $f12                # $f12 = 0.00
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -8561,7 +8561,7 @@ func_80074F24:
     sw      t8, 0x0000(v1)             # 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
@@ -8877,7 +8877,7 @@ lbl_80075264:
 
 
 func_800755C8:
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     mtc1    $zero, $f0                 # $f0 = 0.00
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -8930,13 +8930,13 @@ func_800755C8:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_800756A8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     addiu   t6, $zero, 0x00F0          # t6 = 000000F0
@@ -8951,7 +8951,7 @@ func_800756A8:
     jal     func_80092490
     lw      a0, 0x0028($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -8959,7 +8959,7 @@ func_800756A8:
 func_800756F0:
 # Draw HUD
 # parameter_static texture: Rupee & Key & Counter Digit 0 x3 & Carrot & Score Target & Counter Digit 0 & Timer & Counter Digit 0
-    addiu   $sp, $sp, 0xFD90           # $sp = FFFFFD90
+    addiu   $sp, $sp, 0xFD90           # $sp -= 0x270
     sw      s6, 0x0044($sp)
     or      s6, a0, $zero              # s6 = 00000000
     sw      $ra, 0x004C($sp)
@@ -11904,11 +11904,11 @@ lbl_80078268:
     lw      s6, 0x0044($sp)
     lw      s7, 0x0048($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0270           # $sp = 00000000
+    addiu   $sp, $sp, 0x0270           # $sp += 0x270
 
 
 func_80078290:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0040($sp)
     lw      t6, 0x0040($sp)
@@ -12803,7 +12803,7 @@ lbl_80078F2C:
     sh      t7, 0x1422(t0)             # 8011B9F2
 lbl_80078F64:
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
     nop
@@ -12838,7 +12838,7 @@ lbl_80078FB8:
 
 
 func_80078FC4:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a2, 0x0028($sp)
     sll     a2, a2, 16
     sra     a2, a2, 16
@@ -12896,7 +12896,7 @@ lbl_80078FF4:
     sh      t5, 0x0000(t6)             # 00000000
     lw      $ra, 0x0014($sp)
 lbl_800790A4:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 

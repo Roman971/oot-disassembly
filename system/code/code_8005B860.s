@@ -8,7 +8,7 @@
 .section .text
 func_8005B860:
 # Pausing related
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     lui     $at, 0x0001                # $at = 00010000
     addu    v1, a0, $at
@@ -169,14 +169,14 @@ lbl_8005BAB4:
 lbl_8005BABC:
     lw      $ra, 0x0014($sp)
 lbl_8005BAC0:
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8005BACC:
     lui     $at, 0x4320                # $at = 43200000
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     a3, 0x8012                 # a3 = 80120000
     mtc1    $at, $f0                   # $f0 = 160.00
     mtc1    $zero, $f2                 # $f2 = 0.00
@@ -267,13 +267,13 @@ func_8005BACC:
     nop
     lw      $ra, 0x0014($sp)
 lbl_8005BC38:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8005BC44:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lui     v0, 0x8012                 # v0 = 80120000
@@ -287,7 +287,7 @@ func_8005BC44:
     nop
     lw      $ra, 0x0014($sp)
 lbl_8005BC78:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

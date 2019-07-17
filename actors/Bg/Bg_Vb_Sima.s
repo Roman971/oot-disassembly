@@ -1,6 +1,6 @@
 .section .text
 func_80979630:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -25,11 +25,11 @@ func_80979630:
     sw      v0, 0x013C(t6)             # 0000013C
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80979698:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -39,13 +39,13 @@ func_80979698:
     jal     func_80031638              # DynaPolyInfo_delReserve
     lw      a2, 0x013C(t6)             # 0000013C
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_809796CC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_809796D8:
@@ -96,13 +96,13 @@ lbl_8097977C:
     addiu   a0, a0, 0x003C             # a0 = 0000003C
 lbl_80979788:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80979798:
-    addiu   $sp, $sp, 0xFF10           # $sp = FFFFFF10
+    addiu   $sp, $sp, 0xFF10           # $sp -= 0xF0
     sw      s7, 0x0078($sp)
     sw      s6, 0x0074($sp)
     or      s6, a0, $zero              # s6 = 00000000
@@ -390,11 +390,11 @@ lbl_80979BB8:
     lw      s6, 0x0074($sp)
     lw      s7, 0x0078($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00F0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00F0           # $sp += 0xF0
 
 
 func_80979BF8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -425,7 +425,7 @@ func_80979BF8:
     sw      t2, 0x0004(v1)             # 00000004
     sw      t1, 0x0000(v1)             # 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 

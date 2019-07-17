@@ -10,7 +10,7 @@
 
 .section .text
 func_80066DF0:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     v0, 0x800F                 # v0 = 800F0000
     addiu   v0, v0, 0x1BF8             # v0 = 800F1BF8
     sw      $ra, 0x001C($sp)
@@ -62,13 +62,13 @@ lbl_80066E88:
     nop
     lw      $ra, 0x001C($sp)
 lbl_80066EB4:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80066EC0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lui     v0, 0x8012                 # v0 = 80120000
@@ -87,7 +87,7 @@ lbl_80066EF4:
     lui     $at, 0x8012                # $at = 80120000
     sw      $zero, -0x4100($at)        # 8011BF00
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -96,7 +96,7 @@ func_80066F14:
 # Draw minimap icons?
 # parameter_static minimap chest icon related.
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFF48           # $sp = FFFFFF48
+    addiu   $sp, $sp, 0xFF48           # $sp -= 0xB8
     sw      $ra, 0x003C($sp)
     sw      s8, 0x0038($sp)
     sw      s7, 0x0034($sp)
@@ -419,11 +419,11 @@ lbl_800673C4:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00B8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00B8           # $sp += 0xB8
 
 
 func_800673F0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lhu     t6, 0x00A4(a0)             # 000000A4
     sltiu   $at, t6, 0x0016
@@ -438,7 +438,7 @@ func_800673F0:
     nop
 lbl_80067424:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

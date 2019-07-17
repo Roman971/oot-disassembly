@@ -12,7 +12,7 @@
 func_8005BC90:
 # Load jpn_font_static character
 # ROM st: jpn_font_static
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -30,7 +30,7 @@ func_8005BC90:
     jal     func_80000DF0
     addiu   a2, $zero, 0x0080          # a2 = 00000080
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -38,7 +38,7 @@ func_8005BC90:
 func_8005BCE4:
 # Load nes_font_static character
 # ROM st: nes_font_static
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -55,14 +55,14 @@ func_8005BCE4:
     jal     func_80000DF0
     addiu   a2, $zero, 0x0080          # a2 = 00000080
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8005BD34:
 # ROM st: message_static
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -76,7 +76,7 @@ func_8005BD34:
     jal     func_80000DF0
     addiu   a2, $zero, 0x0080          # a2 = 00000080
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -84,7 +84,7 @@ func_8005BD34:
 func_8005BD78:
 # Initialize File Select Character Set Data?
 # ROM st: jpn_message_data_static & jpn_font_static
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s5, 0x002C($sp)
     lui     a3, 0x0804                 # a3 = 08040000
     addiu   a3, a3, 0xA150             # a3 = 0803A150
@@ -159,5 +159,5 @@ lbl_8005BE6C:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     nop

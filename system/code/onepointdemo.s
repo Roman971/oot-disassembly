@@ -10,7 +10,7 @@
 
 .section .text
 func_80067C70:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -41,11 +41,11 @@ func_80067C70:
     sw      t8, 0x0008(v0)             # 00000008
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_80067CF0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lwc1    $f4, 0x0000(a1)            # 00000000
     lwc1    $f6, 0x0000(a0)            # 00000000
@@ -70,7 +70,7 @@ func_80067CF0:
     sll     v0, v0, 16
     sra     v0, v0, 16
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_80067D58:
@@ -94,7 +94,7 @@ func_80067D58:
 
 
 func_80067D9C:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x002C($sp)
     addiu   t6, $sp, 0x0034            # t6 = FFFFFFEC
     addiu   t7, $zero, 0x0001          # t7 = 00000001
@@ -111,20 +111,20 @@ func_80067D9C:
     jal     func_8003079C
     sw      $zero, 0x0020($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_80067DEC:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     or      a3, a1, $zero              # a3 = 00000000
     addiu   a1, $sp, 0x001C            # a1 = FFFFFFFC
     jal     func_8002F454
     addiu   a2, $sp, 0x0018            # a2 = FFFFFFF8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -146,7 +146,7 @@ func_80067E14:
 
 
 func_80067E48:
-    addiu   $sp, $sp, 0xFF28           # $sp = FFFFFF28
+    addiu   $sp, $sp, 0xFF28           # $sp -= 0xD8
     sw      s5, 0x0030($sp)
     sw      a2, 0x00E0($sp)
     sll     a2, a2, 16
@@ -3795,7 +3795,7 @@ lbl_8006B5BC:
     lw      s4, 0x002C($sp)
     lw      s5, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00D8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00D8           # $sp += 0xD8
 
 
 func_8006B5E0:
@@ -3820,7 +3820,7 @@ func_8006B5E0:
 
 
 func_8006B628:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a1, 0x0024($sp)
     sll     a1, a1, 16
     sra     a1, a1, 16
@@ -3873,7 +3873,7 @@ lbl_8006B6C8:
     sra     a1, a1, 16
     lw      v0, 0x0018($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -3885,7 +3885,7 @@ func_8006B6FC:
 # A2 = u16 Framecount
 # A3 = Actor*
 # SP+0x10 = u16 ?
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s3, 0x0028($sp)
     sll     s3, a2, 16
     sw      s7, 0x0038($sp)
@@ -4075,7 +4075,7 @@ lbl_8006B988:
     lw      s6, 0x0034($sp)
     lw      s7, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_8006B9B4:
@@ -4114,7 +4114,7 @@ func_8006BA10:
 # Start onepointdemo 0x1392
 # A0 = Global Context
 # A1 = Actor* instance
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x0024($sp)
@@ -4214,7 +4214,7 @@ lbl_8006BB4C:
 lbl_8006BB68:
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -4225,7 +4225,7 @@ func_8006BB7C:
 # A0 = Global Context
 # A1 = Actor* instance
 # A2 = int sfx id
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a2, 0x0020($sp)
@@ -4244,7 +4244,7 @@ func_8006BB7C:
 lbl_8006BBBC:
     or      v0, a0, $zero              # v0 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 

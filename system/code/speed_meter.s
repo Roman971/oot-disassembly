@@ -14,13 +14,13 @@ func_800A38B0:
 
 
 func_800A38C0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   a1, $zero, 0x0020          # a1 = 00000020
     jal     func_800A38B0
     addiu   a2, $zero, 0x0016          # a2 = 00000016
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -32,7 +32,7 @@ func_800A38E4:
 
 
 func_800A38F0:
-    addiu   $sp, $sp, 0xFDE8           # $sp = FFFFFDE8
+    addiu   $sp, $sp, 0xFDE8           # $sp -= 0x218
     sw      s3, 0x0030($sp)
     lui     s3, 0x8010                 # s3 = 80100000
     addiu   s3, s3, 0xEE60             # s3 = 800FEE60
@@ -340,7 +340,7 @@ lbl_800A3D90:
     lw      s2, 0x002C($sp)
     lw      s3, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0218           # $sp = 00000000
+    addiu   $sp, $sp, 0x0218           # $sp += 0x218
 
 
 func_800A3DB4:
@@ -364,7 +364,7 @@ func_800A3DB4:
 
 
 func_800A3DF8:
-    addiu   $sp, $sp, 0xFE68           # $sp = FFFFFE68
+    addiu   $sp, $sp, 0xFE68           # $sp -= 0x198
     sw      $ra, 0x0014($sp)
     sw      a1, 0x019C($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -513,13 +513,13 @@ lbl_800A3EFC:
     sw      t8, 0x02B0(t6)             # 000002C0
     lw      $ra, 0x0014($sp)
 lbl_800A4040:
-    addiu   $sp, $sp, 0x0198           # $sp = 00000000
+    addiu   $sp, $sp, 0x0198           # $sp += 0x198
     jr      $ra
     nop
 
 
 func_800A404C:
-    addiu   $sp, $sp, 0xFF68           # $sp = FFFFFF68
+    addiu   $sp, $sp, 0xFF68           # $sp -= 0x98
     sw      s2, 0x0038($sp)
     or      s2, a1, $zero              # s2 = 00000000
     sw      $ra, 0x003C($sp)
@@ -686,7 +686,7 @@ lbl_800A417C:
     lw      s1, 0x0034($sp)
     lw      s2, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0098           # $sp = 00000000
+    addiu   $sp, $sp, 0x0098           # $sp += 0x98
     nop
     nop
     nop

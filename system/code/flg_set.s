@@ -7,7 +7,7 @@
 
 .section .text
 func_8001E5C0:
-    addiu   $sp, $sp, 0xFDD0           # $sp = FFFFFDD0
+    addiu   $sp, $sp, 0xFDD0           # $sp -= 0x230
     sw      $ra, 0x0024($sp)
     sw      s0, 0x0020($sp)
     sw      a0, 0x0230($sp)
@@ -283,7 +283,7 @@ lbl_8001E94C:
 lbl_8001E9B8:
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0230           # $sp = 00000000
+    addiu   $sp, $sp, 0x0230           # $sp += 0x230
     jr      $ra
     nop
     nop

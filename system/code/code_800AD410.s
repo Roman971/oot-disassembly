@@ -9,7 +9,7 @@
 func_800AD410:
 # Disk Drive Boot Routine
 # ROM st: z_n64dd & ovl_title
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8012                 # t6 = 80120000
     lbu     t6, 0x1210(t6)             # 80121210
@@ -37,7 +37,7 @@ func_800AD410:
     sb      v0, 0x0000(v1)             # 80121211
 lbl_800AD478:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -62,7 +62,7 @@ lbl_800AD4B0:
 
 
 func_800AD4C0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     jal     func_800AD560
@@ -83,13 +83,13 @@ lbl_800AD4FC:
     sw      a1, 0x0000(v1)             # 80121220
     or      v0, a1, $zero              # v0 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800AD51C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     v0, 0x8012                 # v0 = 80120000
     lw      v0, 0x1220(v0)             # 80121220
@@ -104,7 +104,7 @@ lbl_800AD548:
     lui     $at, 0x8012                # $at = 80120000
     sw      $zero, 0x1220($at)         # 80121220
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 

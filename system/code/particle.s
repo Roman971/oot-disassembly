@@ -10,7 +10,7 @@
 
 .section .text
 func_80013F30:
-    addiu   $sp, $sp, 0xFE80           # $sp = FFFFFE80
+    addiu   $sp, $sp, 0xFE80           # $sp -= 0x180
     sw      s3, 0x0028($sp)
     sw      s2, 0x0024($sp)
     sw      s1, 0x0020($sp)
@@ -215,7 +215,7 @@ lbl_8001423C:
     lw      s2, 0x0024($sp)
     lw      s3, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0180           # $sp = 00000000
+    addiu   $sp, $sp, 0x0180           # $sp += 0x180
 
 
 func_80014254:
@@ -290,7 +290,7 @@ lbl_800142AC:
 
 
 func_80014350:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     beql    a0, $zero, lbl_80014454
     lw      $ra, 0x0014($sp)
@@ -356,13 +356,13 @@ func_80014350:
     sw      t4, 0x0180(a0)             # 00000180
     lw      $ra, 0x0014($sp)
 lbl_80014454:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80014460:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     beql    a0, $zero, lbl_80014588
     lw      $ra, 0x0014($sp)
@@ -438,7 +438,7 @@ lbl_80014560:
     swr     t2, 0x01A9(a0)             # 000001A9
     lw      $ra, 0x0014($sp)
 lbl_80014588:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -450,7 +450,7 @@ func_80014594:
 
 
 func_800145A0:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      s0, 0x0004($sp)
     bnel    a0, $zero, lbl_800145BC
     lbu     v1, 0x019E(a0)             # 0000019E
@@ -741,11 +741,11 @@ lbl_800149E8:
 lbl_800149F8:
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_80014A04:
-    addiu   $sp, $sp, 0xFF90           # $sp = FFFFFF90
+    addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -841,13 +841,13 @@ lbl_80014B50:
 lbl_80014B60:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0070           # $sp = 00000000
+    addiu   $sp, $sp, 0x0070           # $sp += 0x70
     jr      $ra
     nop
 
 
 func_80014B74:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sdc1    $f20, 0x0018($sp)
     sw      s2, 0x0028($sp)
     sw      s1, 0x0024($sp)
@@ -1175,11 +1175,11 @@ lbl_8001506C:
     lw      s1, 0x0024($sp)
     lw      s2, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80015088:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -1191,11 +1191,11 @@ func_80015088:
     sw      v0, 0x02D0(t7)             # 000002D0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800150BC:
-    addiu   $sp, $sp, 0xFF70           # $sp = FFFFFF70
+    addiu   $sp, $sp, 0xFF70           # $sp -= 0x90
     sw      s3, 0x0030($sp)
     sw      s2, 0x002C($sp)
     or      s2, a0, $zero              # s2 = 00000000
@@ -1506,11 +1506,11 @@ lbl_80015574:
     lw      s2, 0x002C($sp)
     lw      s3, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0090           # $sp = 00000000
+    addiu   $sp, $sp, 0x0090           # $sp += 0x90
 
 
 func_80015590:
-    addiu   $sp, $sp, 0xFDF8           # $sp = FFFFFDF8
+    addiu   $sp, $sp, 0xFDF8           # $sp -= 0x208
     sw      s4, 0x0068($sp)
     sw      s2, 0x0060($sp)
     sw      s0, 0x0058($sp)
@@ -2148,11 +2148,11 @@ lbl_80015F1C:
     lw      s7, 0x0074($sp)
     lw      s8, 0x0078($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0208           # $sp = 00000000
+    addiu   $sp, $sp, 0x0208           # $sp += 0x208
 
 
 func_80015F64:
-    addiu   $sp, $sp, 0xFEE8           # $sp = FFFFFEE8
+    addiu   $sp, $sp, 0xFEE8           # $sp -= 0x118
     sw      s5, 0x0028($sp)
     sw      s4, 0x0024($sp)
     or      s4, a0, $zero              # s4 = 00000000
@@ -2345,11 +2345,11 @@ lbl_80016214:
     lw      s4, 0x0024($sp)
     lw      s5, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0118           # $sp = 00000000
+    addiu   $sp, $sp, 0x0118           # $sp += 0x118
 
 
 func_80016234:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -2362,12 +2362,12 @@ func_80016234:
     sw      v0, 0x02D0(t7)             # 000002D0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_8001626C:
 # gameplay_keep texture: Flare
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a2, 0x0020($sp)
     or      a2, a0, $zero              # a2 = 00000000
     sw      $ra, 0x0014($sp)
@@ -2517,11 +2517,11 @@ func_8001626C:
     sw      t5, 0x0004(v1)             # 00000004
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800164C8:
-    addiu   $sp, $sp, 0xFE30           # $sp = FFFFFE30
+    addiu   $sp, $sp, 0xFE30           # $sp -= 0x1D0
     sw      s1, 0x003C($sp)
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -2844,11 +2844,11 @@ lbl_80016978:
     lw      s7, 0x0054($sp)
     lw      s8, 0x0058($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x01D0           # $sp = 00000000
+    addiu   $sp, $sp, 0x01D0           # $sp += 0x1D0
 
 
 func_800169B4:
-    addiu   $sp, $sp, 0xFF68           # $sp = FFFFFF68
+    addiu   $sp, $sp, 0xFF68           # $sp -= 0x98
     sw      s5, 0x003C($sp)
     or      s5, a0, $zero              # s5 = 00000000
     sw      $ra, 0x004C($sp)
@@ -3180,11 +3180,11 @@ lbl_80016E90:
     lw      s7, 0x0044($sp)
     lw      s8, 0x0048($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0098           # $sp = 00000000
+    addiu   $sp, $sp, 0x0098           # $sp += 0x98
 
 
 func_80016EC0:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s7, 0x0038($sp)
     sw      s2, 0x0024($sp)
     or      s2, a0, $zero              # s2 = 00000000
@@ -3516,14 +3516,14 @@ lbl_80017378:
     lw      s6, 0x0034($sp)
     lw      s7, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     nop
     nop
     nop
 
 
 func_800173B0:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s3, 0x003C($sp)
     sw      s1, 0x0034($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -3669,11 +3669,11 @@ lbl_800175C0:
     lw      s3, 0x003C($sp)
     lw      s4, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_800175E8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
     beql    a3, $zero, lbl_80017668
@@ -3707,7 +3707,7 @@ lbl_80017640:
     lw      a2, 0x01C0(a3)             # 000001C0
     lw      $ra, 0x0014($sp)
 lbl_80017668:
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -3815,7 +3815,7 @@ lbl_800177D0:
 
 
 func_800177D8:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      s0, 0x0004($sp)
     or      s0, a2, $zero              # s0 = 00000000
     lbu     t6, 0x01B0(a0)             # 000001B0
@@ -4724,12 +4724,12 @@ lbl_800184EC:
     lw      s0, 0x0004($sp)
 lbl_800184F0:
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_800184F8:
 # gameplay_keep texture: Blank Circle
-    addiu   $sp, $sp, 0xFE50           # $sp = FFFFFE50
+    addiu   $sp, $sp, 0xFE50           # $sp -= 0x1B0
     sw      s5, 0x005C($sp)
     sw      s1, 0x004C($sp)
     or      s1, a1, $zero              # s1 = 00000000
@@ -5059,13 +5059,13 @@ lbl_800189D0:
     lw      s7, 0x0064($sp)
     lw      s8, 0x0068($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x01B0           # $sp = 00000000
+    addiu   $sp, $sp, 0x01B0           # $sp += 0x1B0
     nop
     nop
 
 
 func_80018A20:
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      s1, 0x0048($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x005C($sp)
@@ -5317,7 +5317,7 @@ lbl_80018DC4:
     lw      s4, 0x0054($sp)
     lw      s5, 0x0058($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
 
 
 func_80018DFC:
@@ -5384,7 +5384,7 @@ lbl_80018EC4:
 
 func_80018ECC:
 # gameplay_keep texture: Blank Circle
-    addiu   $sp, $sp, 0xFE00           # $sp = FFFFFE00
+    addiu   $sp, $sp, 0xFE00           # $sp -= 0x200
     sw      s8, 0x0058($sp)
     sw      s2, 0x0040($sp)
     or      s2, a1, $zero              # s2 = 00000000
@@ -6623,11 +6623,11 @@ lbl_8001A0A0:
     lw      s7, 0x0054($sp)
     lw      s8, 0x0058($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0200           # $sp = 00000000
+    addiu   $sp, $sp, 0x0200           # $sp += 0x200
 
 
 func_8001A0E0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     sw      a3, 0x0034($sp)
     sll     a3, a3, 16
@@ -6738,13 +6738,13 @@ lbl_8001A25C:
 lbl_8001A274:
     sw      v0, 0x02C0(t0)             # 000002C0
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001A288:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     sw      a3, 0x0034($sp)
     sll     a3, a3, 16
@@ -6870,13 +6870,13 @@ lbl_8001A43C:
 lbl_8001A454:
     sw      v0, 0x02C0(t0)             # 000002C0
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001A468:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lw      a2, 0x0000(a0)             # 00000000
     lw      v1, 0x02C0(a2)             # 000002C0
@@ -6892,11 +6892,11 @@ func_8001A468:
     sw      v0, 0x02C0(a2)             # 000002C0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_8001A4AC:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     sw      a3, 0x0034($sp)
     sll     a3, a3, 16
@@ -7007,13 +7007,13 @@ lbl_8001A628:
 lbl_8001A640:
     sw      v0, 0x02D0(t0)             # 000002D0
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001A654:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     sw      a3, 0x0034($sp)
     sll     a3, a3, 16
@@ -7141,13 +7141,13 @@ lbl_8001A810:
 lbl_8001A828:
     sw      v0, 0x02D0(t0)             # 000002D0
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001A83C:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lw      a2, 0x0000(a0)             # 00000000
     lw      v1, 0x02D0(a2)             # 000002D0
@@ -7163,7 +7163,7 @@ func_8001A83C:
     sw      v0, 0x02D0(a2)             # 000002D0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_8001A880:
@@ -7261,7 +7261,7 @@ func_8001A9A0:
 
 
 func_8001A9B4:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
@@ -7305,11 +7305,11 @@ lbl_8001AA28:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
 func_8001AA5C:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a1, 0x002C($sp)
     sw      a3, 0x0034($sp)
@@ -7413,13 +7413,13 @@ lbl_8001AB84:
     sb      t7, 0x0001(t0)             # 00000001
 lbl_8001ABCC:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001ABDC:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s1, 0x0018($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0024($sp)
@@ -7487,11 +7487,11 @@ lbl_8001ACB4:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8001ACD8:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s2, 0x001C($sp)
     or      s2, a0, $zero              # s2 = 00000000
     sw      $ra, 0x002C($sp)
@@ -7574,11 +7574,11 @@ lbl_8001ADD8:
     lw      s4, 0x0024($sp)
     lw      s5, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_8001AE04:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     addiu   $at, $zero, 0x001F         # $at = 0000001F
@@ -7646,7 +7646,7 @@ lbl_8001AEB4:
 lbl_8001AF00:
     lw      $ra, 0x0014($sp)
 lbl_8001AF04:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -7654,7 +7654,7 @@ lbl_8001AF04:
 func_8001AF10:
 # Deallocates ?
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     sw      s3, 0x0020($sp)
     sw      s2, 0x001C($sp)
@@ -7716,14 +7716,14 @@ lbl_8001AFC4:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8001B000:
 # Allocate Particles (Main Particle Table)
 # A0 = Global Context
 # A1 = Number of Particles to Allocate
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s2, 0x0020($sp)
     addiu   s2, $zero, 0x0060          # s2 = 00000060
     sw      $ra, 0x0024($sp)
@@ -7782,13 +7782,13 @@ lbl_8001B0B0:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8001B0E4:
 # Deallocate Particles (Main Particle Table)
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s1, 0x001C($sp)
     lui     s1, 0x800E                 # s1 = 800E0000
     sw      s2, 0x0020($sp)
@@ -7839,13 +7839,13 @@ lbl_8001B180:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8001B1A4:
 # Kill Particle
 # A0 = Particle Instance Ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
     lhu     v0, 0x005A(a1)             # 0000005A
@@ -7868,7 +7868,7 @@ lbl_8001B1EC:
     jal     func_8001B204
     or      a0, a1, $zero              # a0 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -7918,7 +7918,7 @@ lbl_8001B274:
 
 func_8001B298:
 # Try Get Particle Free Slot
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      s0, 0x0004($sp)
     lui     a2, 0x800E                 # a2 = 800E0000
     addiu   a2, a2, 0x7B40             # a2 = 800E7B40
@@ -8007,11 +8007,11 @@ lbl_8001B3BC:
 lbl_8001B3C4:
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_8001B3D0:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a1, 0x0024($sp)
     jal     func_8009DB54
@@ -8048,7 +8048,7 @@ lbl_8001B434:
     sw      t5, -0x0004(t2)            # 00000008
 lbl_8001B458:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -8059,7 +8059,7 @@ func_8001B468:
 # A1 = Particle Effect Id
 # A2 = ?
 # A3 = ptr to spawn coordinates?
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0040($sp)
     sw      a1, 0x0044($sp)
@@ -8167,7 +8167,7 @@ lbl_8001B53C:
     nop
 lbl_8001B600:
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
@@ -8176,7 +8176,7 @@ func_8001B610:
 # Update/Execute Particle
 # A0 = Global Context
 # A1 = Particle Slot Id
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t7, 0x800E                 # t7 = 800E0000
     lw      t7, 0x7B40(t7)             # 800E7B40
@@ -8214,7 +8214,7 @@ func_8001B610:
     swc1    $f18, 0x0008(a2)           # 00000008
     lw      $ra, 0x0014($sp)
 lbl_8001B6A4:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -8222,7 +8222,7 @@ lbl_8001B6A4:
 func_8001B6B0:
 # Update/Execute Particles
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s2, 0x001C($sp)
     lui     s2, 0x800E                 # s2 = 800E0000
     sw      s3, 0x0020($sp)
@@ -8272,14 +8272,14 @@ lbl_8001B754:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8001B76C:
 # Draw Particle (Execute Instance + 0x28 func)
 # A0 = Global Context
 # A1 = Particle Slot Id
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t7, 0x800E                 # t7 = 800E0000
     lw      t7, 0x7B40(t7)             # 800E7B40
@@ -8294,7 +8294,7 @@ func_8001B76C:
     nop
     lw      $ra, 0x0014($sp)
 lbl_8001B7A4:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -8302,7 +8302,7 @@ lbl_8001B7A4:
 func_8001B7B0:
 # Draw Particles
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s2, 0x002C($sp)
     or      s2, a0, $zero              # s2 = 00000000
     sw      $ra, 0x0034($sp)
@@ -8390,7 +8390,7 @@ lbl_8001B8DC:
     lw      s2, 0x002C($sp)
     lw      s3, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_8001B8FC:
@@ -8516,7 +8516,7 @@ lbl_8001BA8C:
 
 func_8001BAA0:
 # Draw Splash? (Particle 0x0A)
-    addiu   $sp, $sp, 0xFEA8           # $sp = FFFFFEA8
+    addiu   $sp, $sp, 0xFEA8           # $sp -= 0x158
     sw      s1, 0x0018($sp)
     or      s1, a1, $zero              # s1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -8660,7 +8660,7 @@ lbl_8001BCCC:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0158           # $sp = 00000000
+    addiu   $sp, $sp, 0x0158           # $sp += 0x158
 
 
 func_8001BCE0:
@@ -8676,7 +8676,7 @@ func_8001BCE0:
 # SP+0x20 = s16 ?
 # SP+0x24 = s16 ?
 # SP+0x28 = u8 ?
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a1, 0x0054($sp)
@@ -8718,14 +8718,14 @@ func_8001BCE0:
     jal     func_8001B468
     sb      t8, 0x004C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_8001BD94:
 # Spawn Particle 0x00 Type 0 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8748,14 +8748,14 @@ func_8001BD94:
     jal     func_8001BCE0
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001BDFC:
 # Spawn Particle 0x00 Type 1 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8778,14 +8778,14 @@ func_8001BDFC:
     jal     func_8001BCE0
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001BE64:
 # Spawn Particle 0x00 Type 0 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8808,14 +8808,14 @@ func_8001BE64:
     jal     func_8001BCE0
     sw      t1, 0x0024($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001BECC:
 # Spawn Particle 0x00 Type 1 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8838,14 +8838,14 @@ func_8001BECC:
     jal     func_8001BCE0
     sw      t1, 0x0024($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001BF34:
 # Spawn Particle 0x00 Type 2 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8868,14 +8868,14 @@ func_8001BF34:
     jal     func_8001BCE0
     sw      t1, 0x0024($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001BF9C:
 # Spawn Particle 0x00 Type 0 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8899,14 +8899,14 @@ func_8001BF9C:
     jal     func_8001BCE0
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C008:
 # Spawn Particle 0x00 Type 1 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8930,14 +8930,14 @@ func_8001C008:
     jal     func_8001BCE0
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C074:
 # Spawn Particle 0x00 Type 4 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8962,14 +8962,14 @@ func_8001C074:
     jal     func_8001BCE0
     sw      t6, 0x0010($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C0E4:
 # Spawn Particle 0x00 Type 5 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -8994,14 +8994,14 @@ func_8001C0E4:
     jal     func_8001BCE0
     sw      t6, 0x0010($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C154:
 # Spawn Particle 0x00 Type 4 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -9026,14 +9026,14 @@ func_8001C154:
     jal     func_8001BCE0
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C1C4:
 # Spawn Particle 0x00 Type 5 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -9058,14 +9058,14 @@ func_8001C1C4:
     jal     func_8001BCE0
     sw      t0, 0x0020($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C234:
 # Spawn Particle 0x00 Type 4 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -9090,14 +9090,14 @@ func_8001C234:
     jal     func_8001BCE0
     sw      t1, 0x0024($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C2A4:
 # Spawn Particle 0x00 Type 5 (Wrapper for 8001BCE0)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      a2, 0x0040($sp)
     sw      a3, 0x0044($sp)
     lw      a3, 0x0040($sp)
@@ -9122,14 +9122,14 @@ func_8001C2A4:
     jal     func_8001BCE0
     sw      t1, 0x0024($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001C314:
 # Spawn Particle 0x00 (Wrapper for 8001BD94)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lw      t6, 0x0038($sp)
     lw      t7, 0x003C($sp)
@@ -9141,14 +9141,14 @@ func_8001C314:
     jal     func_8001BD94
     sw      t7, 0x0014($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001C350:
 # Spawn Particle 0x00 (Wrapper for 8001BDFC)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lw      t6, 0x0038($sp)
     lw      t7, 0x003C($sp)
@@ -9160,14 +9160,14 @@ func_8001C350:
     jal     func_8001BDFC
     sw      t7, 0x0014($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001C38C:
 # Helper for 8001C488, 8001C54C
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a2, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -9229,12 +9229,12 @@ func_8001C38C:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_8001C488:
 # Spawn 20 Particle 0x00 (Calls 8001C234)
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sdc1    $f20, 0x0028($sp)
     sw      s5, 0x0044($sp)
     sw      s4, 0x0040($sp)
@@ -9283,12 +9283,12 @@ lbl_8001C4D4:
     lw      s5, 0x0044($sp)
     lw      s6, 0x0048($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_8001C54C:
 # Spawn 20 Particle 0x00 (Calls 8001C2A4)
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sdc1    $f20, 0x0028($sp)
     sw      s5, 0x0044($sp)
     sw      s4, 0x0040($sp)
@@ -9337,12 +9337,12 @@ lbl_8001C598:
     lw      s5, 0x0044($sp)
     lw      s6, 0x0048($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_8001C610:
 # Spawn Particle 0x01 (Wrapper for 8001C6A8)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0024($sp)
     addiu   v0, $sp, 0x002C            # v0 = FFFFFFFC
     addiu   v1, $sp, 0x0028            # v1 = FFFFFFF8
@@ -9362,14 +9362,14 @@ func_8001C610:
     jal     func_8001C6A8
     sw      v0, 0x0010($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001C66C:
 # Spawn Particle 0x01 (Wrapper for 8001C6A8)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lw      t6, 0x0038($sp)
     lw      t7, 0x003C($sp)
@@ -9381,14 +9381,14 @@ func_8001C66C:
     jal     func_8001C6A8
     sw      t7, 0x0014($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001C6A8:
 # Spawn Particle 0x01 (Fairy Sparkle)
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a2, 0x0060($sp)
@@ -9464,14 +9464,14 @@ func_8001C6A8:
     jal     func_8001B468
     sh      t1, 0x0048($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001C7E4:
 # Spawn Particle 0x01 (?, First Visit ToT as Adult)
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a2, 0x0060($sp)
@@ -9522,14 +9522,14 @@ func_8001C7E4:
     jal     func_8001B468
     sh      t4, 0x0048($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001C8BC:
 # Spawn Particle 0x02
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0040($sp)
     sw      a2, 0x0048($sp)
@@ -9548,14 +9548,14 @@ func_8001C8BC:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFDC
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_8001C914:
 # Spawn Particle 0x03
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -9578,14 +9578,14 @@ func_8001C914:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFD4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001C97C:
 # Spawn Particle 0x03
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -9610,14 +9610,14 @@ func_8001C97C:
     jal     func_8001B468
     sh      t7, 0x0042($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001C9EC:
 # Spawn Particle 0x04
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a2, 0x0058($sp)
@@ -9650,14 +9650,14 @@ func_8001C9EC:
     jal     func_8001B468
     sh      t9, 0x004E($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_8001CA7C:
 # Spawn Particle 0x04 (Wrapper for 8001C9EC)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x002C($sp)
     lh      t8, 0x0042($sp)
     lh      t9, 0x0046($sp)
@@ -9675,14 +9675,14 @@ func_8001CA7C:
     jal     func_8001C9EC
     sw      t1, 0x0024($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001CAD0:
 # Spawn Particle 0x04 (Wrapper for 8001C9EC)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x002C($sp)
     lw      t6, 0x0040($sp)
     lw      t7, 0x0044($sp)
@@ -9698,14 +9698,14 @@ func_8001CAD0:
     jal     func_8001C9EC
     sw      t1, 0x0024($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001CB1C:
 # Spawn Particle 0x04 (Wrapper for 8001CAD0)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lui     t6, 0x800E                 # t6 = 800E0000
     lui     t7, 0x800E                 # t7 = 800E0000
@@ -9717,14 +9717,14 @@ func_8001CB1C:
     jal     func_8001CAD0
     sw      t7, 0x0014($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001CB58:
 # Spawn Particle 0x05
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a1, 0x0054($sp)
@@ -9757,14 +9757,14 @@ func_8001CB58:
     jal     func_8001B468
     sh      t8, 0x004A($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_8001CBE8:
 # Spawn Particle 0x05
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a1, 0x0054($sp)
@@ -9798,7 +9798,7 @@ func_8001CBE8:
     jal     func_8001B468
     sh      t8, 0x004A($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
@@ -9806,7 +9806,7 @@ func_8001CBE8:
 func_8001CC7C:
 # Spawn Particle 0x05 (Wrapper for 8001CDD4)
 # Bomb Spark
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0024($sp)
     addiu   v0, $sp, 0x002C            # v0 = FFFFFFFC
     addiu   v1, $sp, 0x0028            # v1 = FFFFFFF8
@@ -9824,14 +9824,14 @@ func_8001CC7C:
     jal     func_8001CDD4
     sw      t2, 0x0010($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001CCD0:
 # Spawn Particle 0x05 (Wrapper for 8001CB58)
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x002C($sp)
     sw      a0, 0x0040($sp)
     sw      a1, 0x0044($sp)
@@ -9893,14 +9893,14 @@ func_8001CCD0:
     jal     func_8001CB58
     sw      t5, 0x0010($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_8001CDD4:
 # Spawn Particle 0x05 (Wrapper for 8001CB58)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x002C($sp)
     lw      t6, 0x0040($sp)
     lw      t7, 0x0044($sp)
@@ -9914,14 +9914,14 @@ func_8001CDD4:
     jal     func_8001CB58
     sw      t8, 0x0018($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001CE18:
 # Spawn Particle 0x06
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -9950,14 +9950,14 @@ func_8001CE18:
     jal     func_8001B468
     sw      t0, 0x0044($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001CE98:
 # Spawn Particle 0x06 (Wrapper for 8001CE18)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x002C($sp)
     lh      t8, 0x0042($sp)
     lh      t9, 0x0046($sp)
@@ -9971,14 +9971,14 @@ func_8001CE98:
     jal     func_8001CE18
     sw      t9, 0x001C($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001CEDC:
 # Spawn Particle 0x07
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0038($sp)
     sw      a2, 0x0040($sp)
@@ -9999,14 +9999,14 @@ func_8001CEDC:
     jal     func_8001B468
     swc1    $f10, 0x0034($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001CF3C:
 # Spawn Particle 0x09
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     sw      a2, 0x0038($sp)
@@ -10025,14 +10025,14 @@ func_8001CF3C:
     jal     func_8001B468
     sh      t8, 0x002C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001CF94:
 # Spawn Particle 0x0A
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     sw      a2, 0x0038($sp)
@@ -10068,14 +10068,14 @@ lbl_8001D008:
     jal     func_8001B468
     addiu   a3, $sp, 0x0018            # a3 = FFFFFFE8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001D028:
 # Spawn Particle 0x0B
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     jal     func_80063CAC              # Vec3f_Copy
@@ -10086,14 +10086,14 @@ func_8001D028:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFF4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001D060:
 # Spawn Particle 0x0C
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     jal     func_80063CAC              # Vec3f_Copy
@@ -10104,14 +10104,14 @@ func_8001D060:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFF4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001D098:
 # Spawn Particle 0x0D
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0038($sp)
     sw      a2, 0x0040($sp)
@@ -10138,14 +10138,14 @@ func_8001D098:
     jal     func_8001B468
     sh      t9, 0x0036($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001D110:
 # Spawn Particle 0x0E
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a2, 0x0058($sp)
@@ -10173,14 +10173,14 @@ func_8001D110:
     jal     func_8001B468
     sh      t9, 0x004A($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_8001D18C:
 # Spawn Particle 0x0E
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a2, 0x0058($sp)
@@ -10213,14 +10213,14 @@ func_8001D18C:
     jal     func_8001B468
     sh      t8, 0x004A($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_8001D21C:
 # Spawn Particle 0x0F
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -10249,7 +10249,7 @@ func_8001D21C:
     jal     func_8001B468
     sh      t0, 0x0046($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
@@ -10257,7 +10257,7 @@ func_8001D21C:
 func_8001D29C:
 # Spawn N Particle 0x0F (Wrapper for 8001D21C)
 # SP+0x18 = s16 Particles to Spawn
-    addiu   $sp, $sp, 0xFF78           # $sp = FFFFFF78
+    addiu   $sp, $sp, 0xFF78           # $sp -= 0x88
     sw      s6, 0x0058($sp)
     sdc1    $f22, 0x0038($sp)
     sll     s6, a3, 16
@@ -10340,12 +10340,12 @@ lbl_8001D3AC:
     lw      s7, 0x005C($sp)
     lw      s8, 0x0060($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0088           # $sp = 00000000
+    addiu   $sp, $sp, 0x0088           # $sp += 0x88
 
 
 func_8001D3E4:
 # Spawn Particle 0x10
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
@@ -10363,14 +10363,14 @@ func_8001D3E4:
     jal     func_8001B468
     sh      t9, 0x0024($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001D438:
 # Spawn Particle 0x11
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -10395,14 +10395,14 @@ func_8001D438:
     jal     func_8001B468
     sh      t8, 0x0044($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001D4A8:
 # Spawn Particle 0x11 (Wrapper for 8001D438)
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s5, 0x003C($sp)
     sw      s4, 0x0038($sp)
     sw      s2, 0x0030($sp)
@@ -10502,12 +10502,12 @@ lbl_8001D604:
     lw      s5, 0x003C($sp)
     lw      s6, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_8001D62C:
 # Spawn Particle 0x12
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0040($sp)
     sw      a2, 0x0048($sp)
@@ -10528,14 +10528,14 @@ func_8001D62C:
     jal     func_8001B468
     sh      t6, 0x003C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_8001D68C:
 # Spawn Particle 0x13
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0038($sp)
     sw      a2, 0x0040($sp)
@@ -10560,14 +10560,14 @@ func_8001D68C:
     jal     func_8001B468
     sh      t8, 0x0034($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001D6FC:
 # Spawn Particle 0x14
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
@@ -10585,14 +10585,14 @@ func_8001D6FC:
     jal     func_8001B468
     sw      t9, 0x0024($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001D750:
 # Spawn Particle 0x15
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      a2, 0x0038($sp)
     sll     a2, a2, 16
     sra     a2, a2, 16
@@ -10611,27 +10611,27 @@ func_8001D750:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFEC
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001D7A8:
 # Spawn Particle 0x15 (Wrapper for 8001D750)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a2, $zero              # a3 = 00000000
     jal     func_8001D750
     addiu   a2, $zero, 0x012C          # a2 = 0000012C
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8001D7CC:
 # Spawn Particle 0x15 (Wrapper for 8001D750)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a2, 0x0020($sp)
     sll     a2, a2, 16
     sra     a2, a2, 16
@@ -10639,14 +10639,14 @@ func_8001D7CC:
     jal     func_8001D750
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8001D7F8:
 # Spawn Particle 0x16
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -10670,14 +10670,14 @@ func_8001D7F8:
     jal     func_8001B468
     sb      t7, 0x003E($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001D864:
 # Spawn Particle 0x16
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a1, 0x004C($sp)
@@ -10699,14 +10699,14 @@ func_8001D864:
     jal     func_8001B468
     sb      t8, 0x003E($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001D8C8:
 # Spawn Particle 0x17
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0040($sp)
     sw      a2, 0x0048($sp)
@@ -10729,14 +10729,14 @@ func_8001D8C8:
     jal     func_8001B468
     sb      t7, 0x003E($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_8001D930:
 # Spawn Particle 0x18
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -10759,14 +10759,14 @@ func_8001D930:
     jal     func_8001B468
     sw      t7, 0x0044($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001D998:
 # Spawn Particle 0x19
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a2, 0x0060($sp)
@@ -10809,14 +10809,14 @@ func_8001D998:
     jal     func_8001B468
     sw      t7, 0x0054($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001DA50:
 # Spawn Particle 0x1A
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -10839,14 +10839,14 @@ func_8001DA50:
     jal     func_8001B468
     sw      t6, 0x0044($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001DAB8:
 # Spawn Particle 0x1A (Wrapper for 8001DA50)
-    addiu   $sp, $sp, 0xFF70           # $sp = FFFFFF70
+    addiu   $sp, $sp, 0xFF70           # $sp -= 0x90
     sw      s3, 0x004C($sp)
     sw      s2, 0x0048($sp)
     mtc1    a2, $f12                   # $f12 = 0.00
@@ -10947,12 +10947,12 @@ lbl_8001DB5C:
     lw      s5, 0x0054($sp)
     lw      s6, 0x0058($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0090           # $sp = 00000000
+    addiu   $sp, $sp, 0x0090           # $sp += 0x90
 
 
 func_8001DC4C:
 # Spawn Particle 0x1B
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a1, 0x005C($sp)
@@ -10990,14 +10990,14 @@ lbl_8001DCC8:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFC4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001DCEC:
 # Spawn Particle 0x1B
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      a3, 0x0064($sp)
     sll     a3, a3, 16
     sra     a3, a3, 16
@@ -11046,14 +11046,14 @@ lbl_8001DD94:
     jal     func_8001B468
     addiu   a3, $sp, 0x001C            # a3 = FFFFFFC4
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001DDB8:
 # Spawn Particle 0x1B
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a2, 0x0060($sp)
@@ -11084,14 +11084,14 @@ func_8001DDB8:
     jal     func_8001B468
     sw      t6, 0x0050($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001DE40:
 # Spawn Particle 0x1C
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0050($sp)
     sw      a1, 0x0054($sp)
@@ -11126,14 +11126,14 @@ func_8001DE40:
     jal     func_8001B468
     sw      t0, 0x004C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_8001DED8:
 # Spawn Particle 0x1C (Wrapper for 8001DE40)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     mtc1    a3, $f14                   # $f14 = 0.00
     sw      $ra, 0x0034($sp)
     lwc1    $f12, 0x004C($sp)
@@ -11180,14 +11180,14 @@ lbl_8001DF68:
     jal     func_8001DE40
     sw      t1, 0x0024($sp)
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_8001DF9C:
 # Spawn Particle 0x1C (Wrapper for 8001DED8)
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     mtc1    a1, $f12                   # $f12 = 0.00
     mtc1    a3, $f14                   # $f14 = 0.00
     sw      $ra, 0x001C($sp)
@@ -11204,14 +11204,14 @@ func_8001DF9C:
     jal     func_8001DED8
     sw      t6, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8001DFEC:
 # Spawn Particle 0x1D
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     sw      a1, 0x0034($sp)
@@ -11239,14 +11239,14 @@ lbl_8001E040:
     jal     func_8001B468
     addiu   a3, $sp, 0x0018            # a3 = FFFFFFE8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001E064:
 # Spawn Particle 0x1D
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      a3, 0x003C($sp)
     sll     a3, a3, 16
     sra     a3, a3, 16
@@ -11287,14 +11287,14 @@ lbl_8001E0EC:
     jal     func_8001B468
     addiu   a3, $sp, 0x0018            # a3 = FFFFFFE8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001E110:
 # Spawn Particle 0x1E
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0040($sp)
     sw      a2, 0x0048($sp)
@@ -11317,14 +11317,14 @@ func_8001E110:
     jal     func_8001B468
     sh      t7, 0x003E($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_8001E178:
 # Spawn Particle 0x1F
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     sw      a1, 0x0034($sp)
@@ -11344,14 +11344,14 @@ func_8001E178:
     jal     func_8001B468
     sh      t8, 0x002E($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8001E1D4:
 # Spawn Particle 0x20
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a2, 0x0060($sp)
@@ -11394,14 +11394,14 @@ func_8001E1D4:
     jal     func_8001B468
     sh      t7, 0x0054($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
 
 func_8001E28C:
 # Spawn Particle 0x21
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0060($sp)
     sw      a2, 0x0068($sp)
@@ -11443,14 +11443,14 @@ func_8001E28C:
     jal     func_8001B468
     sw      t6, 0x0050($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
 
 func_8001E340:
 # Spawn Particle 0x21
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0060($sp)
     sw      a2, 0x0068($sp)
@@ -11475,14 +11475,14 @@ func_8001E340:
     jal     func_8001B468
     sw      t9, 0x0050($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
 
 func_8001E3B0:
 # Spawn Particle 0x22
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -11509,14 +11509,14 @@ func_8001E3B0:
     jal     func_8001B468
     sw      t9, 0x0044($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001E428:
 # Spawn Particle 0x22 (Wrapper for 8001E3B0)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     lui     a2, 0x800E                 # a2 = 800E0000
     addiu   a2, a2, 0x7B50             # a2 = 800E7B50
@@ -11533,14 +11533,14 @@ func_8001E428:
     jal     func_8001E3B0
     sw      t9, 0x001C($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001E478:
 # Spawn Particle 0x23
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0048($sp)
     sw      a2, 0x0050($sp)
@@ -11577,14 +11577,14 @@ lbl_8001E4EC:
     addiu   a3, $sp, 0x0018            # a3 = FFFFFFD0
     lw      $ra, 0x0014($sp)
 lbl_8001E504:
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8001E510:
 # Spawn Particle 0x23 (Wrapper for 8001E478)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a2, 0x0030($sp)
     lui     a2, 0x800E                 # a2 = 800E0000
     addiu   a2, a2, 0x7B50             # a2 = 800E7B50
@@ -11601,14 +11601,14 @@ func_8001E510:
     jal     func_8001E478
     sw      t9, 0x001C($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_8001E560:
 # Spawn Particle 0x24
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0040($sp)
     sw      a2, 0x0048($sp)
@@ -11629,6 +11629,6 @@ func_8001E560:
     jal     func_8001B468
     sh      t6, 0x003C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop

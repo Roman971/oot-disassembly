@@ -76,7 +76,7 @@ func_800D5EF0:
 
 
 func_800D5FEC:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     or      a1, a0, $zero              # a1 = 00000000
@@ -148,7 +148,7 @@ lbl_800D60F4:
     nop
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -157,7 +157,7 @@ func_800D6110:
 # Check if button press to continue dialog occurred?
 # A0 = Global Context
 # V0 = Button pressed
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0030($sp)
     lw      t6, 0x0030($sp)
@@ -208,7 +208,7 @@ lbl_800D61C4:
     andi    v0, v1, 0x00FF             # v0 = 00000008
 lbl_800D61C8:
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_800D61D0:
@@ -235,7 +235,7 @@ lbl_800D6210:
 
 
 func_800D6218:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
     lw      t6, 0x0020($sp)
@@ -263,14 +263,14 @@ func_800D6218:
     addiu   a2, $zero, 0x0004          # a2 = 00000004
 lbl_800D6280:
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_800D6290:
 # Potentially draws individual Textbox character
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -396,14 +396,14 @@ lbl_800D6448:
     sh      t5, 0x63DB($at)            # 000104B2
 lbl_800D6460:
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_800D6470:
     lui     $at, 0x42C8                # $at = 42C80000
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     lui     t3, 0x8013                 # t3 = 80130000
     lui     t4, 0x8012                 # t4 = 80120000
     lui     t5, 0x8013                 # t5 = 80130000
@@ -624,13 +624,13 @@ lbl_800D66F4:
     sw      v0, 0x0000(a2)             # 00000000
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
 
 
 func_800D67E8:
     lui     a3, 0x8012                 # a3 = 80120000
     addiu   a3, a3, 0xBA00             # a3 = 8011BA00
-    addiu   $sp, $sp, 0xFFF0           # $sp = FFFFFFF0
+    addiu   $sp, $sp, 0xFFF0           # $sp -= 0x10
     lw      a1, 0x0000(a3)             # 8011BA00
     ori     $at, $zero, 0x8000         # $at = 00008000
     addu    v0, a0, $at
@@ -761,7 +761,7 @@ lbl_800D69DC:
     subu    t7, t5, t8
     sh      t7, 0x0F14(a1)             # 00000F14
     jr      $ra
-    addiu   $sp, $sp, 0x0010           # $sp = 00000000
+    addiu   $sp, $sp, 0x0010           # $sp += 0x10
 
 
 func_800D69EC:
@@ -1101,7 +1101,7 @@ lbl_800D6E40:
 
 
 func_800D6E5C:
-    addiu   $sp, $sp, 0xFF90           # $sp = FFFFFF90
+    addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      a0, 0x0070($sp)
     sw      a1, 0x0074($sp)
     sw      a2, 0x0078($sp)
@@ -1607,11 +1607,11 @@ lbl_800D72E8:
     sw      v0, 0x0000(t9)             # 00000200
 lbl_800D759C:
     jr      $ra
-    addiu   $sp, $sp, 0x0070           # $sp = 00000000
+    addiu   $sp, $sp, 0x0070           # $sp += 0x70
 
 
 func_800D75A4:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -1824,11 +1824,11 @@ lbl_800D77E8:
     sw      v1, 0x0000(t9)             # FCFF97FF
     lw      $ra, 0x001C($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800D78F0:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     lui     t6, 0x0001                 # t6 = 00010000
@@ -1968,14 +1968,14 @@ lbl_800D7AEC:
     lw      $ra, 0x001C($sp)
 lbl_800D7AF0:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_800D7B00:
 # Draw Textbox Text function (Japanese)
-    addiu   $sp, $sp, 0xFEC8           # $sp = FFFFFEC8
+    addiu   $sp, $sp, 0xFEC8           # $sp -= 0x138
     sw      s7, 0x003C($sp)
     lui     s7, 0x8012                 # s7 = 80120000
     addiu   s7, s7, 0xBA00             # s7 = 8011BA00
@@ -3311,12 +3311,12 @@ lbl_800D8EC4:
     lw      s7, 0x003C($sp)
     lw      s8, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0138           # $sp = 00000000
+    addiu   $sp, $sp, 0x0138           # $sp += 0x138
 
 
 func_800D8EF4:
 # Draw Textbox Text function (English)
-    addiu   $sp, $sp, 0xFEC8           # $sp = FFFFFEC8
+    addiu   $sp, $sp, 0xFEC8           # $sp -= 0x138
     sw      s7, 0x003C($sp)
     lui     s7, 0x8012                 # s7 = 80120000
     addiu   s7, s7, 0xBA00             # s7 = 8011BA00
@@ -4536,12 +4536,12 @@ lbl_800DA13C:
     lw      s7, 0x003C($sp)
     lw      s8, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0138           # $sp = 00000000
+    addiu   $sp, $sp, 0x0138           # $sp += 0x138
 
 
 func_800DA16C:
 # ROM st: icon_item_24_static
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      a1, 0x0034($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -4645,7 +4645,7 @@ lbl_800DA2E4:
     sh      t6, 0x63CF($at)            # 0000E3CE
     sb      t9, 0x63E7($at)            # 0000E3E6
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -4653,7 +4653,7 @@ lbl_800DA2E4:
 func_800DA30C:
 # Dialog engine related, called once each time a new "box" of text needs to be displayed
 # ROM st: message_texture_static x2
-    addiu   $sp, $sp, 0xFF60           # $sp = FFFFFF60
+    addiu   $sp, $sp, 0xFF60           # $sp -= 0xA0
     sw      $ra, 0x003C($sp)
     sw      s8, 0x0038($sp)
     sw      s7, 0x0034($sp)
@@ -7237,7 +7237,7 @@ lbl_800DC80C:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00A0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A0           # $sp += 0xA0
 
 
 func_800DC838:
@@ -7245,7 +7245,7 @@ func_800DC838:
 # ROM st: message_static & jpn_message_data_static & nes_message_data_static & staff_message_data_static
 # A0 = Global Context
 # A1 = Text Id
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0040($sp)
     sw      a1, 0x0044($sp)
@@ -7647,7 +7647,7 @@ lbl_800DCDDC:
     sh      v0, 0x63CF($at)            # 0000E3CE
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_800DCE14:
@@ -7655,7 +7655,7 @@ func_800DCE14:
 # A0 = Global Context
 # A1 = Text Id
 # A2 = Z-Targeted? Actor*
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -7679,7 +7679,7 @@ func_800DCE14:
     addu    $at, $at, a0
     sh      $zero, 0x04C6($at)         # 000104C6
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -7687,7 +7687,7 @@ func_800DCE14:
 func_800DCE80:
 # Dialog yes/no response?
 # a1 = Response Text ID
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      a1, 0x0044($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -7739,14 +7739,14 @@ lbl_800DCF3C:
     sh      t3, 0x6407($at)            # 0000E406
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_800DCF50:
 # Something related to song playback?
 # A0 = Global Context
 # A1 = s16 ?
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     lui     v1, 0x8011                 # v1 = 80110000
     addiu   v1, v1, 0xA948             # v1 = 8010A948
     sw      $ra, 0x0024($sp)
@@ -8065,7 +8065,7 @@ lbl_800DD3BC:
     lw      a0, 0x0034($sp)
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
@@ -8075,7 +8075,7 @@ func_800DD400:
 # (Wrapper for 800DCF50)
 # A0 = Global Context
 # A1 = Some Id?
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -8084,7 +8084,7 @@ func_800DD400:
     jal     func_800DCF50
     sh      $zero, 0x04E6($at)         # 000104E6
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -8094,7 +8094,7 @@ func_800DD430:
 # (Wrapper for 800DCF50)
 # A0 = Global Context
 # A1 = Some Id?
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sw      $ra, 0x0014($sp)
@@ -8104,7 +8104,7 @@ func_800DD430:
     jal     func_800DCF50
     sh      t6, 0x04E6($at)            # 000104E6
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -8508,7 +8508,7 @@ lbl_800DDA14:
 
 func_800DDA24:
 # Jumped to by 800DDA6C. Everything with 20D8 in it seems like it's dialogue-related...
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     addiu   t6, $zero, 0x00F0          # t6 = 000000F0
@@ -8523,14 +8523,14 @@ func_800DDA24:
     jal     func_80092490
     lw      a0, 0x0028($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_800DDA6C:
 # Song activation related.
-    addiu   $sp, $sp, 0xFEA8           # $sp = FFFFFEA8
+    addiu   $sp, $sp, 0xFEA8           # $sp -= 0x158
     sw      s3, 0x0038($sp)
     or      s3, a0, $zero              # s3 = 00000000
     sw      $ra, 0x003C($sp)
@@ -11822,12 +11822,12 @@ lbl_800E09F4:
     lw      s2, 0x0034($sp)
     lw      s3, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0158           # $sp = 00000000
+    addiu   $sp, $sp, 0x0158           # $sp += 0x158
 
 
 func_800E0A18:
 # Has a d. list end command. Jumps to 800DDA6C.
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0040($sp)
@@ -11861,11 +11861,11 @@ func_800E0A18:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_800E0AA4:
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0060($sp)
     lw      t6, 0x0060($sp)
@@ -12660,7 +12660,7 @@ lbl_800E1610:
 lbl_800E161C:
     lw      $ra, 0x001C($sp)
 lbl_800E1620:
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
@@ -12669,7 +12669,7 @@ func_800E162C:
 # Setup Pointers to Message Tables
 # Message ID, nes_message_data_static, & staff_message_data_static related.
 # (64DD Disk can change the pointers to somewhere else)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     a0, 0x8011                 # a0 = 80110000
     lui     a1, 0x8011                 # a1 = 80110000
     lui     a2, 0x8011                 # a2 = 80110000
@@ -12697,7 +12697,7 @@ func_800E162C:
     nop
     lw      $ra, 0x0014($sp)
 lbl_800E1698:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
@@ -12714,7 +12714,7 @@ func_800E16B0:
 
 
 func_800E16C4:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x0001                 # t6 = 00010000
     addu    t6, t6, a0
@@ -12741,13 +12741,13 @@ lbl_800E1714:
 lbl_800E171C:
     lw      $ra, 0x0014($sp)
 lbl_800E1720:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800E172C:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s5, 0x002C($sp)
     or      s5, a0, $zero              # s5 = 00000000
     sw      $ra, 0x0034($sp)
@@ -13067,6 +13067,6 @@ lbl_800E1BC4:
     lw      s5, 0x002C($sp)
     lw      s6, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     nop
     nop

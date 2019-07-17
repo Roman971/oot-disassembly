@@ -14,7 +14,7 @@ func_800597C0:
 # A0 = Global Context
 # A1 = ?
 # V0 = Lookup Result
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     jal     func_80079B44
@@ -29,7 +29,7 @@ func_800597C0:
     addu    v0, v0, t9
     lhu     v0, 0x0F00(v0)             # 800F0F00
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop

@@ -64,7 +64,7 @@ lbl_80B38980:
 
 
 func_80B38998:
-    addiu   $sp, $sp, 0xFF38           # $sp = FFFFFF38
+    addiu   $sp, $sp, 0xFF38           # $sp -= 0xC8
     sw      s0, 0x0024($sp)
     or      s0, a2, $zero              # s0 = 00000000
     sw      $ra, 0x002C($sp)
@@ -247,7 +247,7 @@ lbl_80B38BA0:
     lw      s0, 0x0024($sp)
     lw      s1, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00C8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00C8           # $sp += 0xC8
 
 
 func_80B38C68:

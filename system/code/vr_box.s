@@ -7,7 +7,7 @@
 
 .section .text
 func_80094660:
-    addiu   $sp, $sp, 0xFBD0           # $sp = FFFFFBD0
+    addiu   $sp, $sp, 0xFBD0           # $sp -= 0x430
     sw      s7, 0x0024($sp)
     sw      s2, 0x0010($sp)
     sw      s0, 0x0008($sp)
@@ -467,11 +467,11 @@ lbl_80094B44:
     lw      s7, 0x0024($sp)
     lw      s8, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0430           # $sp = 00000000
+    addiu   $sp, $sp, 0x0430           # $sp += 0x430
 
 
 func_80094D74:
-    addiu   $sp, $sp, 0xFCC8           # $sp = FFFFFCC8
+    addiu   $sp, $sp, 0xFCC8           # $sp -= 0x338
     sw      s8, 0x0028($sp)
     sw      s7, 0x0024($sp)
     sw      s2, 0x0010($sp)
@@ -1327,11 +1327,11 @@ lbl_80095A54:
     lw      s7, 0x0024($sp)
     lw      s8, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0338           # $sp = 00000000
+    addiu   $sp, $sp, 0x0338           # $sp += 0x338
 
 
 func_80095A9C:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      a1, 0x004C($sp)
     sll     a1, a1, 16
     sw      s5, 0x0040($sp)
@@ -1445,11 +1445,11 @@ lbl_80095C2C:
     lw      s4, 0x003C($sp)
     lw      s5, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_80095C4C:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s4, 0x0040($sp)
     sw      s3, 0x003C($sp)
     or      s3, a0, $zero              # s3 = 00000000
@@ -1490,13 +1490,13 @@ lbl_80095CCC:
     lw      s3, 0x003C($sp)
     lw      s4, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_80095CEC:
 # Related to loading Skyboxes into memory?
 # ROM st & ed: All the prerenders and their palettes
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      a2, 0x0048($sp)
     sll     a2, a2, 16
     sw      s1, 0x0018($sp)
@@ -2618,11 +2618,11 @@ lbl_80096E30:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80096E40:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     mtc1    $zero, $f0                 # $f0 = 0.00
     or      s0, a1, $zero              # s0 = 00000000
@@ -2688,7 +2688,7 @@ lbl_80096F1C:
     lw      $ra, 0x001C($sp)
 lbl_80096F38:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop

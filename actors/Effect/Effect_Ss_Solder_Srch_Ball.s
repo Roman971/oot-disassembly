@@ -35,7 +35,7 @@ func_80B34900:
 
 
 func_80B34980:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     sw      a1, 0x0034($sp)
@@ -92,7 +92,7 @@ lbl_80B34A3C:
 lbl_80B34A54:
     lw      $ra, 0x0014($sp)
 lbl_80B34A58:
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
     nop

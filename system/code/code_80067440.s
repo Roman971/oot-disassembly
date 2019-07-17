@@ -46,7 +46,7 @@ lbl_800674A0:
 func_800674B8:
 # PreNMI, Save Time to osAppNMIBuffer
 # A0 = osAppNMIBuffer ptr
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t7, 0x0018($sp)
@@ -58,7 +58,7 @@ func_800674B8:
     sw      v1, 0x0014(t8)             # 00000014
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800674EC:

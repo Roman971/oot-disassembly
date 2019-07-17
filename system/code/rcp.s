@@ -20,7 +20,7 @@ func_8007DC40:
 # SP+14 = ?
 # SP+18 = ?
 # V0 = DList Next ptr
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      s0, 0x0004($sp)
     lw      s0, 0x001C($sp)
     lw      t6, 0x0020($sp)
@@ -123,11 +123,11 @@ lbl_8007DDAC:
 lbl_8007DDB0:
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_8007DDBC:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      s0, 0x0004($sp)
     lw      s0, 0x001C($sp)
     lw      t6, 0x0020($sp)
@@ -235,13 +235,13 @@ lbl_8007DF3C:
 lbl_8007DF40:
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_8007DF4C:
 # Dlist draw, Write Fog Settings Wrapper
 # Wrapper for 8007DC40
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lw      t6, 0x0038($sp)
     lw      t7, 0x003C($sp)
@@ -251,7 +251,7 @@ func_8007DF4C:
     jal     func_8007DC40
     sw      t8, 0x0018($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -275,18 +275,18 @@ func_8007DF80:
 
 
 func_8007DFBC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_8007DF80
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8007DFDC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -296,7 +296,7 @@ func_8007DFDC:
     sw      v0, 0x0000(t7)             # 00000000
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_8007E008:
@@ -476,7 +476,7 @@ func_8007E204:
 
 
 func_8007E22C:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     lw      t6, 0x0020($sp)
@@ -501,7 +501,7 @@ func_8007E22C:
     sw      t0, 0x0000(v1)             # 00000000
     lw      $ra, 0x0014($sp)
 lbl_8007E28C:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -618,7 +618,7 @@ func_8007E388:
 func_8007E3B0:
 # Wrapper for 8007E388 (Writes to POLY_OPA_DISP)
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -628,7 +628,7 @@ func_8007E3B0:
     sw      v0, 0x02C0(t7)             # 000002C0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_8007E3DC:
@@ -831,7 +831,7 @@ func_8007E5BC:
 func_8007E5E4:
 # Wrapper for 8007E5BC (Writes to POLY_OPA_DISP)
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -841,13 +841,13 @@ func_8007E5E4:
     sw      v0, 0x02C0(t7)             # 000002C0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_8007E610:
 # Wrapper for 8007E5BC (Writes to OVERLAY_DISP)
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -857,7 +857,7 @@ func_8007E610:
     sw      v0, 0x02B0(t7)             # 000002B0
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_8007E63C:
@@ -1223,7 +1223,7 @@ func_8007E9F4:
 
 
 func_8007EA1C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
@@ -1259,33 +1259,33 @@ func_8007EA1C:
     sw      t4, 0x0010(v0)             # 00000010
     sw      $zero, 0x0014(v0)          # 00000014
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8007EAB8:
 # Wrapper for 8007EA1C (A3 = 0)
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     or      a3, $zero, $zero           # a3 = 00000000
     jal     func_8007EA1C
     sw      $zero, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8007EADC:
 # Wrapper for 8007EB00 (A3 = 0)
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     or      a3, $zero, $zero           # a3 = 00000000
     jal     func_8007EB00
     sw      $zero, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -1539,7 +1539,7 @@ func_8007EE5C:
 # A1 = ?
 # A2 = ?
 # A3 = ?
-    addiu   $sp, $sp, 0xFF48           # $sp = FFFFFF48
+    addiu   $sp, $sp, 0xFF48           # $sp -= 0xB8
     sw      s2, 0x0020($sp)
     sw      s0, 0x0018($sp)
     lui     $at, 0x4080                # $at = 40800000
@@ -1923,7 +1923,7 @@ lbl_8007F448:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00B8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00B8           # $sp += 0xB8
 
 
 func_8007F45C:

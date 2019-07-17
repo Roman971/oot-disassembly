@@ -73,7 +73,7 @@ lbl_8006BD20:
 
 
 func_8006BD4C:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s8, 0x0038($sp)
     sw      s7, 0x0034($sp)
     lui     s7, 0x8012                 # s7 = 80120000
@@ -188,7 +188,7 @@ lbl_8006BED8:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_8006BF04:
@@ -196,7 +196,7 @@ func_8006BF04:
 # ROM st: map_grand_static & map_i_static
 # A0 = Global Context
 # A1 = Minimap Index
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     lui     a2, 0x8012                 # a2 = 80120000
     addiu   a2, a2, 0xA5D0             # a2 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -390,13 +390,13 @@ lbl_8006C158:
     lh      a1, 0x0F50(t8)             # 00000F50
 lbl_8006C1E0:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8006C1F0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     sll     a1, a1, 16
     lui     a3, 0x8012                 # a3 = 80120000
@@ -451,13 +451,13 @@ lbl_8006C2A8:
     sh      $zero, 0x1422(a3)          # 8011B9F2
     lw      $ra, 0x0014($sp)
 lbl_8006C2C0:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8006C2CC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80066EC0
     nop
@@ -485,13 +485,13 @@ lbl_8006C328:
     lui     $at, 0x8012                # $at = 80120000
     sw      $zero, -0x40F0($at)        # 8011BF10
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8006C340:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)
     lui     a1, 0x8012                 # a1 = 80120000
@@ -681,13 +681,13 @@ lbl_8006C5F8:
 lbl_8006C610:
     lw      $ra, 0x0014($sp)
 lbl_8006C614:
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8006C620:
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s1, 0x0020($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0024($sp)
@@ -969,12 +969,12 @@ lbl_8006CA4C:
     lw      s0, 0x001C($sp)
     lw      s1, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
 
 
 func_8006CA64:
 # parameter_static texture: Minimap Dungeon Entrance
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x001C($sp)
     or      a3, a0, $zero              # a3 = 00000000
     lui     t3, 0x8012                 # t3 = 80120000
@@ -1709,7 +1709,7 @@ lbl_8006D568:
 lbl_8006D57C:
     lw      $ra, 0x001C($sp)
 lbl_8006D580:
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
@@ -1728,7 +1728,7 @@ func_8006D58C:
 
 
 func_8006D5B4:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s6, 0x0030($sp)
     lui     s6, 0x8012                 # s6 = 80120000
     sw      s5, 0x002C($sp)
@@ -1939,6 +1939,6 @@ lbl_8006D8B4:
     lw      s5, 0x002C($sp)
     lw      s6, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     nop
     nop

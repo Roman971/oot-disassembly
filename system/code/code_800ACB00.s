@@ -229,7 +229,7 @@ lbl_800ACE08:
 
 
 func_800ACE10:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   a1, $zero, 0x010E          # a1 = 0000010E
     jal     func_80002E80              # bzero
@@ -240,7 +240,7 @@ func_800ACE10:
     sb      t6, 0x0104(a0)             # 00000104
     sb      t7, 0x0105(a0)             # 00000105
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 

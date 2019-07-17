@@ -12,7 +12,7 @@
 func_8008FFC0:
 # Create New File Function (Inner)
 # Creates a new file at 8011A5D0. Does not write to the first 0x1C bytes or perform checksum (I think).
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8012                 # a0 = 80120000
     addiu   a0, a0, 0xA5EC             # a0 = 8011A5EC
@@ -86,14 +86,14 @@ lbl_8009006C:
     sh      t0, 0x0F32(v0)             # 8011B502
     sw      t5, 0x0164(v0)             # 8011A734
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800900EC:
 # Load Title Screen Save File
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8012                 # a0 = 80120000
     addiu   a0, a0, 0xA5EC             # a0 = 8011A5EC
@@ -207,7 +207,7 @@ lbl_80090288:
     sb      $zero, 0x0032(v0)          # 8011A602
     sw      t7, 0x0164(v0)             # 8011A734
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -215,7 +215,7 @@ lbl_80090288:
 func_800902AC:
 # Loads Save data
 # A0 = Global Context + 0x1D0
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     lui     s0, 0x8012                 # s0 = 80120000
     addiu   s0, s0, 0xA5D0             # s0 = 8011A5D0
@@ -437,7 +437,7 @@ lbl_800905B0:
     sb      $zero, 0x0032(s0)          # 8011A602
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -445,7 +445,7 @@ lbl_800905B0:
 func_800905D4:
 # Saves the current game data to SRAM
 # A0 = Global Context + 0x1F74?
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     a1, 0x8012                 # a1 = 80120000
     addiu   a1, a1, 0xA5D0             # a1 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -531,14 +531,14 @@ lbl_800906CC:
     jal     func_80091474
     addu    a0, t0, $at
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80090720:
 # Loads SRAM to RAM and verifies save file integrity
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s7, 0x0034($sp)
     or      s7, a1, $zero              # s7 = 00000000
     sw      $ra, 0x003C($sp)
@@ -864,13 +864,13 @@ lbl_8009096C:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_80090C18:
 # Create New File Function
 # Sets initial spawn/age/cutscene/time of day, calls 8008FFC0
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s3, 0x0020($sp)
     sw      s2, 0x001C($sp)
     or      s2, a0, $zero              # s2 = 00000000
@@ -1040,11 +1040,11 @@ lbl_80090D10:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80090EB8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0028($sp)
@@ -1111,13 +1111,13 @@ func_80090EB8:
     addiu   a3, $zero, 0x0001          # a3 = 00000001
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80090FD0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s3, 0x0020($sp)
     sw      s2, 0x001C($sp)
     or      s2, a1, $zero              # s2 = 00000000
@@ -1240,12 +1240,12 @@ func_80090FD0:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800911C0:
 # Save game settings data
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
@@ -1255,7 +1255,7 @@ func_800911C0:
     jal     func_80091474
     lw      a1, 0x0000(t6)             # 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1264,7 +1264,7 @@ func_800911F4:
 # Load game setting data from save, initialize setting variables
 # A0 = Global Context
 # A1 = Global Context + 0x1D0
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s2, 0x0020($sp)
     or      s2, a1, $zero              # s2 = 00000000
     sw      $ra, 0x0024($sp)
@@ -1317,14 +1317,14 @@ lbl_80091270:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800912C4:
 # Allocate SRAM space?
 # A0 = Global Context
 # A1 = Global Context + 0x1D0
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -1335,7 +1335,7 @@ func_800912C4:
     sw      v0, 0x0000(t6)             # 00000000
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800912F4:
@@ -1358,7 +1358,7 @@ func_80091310:
 # SP + 0x14 = OSPiHandle.relDuration
 # SP + 0x18 = OSPiHandle.pulse
 # SP + 0x1C = OSPiHandle.speed
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     lui     s0, 0x8010                 # s0 = 80100000
     sw      a2, 0x0028($sp)
@@ -1410,7 +1410,7 @@ func_80091310:
 lbl_800913D4:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -1420,7 +1420,7 @@ func_800913E8:
 # A0 = Copy to/from address
 # A1 = Transfer Size
 # A2 = 0 if loading data, 1 if saving data
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -1452,7 +1452,7 @@ func_800913E8:
     jal     func_80004250              # osInvalDCache
     lw      a1, 0x0024($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -1464,7 +1464,7 @@ func_80091474:
 # A1 = Copy to or Copy From address
 # A2 = Transfer Size (0x8000 maximum, 0x1450 for individual saves)
 # A3 = 0 if loading data, 1 if saving data
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     sw      a1, 0x002C($sp)
     sw      a2, 0x0030($sp)
@@ -1485,7 +1485,7 @@ func_80091474:
     jal     func_800913E8
     lw      a2, 0x0034($sp)
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop

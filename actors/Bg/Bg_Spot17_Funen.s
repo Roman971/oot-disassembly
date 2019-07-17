@@ -1,13 +1,13 @@
 .section .text
 func_8099FB40:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     lui     a1, %hi(var_8099FD20)      # a1 = 809A0000
     jal     func_80063F7C
     addiu   a1, a1, %lo(var_8099FD20)  # a1 = 8099FD20
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -39,7 +39,7 @@ func_8099FB9C:
 
 
 func_8099FBAC:
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s0, 0x0034($sp)
     or      s0, a1, $zero              # s0 = 00000000
     sw      $ra, 0x003C($sp)
@@ -121,7 +121,7 @@ func_8099FBAC:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     nop
     nop
 

@@ -38,7 +38,7 @@ func_80B38D30:
 
 
 func_80B38DBC:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a1, 0x0024($sp)
     or      a1, a2, $zero              # a1 = 00000000
     sw      $ra, 0x001C($sp)
@@ -67,7 +67,7 @@ lbl_80B38DFC:
     addiu   a2, $zero, 0x0004          # a2 = 00000004
     lw      $ra, 0x001C($sp)
 lbl_80B38E24:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 

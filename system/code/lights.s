@@ -17,7 +17,7 @@ func_80065B70:
 # SP + 0x1B = byte Blue
 # SP + 0x1E = short Alpha?
 # SP + 0x23 = byte ?
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a1, 0x0024($sp)
     sw      a2, 0x0028($sp)
@@ -37,7 +37,7 @@ func_80065B70:
     jal     func_80065C98
     sw      t0, 0x0010($sp)
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -52,7 +52,7 @@ func_80065BCC:
 # SP + 0x17 = byte Green (0xD2 this pass)
 # SP + 0x1B = byte Blue (0xFF this pass)
 # SP + 0x1E = short Alpha? (0 this pass)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      a1, 0x0034($sp)
     sw      a2, 0x0038($sp)
     sw      a3, 0x003C($sp)
@@ -74,13 +74,13 @@ func_80065BCC:
     jal     func_80065B70
     sw      t9, 0x001C($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_80065C30:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      a1, 0x0034($sp)
     sw      a2, 0x0038($sp)
     sw      a3, 0x003C($sp)
@@ -103,7 +103,7 @@ func_80065C30:
     jal     func_80065B70
     sw      t9, 0x001C($sp)
     lw      $ra, 0x002C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -284,7 +284,7 @@ lbl_80065EBC:
 
 
 func_80065ED4:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     beql    a2, $zero, lbl_80066224
     lw      $ra, 0x0014($sp)
@@ -512,13 +512,13 @@ lbl_800661E8:
 lbl_80066220:
     lw      $ra, 0x0014($sp)
 lbl_80066224:
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
 
 func_80066230:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a2, 0x0020($sp)
     jal     func_80065EA4
@@ -542,7 +542,7 @@ func_80066230:
     sb      t8, 0x000A(v0)             # 0000000A
 lbl_80066288:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -552,7 +552,7 @@ func_80066298:
 # A0 = Light Data on DISP append end
 # A1 = Light Source ll record (last element)
 # A2 = Light Position ptr
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s3, 0x0020($sp)
     sw      s2, 0x001C($sp)
     sw      s1, 0x0018($sp)
@@ -592,7 +592,7 @@ lbl_80066318:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80066334:
@@ -678,7 +678,7 @@ lbl_80066430:
 
 
 func_80066438:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a1, 0x0024($sp)
     jal     func_80066544
@@ -702,7 +702,7 @@ func_80066438:
     jal     func_80002E80              # bzero
     addiu   a1, $zero, 0x0188          # a1 = 00000188
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -744,7 +744,7 @@ func_8006650C:
 # A0 = Global Context + 0x7A8 (lstr)
 # A1 = Graphics Context
 # V0 = Ptr to written data
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -755,7 +755,7 @@ func_8006650C:
     jal     func_800667BC
     lbu     a3, 0x0006(t6)             # 00000006
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -768,7 +768,7 @@ func_80066544:
 
 
 func_80066554:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s2, 0x0020($sp)
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -792,7 +792,7 @@ lbl_80066598:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_800665B0:
@@ -802,7 +802,7 @@ func_800665B0:
 # A1 = Global Context + 0x7A8
 # A2 = Light Source Pointer
 # V0 = Pointer to Light Source Record initialized
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a2, 0x0020($sp)
@@ -824,7 +824,7 @@ func_800665B0:
 lbl_800665FC:
     or      v0, a0, $zero              # v0 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -834,7 +834,7 @@ func_80066610:
 # A0 = Global Context
 # A1 = Global Context + 0x7A8
 # A2 = Light Source ll Record ptr (8011BD98 this pass)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a0, 0x0018($sp)
     or      a0, a2, $zero              # a0 = 00000000
     sw      $ra, 0x0014($sp)
@@ -860,13 +860,13 @@ lbl_8006665C:
     nop
     lw      $ra, 0x0014($sp)
 lbl_80066668:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80066674:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a1, 0x0024($sp)
     sw      a2, 0x0028($sp)
     sw      a3, 0x002C($sp)
@@ -948,7 +948,7 @@ lbl_80066798:
     or      v0, s0, $zero              # v0 = FFFFFF80
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -984,7 +984,7 @@ func_80066804:
 # Lighting engine related
 # Seems to iterate over active light sources
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFF58           # $sp = FFFFFF58
+    addiu   $sp, $sp, 0xFF58           # $sp -= 0xA8
     sw      s3, 0x004C($sp)
     or      s3, a0, $zero              # s3 = 00000000
     sw      $ra, 0x0064($sp)
@@ -1116,12 +1116,12 @@ lbl_800669C4:
     lw      s7, 0x005C($sp)
     lw      s8, 0x0060($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00A8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A8           # $sp += 0xA8
 
 
 func_80066A08:
 # gameplay_keep d. list: 15BC0 & 15C00
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s8, 0x0048($sp)
     or      s8, a0, $zero              # s8 = 00000000
     sw      $ra, 0x004C($sp)
@@ -1252,5 +1252,5 @@ lbl_80066BD4:
     lw      s7, 0x0044($sp)
     lw      s8, 0x0048($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     nop

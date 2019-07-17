@@ -7,7 +7,7 @@
 
 .section .text
 func_80067500:
-    addiu   $sp, $sp, 0xFF60           # $sp = FFFFFF60
+    addiu   $sp, $sp, 0xFF60           # $sp -= 0xA0
     sw      $ra, 0x0014($sp)
     addiu   a0, $sp, 0x0020            # a0 = FFFFFF80
     addiu   t6, $zero, 0x0003          # t6 = 00000003
@@ -33,7 +33,7 @@ func_80067500:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x00A0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A0           # $sp += 0xA0
     jr      $ra
     nop
     nop

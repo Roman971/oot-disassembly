@@ -358,7 +358,7 @@ lbl_80064CF8:
 
 
 func_80064D00:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     $at, 0x0001                # $at = 00010000
     addu    v1, a0, $at
@@ -396,14 +396,14 @@ lbl_80064D84:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80064D88:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80064D98:
 # parameter_static texture: 4/4 Regular Heart & 4/4 Double Defense Heart
-    addiu   $sp, $sp, 0xFE70           # $sp = FFFFFE70
+    addiu   $sp, $sp, 0xFE70           # $sp -= 0x190
     lui     a2, 0x8012                 # a2 = 80120000
     addiu   a2, a2, 0xA5D0             # a2 = 8011A5D0
     sw      $ra, 0x005C($sp)
@@ -1235,14 +1235,14 @@ lbl_800659DC:
     lw      s7, 0x0054($sp)
     lw      s8, 0x0058($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0190           # $sp = 00000000
+    addiu   $sp, $sp, 0x0190           # $sp += 0x190
 
 
 func_80065A14:
 # Heart Animation/Low Health SFX
 # Low health beep timed with heartbeat animation
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     lui     $at, 0x0001                # $at = 00010000
     addu    v1, a0, $at
@@ -1301,7 +1301,7 @@ lbl_80065AC4:
 lbl_80065AF0:
     lw      $ra, 0x0014($sp)
 lbl_80065AF4:
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 

@@ -7,7 +7,7 @@
 
 .section .text
 func_8005B0A0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
     lw      v1, 0x00B4(a3)             # 000000B4
@@ -84,7 +84,7 @@ lbl_8005B16C:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -196,7 +196,7 @@ lbl_8005B32C:
 
 
 func_8005B360:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s1, 0x001C($sp)
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -316,11 +316,11 @@ lbl_8005B508:
     lw      s5, 0x002C($sp)
     lw      s6, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_8005B52C:
-    addiu   $sp, $sp, 0xFD40           # $sp = FFFFFD40
+    addiu   $sp, $sp, 0xFD40           # $sp -= 0x2C0
     sw      s7, 0x003C($sp)
     sw      s5, 0x0034($sp)
     sw      s0, 0x0020($sp)
@@ -534,6 +534,6 @@ lbl_8005B828:
     lw      s7, 0x003C($sp)
     lw      s8, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x02C0           # $sp = 00000000
+    addiu   $sp, $sp, 0x02C0           # $sp += 0x2C0
     nop
     nop

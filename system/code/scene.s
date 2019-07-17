@@ -36,7 +36,7 @@ func_80081130:
 
 
 func_80081188:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a1, 0x002C($sp)
     sll     a1, a1, 16
     lui     v0, 0x8012                 # v0 = 80120000
@@ -103,7 +103,7 @@ lbl_80081258:
 lbl_80081280:
     andi    v0, a2, 0x00FF             # v0 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -140,7 +140,7 @@ func_800812F0:
 # A0 = Object Allocation Table
 # A1 = Object Id to load
 # A2 = Global Context
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a1, 0x0024($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -195,7 +195,7 @@ lbl_800813B0:
     sb      v1, 0x0009(a3)             # 00000009
     addiu   v0, v1, 0xFFFF             # v0 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -204,7 +204,7 @@ func_800813D4:
 # Allocates and Initializes "Object Space"
 # A0 = Global Context ptr
 # A1 = Object Allocation Table ptr (within global context)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -298,11 +298,11 @@ lbl_800814A0:
     sw      t4, 0x0C48($at)            # 80120C48
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_80081530:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s4, 0x0038($sp)
     or      s4, a0, $zero              # s4 = 00000000
     sw      $ra, 0x003C($sp)
@@ -367,7 +367,7 @@ lbl_80081608:
     lw      s3, 0x0034($sp)
     lw      s4, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80081628:
@@ -428,7 +428,7 @@ lbl_800816B0:
 
 
 func_800816B8:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s2, 0x001C($sp)
     or      s2, a0, $zero              # s2 = 00000000
     sw      $ra, 0x0024($sp)
@@ -463,7 +463,7 @@ lbl_80081724:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80081740:
@@ -497,7 +497,7 @@ func_800817A0:
 # Process Scene/Room Header
 # A0 = Global Context
 # A1 = Ptr to Header
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -532,14 +532,14 @@ lbl_80081804:
     lw      s2, 0x001C($sp)
     lw      s3, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80081824:
 # Scene Header Command 0x00
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     t1, 0x8012                 # t1 = 80120000
     addiu   t1, t1, 0xA5D0             # t1 = 8011A5D0
     sw      $ra, 0x0014($sp)
@@ -591,7 +591,7 @@ func_80081824:
     jal     func_800812F0              # ObjectSpawn
     sh      a1, 0x0008(t7)             # 800F0008
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -652,7 +652,7 @@ func_800819A0:
 # Scene Header Command 0x03
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     lui     v0, 0x8012                 # v0 = 80120000
     lui     v1, 0x00FF                 # v1 = 00FF0000
@@ -725,7 +725,7 @@ func_800819A0:
     jal     func_8002EC70              # T_BGCheck_getBGDataInfo [?]
     sw      t9, 0x0028(a2)             # 00000028
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -786,7 +786,7 @@ func_80081B70:
 # Scene Header Command 0x07
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     or      a3, a1, $zero              # a3 = 00000000
@@ -835,7 +835,7 @@ lbl_80081BF0:
     sw      v0, 0x1E0C($at)            # 00011E0C
 lbl_80081C28:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -896,7 +896,7 @@ func_80081CD8:
 # Scene Header Command 0x0B
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s8, 0x0038($sp)
     sw      s7, 0x0034($sp)
     or      s7, a0, $zero              # s7 = 00000000
@@ -1013,14 +1013,14 @@ lbl_80081E50:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80081E8C:
 # Scene Header Command 0x0C
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s3, 0x0024($sp)
     sw      s2, 0x0020($sp)
     or      s2, a1, $zero              # s2 = 00000000
@@ -1065,7 +1065,7 @@ lbl_80081F1C:
     lw      s3, 0x0024($sp)
     lw      s4, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_80081F3C:
@@ -1199,7 +1199,7 @@ func_800820B0:
 # Scene Header Command 0x10
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     addiu   t0, $zero, 0x00FF          # t0 = 000000FF
@@ -1408,7 +1408,7 @@ lbl_8008238C:
 lbl_800823AC:
     lw      $ra, 0x0014($sp)
 lbl_800823B0:
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -1483,7 +1483,7 @@ func_80082478:
 # Scene Header Command 0x15
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lbu     t6, 0x0007(a1)             # 00000007
     lui     t8, 0x8012                 # t8 = 80120000
@@ -1500,7 +1500,7 @@ func_80082478:
     or      a0, a0, $at                # a0 = F0000000
     lw      $ra, 0x0014($sp)
 lbl_800824B8:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1521,7 +1521,7 @@ func_800824DC:
 # Scene Header Command 0x18
 # A0 = Global Context
 # A1 = Command Start ptr (for scene setup being loaded)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -1584,7 +1584,7 @@ lbl_80082580:
 lbl_800825C8:
     lw      $ra, 0x0014($sp)
 lbl_800825CC:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1728,7 +1728,7 @@ func_80082790:
 # Possibly Draw Scene?
 # (Helper for 8009C0A8)
 # A0 = Global Context
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     v0, 0x8012                 # v0 = 80120000
     lw      v0, 0x1220(v0)             # 80121220
@@ -1752,7 +1752,7 @@ lbl_800827CC:
     nop
     lw      $ra, 0x0014($sp)
 lbl_800827E8:
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1779,7 +1779,7 @@ func_800827F4:
 
 func_80082834:
 # Scene Animate 19
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0048($sp)
     lw      t6, 0x0048($sp)
@@ -1858,14 +1858,14 @@ func_80082834:
     addu    t3, t9, $at
     sw      t3, 0x0004(a3)             # 00000004
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_8008297C:
 # Scene Animate 28
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0048($sp)
     lw      t6, 0x0048($sp)
@@ -1919,14 +1919,14 @@ func_8008297C:
     sw      t6, 0x0004(v1)             # 00000004
     sw      t5, 0x0000(v1)             # 00000000
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
 
 
 func_80082A60:
 # Scene Animate 20
-    addiu   $sp, $sp, 0xFF58           # $sp = FFFFFF58
+    addiu   $sp, $sp, 0xFF58           # $sp -= 0xA8
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x003C($sp)
@@ -2125,14 +2125,14 @@ func_80082A60:
     sw      $zero, 0x0004(t1)          # 0000002C
     lw      $ra, 0x003C($sp)
     lw      s0, 0x0038($sp)
-    addiu   $sp, $sp, 0x00A8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A8           # $sp += 0xA8
     jr      $ra
     nop
 
 
 func_80082D88:
 # Scene Animate 30
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s0, 0x0004($sp)
     lui     t0, 0xDF00                 # t0 = DF000000
     lui     t1, 0xFA00                 # t1 = FA000000
@@ -2693,12 +2693,12 @@ lbl_800834A8:
 lbl_800835E0:
     lw      s0, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_800835EC:
 # Scene Animate 31
-    addiu   $sp, $sp, 0xFF80           # $sp = FFFFFF80
+    addiu   $sp, $sp, 0xFF80           # $sp -= 0x80
     sw      s2, 0x003C($sp)
     or      s2, a0, $zero              # s2 = 00000000
     sw      $ra, 0x0044($sp)
@@ -2889,12 +2889,12 @@ func_800835EC:
     lw      s2, 0x003C($sp)
     lw      s3, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0080           # $sp = 00000000
+    addiu   $sp, $sp, 0x0080           # $sp += 0x80
 
 
 func_800838EC:
 # Scene Animate 32
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -3023,12 +3023,12 @@ func_800838EC:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80083AF4:
 # Scene Animate 33
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0068($sp)
     lw      t6, 0x0068($sp)
@@ -3127,12 +3127,12 @@ func_80083AF4:
     sw      t3, 0x0000(t0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
 
 
 func_80083C84:
 # Scene Animate 48
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0030($sp)
     lw      t6, 0x0030($sp)
@@ -3185,12 +3185,12 @@ func_80083C84:
     sw      t4, 0x0000(v1)             # 00000000
     lw      $ra, 0x001C($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
 func_80083D5C:
 # Scene Animate 39
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0050($sp)
     lw      t6, 0x0050($sp)
@@ -3276,12 +3276,12 @@ func_80083D5C:
     sw      t4, 0x0000(t0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
 
 
 func_80083EB8:
 # Scene Animate 24
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x003C($sp)
@@ -3381,12 +3381,12 @@ lbl_80083FD8:
     lw      $ra, 0x003C($sp)
     lw      s0, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_80084044:
 # Scene Animate 40
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0030($sp)
     lw      t6, 0x0030($sp)
@@ -3441,14 +3441,14 @@ func_80084044:
     addu    t5, t4, $at
     sw      t5, 0x0004(a0)             # 00000004
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_8008412C:
 # Scene Animate 23
-    addiu   $sp, $sp, 0xFF50           # $sp = FFFFFF50
+    addiu   $sp, $sp, 0xFF50           # $sp -= 0xB0
     sw      s1, 0x004C($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0054($sp)
@@ -3929,12 +3929,12 @@ lbl_80084784:
     lw      s1, 0x004C($sp)
     lw      s2, 0x0050($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00B0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00B0           # $sp += 0xB0
 
 
 func_80084894:
 # Scene Animate 29
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0060($sp)
     lw      t6, 0x0060($sp)
@@ -4002,14 +4002,14 @@ func_80084894:
     sw      t6, 0x0004(v1)             # 00000004
     sw      t5, 0x0000(v1)             # 00000000
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
 
 func_800849B0:
 # Scene Animate 34
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0030($sp)
     lw      t6, 0x0030($sp)
@@ -4051,14 +4051,14 @@ func_800849B0:
     sw      t7, 0x0004(v1)             # 00000004
     sw      t6, 0x0000(v1)             # 00000000
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_80084A64:
 # Scene Animate 35
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x003C($sp)
@@ -4152,12 +4152,12 @@ lbl_80084B6C:
     lw      $ra, 0x003C($sp)
     lw      s0, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_80084BDC:
 # Scene Animate 36
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -4312,12 +4312,12 @@ lbl_80084D0C:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80084E48:
 # Scene Animate Helper (Tower Collapse 0x26,0x33,0x34)
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s1, 0x0020($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0024($sp)
@@ -4430,13 +4430,13 @@ lbl_80084FF8:
     lw      s0, 0x001C($sp)
     lw      s1, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80085008:
 # Scene Animate 38
 # Calls 80085008
-    addiu   $sp, $sp, 0xFF80           # $sp = FFFFFF80
+    addiu   $sp, $sp, 0xFF80           # $sp -= 0x80
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -4617,12 +4617,12 @@ lbl_800852C8:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0080           # $sp = 00000000
+    addiu   $sp, $sp, 0x0080           # $sp += 0x80
 
 
 func_800852D8:
 # Scene Animate 37
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0078($sp)
     lw      t6, 0x0078($sp)
@@ -4742,12 +4742,12 @@ func_800852D8:
     sw      t4, 0x0000(t0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_800854BC:
 # Scene Animate 42
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x003C($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0044($sp)
@@ -4901,12 +4901,12 @@ func_800854BC:
     lw      s1, 0x003C($sp)
     lw      s2, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80085728:
 # Scene Animate 43
-    addiu   $sp, $sp, 0xFF90           # $sp = FFFFFF90
+    addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -5023,12 +5023,12 @@ func_80085728:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0070           # $sp = 00000000
+    addiu   $sp, $sp, 0x0070           # $sp += 0x70
 
 
 func_80085900:
 # Scene Animate 47
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0048($sp)
     lw      t6, 0x0048($sp)
@@ -5092,12 +5092,12 @@ func_80085900:
     sw      t4, 0x0000(t1)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_80085A04:
 # Scene Animate 27
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0078($sp)
     lw      t6, 0x0078($sp)
@@ -5217,7 +5217,7 @@ func_80085A04:
     sw      t4, 0x0000(t0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80085BE8:
@@ -5314,7 +5314,7 @@ func_80085BE8:
 
 func_80085D48:
 # Scene Animate 50
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0044($sp)
     sw      a0, 0x0058($sp)
     lw      t6, 0x0058($sp)
@@ -5387,12 +5387,12 @@ func_80085D48:
     sw      t4, 0x0000(t1)             # 00000000
     lw      $ra, 0x0044($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_80085E70:
 # Scene Animate 41
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s1, 0x003C($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x0044($sp)
@@ -5517,7 +5517,7 @@ func_80085E70:
     lw      s1, 0x003C($sp)
     lw      s2, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
 
 
 func_80086068:
@@ -5661,7 +5661,7 @@ lbl_80086160:
 
 func_8008626C:
 # Scene Animate 46
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0060($sp)
     lw      t6, 0x0060($sp)
@@ -5755,12 +5755,12 @@ func_8008626C:
     sw      t3, 0x0000(t1)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
 
 
 func_800863E8:
 # Scene Animate 22
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0078($sp)
     lw      t6, 0x0078($sp)
@@ -5880,7 +5880,7 @@ func_800863E8:
     sw      t4, 0x0000(t0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_800865CC:
@@ -5917,7 +5917,7 @@ func_800865CC:
 
 func_8008663C:
 # Scene Animate 1
-    addiu   $sp, $sp, 0xFF68           # $sp = FFFFFF68
+    addiu   $sp, $sp, 0xFF68           # $sp -= 0x98
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x0044($sp)
@@ -6093,7 +6093,7 @@ lbl_800868D8:
     lw      s1, 0x003C($sp)
     lw      s2, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0098           # $sp = 00000000
+    addiu   $sp, $sp, 0x0098           # $sp += 0x98
 
 
 func_800868EC:
@@ -6154,7 +6154,7 @@ func_800868EC:
 
 func_800869BC:
 # Scene Animate 3
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s2, 0x0040($sp)
     or      s2, a0, $zero              # s2 = 00000000
     sw      $ra, 0x0044($sp)
@@ -6285,12 +6285,12 @@ func_800869BC:
     lw      s1, 0x003C($sp)
     lw      s2, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80086BCC:
 # Scene Animate 4
-    addiu   $sp, $sp, 0xFF58           # $sp = FFFFFF58
+    addiu   $sp, $sp, 0xFF58           # $sp -= 0xA8
     sw      s0, 0x0034($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x003C($sp)
@@ -6564,12 +6564,12 @@ lbl_80086F38:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x00A8           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A8           # $sp += 0xA8
 
 
 func_80086FFC:
 # Scene Animate 5
-    addiu   $sp, $sp, 0xFF90           # $sp = FFFFFF90
+    addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      s0, 0x0048($sp)
     lui     v0, 0x8012                 # v0 = 80120000
     addiu   v0, v0, 0xA5D0             # v0 = 8011A5D0
@@ -6680,14 +6680,14 @@ lbl_80087058:
     sw      t8, 0x0000(v1)             # 00000000
     lw      $ra, 0x004C($sp)
     lw      s0, 0x0048($sp)
-    addiu   $sp, $sp, 0x0070           # $sp = 00000000
+    addiu   $sp, $sp, 0x0070           # $sp += 0x70
     jr      $ra
     nop
 
 
 func_800871B8:
 # Scene Animate 6
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0050($sp)
     lw      t6, 0x0050($sp)
@@ -6772,14 +6772,14 @@ lbl_800871F4:
     addu    t5, t4, $at
     sw      t5, 0x0004(a3)             # 00000004
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     jr      $ra
     nop
 
 
 func_80087314:
 # Scene Animate 7
-    addiu   $sp, $sp, 0xFF90           # $sp = FFFFFF90
+    addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -6900,12 +6900,12 @@ func_80087314:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0070           # $sp = 00000000
+    addiu   $sp, $sp, 0x0070           # $sp += 0x70
 
 
 func_800874FC:
 # Scene Animate 8
-    addiu   $sp, $sp, 0xFF78           # $sp = FFFFFF78
+    addiu   $sp, $sp, 0xFF78           # $sp -= 0x88
     sw      s2, 0x0040($sp)
     or      s2, a0, $zero              # s2 = 00000000
     sw      $ra, 0x0044($sp)
@@ -7113,12 +7113,12 @@ func_800874FC:
     lw      s1, 0x003C($sp)
     lw      s2, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0088           # $sp = 00000000
+    addiu   $sp, $sp, 0x0088           # $sp += 0x88
 
 
 func_80087840:
 # Scene Animate 9
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -7240,12 +7240,12 @@ lbl_80087A14:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
 
 
 func_80087A24:
 # Scene Animate 10
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0048($sp)
     lw      t6, 0x0048($sp)
@@ -7311,7 +7311,7 @@ func_80087A24:
     sw      t4, 0x0000(v1)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_80087B30:
@@ -7348,7 +7348,7 @@ func_80087B30:
 
 func_80087BA0:
 # Scene Animate 12
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0060($sp)
     lw      t6, 0x0060($sp)
@@ -7438,12 +7438,12 @@ func_80087BA0:
     sw      t4, 0x0000(t1)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
 
 
 func_80087D0C:
 # Scene Animate 13
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0068($sp)
     lw      t6, 0x0068($sp)
@@ -7544,12 +7544,12 @@ func_80087D0C:
     sw      t3, 0x0000(t0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
 
 
 func_80087EA4:
 # Scene Animate 14
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x001C($sp)
@@ -7663,12 +7663,12 @@ lbl_80087FF4:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
 
 
 func_80088060:
 # Scene Animate 15
-    addiu   $sp, $sp, 0xFFA0           # $sp = FFFFFFA0
+    addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0060($sp)
     lw      v0, 0x0060($sp)
@@ -7774,14 +7774,14 @@ func_80088060:
     sw      t7, 0x0004(a3)             # 00000004
     sw      t4, 0x0000(a3)             # 00000000
     lw      $ra, 0x0034($sp)
-    addiu   $sp, $sp, 0x0060           # $sp = 00000000
+    addiu   $sp, $sp, 0x0060           # $sp += 0x60
     jr      $ra
     nop
 
 
 func_80088214:
 # Scene Animate 16
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0048($sp)
     lw      t6, 0x0048($sp)
@@ -7870,7 +7870,7 @@ func_80088214:
     sw      t7, 0x0004(a0)             # 00000004
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
 
 
 func_8008837C:
@@ -7931,7 +7931,7 @@ func_8008837C:
 
 func_8008844C:
 # Scene Animate 18
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0034($sp)
     sw      a0, 0x0050($sp)
     lw      t6, 0x0050($sp)
@@ -8031,12 +8031,12 @@ func_8008844C:
     sw      t3, 0x0000(a0)             # 00000000
     lw      $ra, 0x0034($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
 
 
 func_800885E0:
 # Scene Animate 21
-    addiu   $sp, $sp, 0xFF78           # $sp = FFFFFF78
+    addiu   $sp, $sp, 0xFF78           # $sp -= 0x88
     sw      $ra, 0x003C($sp)
     sw      s1, 0x0038($sp)
     sw      s0, 0x0034($sp)
@@ -8341,12 +8341,12 @@ lbl_80088A3C:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0088           # $sp = 00000000
+    addiu   $sp, $sp, 0x0088           # $sp += 0x88
 
 
 func_80088A7C:
 # Scene Animate 26
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
     sw      $ra, 0x003C($sp)
@@ -8471,18 +8471,18 @@ func_80088A7C:
     lw      s0, 0x0034($sp)
     lw      s1, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80088C74:
 # Scene Animate 52
 # Wrapper for (80084E48)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80084E48
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -8490,19 +8490,19 @@ func_80088C74:
 func_80088C94:
 # Scene Animate 51
 # Wrapper for (80084E48)
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80084E48
     nop
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80088CB4:
 # Scene Animate 49
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0048($sp)
     lw      t6, 0x0048($sp)
@@ -8578,6 +8578,6 @@ func_80088CB4:
     sw      t4, 0x0000(a0)             # 00000000
     lw      $ra, 0x001C($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     nop
     nop

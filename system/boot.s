@@ -1,6 +1,6 @@
 .section .text
 func_80000460:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x0318(t6)             # 80000318
@@ -11,13 +11,13 @@ func_80000460:
     jal     func_80002E80              # bzero
     subu    a1, t6, t7
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80000498:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     t7, 0x8000                 # t7 = 80000000
     addiu   t7, t7, 0x6550             # t7 = 80006550
@@ -77,7 +77,7 @@ func_80000498:
     jal     func_80005EC0              # osStartThread
     addiu   a0, a0, 0x6850             # a0 = 80006850
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -87,7 +87,7 @@ func_80000498:
 
 func_800005A0:
 # Main Thread Entrypoint
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     jal     func_80000E6C
@@ -123,13 +123,13 @@ func_800005A0:
     jal     func_800A1C50
     lw      a0, 0x0020($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_8000063C:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
     jal     func_80005BA0
@@ -238,7 +238,7 @@ lbl_800007CC:
     beq     $zero, $zero, lbl_800007CC
     nop
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -284,7 +284,7 @@ lbl_80000854:
 
 
 func_8000085C:
-    addiu   $sp, $sp, 0xFF78           # $sp = FFFFFF78
+    addiu   $sp, $sp, 0xFF78           # $sp -= 0x88
     sw      s4, 0x0028($sp)
     sw      s3, 0x0024($sp)
     sw      s2, 0x0020($sp)
@@ -384,11 +384,11 @@ lbl_80000990:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0088           # $sp = 00000000
+    addiu   $sp, $sp, 0x0088           # $sp += 0x88
 
 
 func_800009E0:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0020($sp)
@@ -416,13 +416,13 @@ lbl_80000A34:
     lw      a2, 0x0028($sp)
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80000A54:
-    addiu   $sp, $sp, 0xFFA8           # $sp = FFFFFFA8
+    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
     sw      a1, 0x005C($sp)
@@ -460,7 +460,7 @@ func_80000A54:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0058           # $sp = 00000000
+    addiu   $sp, $sp, 0x0058           # $sp += 0x58
     jr      $ra
     nop
 
@@ -474,7 +474,7 @@ func_80000AF8:
 
 
 func_80000B0C:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     lui     a2, 0x8001                 # a2 = 80010000
     addiu   a2, a2, 0xB140             # a2 = 8000B140
     sw      $ra, 0x001C($sp)
@@ -585,13 +585,13 @@ lbl_80000C94:
     lw      $ra, 0x001C($sp)
 lbl_80000C98:
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     jr      $ra
     nop
 
 
 func_80000CA8:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0024($sp)
     sw      s2, 0x0020($sp)
     sw      s1, 0x001C($sp)
@@ -624,7 +624,7 @@ lbl_80000D10:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80000D28:
@@ -638,7 +638,7 @@ func_80000D28:
 # SP + 0x14 = OSMesgQueue* queue to use for the completion notification
 # SP + 0x18 = OSMesg message to use for the completion notification
 # V0 = 0 for success
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x002C($sp)
@@ -688,7 +688,7 @@ lbl_80000D9C:
 lbl_80000DDC:
     lw      $ra, 0x002C($sp)
     lw      s0, 0x0028($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
@@ -700,7 +700,7 @@ func_80000DF0:
 # A1 = u32 VROM start address to read from
 # A2 = u32 size of data to load
 # V0 = 0 for success
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0068($sp)
     sw      a1, 0x006C($sp)
@@ -730,13 +730,13 @@ lbl_80000E4C:
     or      v0, $zero, $zero           # v0 = 00000000
     lw      $ra, 0x0024($sp)
 lbl_80000E60:
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
     jr      $ra
     nop
 
 
 func_80000E6C:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     v0, 0x0000                 # v0 = 00000000
     addiu   v0, v0, 0x7430             # v0 = 00007430
     sw      $ra, 0x001C($sp)
@@ -792,7 +792,7 @@ lbl_80000EBC:
     jal     func_80005EC0              # osStartThread
     addiu   a0, a0, 0x7DD8             # a0 = 80007DD8
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -801,7 +801,7 @@ lbl_80000EBC:
 
 
 func_80000F60:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     lui     a1, 0x8001                 # a1 = 80010000
     lui     a3, 0x8001                 # a3 = 80010000
     addiu   a3, a3, 0x8898             # a3 = 80008898
@@ -839,13 +839,13 @@ lbl_80000FAC:
     sw      t0, 0x0000(a3)             # 80008898
     addiu   v0, v0, 0x8490             # v0 = 80008490
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80001000:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
     lui     t6, 0x8001                 # t6 = 80010000
@@ -904,13 +904,13 @@ lbl_800010D4:
     or      v0, s0, $zero              # v0 = 80008498
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_800010EC:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s1, 0x001C($sp)
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -1008,11 +1008,11 @@ lbl_80001228:
     lw      s3, 0x0024($sp)
     lw      s4, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
 
 
 func_80001254:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
     lui     $at, 0x8001                # $at = 80010000
@@ -1028,13 +1028,13 @@ func_80001254:
     jal     func_800010EC
     lw      a1, 0x001C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_800012A0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8000                 # a0 = 80000000
     lw      a0, 0x6260(a0)             # 80006260
@@ -1062,7 +1062,7 @@ lbl_800012F4:
     addiu   a1, $zero, 0x0056          # a1 = 00000056
 lbl_80001300:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -1093,7 +1093,7 @@ func_80001338:
 
 func_8000134C:
 # Crash Debugger II
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lui     t6, 0xA404                 # t6 = A4040000
     lw      t7, 0x0010(t6)             # A4040010
@@ -1151,14 +1151,14 @@ lbl_800013BC:
     jal     func_800ADBF8
     or      a1, v0, $zero              # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80001438:
 # Crash Debugger I
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8001                 # a0 = 80010000
     lui     a1, 0x8000                 # a1 = 80000000
@@ -1168,25 +1168,25 @@ func_80001438:
     jal     func_800AEF8C
     or      a3, $zero, $zero           # a3 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_8000146C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8001                 # a0 = 80010000
     jal     func_800AF014
     addiu   a0, a0, 0x88A8             # a0 = 800088A8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80001490:
-    addiu   $sp, $sp, 0xFF60           # $sp = FFFFFF60
+    addiu   $sp, $sp, 0xFF60           # $sp -= 0xA0
     sw      $ra, 0x0014($sp)
     addiu   a0, $sp, 0x0020            # a0 = FFFFFF80
     addiu   a1, $sp, 0x001C            # a1 = FFFFFF7C
@@ -1237,7 +1237,7 @@ lbl_800014D4:
     jal     func_80001564
     sw      t6, -0x7744($at)           # 800088BC
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x00A0           # $sp = 00000000
+    addiu   $sp, $sp, 0x00A0           # $sp += 0xA0
     jr      $ra
     nop
 
@@ -1264,33 +1264,33 @@ func_80001570:
 
 
 func_800015A0:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      a0, 0x0008($sp)
     sw      a1, 0x000C($sp)
     sw      a2, 0x0010($sp)
     sw      a3, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_800015BC:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      a0, 0x0008($sp)
     sw      a1, 0x000C($sp)
     sw      a2, 0x0010($sp)
     sw      a3, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_800015D8:
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      a0, 0x0008($sp)
     sw      a1, 0x000C($sp)
     sw      a2, 0x0010($sp)
     sw      a3, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_800015F4:
@@ -1300,7 +1300,7 @@ func_800015F4:
 
 
 func_80001600:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     jal     func_80001DB0
     sw      s0, 0x0018($sp)
@@ -1419,7 +1419,7 @@ lbl_80001698:
 lbl_800017C4:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -1558,7 +1558,7 @@ lbl_80001984:
 
 
 func_8000198C:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x002C($sp)
     sw      s1, 0x0028($sp)
     bne     a0, $zero, lbl_800019DC
@@ -1634,14 +1634,14 @@ lbl_80001A80:
     lw      s0, 0x0024($sp)
     lw      s1, 0x0028($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     nop
     nop
     nop
 
 
 func_80001AA0:
-    addiu   $sp, $sp, 0xFFC0           # $sp = FFFFFFC0
+    addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     lwc1    $f14, 0x0054($sp)
     mtc1    a3, $f12                   # $f12 = 0.00
     sw      a0, 0x0040($sp)
@@ -1677,14 +1677,14 @@ lbl_80001ADC:
     lwc1    $f12, 0x004C($sp)
     lw      $ra, 0x003C($sp)
 lbl_80001B28:
-    addiu   $sp, $sp, 0x0040           # $sp = 00000000
+    addiu   $sp, $sp, 0x0040           # $sp += 0x40
     mov.s   $f0, $f12
     jr      $ra
     nop
 
 
 func_80001B38:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
@@ -1700,13 +1700,13 @@ func_80001B38:
     jal     func_800AF734
     lw      a1, 0x001C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80001B84:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8000                 # a0 = 80000000
     jal     func_800015BC
@@ -1716,7 +1716,7 @@ func_80001B84:
     jal     func_800AF734
     or      a1, $zero, $zero           # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
@@ -1724,7 +1724,7 @@ func_80001B84:
 
 
 func_80001BC0:
-    addiu   $sp, $sp, 0xFF98           # $sp = FFFFFF98
+    addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0068($sp)
     sw      a1, 0x006C($sp)
@@ -1748,13 +1748,13 @@ func_80001BC0:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0024($sp)
-    addiu   $sp, $sp, 0x0068           # $sp = 00000000
+    addiu   $sp, $sp, 0x0068           # $sp += 0x68
     jr      $ra
     nop
 
 
 func_80001C2C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a1, a0, $zero              # a1 = 00000000
@@ -1771,13 +1771,13 @@ func_80001C2C:
     jal     func_80001BC0
     or      a1, v1, $zero              # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80001C7C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a1, a0, $zero              # a1 = 00000000
@@ -1794,13 +1794,13 @@ func_80001C7C:
     jal     func_80001BC0
     or      a1, v1, $zero              # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80001CCC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a1, a0, $zero              # a1 = 00000000
@@ -1818,13 +1818,13 @@ func_80001CCC:
     jal     func_80001BC0
     or      a1, v1, $zero              # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80001D20:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     or      a1, a0, $zero              # a1 = 00000000
@@ -1837,13 +1837,13 @@ func_80001D20:
     jal     func_80001BC0
     or      a1, v1, $zero              # a1 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80001D60:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
     lui     $at, 0x8000                # $at = 80000000
@@ -1860,7 +1860,7 @@ func_80001D60:
     jal     func_80001E20              # osSendMesg
     or      a2, $zero, $zero           # a2 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1868,7 +1868,7 @@ func_80001D60:
 func_80001DB0:
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x62F0(t6)             # 800062F0
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     bne     t6, $zero, lbl_80001DD0
     nop
@@ -1881,13 +1881,13 @@ lbl_80001DD0:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
 
 func_80001DF4:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8001                 # a0 = 80010000
     addiu   a0, a0, 0x8948             # a0 = 80008948
@@ -1895,7 +1895,7 @@ func_80001DF4:
     jal     func_80001E20              # osSendMesg
     or      a2, $zero, $zero           # a2 = 00000000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -1909,7 +1909,7 @@ func_80001E20:
 # A1 = OSMesg message to copy
 # A2 = s32 flag which indicates the blocking mode, either OS_MESG_BLOCK (1) or OS_MESG_NOBLOCK (0)
 # V0 = 0 if a message could be copied, else -1
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
     sw      a1, 0x003C($sp)
@@ -1999,7 +1999,7 @@ lbl_80001F54:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     nop
 
 
@@ -2008,7 +2008,7 @@ func_80001F70:
 # Suspends a given thread, preventing it from becoming runnable until the next osStartThread call on that thread
 # If targeting the thread currently running, the dispatcher is invoked to run the new highest priority runnable thread
 # A0 = OSThread* thread, or NULL to default to the thread currently running
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
     sw      s2, 0x0020($sp)
@@ -2060,7 +2060,7 @@ lbl_80002010:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80002030:
@@ -2072,7 +2072,7 @@ func_80002030:
 # A1 = OSMesg* pointer where the message received should be stored (if NULL the message is discarded instead)
 # A2 = s32 flag which indicates the blocking mode, either OS_MESG_BLOCK (1) or OS_MESG_NOBLOCK (0)
 # V0 = 0 if a message could be received, else -1
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -2157,7 +2157,7 @@ lbl_80002154:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     nop
     nop
 
@@ -2329,7 +2329,7 @@ lbl_80002358:
 
 func_80002368:
 # __ll_mod?
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     sw      a0, 0x0008($sp)
     sw      a1, 0x000C($sp)
     sw      a2, 0x0010($sp)
@@ -2372,7 +2372,7 @@ lbl_800023F4:
     lw      v0, 0x0000($sp)
     lw      v1, 0x0004($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_80002404:
@@ -3035,7 +3035,7 @@ func_80002D30:
 # A1 = OSThread* thread
     or      a2, a0, $zero              # a2 = 00000000
     lw      a3, 0x0000(a2)             # 00000000
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     beq     a3, $zero, lbl_80002D68
     nop
 lbl_80002D44:
@@ -3051,7 +3051,7 @@ lbl_80002D58:
     nop
 lbl_80002D68:
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
 
 
 func_80002D70:
@@ -3059,7 +3059,7 @@ func_80002D70:
 # Removes a given thread from any queues it may be on
 # If targeting the thread currently running, the dispatcher is invoked to run the new highest priority runnable thread
 # A0 = OSThread* thread, or NULL to default to the thread currently running
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0038($sp)
     sw      s2, 0x0020($sp)
@@ -3130,7 +3130,7 @@ lbl_80002E54:
     lw      s1, 0x001C($sp)
     lw      s2, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     nop
     nop
     nop
@@ -3199,7 +3199,7 @@ func_80002F20:
 # A3 = Argument passed to the entrypoint procedure
 # SP + 0x10 = Pointer to the location where the stack should be initialized for this thread
 # SP + 0x14 = OSPri priority value, ranges from OS_PRIORITY_IDLE (0) to OS_PRIORITY_APPMAX (127)
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
     lw      t6, 0x002C($sp)
@@ -3277,7 +3277,7 @@ func_80002F20:
     sw      t9, 0x633C($at)            # 8000633C
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop
@@ -3286,7 +3286,7 @@ func_80002F20:
 
 
 func_80003070:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x001C($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
     lui     $at, 0x8001                # $at = 80010000
@@ -3463,7 +3463,7 @@ lbl_800032E0:
     sw      t9, 0x0014(t2)             # A4500014
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     nop
 
@@ -3602,7 +3602,7 @@ lbl_8000349C:
 
 
 func_800034C0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
@@ -3617,11 +3617,11 @@ func_800034C0:
     lw      v0, 0x0020($sp)
     lw      s0, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80003500:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     lui     s0, 0x8000                 # s0 = 80000000
     addiu   s0, s0, 0x6370             # s0 = 80006370
@@ -3714,7 +3714,7 @@ lbl_8000365C:
     lw      $ra, 0x0024($sp)
 lbl_80003660:
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
     nop
@@ -3724,7 +3724,7 @@ lbl_80003660:
 
 
 func_80003680:
-    addiu   $sp, $sp, 0xFF88           # $sp = FFFFFF88
+    addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s3, 0x002C($sp)
     sw      s8, 0x0040($sp)
     sw      s7, 0x003C($sp)
@@ -3996,11 +3996,11 @@ lbl_80003A1C:
     lw      s7, 0x003C($sp)
     lw      s8, 0x0040($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0078           # $sp = 00000000
+    addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
 func_80003A90:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
     sw      $ra, 0x0014($sp)
@@ -4053,7 +4053,7 @@ lbl_80003B44:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80003B48:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
@@ -4065,7 +4065,7 @@ func_80003B60:
 # Translate a CPU virtual address to its physical memory address
 # A0 = CPU virtual address to translate
 # V0 = u32 corresponding physical address, or -1 if the address couldn't be translated
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a0, 0x0018($sp)
     lw      t6, 0x0018($sp)
     lui     $at, 0x8000                # $at = 80000000
@@ -4096,14 +4096,14 @@ lbl_80003BC4:
     lw      a0, 0x0018($sp)
 lbl_80003BCC:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
 
 
 func_80003BE0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     jal     func_80005130              # __osDisableInt
@@ -4130,13 +4130,13 @@ lbl_80003C34:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80003C50:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     jal     func_80004300
@@ -4154,7 +4154,7 @@ lbl_80003C74:
     sw      t8, 0x0000(t9)             # 00000000
 lbl_80003C8C:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
@@ -4224,7 +4224,7 @@ lbl_80003D04:
 
 
 func_80003D60:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     jal     func_80005130              # __osDisableInt
@@ -4247,7 +4247,7 @@ func_80003D60:
     sw      t2, 0x000C(t0)             # 8000000C
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop
@@ -4311,7 +4311,7 @@ lbl_80003E7C:
 
 
 func_80003E90:
-    addiu   $sp, $sp, 0xFFF0           # $sp = FFFFFFF0
+    addiu   $sp, $sp, 0xFFF0           # $sp -= 0x10
     lui     t6, 0x0040                 # t6 = 00400000
     sw      t6, 0x0008($sp)
 lbl_80003E9C:
@@ -4383,7 +4383,7 @@ lbl_80003F54:
     lw      v0, 0x0008($sp)
 lbl_80003F9C:
     jr      $ra
-    addiu   $sp, $sp, 0x0010           # $sp = 00000000
+    addiu   $sp, $sp, 0x0010           # $sp += 0x10
     nop
     nop
     nop
@@ -4396,7 +4396,7 @@ func_80003FB0:
 # A0 = OSEvent event associated
 # A1 = OSMesgQueue* queue to associate
 # A2 = OSMesg message to associate
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -4440,7 +4440,7 @@ lbl_80004048:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop
@@ -4473,7 +4473,7 @@ lbl_80004088:
 
 
 func_800040C0:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x6370(t6)             # 80006370
     sw      $ra, 0x001C($sp)
@@ -4531,7 +4531,7 @@ lbl_80004180:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     nop
     nop
     nop
@@ -4659,7 +4659,7 @@ lbl_800042E4:
 func_80004300:
     lui     t6, 0xA480                 # t6 = A4800000
     lw      a0, 0x0018(t6)             # A4800018
-    addiu   $sp, $sp, 0xFFF8           # $sp = FFFFFFF8
+    addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
     andi    t7, a0, 0x0003             # t7 = 00000000
     beq     t7, $zero, lbl_80004320
     nop
@@ -4669,7 +4669,7 @@ lbl_80004320:
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80004324:
     jr      $ra
-    addiu   $sp, $sp, 0x0008           # $sp = 00000000
+    addiu   $sp, $sp, 0x0008           # $sp += 0x8
     nop
 
 
@@ -4681,7 +4681,7 @@ func_80004330:
 # A1 = OSMesg message to copy
 # A2 = s32 flag which indicates the blocking mode, either OS_MESG_BLOCK (1) or OS_MESG_NOBLOCK (0)
 # V0 = 0 if a message could be copied, else -1
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -4772,7 +4772,7 @@ lbl_8000446C:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80004480:
@@ -4780,7 +4780,7 @@ func_80004480:
 # Set the priority of a given thread
 # A0 = OSThread* thread, or NULL to default to the invoking thread (currently running)
 # A1 = OSPri priority value
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -4836,7 +4836,7 @@ lbl_80004544:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000028
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
@@ -4961,7 +4961,7 @@ lbl_800046C0:
 
 
 func_800046E0:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
     sw      $ra, 0x001C($sp)
@@ -5094,7 +5094,7 @@ lbl_800048A8:
 lbl_800048AC:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
 
@@ -5103,7 +5103,7 @@ func_800048C0:
 # OSTime osGetTime(void)
 # Get the real time counter value (expressed in units of CPU count register cycles)
 # V0/V1 = OSTime current time value
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x001C($sp)
     jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
@@ -5133,7 +5133,7 @@ func_800048C0:
     sltu    $at, v1, t5
     addu    v0, $at, t2
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
     jr      $ra
     addu    v0, v0, t4
     nop
@@ -5182,7 +5182,7 @@ func_80004950:
 func_800049DC:
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x63B0(t6)             # 800063B0
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     lw      t7, 0x0000(t6)             # 80000000
     beq     t7, t6, lbl_80004B44
@@ -5278,13 +5278,13 @@ lbl_80004B2C:
     nop
 lbl_80004B44:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80004B54:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
     jal     func_80005130              # __osDisableInt
@@ -5310,13 +5310,13 @@ func_80004B54:
     jal     func_800051A0              # __osRestoreInt
     lw      a0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
 
 
 func_80004BC8:
-    addiu   $sp, $sp, 0xFFC8           # $sp = FFFFFFC8
+    addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     jal     func_80005130              # __osDisableInt
     sw      a0, 0x0038($sp)
@@ -5416,7 +5416,7 @@ lbl_80004CFC:
     lw      v0, 0x0028($sp)
     lw      v1, 0x002C($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0038           # $sp = 00000000
+    addiu   $sp, $sp, 0x0038           # $sp += 0x38
 
 
 func_80004D50:
@@ -5431,7 +5431,7 @@ func_80004D50:
 
 func_80004D60:
 # __osSetGlobalIntMask
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     jal     func_80005130              # __osDisableInt
@@ -5447,7 +5447,7 @@ func_80004D60:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop
@@ -5692,7 +5692,7 @@ lbl_800050A4:
 
 func_800050D0:
 # __osResetGlobalIntMask
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     jal     func_80005130              # __osDisableInt
@@ -5711,7 +5711,7 @@ func_800050D0:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop
@@ -5766,7 +5766,7 @@ func_800051A0:
 
 
 func_800051C0:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8000                 # a0 = 80000000
     addiu   a0, a0, 0x6460             # a0 = 80006460
@@ -5847,14 +5847,14 @@ lbl_800052E0:
     jal     func_80005300
     sw      $zero, 0x0000(t2)          # A4400000
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
 
 
 func_80005300:
-    addiu   $sp, $sp, 0xFFB8           # $sp = FFFFFFB8
+    addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s0, 0x0018($sp)
     sw      $ra, 0x001C($sp)
     lui     s0, 0x8000                 # s0 = 80000000
@@ -6053,7 +6053,7 @@ lbl_800055C0:
     sw      $at, -0x0004(t2)           # A4400008
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0048           # $sp = 00000000
+    addiu   $sp, $sp, 0x0048           # $sp += 0x48
     jr      $ra
     nop
     nop
@@ -6077,7 +6077,7 @@ lbl_80005618:
 
 
 func_80005630:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -6091,7 +6091,7 @@ func_80005630:
     sw      v0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -6100,7 +6100,7 @@ func_80005630:
 
 
 func_80005680:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     jal     func_80001DB0
     sw      s0, 0x0018($sp)
@@ -6186,7 +6186,7 @@ lbl_80005714:
 lbl_800057C0:
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -6216,7 +6216,7 @@ func_800057F0:
 
 
 func_80005800:
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
@@ -6230,7 +6230,7 @@ func_80005800:
     sw      v0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
@@ -6272,7 +6272,7 @@ func_800058B0:
 # Inserts the calling thread back into the run queue following all other threads of the same priority,
 # Then the dispatcher is invoked to run the (possibly different) thread at the front of the run queue.
 # If the calling thread is the only thread at its priority level, then this call effectively does nothing.
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     jal     func_80005130              # __osDisableInt
     sw      s0, 0x0018($sp)
@@ -6288,7 +6288,7 @@ func_800058B0:
     or      a0, s0, $zero              # a0 = 00000000
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop
@@ -6418,7 +6418,7 @@ func_80005A70:
 # SP + 0x18 = OSMesgQueue* message queue to put the ending message
 # SP + 0x1C = OSMesg message to send when the timer ends
 # V0 = 0 for success
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a0, 0x0020($sp)
     lw      t6, 0x0020($sp)
     sw      $ra, 0x0014($sp)
@@ -6471,7 +6471,7 @@ lbl_80005AE4:
     lw      a1, 0x001C($sp)
 lbl_80005B30:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     or      v0, $zero, $zero           # v0 = 00000000
     jr      $ra
     nop
@@ -6481,7 +6481,7 @@ lbl_80005B30:
 
 
 func_80005B50:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     jal     func_80004300
@@ -6498,7 +6498,7 @@ lbl_80005B74:
     sw      t6, 0x0000(t8)             # A0000000
 lbl_80005B88:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
     nop
@@ -6506,7 +6506,7 @@ lbl_80005B88:
 
 
 func_80005BA0:
-    addiu   $sp, $sp, 0xFFD0           # $sp = FFFFFFD0
+    addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     lui     s0, 0x8000                 # s0 = 80000000
     addiu   s0, s0, 0x6530             # s0 = 80006530
@@ -6601,13 +6601,13 @@ lbl_80005C70:
     lw      $ra, 0x0024($sp)
 lbl_80005D10:
     lw      s0, 0x0020($sp)
-    addiu   $sp, $sp, 0x0030           # $sp = 00000000
+    addiu   $sp, $sp, 0x0030           # $sp += 0x30
     jr      $ra
     nop
 
 
 func_80005D20:
-    addiu   $sp, $sp, 0xFFB0           # $sp = FFFFFFB0
+    addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0034($sp)
     sw      s7, 0x0030($sp)
     or      s7, a0, $zero              # s7 = 00000000
@@ -6712,7 +6712,7 @@ lbl_80005E60:
     lw      s6, 0x002C($sp)
     lw      s7, 0x0030($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0050           # $sp = 00000000
+    addiu   $sp, $sp, 0x0050           # $sp += 0x50
     nop
 
 
@@ -6728,7 +6728,7 @@ func_80005EC0:
 # Starts or resumes a given thread
 # Makes a thread created by osCreateThread runnable or resumes a thread previously suspended by osStopThread
 # A0 = OSThread* thread to start/resume
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      s1, 0x0018($sp)
@@ -6817,11 +6817,11 @@ lbl_80005FF4:
     lw      s0, 0x0014($sp)
     lw      s1, 0x0018($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80006010:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -6845,7 +6845,7 @@ func_80006010:
     sw      t9, 0x6304($at)            # 80006304
     lw      $ra, 0x001C($sp)
     lw      s0, 0x0018($sp)
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
     jr      $ra
     nop
     nop

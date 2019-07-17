@@ -10,7 +10,7 @@ func_800A42F0:
 # Initializes Frame Buffers
 # ../sys_cfb.c related.
 # A0 = Is Disk Drive Detected? 0 = no, 1 = yes
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     v0, 0x8000                 # v0 = 80000000
     lw      v0, 0x0318(v0)             # 80000318
@@ -63,7 +63,7 @@ lbl_800A4374:
     sw      t2, 0x0FD4($at)            # 80120FD4
     lw      $ra, 0x0014($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800A43B8:
@@ -246,7 +246,7 @@ lbl_800A45F0:
 
 
 func_800A45FC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     $at, 0x8011                # $at = 80110000
     lwc1    $f4, -0x71C0($at)          # 80108E40
@@ -266,11 +266,11 @@ func_800A45FC:
     mul.s   $f0, $f16, $f18
     nop
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
 
 
 func_800A4650:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     $at, 0x8011                # $at = 80110000
     lwc1    $f4, -0x71B8($at)          # 80108E48
@@ -290,7 +290,7 @@ func_800A4650:
     mul.s   $f0, $f16, $f18
     nop
     jr      $ra
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     nop
     nop
     nop

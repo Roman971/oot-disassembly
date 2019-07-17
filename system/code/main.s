@@ -10,7 +10,7 @@ func_800A1C50:
 # main thread, initialization
 # can be thought of as being "code" file's entrypoint. Initializes various threads
 # A0 = ?
-    addiu   $sp, $sp, 0xFEC0           # $sp = FFFFFEC0
+    addiu   $sp, $sp, 0xFEC0           # $sp -= 0x140
     lui     v0, 0x8012                 # v0 = 80120000
     addiu   v0, v0, 0xD2A0             # v0 = 8011D2A0
     sw      $ra, 0x001C($sp)
@@ -245,7 +245,7 @@ lbl_800A1FCC:
     jal     func_8000146C
     nop
     lw      $ra, 0x001C($sp)
-    addiu   $sp, $sp, 0x0140           # $sp = 00000000
+    addiu   $sp, $sp, 0x0140           # $sp += 0x140
     jr      $ra
     nop
     nop

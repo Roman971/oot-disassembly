@@ -7,7 +7,7 @@
 
 .section .text
 func_80099C60:
-    addiu   $sp, $sp, 0xFFD8           # $sp = FFFFFFD8
+    addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
     sw      $ra, 0x0024($sp)
@@ -29,11 +29,11 @@ func_80099C60:
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0020($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0028           # $sp = 00000000
+    addiu   $sp, $sp, 0x0028           # $sp += 0x28
 
 
 func_80099CBC:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     lw      a3, 0x0000(a2)             # 00000000
@@ -51,7 +51,7 @@ func_80099CBC:
     sw      $zero, -0x1B44($at)        # 800FE4BC
 lbl_80099CFC:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
@@ -60,7 +60,7 @@ func_80099D0C:
 # Calculates and sets Start Address for player_actor and kaleido_scope
 # A0 = Global Context
 # Result written to 800FE4B8
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
     lui     v0, 0x8010                 # v0 = 80100000
@@ -87,13 +87,13 @@ lbl_80099D4C:
     lui     $at, 0x8010                # $at = 80100000
     sw      $zero, -0x1B44($at)        # 800FE4BC
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80099D7C:
-    addiu   $sp, $sp, 0xFFE8           # $sp = FFFFFFE8
+    addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8010                 # a0 = 80100000
     lw      a0, -0x1B44(a0)            # 800FE4BC
@@ -107,14 +107,14 @@ lbl_80099DA4:
     lui     $at, 0x8010                # $at = 80100000
     sw      $zero, -0x1B48($at)        # 800FE4B8
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0018           # $sp = 00000000
+    addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
     nop
 
 
 func_80099DBC:
 # Converts player/pause overlay virtual address to ram address?
-    addiu   $sp, $sp, 0xFFE0           # $sp = FFFFFFE0
+    addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
     lui     t0, 0x8010                 # t0 = 80100000
@@ -168,7 +168,7 @@ lbl_80099E74:
     addu    v0, a1, t8
 lbl_80099E78:
     lw      $ra, 0x0014($sp)
-    addiu   $sp, $sp, 0x0020           # $sp = 00000000
+    addiu   $sp, $sp, 0x0020           # $sp += 0x20
     jr      $ra
     nop
     nop
