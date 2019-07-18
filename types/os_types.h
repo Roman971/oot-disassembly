@@ -22,6 +22,17 @@
 typedef s32 OSPri; // Priority Value
 typedef s32 OSId;  // Debugging ID
 
+typedef struct __OSStackContext {
+  /* 0x00 */ __OSStackContext*      next;     // Next stack
+  /* 0x04 */ __OSStackContext*      prev;     // Previous stack
+  /* 0x08 */ void*                  start;    // Stack start address
+  /* 0x0C */ void*                  end;      // Stack end address
+  /* 0x10 */ u32                    init;     // Stack initial value
+  /* 0x14 */ u32                    unk_0x14;
+  /* 0x18 */ char*                  thrname;  // Pointer to thread name
+  /* 0x20 */
+} __OSStackContext;
+
 typedef struct __OSThreadContext {
   /* 0x0000 */  u64         at, v0, v1, a0, a1, a2, a3,
   /* 0x0038 */          t0, t1, t2, t3, t4, t5, t6, t7,
@@ -48,36 +59,25 @@ typedef struct OSThread {
   /* 0x01F4 */
 } OSThread;
 
-typedef struct __OSStackContext {
-  /* 0x00 */ __OSStackContext*      next;     // Next stack
-  /* 0x04 */ __OSStackContext*      prev;     // Previous stack
-  /* 0x08 */ void*                  start;    // Stack start address
-  /* 0x0C */ void*                  end;      // Stack end address
-  /* 0x10 */ u32                    init;     // Stack initial value
-  /* 0x14 */ u32                    unk_0x14;
-  /* 0x18 */ char*                  thrname;  // Pointer to thread name
-  /* 0x20 */
-} __OSStackContext;
-
 /************************* Message **************************/
 
 #define OS_NUM_EVENTS           15  // Number of valid events
 
-#define OS_EVENT_SW1            0   // CPU SW1 interrupt
-#define OS_EVENT_SW2            1   // CPU SW2 interrupt
-#define OS_EVENT_CART           2   // Cartridge interrupt
-#define OS_EVENT_COUNTER        3   // CPU timer interrupt
-#define OS_EVENT_SP             4   // RCP Signal Processor (SP) interrupt
-#define OS_EVENT_SI             5   // RCP Serial Interface (SI) interrupt
-#define OS_EVENT_AI             6   // RCP Audio Interface (AI) interrupt
-#define OS_EVENT_VI             7   // RCP Video Interface (VI) interrupt
-#define OS_EVENT_PI             8   // RCP Parallel Interface (PI) interrupt
-#define OS_EVENT_DP             9   // RCP Display Processor (DP) interrupt
-#define OS_EVENT_CPU_BREAK      10  // CPU breakpoint
-#define OS_EVENT_SP_BREAK       11  // SP breakpoint
-#define OS_EVENT_FAULT          12  // CPU fault event
-#define OS_EVENT_THREADSTATUS   13  // CPU thread status
-#define OS_EVENT_PRENMI         14  // Pre NMI interrupt
+#define OS_EVENT_SW1            0   // System software interrupt 1 asserted
+#define OS_EVENT_SW2            1   // System software interrupt 2 asserted
+#define OS_EVENT_CART           2   // Peripheral has generated an interrupt
+#define OS_EVENT_COUNTER        3   // Internal counter reached terminal count
+#define OS_EVENT_SP             4   // RCP SP interrupt: Task Done/Task Yield
+#define OS_EVENT_SI             5   // RCP SI interrupt: controller input available
+#define OS_EVENT_AI             6   // RCP AI interrupt: audio buffer swap
+#define OS_EVENT_VI             7   // RCP VI interrupt: vertical retrace
+#define OS_EVENT_PI             8   // RCP PI interrupt: ROM to RAM DMA done
+#define OS_EVENT_DP             9   // RCP DP interrupt: RDP processing done
+#define OS_EVENT_CPU_BREAK      10  // CPU (R4300) has hit a breakpoint
+#define OS_EVENT_SP_BREAK       11  // RCP SP interrupt: RCP has hit a breakpoint
+#define OS_EVENT_FAULT          12  // N64 CPU has faulted
+#define OS_EVENT_THREADSTATUS   13  // Thread created or destroyed
+#define OS_EVENT_PRENMI         14  // NMI requested
 
 #define OS_MESG_NOBLOCK         0
 #define OS_MESG_BLOCK           1
@@ -86,29 +86,29 @@ typedef u32     OSEvent;
 typedef void*   OSMesg;
 
 typedef struct OSMesgQueue {
-  /* 0x00 */ OSThread*    mtqueue;    // Queue to store threads blocked on empty mailboxes (receive)
-  /* 0x04 */ OSThread*    fullqueue;  // Queue to store threads blocked on full mailboxes (send)
-  /* 0x08 */ s32          validCount; // Number of valid messages
-  /* 0x0C */ s32          first;      // Points to first valid message
-  /* 0x10 */ s32          msgCount;   // Total Number of messages
-  /* 0x14 */ OSMesg*      msg;        // Points to message buffer array
+  /* 0x00 */ OSThread*      mtqueue;    // Queue to store threads blocked on empty mailboxes (receive)
+  /* 0x04 */ OSThread*      fullqueue;  // Queue to store threads blocked on full mailboxes (send)
+  /* 0x08 */ s32            validCount; // Number of valid messages
+  /* 0x0C */ s32            first;      // Points to first valid message
+  /* 0x10 */ s32            msgCount;   // Total Number of messages
+  /* 0x14 */ OSMesg*        msg;        // Points to message buffer array
   /* 0x18 */
 } OSMesgQueue;
 
 /************************* Time *****************************/
 
-#define OS_CLOCK_RATE     62500000
-#define OS_CPU_COUNTER    46875000
+#define OS_CLOCK_RATE       62500000
+#define OS_CPU_COUNTER      46875000
 
 typedef u64 OSTime;
 
 typedef struct OSTimer {
-  /* 0x00 */ OSTimer*     next;     // Points to next timer in list
-  /* 0x04 */ OSTimer*     prev;     // Points to previous timer in list
-  /* 0x08 */ OSTime       interval; // Interval duration set by user
-  /* 0x10 */ OSTime       value;    // Time remaining before timer fires
-  /* 0x18 */ OSMesgQueue* mq;       // Message Queue to put the firing message on
-  /* 0x1C */ OSMesg       msg;      // Message to send when the timer fires
+  /* 0x00 */ OSTimer*       next;     // Points to next timer in list
+  /* 0x04 */ OSTimer*       prev;     // Points to previous timer in list
+  /* 0x08 */ OSTime         interval; // Interval duration set by user
+  /* 0x10 */ OSTime         value;    // Time remaining before timer fires
+  /* 0x18 */ OSMesgQueue*   mq;       // Message Queue to put the firing message on
+  /* 0x1C */ OSMesg         msg;      // Message to send when the timer fires
   /* 0x20 */
 } OSTimer;
 
@@ -118,13 +118,13 @@ typedef struct OSTimer {
 #define OS_FLAG_FAULT       2  // Flag for CPU fault
 
 #define OS_IM_NONE          0x00000001  // No interrupt enabled
-#define OS_IM_SW1           0x00000501  // CPU software interrupt 1
-#define OS_IM_SW2           0x00000601  // CPU software interrupt 2
-#define OS_IM_CART          0x00000C01  // Cartridge interrupt
+#define OS_IM_SW1           0x00000501  // System software interrupt 1
+#define OS_IM_SW2           0x00000601  // System software interrupt 2
+#define OS_IM_CART          0x00000C01  // Peripheral interrupt
 #define OS_IM_PRENMI        0x00001401  // Pre-NMI interrupt
 #define OS_IM_RDBWRITE      0x00002401  // RDB Write interrupt
 #define OS_IM_RDBREAD       0x00004401  // RDB Read interrupt
-#define OS_IM_COUNTER       0x00008401  // CPU timer interrupt
+#define OS_IM_COUNTER       0x00008401  // Internal counter interrupt
 #define OS_IM_CPU           0x0000ff01  // CPU interrupt
 #define OS_IM_SP            0x00010401  // RCP Signal Processor (SP) interrupt
 #define OS_IM_SI            0x00020401  // RCP Serial Interface (SI) interrupt
@@ -166,72 +166,72 @@ typedef u32 OSHWIntr;
 #define PI_DOMAIN2              1
 
 typedef struct __OSBlockInfo {
-  /* 0x00 */ u32       errStatus;      // Error Status
-  /* 0x04 */ void*     dramAddr;       // RDRAM buffer address (DMA)
-  /* 0x08 */ void*     C2Addr;         // C2 buffer address
-  /* 0x0C */ u32       sectorSize;     // Size of transfering sector
-  /* 0x10 */ u32       C1ErrNum;       // Number of C1 errors
-  /* 0x14 */ u32       C1ErrSector[4]; // Error Sectors
+  /* 0x00 */ u32            errStatus;      // Error Status
+  /* 0x04 */ void*          dramAddr;       // RDRAM buffer address (DMA)
+  /* 0x08 */ void*          C2Addr;         // C2 buffer address
+  /* 0x0C */ u32            sectorSize;     // Size of transfering sector
+  /* 0x10 */ u32            C1ErrNum;       // Number of C1 errors
+  /* 0x14 */ u32            C1ErrSector[4]; // Error Sectors
   /* 0x18 */
 } __OSBlockInfo;
 
 typedef struct __OSTranxInfo {
-  /* 0x00 */ u32               cmdType;      // Command Type
-  /* 0x04 */ u16               transferMode; // Transfer Mode (block, track, or sector?)
-  /* 0x06 */ u16               blockNum;     // Which block is transfering
-  /* 0x08 */ s32               sectorNum;    // Which sector is transfering
-  /* 0x0C */ u32               devAddr;      // Device buffer address
-  /* 0x10 */ u32               bmCtlShadow;
-  /* 0x14 */ u32               seqCtlShadow;
-  /* 0x18 */ __OSBlockInfo     block[2];     // Block transfer info
+  /* 0x00 */ u32            cmdType;      // Command Type
+  /* 0x04 */ u16            transferMode; // Transfer Mode (block, track, or sector?)
+  /* 0x06 */ u16            blockNum;     // Which block is transfering
+  /* 0x08 */ s32            sectorNum;    // Which sector is transfering
+  /* 0x0C */ u32            devAddr;      // Device buffer address
+  /* 0x10 */ u32            bmCtlShadow;
+  /* 0x14 */ u32            seqCtlShadow;
+  /* 0x18 */ __OSBlockInfo  block[2];     // Block transfer info
   /* 0x30 */
 } __OSTranxInfo;
 
 typedef struct OSPiHandle {
-  /* 0x00 */ OSPiHandle*     next;         // Points to next handle in the table
-  /* 0x04 */ u8              type;         // Device Type (DEVICE_TYPE_*)
-  /* 0x05 */ u8              latency;      // Domain latency
-  /* 0x06 */ u8              pageSize;     // Domain page size
-  /* 0x07 */ u8              relDuration;  // Domain release duration
-  /* 0x08 */ u8              pulse;        // Domain pulse width
-  /* 0x09 */ u8              domain;       // Which Domain (PI_DOMAIN*)
-  /* 0x10 */ u32             baseAddress;  // Domain address
-  /* 0x14 */ u32             speed;
-  /* 0x18 */ __OSTranxInfo   transferInfo; // Transfer Info
+  /* 0x00 */ OSPiHandle*    next;         // Points to next handle in the table
+  /* 0x04 */ u8             type;         // Device Type (DEVICE_TYPE_*)
+  /* 0x05 */ u8             latency;      // Domain latency
+  /* 0x06 */ u8             pageSize;     // Domain page size
+  /* 0x07 */ u8             relDuration;  // Domain release duration
+  /* 0x08 */ u8             pulse;        // Domain pulse width
+  /* 0x09 */ u8             domain;       // Which Domain (PI_DOMAIN*)
+  /* 0x10 */ u32            baseAddress;  // Domain address
+  /* 0x14 */ u32            speed;
+  /* 0x18 */ __OSTranxInfo  transferInfo; // Transfer Info
   /* 0x48 */
 } OSPiHandle;
 
 typedef struct OSPiInfo {
-  /* 0x00 */ u8    type;
-  /* 0x01 */ u32   address;
+  /* 0x00 */ u8             type;
+  /* 0x01 */ u32            address;
   /* 0x05 */
 } OSPiInfo;
 
 typedef struct OSIoMesgHdr {
-  /* 0x00 */ u16           type;     // Message type (OS_MESG_TYPE_*)
-  /* 0x02 */ u8            pri;      // Message priority (OS_MESG_PRI_*)
-  /* 0x03 */ u8            status;   // Return status
-  /* 0x04 */ OSMesgQueue*  retQueue; // Return message queue to notify I/O completion
+  /* 0x00 */ u16            type;     // Message type (OS_MESG_TYPE_*)
+  /* 0x02 */ u8             pri;      // Message priority (OS_MESG_PRI_*)
+  /* 0x03 */ u8             status;   // Return status
+  /* 0x04 */ OSMesgQueue*   retQueue; // Return message queue to notify I/O completion
   /* 0x08 */
 } OSIoMesgHdr;
 
 typedef struct OSIoMesg {
-  /* 0x00 */ OSIoMesgHdr   hdr;      // Message header
-  /* 0x08 */ void*         dramAddr; // RDRAM buffer address (DMA)
-  /* 0x0C */ u32           devAddr;  // Device buffer address (DMA)
-  /* 0x10 */ u32           size;     // DMA transfer size in bytes
-  /* 0x14 */ OSPiHandle*   piHandle; // PI device handle
+  /* 0x00 */ OSIoMesgHdr    hdr;      // Message header
+  /* 0x08 */ void*          dramAddr; // RDRAM buffer address (DMA)
+  /* 0x0C */ u32            devAddr;  // Device buffer address (DMA)
+  /* 0x10 */ u32            size;     // DMA transfer size in bytes
+  /* 0x14 */ OSPiHandle*    piHandle; // PI device handle
   /* 0x18 */
 } OSIoMesg;
 
 typedef struct OSDevMgr {
-  /* 0x00 */ s32               active;   // Status flag
-  /* 0x04 */ OSThread*         thread;   // Calling thread
-  /* 0x08 */ OSMesgQueue*      cmdQueue; // Command queue
-  /* 0x0C */ OSMesgQueue*      evtQueue; // Event queue
-  /* 0x10 */ OSMesgQueue*      acsQueue; // Access queue
-  /* 0x14 */ s32               (*dma)(s32, u32, void*, u32);
-  /* 0x18 */ s32               (*edma)(OSPiHandle*, s32, u32, void*, u32);
+  /* 0x00 */ s32            active;   // Status flag
+  /* 0x04 */ OSThread*      thread;   // Calling thread
+  /* 0x08 */ OSMesgQueue*   cmdQueue; // Command queue
+  /* 0x0C */ OSMesgQueue*   evtQueue; // Event queue
+  /* 0x10 */ OSMesgQueue*   acsQueue; // Access queue
+  /* 0x14 */ s32            (*dma)(s32, u32, void*, u32);
+  /* 0x18 */ s32            (*edma)(OSPiHandle*, s32, u32, void*, u32);
   /* 0x1C */
 } OSDevMgr;
 
