@@ -1483,7 +1483,7 @@ lbl_8000187C:
 
 
 func_80001890:
-# void* __osInitStack(__OSStackContext* stack, void* low, void* high, u32 init, u32 ?, char* thrname)
+# void* __osInitStack(__OSStackContext* stackctx, void* low, void* high, u32 init, u32 ?, char* thrname)
 # Initialize stack space and context struct
 # A0 = __OSStackContext* where to store the stack context struct
 # A1 = void* stack start address
@@ -4410,11 +4410,10 @@ lbl_80003F9C:
 
 func_80003FB0:
 # void osSetEventMesg(OSEvent e, OSMesgQueue* mq, OSMesg msg)
-# Associates a message queue and message with an event
-# The event takes values of OS_EVENT_* and generally corresponds to an interrupt or an exception
-# A0 = OSEvent event associated
-# A1 = OSMesgQueue* queue to associate
-# A2 = OSMesg message to associate
+# Specifies a message and message queue to be used in response to a system event
+# A0 = OSEvent event (OS_EVENT_*)
+# A1 = OSMesgQueue* message queue
+# A2 = OSMesg response message
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
