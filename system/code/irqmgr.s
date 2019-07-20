@@ -23,6 +23,9 @@ lbl_800ACE68:
 
 
 func_800ACE90:
+# A0 = Irqmgr Context (8011D968)
+# A1 = ?
+# A2 = ?
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
@@ -105,6 +108,8 @@ lbl_800ACF90:
 
 
 func_800ACFA8:
+# A0 = Irqmgr Context (8011D968)
+# A1 = ?
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     or      s1, a1, $zero              # s1 = 00000000
@@ -136,6 +141,8 @@ lbl_800ACFFC:
 
 
 func_800AD00C:
+# A0 = Irqmgr Context (8011D968)
+# A1 = Irqmgr Context (8011D968) + 0x20
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     or      s1, a1, $zero              # s1 = 00000000
@@ -167,6 +174,7 @@ lbl_800AD060:
 
 
 func_800AD070:
+# A0 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -219,6 +227,7 @@ func_800AD108:
 
 
 func_800AD128:
+# A0 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -258,6 +267,7 @@ lbl_800AD198:
 
 
 func_800AD1B4:
+# A0 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8010                 # t6 = 80100000
@@ -310,6 +320,7 @@ lbl_800AD240:
 
 func_800AD26C:
 # irqmgr thread entrypoint
+# A0 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -370,6 +381,11 @@ lbl_800AD30C:
 
 
 func_800AD33C:
+# Initializes irqmgr thread and context
+# A0 = Irqmgr Context (8011D968)
+# A1 = void* stack start address
+# A2 = OSPri thread priority
+# A3 = u8 ?
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

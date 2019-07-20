@@ -679,8 +679,8 @@ lbl_800A1914:
 
 func_800A1934:
 # graph thread entrypoint
-# ../graph.c related., main game (rendering?) loop?
-# Called once, loops indefinitely, never seems to return under normal circumstances.
+# Main game loop (never returns under normal circumstances)
+# A0 = 0
     addiu   $sp, $sp, 0xFCC8           # $sp -= 0x338
     sw      s0, 0x0018($sp)
     lui     s0, 0x800F                 # s0 = 800F0000

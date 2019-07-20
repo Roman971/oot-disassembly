@@ -5,9 +5,9 @@
 #include "os_types.h"
 
 typedef struct z_getfile_t {
-  /* 0x00 */ u32            vrom_addr;  // VROM address
-  /* 0x04 */ void*          dram_addr;  // DRAM address
-  /* 0x08 */ u32            size;       // File size
+  /* 0x00 */ u32            vrom_addr;  // VROM address (source)
+  /* 0x04 */ void*          dram_addr;  // DRAM address (destination)
+  /* 0x08 */ u32            size;       // File Transfer size
   /* 0x0C */ char*          filename;   // Filename for debugging
   /* 0x10 */ s32            line;       // Line for debugging
   /* 0x14 */ s32            unk_0x14;

@@ -7,6 +7,7 @@
 
 .section .text
 func_800A02E0:
+# A0 = Audio Context (80120C78)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lw      v0, 0x0070(a0)             # 00000070
@@ -25,7 +26,7 @@ lbl_800A030C:
 
 
 func_800A0318:
-# Audio thread related
+# A0 = Audio Context (80120C78)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -133,6 +134,7 @@ lbl_800A048C:
 
 
 func_800A04A0:
+# A0 = Audio Context (80120C78)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -146,6 +148,7 @@ func_800A04A0:
 
 func_800A04C4:
 # audio thread entrypoint
+# A0 = Audio Context (80120C78)
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s0, 0x0014($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -230,7 +233,10 @@ lbl_800A05C0:
 
 
 func_800A05F4:
-# OSReceiveMesg, Get ? Message
+# Pulls an empty message from AC + 0xC8 message queue
+# Seems to be used to wait until the audio thread is started
+# The corresponding message is put on the queue at some point during the audio thread entrypoint
+# A0 = Audio Context (80120C78)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -245,6 +251,13 @@ func_800A05F4:
 
 
 func_800A0620:
+# Initializes audio thread and context
+# A0 = Audio Context (80120C78)
+# A1 = void* stack start address
+# A2 = OSPri thread priority
+# A3 = OSId thread ID
+# SP + 0x10 = Sched Context (8011D2A8)
+# SP + 0x14 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

@@ -7,7 +7,7 @@
 
 .section .text
 func_800A2000:
-# padmgr osRecvMsg, Get ? Message
+# Pulls message from IC + 0x28 containing the event mq for available input
 # A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
@@ -24,9 +24,9 @@ func_800A2000:
 
 
 func_800A2030:
-# padmgr osSendMesg, Send ? Message
+# Puts message on IC + 0x28 containing the event mq for available input
 # A0 = Input Context (8011D500)
-# A1 = 80120F10
+# A1 = OSMesgQueue* event mq for available input
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -40,7 +40,8 @@ func_800A2030:
 
 
 func_800A2058:
-# osRecvMsg, Get ? Message
+# Pulls empty message from IC + 0x40
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -55,7 +56,8 @@ func_800A2058:
 
 
 func_800A2084:
-# osSendMesg, Send ? Message
+# Puts empty message on IC + 0x40
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -70,6 +72,7 @@ func_800A2084:
 
 
 func_800A20B0:
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s2, 0x0020($sp)
     or      s2, a0, $zero              # s2 = 00000000
@@ -231,6 +234,7 @@ lbl_800A22C0:
 
 
 func_800A2300:
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s4, 0x0024($sp)
     or      s4, a0, $zero              # s4 = 00000000
@@ -277,6 +281,8 @@ lbl_800A2368:
 
 
 func_800A23A4:
+# Store byte 0x3 to Input Context + 0x045C
+# A0 = Input Context (8011D500)
     addiu   t6, $zero, 0x0003          # t6 = 00000003
     sb      t6, 0x045C(a0)             # 0000045C
     jr      $ra
@@ -308,7 +314,7 @@ func_800A23CC:
 
 
 func_800A23FC:
-# ../padmgr.c related.
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s3, 0x0024($sp)
     or      s3, a0, $zero              # s3 = 00000000
@@ -557,8 +563,8 @@ lbl_800A2768:
 
 func_800A2778:
 # Wrapper for 800A23A4
-# SB T6, 0x045E(A0)
-# A0 = ?
+# Store byte 0x1 to Input Context + 0x045E
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
@@ -571,10 +577,10 @@ func_800A2778:
 
 
 func_800A279C:
-# fault, crash debugger/Input Related?
-# A0 = Input Context (8011D500)?
+# Crash Debugger/Input Related?
+# A0 = Input Context (8011D500)
 # A1 = Global Context + 0x14, controller 1 button struct
-# A2 = ?
+# A2 = s32 some flag (0 or 1)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s4, 0x0028($sp)
     sw      s3, 0x0024($sp)
@@ -677,6 +683,7 @@ lbl_800A28E0:
 
 func_800A2918:
 # padmgr thread entrypoint
+# A0 = Input Context (8011D500)
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s0, 0x0014($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -747,6 +754,13 @@ lbl_800A29D4:
 
 
 func_800A2A14:
+# Initializes padmgr thread and input context
+# A0 = Input Context (8011D500)
+# A1 = OSMesgQueue* event mq for available input
+# A2 = Irqmgr Context (8011D968)
+# A3 = OSId thread ID
+# SP + 0x10 = OSPri thread priority
+# SP + 0x14 = void* stack start address
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

@@ -1,5 +1,6 @@
 .section .text
 func_80000460:
+# Clears memory from the end of "boot" to the end of RAM
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8000                 # t6 = 80000000
@@ -17,6 +18,8 @@ func_80000460:
 
 
 func_80000498:
+# Entrypoint of "boot"
+# Initializes boot stack, clears memory, initializes idle thread/stack, etc
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     t7, 0x8000                 # t7 = 80000000
@@ -86,7 +89,9 @@ func_80000498:
 
 
 func_800005A0:
-# Main Thread Entrypoint
+# main thread entrypoint
+# Initiliazes dmamgr thread among other things
+# A0 = 0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
@@ -129,6 +134,9 @@ func_800005A0:
 
 
 func_8000063C:
+# idle thread entrypoint
+# Calls osCreateViManager and osCreatePiManager, initializes main thread/stack, etc
+# A0 = 0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
@@ -388,6 +396,12 @@ lbl_80000990:
 
 
 func_800009E0:
+# Wrapper for osEPiStartDma
+# Calls 80001CCC (A0 = 0x03E8) under certain circumstances
+# A0 = OSPiHandle* handle for this PI device
+# A1 = OSIoMesg* IO message block request which contains parameters for this transfer
+# A2 = s32 direction of the transfer (OS_READ = 0 or OS_WRITE = 1)
+# V0 = s32 status (osSendMesg/osJamMesg result) or -1 if the PImgr thread is not started
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -422,6 +436,10 @@ lbl_80000A34:
 
 
 func_80000A54:
+# Direct DMA transfer 64DD IPL to RAM
+# A0 = void* destination RAM Address
+# A1 = u32 64DD IPL Address
+# A2 = u32 size
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0058($sp)
@@ -474,6 +492,9 @@ func_80000AF8:
 
 
 func_80000B0C:
+# s32 DMAGetFile(z_getfile_t* getfile)
+# Resolves a file transfer request (without sending the completion notification message)
+# A0 = Pointer to the transfer request struct
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     lui     a2, 0x8001                 # a2 = 80010000
     addiu   a2, a2, 0xB140             # a2 = 8000B140
@@ -591,6 +612,9 @@ lbl_80000C98:
 
 
 func_80000CA8:
+# dmamgr thread entrypoint
+# Pulls getfile requests from its message queue and resolves them
+# A0 = 0
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0024($sp)
     sw      s2, 0x0020($sp)
@@ -628,12 +652,12 @@ lbl_80000D10:
 
 
 func_80000D28:
-# s32 RequestRomToRam(z_getfile_t* getfile_buf, void* dram_addr, u32 vrom_addr, u32 size, s32 ?, OSMesgQueue* notify_mq, OSMesg notify_msg)
-# Request data transfer from ROM to RAM
+# s32 DMARequestFile(z_getfile_t* getfile_buf, void* dram_addr, u32 vrom_addr, u32 size, s32 ?, OSMesgQueue* notify_mq, OSMesg notify_msg)
+# Requests a DMA file transfer from ROM to RAM
 # A0 = Pointer to the transfer request struct
-# A1 = void* RDRAM start address to write to
-# A2 = u32 VROM start address to read from
-# A3 = u32 size of the data to load
+# A1 = void* RDRAM address to write to
+# A2 = u32 VROM address to read from
+# A3 = u32 size of data transfer
 # SP + 0x10 = s32 ? (always 0)
 # SP + 0x14 = OSMesgQueue* queue to use for the completion notification
 # SP + 0x18 = OSMesg message to use for the completion notification
@@ -694,11 +718,11 @@ lbl_80000DDC:
 
 
 func_80000DF0:
-# s32 LoadRomToRam(void* dram_addr, u32 vrom_addr, u32 size)
-# Transfers data from ROM to RAM
-# A0 = void* RDRAM start address to write to
-# A1 = u32 VROM start address to read from
-# A2 = u32 size of data to load
+# s32 DMALoadFile(void* dram_addr, u32 vrom_addr, u32 size)
+# Setups and starts a DMA transfer from ROM to RAM
+# A0 = void* RDRAM address to write to
+# A1 = u32 VROM address to read from
+# A2 = u32 size of data transfer
 # V0 = 0 for success
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      $ra, 0x0024($sp)
@@ -736,6 +760,7 @@ lbl_80000E60:
 
 
 func_80000E6C:
+# Initializes dmamgr thread/stack
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     v0, 0x0000                 # v0 = 00000000
     addiu   v0, v0, 0x7430             # v0 = 00007430
@@ -910,6 +935,7 @@ lbl_800010D4:
 
 
 func_800010EC:
+# yaz0dec?
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s1, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1174,6 +1200,7 @@ func_80001438:
 
 
 func_8000146C:
+# Wrapper for 800AF014 (A0 = 800088A8)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8001                 # a0 = 80010000
@@ -1856,6 +1883,7 @@ func_80001D20:
 
 
 func_80001D60:
+# Initializes PImgr access queue with size 1 and puts an empty message in it
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
@@ -1879,6 +1907,8 @@ func_80001D60:
 
 
 func_80001DB0:
+# Pulls a message from the PImgr access queue with OS_MESG_BLOCK (initializing the access queue if needed)
+# V0 = 0 for success
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x62F0(t6)             # 800062F0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
@@ -1900,6 +1930,8 @@ lbl_80001DD0:
 
 
 func_80001DF4:
+# Sends an empty message on the PImgr access queue with OS_MESG_NOBLOCK
+# V0 = 0 for success, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8001                 # a0 = 80010000
@@ -3743,6 +3775,8 @@ lbl_80003660:
 
 
 func_80003680:
+# PImgr thread entrypoint
+# A0 = OSDevMgr* PImgr block (80006370)
     addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s3, 0x002C($sp)
     sw      s8, 0x0040($sp)
@@ -6648,6 +6682,8 @@ lbl_80005D10:
 
 
 func_80005D20:
+# VImgr thread entrypoint
+# A0 = OSDevMgr*? VImgr block (80006530)
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0034($sp)
     sw      s7, 0x0030($sp)

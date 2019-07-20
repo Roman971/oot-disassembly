@@ -362,6 +362,7 @@ lbl_800A2FB0:
 
 
 func_800A2FC0:
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a1, $zero              # s0 = 00000000
@@ -469,6 +470,7 @@ lbl_800A312C:
 
 
 func_800A313C:
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s3, 0x0020($sp)
     sw      s2, 0x001C($sp)
@@ -543,6 +545,7 @@ lbl_800A322C:
 
 
 func_800A3244:
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8010                 # t6 = 80100000
@@ -610,6 +613,7 @@ lbl_800A3308:
 
 
 func_800A332C:
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -765,6 +769,7 @@ lbl_800A3550:
 
 
 func_800A3570:
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -822,6 +827,7 @@ lbl_800A3624:
 
 
 func_800A3644:
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x8010                 # t6 = 80100000
@@ -838,6 +844,7 @@ func_800A3644:
 
 func_800A3674:
 # sched thread entrypoint
+# A0 = Sched Context (8011D2A8)
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -935,6 +942,13 @@ lbl_800A377C:
 
 
 func_800A37D0:
+# Initializes sched thread and context
+# A0 = Sched Context (8011D2A8)
+# A1 = void* stack start address
+# A2 = OSPri thread priority
+# A3 = u8 ? (byte stored at 80006230)
+# SP + 0x10 = u8 ?
+# SP + 0x14 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

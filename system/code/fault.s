@@ -103,7 +103,7 @@ lbl_800AD688:
 
 
 func_800AD6B4:
-# fault, Crash Debugger, Draw Crash Bar Inner
+# Draw Crash Bar Inner
     lui     t5, 0xFFFA                 # t5 = FFFA0000
     or      t6, $sp, $zero             # t6 = 00000000
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
@@ -290,7 +290,7 @@ lbl_800AD8FC:
 
 
 func_800AD930:
-# fault, Crash Debugger, Draw Crash Bar
+# Draw Crash Bar
     lui     t7, 0xFFFA                 # t7 = FFFA0000
     or      t8, $sp, $zero             # t8 = 00000000
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
@@ -316,7 +316,7 @@ lbl_800AD940:
 
 
 func_800AD984:
-# fault, Crash Debugger, Draw Red Crash Bar
+# Draw Red Crash Bar
     lui     t6, 0xFFFA                 # t6 = FFFA0000
     or      t7, $sp, $zero             # t7 = 00000000
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
@@ -336,7 +336,7 @@ lbl_800AD994:
 
 
 func_800AD9C0:
-# fault, Crash Debugger, draw Yellow Bar
+# Draw Yellow Crash Bar
     lui     t6, 0xFFFA                 # t6 = FFFA0000
     or      t7, $sp, $zero             # t7 = 00000000
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
@@ -1253,7 +1253,6 @@ lbl_800AE6B4:
 
 
 func_800AE6BC:
-# Crash debugger related?
     lui     t7, 0xFFFA                 # t7 = FFFA0000
     or      t0, $sp, $zero             # t0 = 00000000
     addiu   $sp, $sp, 0xFFA0           # $sp -= 0x60
@@ -2037,6 +2036,7 @@ lbl_800AF178:
 
 func_800AF190:
 # fault thread entrypoint
+# A0 = 0
     lui     t5, 0xFFFA                 # t5 = FFFA0000
     or      t6, $sp, $zero             # t6 = 00000000
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
@@ -2233,8 +2233,7 @@ func_800AF430:
 
 
 func_800AF45C:
-# initializes fault thread?
-# runs on "main" thread
+# Initializes fault thread/stack
     lui     t7, 0xFFFA                 # t7 = FFFA0000
     or      t8, $sp, $zero             # t8 = 00000000
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
@@ -2305,7 +2304,6 @@ lbl_800AF46C:
 
 
 func_800AF564:
-# Crash Debugger Entrypoint
 # Displays small box exception
 # A0 = Str Pointer 1
 # A1 = Str Pointer 2 (can be null)
@@ -2440,7 +2438,7 @@ lbl_800AF6E8:
 
 
 func_800AF734:
-# Crash Debugger Entrypoint, Displays source + line of exception
+# Displays source + line of exception
 # A0 = source file str pointer
 # A1 = line the exception occurred
     lui     t6, 0xFFFA                 # t6 = FFFA0000
