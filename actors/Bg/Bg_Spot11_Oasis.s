@@ -67,7 +67,7 @@ lbl_80B7587C:
     swc1    $f4, 0x0010($sp)
     beq     v0, $zero, lbl_80B758E4
     addiu   s0, s0, 0x0004             # s0 = 80B75DF8
-    beq     $zero, $zero, lbl_80B758F0
+    b       lbl_80B758F0
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80B758E4:
     bnel    s0, s5, lbl_80B7587C
@@ -235,7 +235,7 @@ func_80B75ACC:
     addiu   t6, t6, %lo(func_80B7597C) # t6 = 80B7597C
     bnel    t6, t7, lbl_80B75B14
     lbu     t0, 0x0140(s0)             # 00000140
-    beq     $zero, $zero, lbl_80B75CAC
+    b       lbl_80B75CAC
     sw      $zero, 0x0134(s0)          # 00000134
     lbu     t0, 0x0140(s0)             # 00000140
 lbl_80B75B14:
@@ -326,10 +326,10 @@ lbl_80B75B14:
     nop
     mfc1    t6, $f16
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80B75C90
+    b       lbl_80B75C90
     or      t6, t6, $at                # t6 = 80000000
 lbl_80B75C78:
-    beq     $zero, $zero, lbl_80B75C90
+    b       lbl_80B75C90
     addiu   t6, $zero, 0xFFFF          # t6 = FFFFFFFF
     mfc1    t6, $f16
 lbl_80B75C84:
@@ -340,7 +340,7 @@ lbl_80B75C90:
     ctc1    t9, $f31
     sb      t6, 0x0141(s0)             # 00000141
     nop
-    beq     $zero, $zero, lbl_80B75CB0
+    b       lbl_80B75CB0
     lw      $ra, 0x0024($sp)
 lbl_80B75CA4:
     addiu   t7, $zero, 0x0001          # t7 = 00000001

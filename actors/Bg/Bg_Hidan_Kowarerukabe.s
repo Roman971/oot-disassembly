@@ -31,7 +31,7 @@ func_809C6140:
     lw      a3, 0x0028($sp)
     jal     func_800313A4              # DynaPolyInfo_setActor
     addiu   a1, a0, 0x0810             # a1 = 00000810
-    beq     $zero, $zero, lbl_809C61C8
+    b       lbl_809C61C8
     sw      v0, 0x013C(s0)             # 0000013C
     sw      t3, 0x013C(s0)             # 0000013C
 lbl_809C61C8:
@@ -114,7 +114,7 @@ func_809C629C:
 lbl_809C62D4:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C633C
+    b       lbl_809C633C
     lw      $ra, 0x001C($sp)
 lbl_809C62E4:
     sra     a1, v0,  8
@@ -124,7 +124,7 @@ lbl_809C62E4:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C633C
+    b       lbl_809C633C
     lw      $ra, 0x001C($sp)
 lbl_809C6308:
     lui     a1, %hi(var_809C6F38)      # a1 = 809C0000
@@ -386,7 +386,7 @@ lbl_809C66CC:
     bnel    s0, s4, lbl_809C66E8
     addiu   v0, $zero, 0x0040          # v0 = 00000040
 lbl_809C66DC:
-    beq     $zero, $zero, lbl_809C66E8
+    b       lbl_809C66E8
     addiu   v0, $zero, 0x0041          # v0 = 00000041
     addiu   v0, $zero, 0x0040          # v0 = 00000040
 lbl_809C66E8:
@@ -537,7 +537,7 @@ lbl_809C6830:
     sll     s3, v0, 16
     bne     $at, $zero, lbl_809C6928
     sra     s3, s3, 16
-    beq     $zero, $zero, lbl_809C6928
+    b       lbl_809C6928
     addiu   s0, $zero, 0x0020          # s0 = 00000020
 lbl_809C6928:
     jal     func_800CDCCC              # Rand.Next() float
@@ -707,7 +707,7 @@ lbl_809C6AC8:
     sll     s3, v0, 16
     bne     $at, $zero, lbl_809C6BB4
     sra     s3, s3, 16
-    beq     $zero, $zero, lbl_809C6BB4
+    b       lbl_809C6BB4
     addiu   s0, $zero, 0x0020          # s0 = 00000020
 lbl_809C6BB4:
     jal     func_800CDCCC              # Rand.Next() float
@@ -791,17 +791,17 @@ func_809C6CA8:
     addiu   $at, $zero, 0x0002         # $at = 00000002
     beq     v0, $at, lbl_809C6D10
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C6D1C
+    b       lbl_809C6D1C
     or      a0, s0, $zero              # a0 = 00000000
 lbl_809C6CF0:
     jal     func_809C64B8
     lw      a1, 0x0024($sp)
-    beq     $zero, $zero, lbl_809C6D1C
+    b       lbl_809C6D1C
     or      a0, s0, $zero              # a0 = 00000000
 lbl_809C6D00:
     jal     func_809C6784
     lw      a1, 0x0024($sp)
-    beq     $zero, $zero, lbl_809C6D1C
+    b       lbl_809C6D1C
     or      a0, s0, $zero              # a0 = 00000000
 lbl_809C6D10:
     jal     func_809C6A1C
@@ -850,7 +850,7 @@ func_809C6D38:
     addiu   a2, $zero, 0x0028          # a2 = 00000028
     jal     func_80058FF8
     addiu   a3, $zero, 0x2802          # a3 = 00002802
-    beq     $zero, $zero, lbl_809C6DC8
+    b       lbl_809C6DC8
     nop
 lbl_809C6DC0:
     jal     func_80058FF8
@@ -860,7 +860,7 @@ lbl_809C6DC8:
     addiu   a0, $zero, 0x4802          # a0 = 00004802
     jal     func_80020EB4
     or      a0, s1, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C6DF8
+    b       lbl_809C6DF8
     lw      $ra, 0x001C($sp)
 lbl_809C6DE0:
     lui     $at, 0x0001                # $at = 00010000

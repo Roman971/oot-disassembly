@@ -180,7 +180,7 @@ func_80B71FC8:
     swc1    $f0, 0x018C(a3)            # 0000018C
     bc1fl   lbl_80B720D4
     lwc1    $f4, 0x018C(a3)            # 0000018C
-    beq     $zero, $zero, lbl_80B720D8
+    b       lbl_80B720D8
     swc1    $f2, 0x018C(a3)            # 0000018C
     lwc1    $f4, 0x018C(a3)            # 0000018C
 lbl_80B720D4:
@@ -322,7 +322,7 @@ lbl_80B72298:
     lw      a3, 0x0018($sp)
     lh      t8, 0x00B6(a3)             # 000000B6
     addiu   t9, t8, 0x0800             # t9 = 00000800
-    beq     $zero, $zero, lbl_80B722F4
+    b       lbl_80B722F4
     sh      t9, 0x00B6(a3)             # 000000B6
 lbl_80B722C0:
     lw      a0, 0x001C($sp)
@@ -334,7 +334,7 @@ lbl_80B722C0:
 lbl_80B722D8:
     jal     func_80B72124
     or      a0, a3, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B722F8
+    b       lbl_80B722F8
     lw      $ra, 0x0014($sp)
     lh      t0, 0x00B6(a3)             # 000000B6
 lbl_80B722EC:
@@ -443,7 +443,7 @@ lbl_80B723A4:
     nop
     jal     func_80B71FC8
     lw      a1, 0x003C($sp)
-    beq     $zero, $zero, lbl_80B72488
+    b       lbl_80B72488
     lw      $ra, 0x0024($sp)
 lbl_80B7247C:
     jal     func_80B72168
@@ -499,10 +499,10 @@ lbl_80B724B8:
     nop
     mfc1    t0, $f16
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80B72558
+    b       lbl_80B72558
     or      t0, t0, $at                # t0 = 80000000
 lbl_80B72540:
-    beq     $zero, $zero, lbl_80B72558
+    b       lbl_80B72558
     addiu   t0, $zero, 0xFFFF          # t0 = FFFFFFFF
     mfc1    t0, $f16
 lbl_80B7254C:
@@ -573,7 +573,7 @@ func_80B72580:
     addiu   t1, t1, 0xEFF4             # t1 = 8001EFF4
     sw      t1, 0x00C0(s0)             # 000000C0
     ori     t0, t8, 0x0081             # t0 = 00000081
-    beq     $zero, $zero, lbl_80B72660
+    b       lbl_80B72660
     sw      t0, 0x0004(s0)             # 00000004
     lw      t2, 0x0004(s0)             # 00000004
 lbl_80B72650:
@@ -845,7 +845,7 @@ func_80B72954:
     ori     t2, t2, 0x0030             # t2 = DB060030
     sw      t2, 0x0000(v1)             # 00000000
     sw      t3, 0x0004(v1)             # 00000004
-    beq     $zero, $zero, lbl_80B72A70
+    b       lbl_80B72A70
     lw      a1, 0x0140(s1)             # 00000140
 lbl_80B72A4C:
     lw      v1, 0x02D0(s0)             # 000002D0

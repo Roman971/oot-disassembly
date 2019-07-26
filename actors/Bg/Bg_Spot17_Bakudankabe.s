@@ -98,13 +98,13 @@ lbl_80B54B10:
     sll     s3, v0, 16
     beq     $at, $zero, lbl_80B54BFC
     sra     s3, s3, 16
-    beq     $zero, $zero, lbl_80B54C10
+    b       lbl_80B54C10
     addiu   s0, $zero, 0xFED4          # s0 = FFFFFED4
 lbl_80B54BFC:
     slti    $at, v1, 0x0023
     beq     $at, $zero, lbl_80B54C10
     addiu   s0, $zero, 0xFE5C          # s0 = FFFFFE5C
-    beq     $zero, $zero, lbl_80B54C10
+    b       lbl_80B54C10
     addiu   s0, $zero, 0xFE98          # s0 = FFFFFE98
 lbl_80B54C10:
     jal     func_800CDCCC              # Rand.Next() float
@@ -119,7 +119,7 @@ lbl_80B54C10:
     addiu   t7, $zero, 0x001E          # t7 = 0000001E
     bc1f    lbl_80B54C48
     addiu   t8, $zero, 0x0004          # t8 = 00000004
-    beq     $zero, $zero, lbl_80B54C4C
+    b       lbl_80B54C4C
     addiu   v0, $zero, 0x0041          # v0 = 00000041
 lbl_80B54C48:
     addiu   v0, $zero, 0x0021          # v0 = 00000021
@@ -229,7 +229,7 @@ func_80B54DA0:
     lui     a0, 0x0600                 # a0 = 06000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B54E24
+    b       lbl_80B54E24
     lw      $ra, 0x001C($sp)
 lbl_80B54DEC:
     addiu   a0, a0, 0x0A38             # a0 = 00000A38

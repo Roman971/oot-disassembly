@@ -12,7 +12,7 @@ func_800ACE60:
 lbl_800ACE68:
     jal     func_80001CCC
     addiu   a0, $zero, 0x03E8          # a0 = 000003E8
-    beq     $zero, $zero, lbl_800ACE68
+    b       lbl_800ACE68
     nop
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -87,11 +87,11 @@ lbl_800ACF58:
     beq     a2, $zero, lbl_800ACF74
     lw      t9, 0x0020($sp)
     lw      t7, 0x0000(a1)             # 00000000
-    beq     $zero, $zero, lbl_800ACF90
+    b       lbl_800ACF90
     sw      t7, 0x0000(a2)             # 00000000
 lbl_800ACF74:
     lw      t8, 0x0000(a1)             # 00000000
-    beq     $zero, $zero, lbl_800ACF90
+    b       lbl_800ACF90
     sw      t8, 0x0248(t9)             # 00000248
     or      a2, v1, $zero              # a2 = 00000000
 lbl_800ACF84:
@@ -288,7 +288,7 @@ func_800AD1B4:
     sw      a0, 0x0018($sp)
     lw      a0, 0x0018($sp)
     sw      v0, 0x0278(a0)             # 00000278
-    beq     $zero, $zero, lbl_800AD240
+    b       lbl_800AD240
     sw      v1, 0x027C(a0)             # 0000027C
 lbl_800AD20C:
     jal     func_800048C0              # osGetTime
@@ -350,17 +350,17 @@ lbl_800AD2B4:
     nop
     beq     t6, s5, lbl_800AD304
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_800AD30C
+    b       lbl_800AD30C
     nop
 lbl_800AD2E4:
     jal     func_800AD1B4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_800AD30C
+    b       lbl_800AD30C
     nop
 lbl_800AD2F4:
     jal     func_800AD070
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_800AD30C
+    b       lbl_800AD30C
     nop
 lbl_800AD304:
     jal     func_800AD128

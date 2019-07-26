@@ -42,7 +42,7 @@ func_80B789D0:
     lui     $at, 0x4496                # $at = 44960000
     lui     t8, %hi(func_80B78CD4)     # t8 = 80B80000
     addiu   t8, t8, %lo(func_80B78CD4) # t8 = 80B78CD4
-    beq     $zero, $zero, lbl_80B78A98
+    b       lbl_80B78A98
     sw      t8, 0x0154(s0)             # 00000154
 lbl_80B78A80:
     mtc1    $at, $f4                   # $f4 = 1200.00
@@ -223,7 +223,7 @@ func_80B78CD4:
     sw      a3, 0x0018($sp)
     jal     func_80020EB4
     lw      a0, 0x0018($sp)
-    beq     $zero, $zero, lbl_80B78D30
+    b       lbl_80B78D30
     lw      $ra, 0x0014($sp)
 lbl_80B78D20:
     addu    a1, a0, $at
@@ -301,7 +301,7 @@ lbl_80B78DC8:
     addiu   a1, a0, 0x0810             # a1 = 00000810
     lui     t9, %hi(func_80B78EE0)     # t9 = 80B80000
     addiu   t9, t9, %lo(func_80B78EE0) # t9 = 80B78EE0
-    beq     $zero, $zero, lbl_80B78ECC
+    b       lbl_80B78ECC
     sw      t9, 0x0154(s0)             # 00000154
 lbl_80B78E28:
     jal     func_800CDCCC              # Rand.Next() float
@@ -316,7 +316,7 @@ lbl_80B78E28:
     mul.s   $f18, $f2, $f16
     bc1f    lbl_80B78E60
     nop
-    beq     $zero, $zero, lbl_80B78E60
+    b       lbl_80B78E60
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_80B78E60:
     mtc1    v0, $f8                    # $f8 = NaN
@@ -337,7 +337,7 @@ lbl_80B78E60:
     mul.s   $f6, $f2, $f4
     bc1f    lbl_80B78EB0
     nop
-    beq     $zero, $zero, lbl_80B78EB0
+    b       lbl_80B78EB0
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_80B78EB0:
     mtc1    v0, $f18                   # $f18 = NaN
@@ -401,12 +401,12 @@ lbl_80B78F4C:
     swc1    $f10, 0x0028(s0)           # 00000028
     lui     t3, %hi(func_80B79038)     # t3 = 80B80000
     addiu   t3, t3, %lo(func_80B79038) # t3 = 80B79038
-    beq     $zero, $zero, lbl_80B79024
+    b       lbl_80B79024
     sw      t3, 0x0154(s0)             # 00000154
 lbl_80B78F94:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B79028
+    b       lbl_80B79028
     lw      $ra, 0x0024($sp)
 lbl_80B78FA4:
     jal     func_8002121C

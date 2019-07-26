@@ -179,7 +179,7 @@ lbl_80AECC84:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_800634D4
     sw      v1, 0x0024($sp)
-    beq     $zero, $zero, lbl_80AECCF0
+    b       lbl_80AECCF0
     lw      v1, 0x0024($sp)
 lbl_80AECCB4:
     jal     func_800CAB18
@@ -209,7 +209,7 @@ lbl_80AECCF0:
     bne     t9, $at, lbl_80AECD24
     lui     $at, 0x0001                # $at = 00010000
     addu    $at, $at, s0
-    beq     $zero, $zero, lbl_80AECD3C
+    b       lbl_80AECD3C
     sb      t0, 0x0B01($at)            # 00010B01
 lbl_80AECD24:
     lui     $at, 0x0001                # $at = 00010000

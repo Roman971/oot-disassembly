@@ -85,7 +85,7 @@ lbl_8001E6BC:
     addiu   a2, $zero, 0x00C8          # a2 = 000000C8
     jal     func_800CBE58
     addiu   a3, $zero, 0x00C8          # a3 = 000000C8
-    beq     $zero, $zero, lbl_8001E710
+    b       lbl_8001E710
     nop
 lbl_8001E6F8:
     addiu   t8, $zero, 0x00FF          # t8 = 000000FF
@@ -114,7 +114,7 @@ lbl_8001E710:
     addiu   a1, a1, 0x6418             # a1 = 80106418
     jal     func_800CC588
     or      a0, s0, $zero              # a0 = FFFFFE10
-    beq     $zero, $zero, lbl_8001E76C
+    b       lbl_8001E76C
     nop
 lbl_8001E764:
     jal     func_800CC588

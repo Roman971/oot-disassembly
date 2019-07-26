@@ -66,14 +66,14 @@ lbl_80903210:
     slti    $at, a0, 0x012D
     bne     $at, $zero, lbl_8090323C
     addiu   t9, v1, 0x012C             # t9 = 0000012C
-    beq     $zero, $zero, lbl_80903258
+    b       lbl_80903258
     sh      t9, 0x0032(s0)             # 00000032
 lbl_8090323C:
     slti    $at, a0, 0xFED4
     beq     $at, $zero, lbl_80903254
     addu    t1, v1, a0
     addiu   t0, v1, 0xFED4             # t0 = FFFFFED4
-    beq     $zero, $zero, lbl_80903258
+    b       lbl_80903258
     sh      t0, 0x0032(s0)             # 00000032
 lbl_80903254:
     sh      t1, 0x0032(s0)             # 00000032
@@ -102,13 +102,13 @@ lbl_80903258:
     mtc1    $at, $f10                  # $f10 = 1.00
     nop
     add.s   $f16, $f0, $f10
-    beq     $zero, $zero, lbl_80903340
+    b       lbl_80903340
     swc1    $f16, 0x0068(s0)           # 00000068
     mtc1    $at, $f18                  # $f18 = 1.00
 lbl_809032C4:
     nop
     sub.s   $f4, $f0, $f18
-    beq     $zero, $zero, lbl_80903340
+    b       lbl_80903340
     swc1    $f4, 0x0068(s0)            # 00000068
     lw      t4, 0x01DC(s0)             # 000001DC
 lbl_809032D8:
@@ -133,7 +133,7 @@ lbl_80903308:
     mtc1    $at, $f16                  # $f16 = 0.50
     nop
     add.s   $f18, $f0, $f16
-    beq     $zero, $zero, lbl_80903340
+    b       lbl_80903340
     swc1    $f18, 0x0068(s0)           # 00000068
     mtc1    $at, $f4                   # $f4 = 0.50
 lbl_80903334:

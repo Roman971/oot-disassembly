@@ -23,12 +23,12 @@ func_800A42F0:
     lui     v1, 0x8012                 # v1 = 80120000
     addiu   v1, v1, 0x0FD8             # v1 = 80120FD8
     lui     t6, 0x8060                 # t6 = 80600000
-    beq     $zero, $zero, lbl_800A4374
+    b       lbl_800A4374
     sw      t6, 0x0000(v1)             # 80120FD8
 lbl_800A432C:
     addiu   v1, v1, 0x0FD8             # v1 = 80121FB0
     lui     t7, 0x8040                 # t7 = 80400000
-    beq     $zero, $zero, lbl_800A4374
+    b       lbl_800A4374
     sw      t7, 0x0000(v1)             # 80121FB0
 lbl_800A433C:
     lui     $at, 0x0040                # $at = 00400000
@@ -37,7 +37,7 @@ lbl_800A433C:
     lui     v1, 0x8012                 # v1 = 80120000
     addiu   v1, v1, 0x0FD8             # v1 = 80120FD8
     lui     t8, 0x8040                 # t8 = 80400000
-    beq     $zero, $zero, lbl_800A4374
+    b       lbl_800A4374
     sw      t8, 0x0000(v1)             # 80120FD8
 lbl_800A435C:
     lui     a0, 0x8011                 # a0 = 80110000
@@ -217,7 +217,7 @@ lbl_800A4564:
     mul.s   $f2, $f2, $f10
     bne     t0, v0, lbl_800A4564
     nop
-    beq     $zero, $zero, lbl_800A45CC
+    b       lbl_800A45CC
     mov.s   $f0, $f2
 lbl_800A45BC:
     lui     $at, 0x8010                # $at = 80100000

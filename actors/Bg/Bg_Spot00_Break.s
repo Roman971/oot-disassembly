@@ -22,7 +22,7 @@ func_80B3FED0:
     addiu   a0, a0, 0x0AF0             # a0 = 06000AF0
     jal     func_80033EF4
     addiu   a1, $sp, 0x0024            # a1 = FFFFFFF4
-    beq     $zero, $zero, lbl_80B3FF3C
+    b       lbl_80B3FF3C
     lw      a0, 0x0034($sp)
 lbl_80B3FF30:
     jal     func_80033EF4
@@ -84,7 +84,7 @@ func_80B3FFC0:
     addiu   a1, a1, 0x0980             # a1 = 06000980
     jal     func_80028048
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B40004
+    b       lbl_80B40004
     lw      $ra, 0x0014($sp)
 lbl_80B3FFF8:
     jal     func_80028048

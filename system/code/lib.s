@@ -315,7 +315,7 @@ lbl_800639F4:
     sll     a2, a2, 16
     ori     t7, t7, 0x0001             # t7 = FFFF0001
     sra     a2, a2, 16
-    beq     $zero, $zero, lbl_80063A34
+    b       lbl_80063A34
     subu    v0, t7, t6
 lbl_80063A14:
     slti    $at, v0, 0x8001
@@ -385,7 +385,7 @@ func_80063ACC:
     nop
     bc1f    lbl_80063AFC
     nop
-    beq     $zero, $zero, lbl_80063AFC
+    b       lbl_80063AFC
     mov.s   $f2, $f14
 lbl_80063AFC:
     c.eq.s  $f2, $f4
@@ -446,7 +446,7 @@ func_80063B74:
     swc1    $f0, 0x0000(a0)            # 00000000
     bc1f    lbl_80063BCC
     nop
-    beq     $zero, $zero, lbl_80063BD4
+    b       lbl_80063BD4
     swc1    $f14, 0x0000(a0)           # 00000000
 lbl_80063BCC:
     lwc1    $f16, 0x0000(a0)           # 00000000
@@ -1030,7 +1030,7 @@ lbl_800641E0:
     add.s   $f8, $f2, $f0
 lbl_800641F8:
     swc1    $f8, 0x0000(a0)            # 00000000
-    beq     $zero, $zero, lbl_80064270
+    b       lbl_80064270
     lwc1    $f2, 0x0000(a0)            # 00000000
     c.lt.s  $f0, $f16
 lbl_80064208:
@@ -1091,7 +1091,7 @@ func_80064280:
     nop
     bc1fl   lbl_800642CC
     neg.s   $f12, $f12
-    beq     $zero, $zero, lbl_800642E0
+    b       lbl_800642E0
     mov.s   $f2, $f6
     neg.s   $f12, $f12
 lbl_800642CC:
@@ -1119,7 +1119,7 @@ func_800642F0:
     nop
     bc1fl   lbl_80064320
     neg.s   $f12, $f14
-    beq     $zero, $zero, lbl_80064334
+    b       lbl_80064334
     mov.s   $f0, $f14
     neg.s   $f12, $f14
 lbl_80064320:
@@ -1159,7 +1159,7 @@ func_80064344:
     mtc1    $at, $f6                   # $f6 = 360.00
     nop
     sub.s   $f18, $f6, $f18
-    beq     $zero, $zero, lbl_800643C8
+    b       lbl_800643C8
     neg.s   $f18, $f18
     mtc1    $at, $f8                   # $f8 = 360.00
 lbl_800643A8:
@@ -1202,7 +1202,7 @@ lbl_8006441C:
     add.s   $f6, $f0, $f16
 lbl_80064430:
     swc1    $f6, 0x0000(a0)            # 00000000
-    beq     $zero, $zero, lbl_800644AC
+    b       lbl_800644AC
     lwc1    $f0, 0x0000(a0)            # 00000000
     c.lt.s  $f10, $f8
 lbl_80064440:
@@ -1319,7 +1319,7 @@ lbl_800645A8:
     sra     v0, v0, 16
     addu    t8, t0, v0
 lbl_800645C0:
-    beq     $zero, $zero, lbl_80064618
+    b       lbl_80064618
     sh      t8, 0x0000(a0)             # 00000000
 lbl_800645C8:
     bltz    v1, lbl_800645F8
@@ -1332,7 +1332,7 @@ lbl_800645C8:
     sra     t6, t5, 16
     bgtzl   t6, lbl_8006461C
     or      v0, v1, $zero              # v0 = 00000000
-    beq     $zero, $zero, lbl_80064618
+    b       lbl_80064618
     sh      a1, 0x0000(a0)             # 00000000
 lbl_800645F8:
     sh      t7, 0x0000(a0)             # 00000000

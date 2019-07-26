@@ -143,7 +143,7 @@ func_80B38998:
     lw      a0, 0x0064($sp)
     jal     func_800AA764
     addiu   a0, $sp, 0x0078            # a0 = FFFFFFB0
-    beq     $zero, $zero, lbl_80B38B64
+    b       lbl_80B38B64
     addiu   a0, $sp, 0x0078            # a0 = FFFFFFB0
 lbl_80B38ADC:
     lui     $at, 0x3F80                # $at = 3F800000
@@ -171,7 +171,7 @@ lbl_80B38ADC:
     nop
     jal     func_800AA764
     addiu   a0, $sp, 0x0078            # a0 = FFFFFFB0
-    beq     $zero, $zero, lbl_80B38B64
+    b       lbl_80B38B64
     addiu   a0, $sp, 0x0078            # a0 = FFFFFFB0
     lwc1    $f12, 0x0000(s0)           # 00000000
 lbl_80B38B4C:

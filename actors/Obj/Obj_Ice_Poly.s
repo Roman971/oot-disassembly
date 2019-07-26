@@ -18,7 +18,7 @@ func_80A787D0:
 lbl_80A7880C:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A78980
+    b       lbl_80A78980
     lw      $ra, 0x001C($sp)
 lbl_80A7881C:
     sll     t9, v0,  2
@@ -166,7 +166,7 @@ func_80A789E0:
     sw      $zero, 0x0010($sp)
     lui     t2, %hi(func_80A78C10)     # t2 = 80A80000
     addiu   t2, t2, %lo(func_80A78C10) # t2 = 80A78C10
-    beq     $zero, $zero, lbl_80A78AB8
+    b       lbl_80A78AB8
     sw      t2, 0x013C(s0)             # 0000013C
     lw      v0, 0x0118(s0)             # 00000118
 lbl_80A78A4C:
@@ -193,7 +193,7 @@ lbl_80A78A4C:
     lw      a1, 0x0038($sp)
     jal     func_8004BF40              # CollisionCheck_setAC
     addiu   a2, s0, 0x0190             # a2 = 00000190
-    beq     $zero, $zero, lbl_80A78ABC
+    b       lbl_80A78ABC
     addiu   a0, $zero, 0x000F          # a0 = 0000000F
 lbl_80A78AB0:
     jal     func_80020EB4
@@ -213,7 +213,7 @@ lbl_80A78ABC:
     nop
     bc1f    lbl_80A78AF4
     nop
-    beq     $zero, $zero, lbl_80A78AF4
+    b       lbl_80A78AF4
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_80A78AF4:
     multu   v0, t4
@@ -251,7 +251,7 @@ lbl_80A78AF4:
     or      a0, s1, $zero              # a0 = 00000000
     bc1f    lbl_80A78B88
     addiu   a1, $sp, 0x0048            # a1 = FFFFFFF0
-    beq     $zero, $zero, lbl_80A78B88
+    b       lbl_80A78B88
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_80A78B88:
     multu   v0, t6
@@ -342,7 +342,7 @@ lbl_80A78CB0:
     addiu   v0, $zero, 0x0001          # v0 = 00000001
     bc1f    lbl_80A78CDC
     nop
-    beq     $zero, $zero, lbl_80A78CDC
+    b       lbl_80A78CDC
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_80A78CDC:
     multu   v0, s1
@@ -372,7 +372,7 @@ lbl_80A78CDC:
     addiu   v0, $zero, 0x0001          # v0 = 00000001
     bc1f    lbl_80A78D50
     nop
-    beq     $zero, $zero, lbl_80A78D50
+    b       lbl_80A78D50
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_80A78D50:
     multu   v0, s1
@@ -430,7 +430,7 @@ lbl_80A78E08:
     lw      $ra, 0x0064($sp)
     jal     func_80022FD0
     sh      t5, 0x0142(s0)             # 00000142
-    beq     $zero, $zero, lbl_80A78E90
+    b       lbl_80A78E90
     lw      $ra, 0x0064($sp)
 lbl_80A78E30:
     beq     v0, $zero, lbl_80A78E40

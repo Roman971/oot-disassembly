@@ -103,7 +103,7 @@ func_80A86718:
 lbl_80A86798:
     jal     func_80A8681C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A867D8
+    b       lbl_80A867D8
     lw      $ra, 0x001C($sp)
 lbl_80A867A8:
     sra     a1, v1,  8
@@ -113,7 +113,7 @@ lbl_80A867A8:
     nop
     jal     func_80A8681C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A867D8
+    b       lbl_80A867D8
     lw      $ra, 0x001C($sp)
 lbl_80A867CC:
     jal     func_80A8683C
@@ -307,7 +307,7 @@ func_80A869E0:
     bne     t1, $at, lbl_80A86A60
     addiu   t4, $zero, 0x00FF          # t4 = 000000FF
     lui     a1, %hi(var_80A86B38)      # a1 = 80A80000
-    beq     $zero, $zero, lbl_80A86A70
+    b       lbl_80A86A70
     addiu   a1, a1, %lo(var_80A86B38)  # a1 = 80A86B38
 lbl_80A86A60:
     sb      t2, 0x0030($sp)

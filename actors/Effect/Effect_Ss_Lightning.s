@@ -302,7 +302,7 @@ func_80B30B44:
     nop
     bc1f    lbl_80B30BB0
     nop
-    beq     $zero, $zero, lbl_80B30BB0
+    b       lbl_80B30BB0
     addiu   v1, $zero, 0xFFFF          # v1 = FFFFFFFF
 lbl_80B30BB0:
     jal     func_800CDCCC              # Rand.Next() float

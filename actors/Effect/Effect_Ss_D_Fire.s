@@ -76,7 +76,7 @@ func_80B2EEB0:
     lh      t1, 0x0028(a3)             # 00000028
     sh      t1, 0x004A(a2)             # 0000004A
     lh      t2, 0x002A(a3)             # 0000002A
-    beq     $zero, $zero, lbl_80B2EFEC
+    b       lbl_80B2EFEC
     sh      t2, 0x004C(a2)             # 0000004C
 lbl_80B2EFE8:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -260,7 +260,7 @@ func_80B2F244:
     lh      t7, 0x004A(a2)             # 0000004A
     bgezl   t7, lbl_80B2F2CC
     lwc1    $f0, 0x001C(a2)            # 0000001C
-    beq     $zero, $zero, lbl_80B2F2C8
+    b       lbl_80B2F2C8
     sh      $zero, 0x004A(a2)          # 0000004A
 lbl_80B2F2A4:
     lh      t8, 0x004A(a2)             # 0000004A

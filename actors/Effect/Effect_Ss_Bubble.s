@@ -20,7 +20,7 @@ func_80B2F3A0:
     bc1f    lbl_80B2F3F8
     nop
     lui     v1, 0x0406                 # v1 = 04060000
-    beq     $zero, $zero, lbl_80B2F3F8
+    b       lbl_80B2F3F8
     addiu   v1, v1, 0xB2E0             # v1 = 0405B2E0
 lbl_80B2F3F8:
     jal     func_800CDCCC              # Rand.Next() float
@@ -32,7 +32,7 @@ lbl_80B2F3F8:
     bc1f    lbl_80B2F424
     sll     t7, v1,  4
     lui     v0, 0x0406                 # v0 = 04060000
-    beq     $zero, $zero, lbl_80B2F42C
+    b       lbl_80B2F42C
     addiu   v0, v0, 0xB2E0             # v0 = 0405B2E0
 lbl_80B2F424:
     lui     v0, 0x0406                 # v0 = 04060000
@@ -213,7 +213,7 @@ func_80B2F684:
     bne     v0, $zero, lbl_80B2F6D8
     lw      a0, 0x0040($sp)
     addiu   t8, $zero, 0xFFFF          # t8 = FFFFFFFF
-    beq     $zero, $zero, lbl_80B2F7A4
+    b       lbl_80B2F7A4
     sh      t8, 0x005C(s0)             # 0000005C
 lbl_80B2F6D8:
     lwc1    $f6, 0x0038($sp)
@@ -234,7 +234,7 @@ lbl_80B2F6D8:
     swc1    $f16, 0x0034($sp)
     addiu   t9, $zero, 0xFFFF          # t9 = FFFFFFFF
     sh      t9, 0x005C(s0)             # 0000005C
-    beq     $zero, $zero, lbl_80B2F7A8
+    b       lbl_80B2F7A8
     lw      $ra, 0x0024($sp)
     lh      t0, 0x005C(s0)             # 0000005C
 lbl_80B2F72C:

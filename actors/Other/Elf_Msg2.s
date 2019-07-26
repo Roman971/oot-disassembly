@@ -35,7 +35,7 @@ func_80AF22FC:
 lbl_80AF2364:
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80AF2424
+    b       lbl_80AF2424
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80AF2374:
     lh      t6, 0x0032(a2)             # 00000032
@@ -63,7 +63,7 @@ lbl_80AF2374:
 lbl_80AF23CC:
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80AF2424
+    b       lbl_80AF2424
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80AF23DC:
     lh      a1, 0x001C(a2)             # 0000001C
@@ -74,7 +74,7 @@ lbl_80AF23E0:
     andi    a1, a1, 0x003F             # a1 = 00000000
     bne     a1, $at, lbl_80AF2400
     nop
-    beq     $zero, $zero, lbl_80AF2424
+    b       lbl_80AF2424
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80AF2400:
     jal     func_8002049C
@@ -83,7 +83,7 @@ lbl_80AF2400:
     lw      a2, 0x0018($sp)
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80AF2424
+    b       lbl_80AF2424
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80AF2420:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -123,7 +123,7 @@ lbl_80AF2470:
     addiu   a1, a1, %lo(func_80AF25D0) # a1 = 80AF25D0
     jal     func_80AF22F0
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80AF24D4
+    b       lbl_80AF24D4
     sh      $zero, 0x00B8(s0)          # 000000B8
 lbl_80AF24A8:
     jal     func_80AF22F0
@@ -189,7 +189,7 @@ func_80AF2518:
     lw      $ra, 0x0014($sp)
     jal     func_800204D0
     lw      a0, 0x001C($sp)
-    beq     $zero, $zero, lbl_80AF258C
+    b       lbl_80AF258C
     lw      $ra, 0x0014($sp)
 lbl_80AF2580:
     jal     func_80AF22F0

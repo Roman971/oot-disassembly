@@ -110,7 +110,7 @@ func_80B5615C:
     addiu   a1, a1, 0x003A             # a1 = 0000003A
     beq     v0, $zero, lbl_80B56188
     andi    v1, v0, 0xFFFF             # v1 = 00000000
-    beq     $zero, $zero, lbl_80B56190
+    b       lbl_80B56190
     or      v0, v1, $zero              # v0 = 00000000
 lbl_80B56188:
     lw      t7, 0x001C($sp)
@@ -139,13 +139,13 @@ func_80B561A0:
     jr      t6
     nop
 var_80B561DC:
-    beq     $zero, $zero, lbl_80B561FC
+    b       lbl_80B561FC
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 var_80B561E4:
     lw      a0, 0x001C($sp)
     jal     func_80B55FFC
     lw      a1, 0x0018($sp)
-    beq     $zero, $zero, lbl_80B561FC
+    b       lbl_80B561FC
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B561F8:
     addiu   v0, $zero, 0x0001          # v0 = 00000001

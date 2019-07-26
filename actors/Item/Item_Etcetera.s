@@ -72,7 +72,7 @@ var_80A5E098:
     lw      $ra, 0x001C($sp)
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A5E13C
+    b       lbl_80A5E13C
     lw      $ra, 0x001C($sp)
 var_80A5E0D4:
     lui     t5, %hi(func_80A5E514)     # t5 = 80A60000
@@ -84,7 +84,7 @@ var_80A5E0D4:
     lui     $at, 0x4248                # $at = 42480000
     mtc1    $at, $f4                   # $f4 = 50.00
     sw      $zero, 0x0134(s0)          # 00000134
-    beq     $zero, $zero, lbl_80A5E138
+    b       lbl_80A5E138
     swc1    $f4, 0x00BC(s0)            # 000000BC
 var_80A5E100:
     or      a0, s0, $zero              # a0 = 00000000
@@ -169,7 +169,7 @@ func_80A5E1B4:
 lbl_80A5E20C:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A5E23C
+    b       lbl_80A5E23C
     lw      $ra, 0x0024($sp)
 lbl_80A5E21C:
     lui     $at, 0x4248                # $at = 42480000
@@ -214,7 +214,7 @@ func_80A5E24C:
 lbl_80A5E2A8:
     jal     func_80020EB4
     or      a0, s1, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A5E31C
+    b       lbl_80A5E31C
     lw      $ra, 0x0024($sp)
 lbl_80A5E2B8:
     lui     $at, 0x4248                # $at = 42480000

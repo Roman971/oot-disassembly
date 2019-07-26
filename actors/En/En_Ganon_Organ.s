@@ -148,7 +148,7 @@ func_80AC8414:
     sw      s0, 0x0034($sp)
     lw      a2, 0x0034($sp)
     sw      v0, 0x0004(a2)             # 00000004
-    beq     $zero, $zero, lbl_80AC8528
+    b       lbl_80AC8528
     mtc1    $zero, $f12                # $f12 = 0.00
     lw      s0, 0x02C0(s1)             # 000002C0
 lbl_80AC84D0:

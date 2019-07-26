@@ -19,24 +19,24 @@ func_8091FB80:
     addiu   $at, $zero, 0x0003         # $at = 00000003
     beq     v0, $at, lbl_8091FC0C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8091FC1C
+    b       lbl_8091FC1C
     lw      t7, 0x0024(s0)             # 00000024
 lbl_8091FBD4:
     jal     func_80020F88
     ori     a1, a1, 0xCCCD             # a1 = 3CCCCCCD
-    beq     $zero, $zero, lbl_8091FC1C
+    b       lbl_8091FC1C
     lw      t7, 0x0024(s0)             # 00000024
 lbl_8091FBE4:
     lui     a1, 0x3D4C                 # a1 = 3D4C0000
     jal     func_80020F88
     ori     a1, a1, 0xCCCD             # a1 = 3D4CCCCD
-    beq     $zero, $zero, lbl_8091FC1C
+    b       lbl_8091FC1C
     lw      t7, 0x0024(s0)             # 00000024
 lbl_8091FBF8:
     lui     a1, 0x3D99                 # a1 = 3D990000
     jal     func_80020F88
     ori     a1, a1, 0x999A             # a1 = 3D99999A
-    beq     $zero, $zero, lbl_8091FC1C
+    b       lbl_8091FC1C
     lw      t7, 0x0024(s0)             # 00000024
 lbl_8091FC0C:
     lui     a1, 0x3DCC                 # a1 = 3DCC0000
@@ -113,7 +113,7 @@ func_8091FCE0:
     or      a0, s0, $zero              # a0 = 00000000
     beq     v0, $zero, lbl_8091FF00
     nop
-    beq     $zero, $zero, lbl_8091FF00
+    b       lbl_8091FF00
     sh      $zero, 0x0152(s0)          # 00000152
 lbl_8091FD20:
     jal     func_80022BB0
@@ -122,7 +122,7 @@ lbl_8091FD20:
     mtc1    $zero, $f0                 # $f0 = 0.00
     lh      t7, 0x0152(s0)             # 00000152
     addiu   t8, t7, 0x0001             # t8 = 00000001
-    beq     $zero, $zero, lbl_8091FF00
+    b       lbl_8091FF00
     sh      t8, 0x0152(s0)             # 00000152
     mtc1    $zero, $f0                 # $f0 = 0.00
 lbl_8091FD44:
@@ -179,7 +179,7 @@ lbl_8091FDC8:
     mfc1    a2, $f6
     jal     func_8006385C
     nop
-    beq     $zero, $zero, lbl_8091FF00
+    b       lbl_8091FF00
     nop
 lbl_8091FE18:
     lw      t1, -0x4600(t1)            # FFFFBA00
@@ -236,7 +236,7 @@ lbl_8091FE18:
     sh      t2, 0x0088(s0)             # 00000088
     div.s   $f10, $f6, $f8
     mul.s   $f16, $f4, $f10
-    beq     $zero, $zero, lbl_8091FF00
+    b       lbl_8091FF00
     swc1    $f16, 0x0060(s0)           # 00000060
 lbl_8091FEF8:
     jal     func_80022D20

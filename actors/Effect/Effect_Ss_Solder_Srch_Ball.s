@@ -80,7 +80,7 @@ func_80B34980:
     nop
     bc1fl   lbl_80B34A58
     lw      $ra, 0x0014($sp)
-    beq     $zero, $zero, lbl_80B34A54
+    b       lbl_80B34A54
     sh      t8, 0x0000(t9)             # 00000000
 lbl_80B34A3C:
     lh      t0, 0x005C(a3)             # 0000005C

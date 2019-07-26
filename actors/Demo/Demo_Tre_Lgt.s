@@ -136,7 +136,7 @@ func_809778F4:
     bc1fl   lbl_8097795C
     lwc1    $f2, 0x0008(v0)            # 00000008
     mtc1    $at, $f14                  # $f14 = 255.00
-    beq     $zero, $zero, lbl_80977A24
+    b       lbl_80977A24
     sw      t8, 0x0160(s0)             # 00000160
     lwc1    $f2, 0x0008(v0)            # 00000008
 lbl_8097795C:
@@ -177,10 +177,10 @@ lbl_8097795C:
     nop
     mfc1    t1, $f4
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80977A10
+    b       lbl_80977A10
     or      t1, t1, $at                # t1 = 80000000
 lbl_809779F8:
-    beq     $zero, $zero, lbl_80977A10
+    b       lbl_80977A10
     addiu   t1, $zero, 0xFFFF          # t1 = FFFFFFFF
     mfc1    t1, $f4
 lbl_80977A04:
@@ -189,7 +189,7 @@ lbl_80977A04:
     nop
 lbl_80977A10:
     ctc1    t0, $f31
-    beq     $zero, $zero, lbl_80977A24
+    b       lbl_80977A24
     sw      t1, 0x0160(s0)             # 00000160
     mtc1    $at, $f14                  # $f14 = 0.00
 lbl_80977A20:
@@ -206,7 +206,7 @@ lbl_80977A24:
     nop
     bc1fl   lbl_80977A5C
     mtc1    $at, $f2                   # $f2 = 10.00
-    beq     $zero, $zero, lbl_80977B20
+    b       lbl_80977B20
     sw      t4, 0x0164(s0)             # 00000164
     mtc1    $at, $f2                   # $f2 = 10.00
 lbl_80977A5C:
@@ -247,10 +247,10 @@ lbl_80977A5C:
     nop
     mfc1    t0, $f10
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80977B10
+    b       lbl_80977B10
     or      t0, t0, $at                # t0 = 80000000
 lbl_80977AF8:
-    beq     $zero, $zero, lbl_80977B10
+    b       lbl_80977B10
     addiu   t0, $zero, 0xFFFF          # t0 = FFFFFFFF
     mfc1    t0, $f10
 lbl_80977B04:
@@ -259,7 +259,7 @@ lbl_80977B04:
     nop
 lbl_80977B10:
     ctc1    t9, $f31
-    beq     $zero, $zero, lbl_80977B20
+    b       lbl_80977B20
     sw      t0, 0x0164(s0)             # 00000164
     sw      $zero, 0x0164(s0)          # 00000164
 lbl_80977B20:
@@ -377,7 +377,7 @@ func_80977BDC:
     andi    t4, t3, 0x00FF             # t4 = 00000000
     or      t5, t4, $at                # t5 = FFFFB400
     sw      t5, 0x0004(v0)             # 00000004
-    beq     $zero, $zero, lbl_80977D20
+    b       lbl_80977D20
     lw      $ra, 0x003C($sp)
     addiu   $at, $zero, 0x000D         # $at = 0000000D
 lbl_80977CD0:

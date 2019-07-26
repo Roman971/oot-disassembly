@@ -59,7 +59,7 @@ func_808FEFB8:
     lw      a3, 0x0028($sp)
     jal     func_80020EB4
     or      a0, a3, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_808FF02C
+    b       lbl_808FF02C
     lw      $ra, 0x0014($sp)
 lbl_808FEFF8:
     addiu   a2, a3, 0x013C             # a2 = 0000013C

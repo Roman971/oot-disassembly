@@ -259,7 +259,7 @@ lbl_80B55500:
     addiu   t5, $zero, 0x0001          # t5 = 00000001
     sllv    t6, t5, s0
     or      t7, t4, t6                 # t7 = 00000000
-    beq     $zero, $zero, lbl_80B5551C
+    b       lbl_80B5551C
     sh      t7, 0x015C(s2)             # 0000015C
 lbl_80B55514:
     jal     func_80020EB4
@@ -364,7 +364,7 @@ func_80B55644:
     lw      a0, 0x0018($sp)
     jal     func_80020EB4
     lw      a0, 0x0018($sp)
-    beq     $zero, $zero, lbl_80B55698
+    b       lbl_80B55698
     lw      $ra, 0x0014($sp)
 lbl_80B55680:
     lui     a1, %hi(var_80B55868)      # a1 = 80B50000

@@ -88,7 +88,7 @@ lbl_809796D8:
     trunc.w.s $f10, $f0
     lw      a0, 0x0018($sp)
     mfc1    t8, $f10
-    beq     $zero, $zero, lbl_80979788
+    b       lbl_80979788
     sb      t8, 0x0025(a0)             # 00000025
 lbl_8097977C:
     slti    $at, v0, 0x00B4
@@ -193,7 +193,7 @@ func_80979798:
     sw      t8, 0x0014($sp)
     jal     func_800C806C
     sw      a3, 0x0010($sp)
-    beq     $zero, $zero, lbl_80979924
+    b       lbl_80979924
     lbu     v0, 0x02C6(s0)             # 000002C6
 lbl_8097990C:
     addiu   $at, $zero, 0x0002         # $at = 00000002
@@ -233,7 +233,7 @@ lbl_8097995C:
     mtc1    $at, $f12                  # $f12 = 160.00
     jal     func_80026D90
     nop
-    beq     $zero, $zero, lbl_809799E8
+    b       lbl_809799E8
     mov.s   $f26, $f0
     mtc1    $at, $f26                  # $f26 = 0.00
 lbl_809799A4:

@@ -81,7 +81,7 @@ func_808EB3BC:
     nop
     bc1f    lbl_808EB424
     nop
-    beq     $zero, $zero, lbl_808EB424
+    b       lbl_808EB424
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_808EB424:
     jr      $ra
@@ -143,7 +143,7 @@ func_808EB4A8:
     ori     a1, a1, 0xCCCD             # a1 = 3DCCCCCD
     jal     func_8006385C
     addiu   a0, a3, 0x0054             # a0 = 00000054
-    beq     $zero, $zero, lbl_808EB52C
+    b       lbl_808EB52C
     lw      $ra, 0x0014($sp)
 lbl_808EB4E8:
     lui     $at, %hi(var_808EB9A8)     # $at = 808F0000
@@ -159,7 +159,7 @@ lbl_808EB4E8:
     lui     t6, %hi(func_808EB42C)     # t6 = 808F0000
     addiu   t6, t6, %lo(func_808EB42C) # t6 = 808EB42C
     sw      $zero, 0x0134(a3)          # 00000134
-    beq     $zero, $zero, lbl_808EB528
+    b       lbl_808EB528
     sw      t6, 0x013C(a3)             # 0000013C
 lbl_808EB524:
     sh      $zero, 0x001C(a3)          # 0000001C
@@ -181,7 +181,7 @@ func_808EB538:
     addiu   a1, $zero, 0x4000          # a1 = 00004000
     beq     v0, $zero, lbl_808EB564
     lw      a1, 0x0020($sp)
-    beq     $zero, $zero, lbl_808EB578
+    b       lbl_808EB578
     lh      a3, 0x00B6(a1)             # 000000B6
 lbl_808EB564:
     lh      a3, 0x00B6(a1)             # 000000B6
@@ -221,7 +221,7 @@ func_808EB5A0:
     nop
     bc1fl   lbl_808EB5F4
     mtc1    $at, $f12                  # $f12 = 70.00
-    beq     $zero, $zero, lbl_808EB618
+    b       lbl_808EB618
     swc1    $f0, 0x0030($sp)
     mtc1    $at, $f12                  # $f12 = 70.00
 lbl_808EB5F4:
@@ -230,7 +230,7 @@ lbl_808EB5F4:
     nop
     bc1fl   lbl_808EB614
     mov.s   $f0, $f2
-    beq     $zero, $zero, lbl_808EB614
+    b       lbl_808EB614
     mov.s   $f0, $f12
     mov.s   $f0, $f2
 lbl_808EB614:
@@ -250,13 +250,13 @@ lbl_808EB618:
     mtc1    $at, $f8                   # $f8 = -25.00
     addiu   t6, $zero, 0xFFFF          # t6 = FFFFFFFF
     swc1    $f8, 0x0038($sp)
-    beq     $zero, $zero, lbl_808EB684
+    b       lbl_808EB684
     sh      t6, 0x001C(s0)             # 0000001C
     mtc1    $at, $f10                  # $f10 = -25.00
 lbl_808EB65C:
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     swc1    $f10, 0x0038($sp)
-    beq     $zero, $zero, lbl_808EB684
+    b       lbl_808EB684
     sh      t7, 0x001C(s0)             # 0000001C
     mtc1    v0, $f16                   # $f16 = 0.00
 lbl_808EB670:

@@ -56,7 +56,7 @@ func_80AC5EC8:
     lw      a1, 0x0024($sp)
     jal     func_80AC6400
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80AC5F2C
+    b       lbl_80AC5F2C
     or      a0, s0, $zero              # a0 = 00000000
 lbl_80AC5F20:
     jal     func_80AC6200
@@ -177,7 +177,7 @@ lbl_80AC6008:
     slti    $at, t8, 0x000B
     bne     $at, $zero, lbl_80AC60E0
     sra     s1, s1, 16
-    beq     $zero, $zero, lbl_80AC60E0
+    b       lbl_80AC60E0
     addiu   s0, $zero, 0x0005          # s0 = 00000005
 lbl_80AC60E0:
     jal     func_800CDCCC              # Rand.Next() float
@@ -194,7 +194,7 @@ lbl_80AC60E0:
     addiu   t0, $zero, 0x0001          # t0 = 00000001
     ori     s0, s0, 0x0040             # s0 = 00000045
     sll     s0, s0, 16
-    beq     $zero, $zero, lbl_80AC613C
+    b       lbl_80AC613C
     sra     s0, s0, 16
 lbl_80AC6120:
     ori     s0, s0, 0x0020             # s0 = 00000065
@@ -317,7 +317,7 @@ lbl_80AC6298:
     addiu   a2, $zero, 0x0028          # a2 = 00000028
     jal     func_80058FF8
     addiu   a3, $zero, 0x2810          # a3 = 00002810
-    beq     $zero, $zero, lbl_80AC630C
+    b       lbl_80AC630C
     lw      $ra, 0x0024($sp)
 lbl_80AC62E4:
     addu    a1, s1, $at
@@ -545,10 +545,10 @@ func_80AC6528:
     nop
     mfc1    a0, $f10
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80AC6630
+    b       lbl_80AC6630
     or      a0, a0, $at                # a0 = 80000000
 lbl_80AC6618:
-    beq     $zero, $zero, lbl_80AC6630
+    b       lbl_80AC6630
     addiu   a0, $zero, 0xFFFF          # a0 = FFFFFFFF
     mfc1    a0, $f10
 lbl_80AC6624:
@@ -560,7 +560,7 @@ lbl_80AC6630:
     sltiu   $at, a0, 0x009A
     bne     $at, $zero, lbl_80AC6648
     or      a1, a0, $zero              # a1 = FFFFFFFF
-    beq     $zero, $zero, lbl_80AC6648
+    b       lbl_80AC6648
     addiu   a1, $zero, 0x0099          # a1 = 00000099
 lbl_80AC6648:
     andi    t8, a1, 0x00FF             # t8 = 00000099
@@ -611,10 +611,10 @@ lbl_80AC6648:
     nop
     mfc1    t1, $f6
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80AC6728
+    b       lbl_80AC6728
     or      t1, t1, $at                # t1 = 80000000
 lbl_80AC6710:
-    beq     $zero, $zero, lbl_80AC6728
+    b       lbl_80AC6728
     addiu   t1, $zero, 0xFFFF          # t1 = FFFFFFFF
     mfc1    t1, $f6
 lbl_80AC671C:
@@ -626,7 +626,7 @@ lbl_80AC6728:
     sltiu   $at, t1, 0x0100
     bne     $at, $zero, lbl_80AC6740
     or      a1, t1, $zero              # a1 = FFFFFFFF
-    beq     $zero, $zero, lbl_80AC6740
+    b       lbl_80AC6740
     addiu   a1, $zero, 0x00FF          # a1 = 000000FF
 lbl_80AC6740:
     andi    t8, a1, 0x00FF             # t8 = 000000FF

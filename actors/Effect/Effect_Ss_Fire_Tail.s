@@ -114,7 +114,7 @@ func_80B368AC:
     mfc1    a2, $f10
     jal     func_800AA7F4
     add.s   $f14, $f6, $f18
-    beq     $zero, $zero, lbl_80B36A30
+    b       lbl_80B36A30
     addiu   a0, $sp, 0x0090            # a0 = FFFFFFE8
     lw      t1, 0x1C44(s1)             # 00001C44
 lbl_80B36954:
@@ -163,7 +163,7 @@ lbl_80B36954:
     swc1    $f10, 0x0008(s0)           # 00000008
     jal     func_800AA7F4
     lw      a2, 0x0008(s0)             # 00000008
-    beq     $zero, $zero, lbl_80B36A30
+    b       lbl_80B36A30
     addiu   a0, $sp, 0x0090            # a0 = FFFFFFE8
 lbl_80B36A10:
     lwc1    $f12, 0x0000(s0)           # 00000000
@@ -386,7 +386,7 @@ lbl_80B36BF4:
     sw      t6, 0x02D0(s2)             # 000002D0
     sw      t1, 0x0004(v0)             # 00000004
     sw      t7, 0x0000(v0)             # 00000000
-    beq     $zero, $zero, lbl_80B36DA0
+    b       lbl_80B36DA0
     lw      $ra, 0x0044($sp)
     lw      v0, 0x02D0(s2)             # 000002D0
 lbl_80B36D84:

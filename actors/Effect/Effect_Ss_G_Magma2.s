@@ -108,7 +108,7 @@ func_80B32760:
     lbu     t8, 0x0011(a3)             # 00000011
     sh      t8, 0x0048(a2)             # 00000048
     lbu     t9, 0x0013(a3)             # 00000013
-    beq     $zero, $zero, lbl_80B3291C
+    b       lbl_80B3291C
     sh      t9, 0x004A(a2)             # 0000004A
 lbl_80B32918:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -183,7 +183,7 @@ func_80B3292C:
     lw      a0, 0x02D0(s0)             # 000002D0
     jal     func_8007DFBC
     addiu   a1, $zero, 0x003D          # a1 = 0000003D
-    beq     $zero, $zero, lbl_80B32A3C
+    b       lbl_80B32A3C
     sw      v0, 0x02D0(s0)             # 000002D0
 lbl_80B32A30:
     jal     func_8007DFBC

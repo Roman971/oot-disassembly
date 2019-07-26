@@ -39,7 +39,7 @@ func_8099DEB0:
     addiu   t1, $zero, 0xFFFF          # t1 = FFFFFFFF
     addiu   t2, t2, %lo(func_8099E61C) # t2 = 8099E61C
     sh      t1, 0x0158(s0)             # 00000158
-    beq     $zero, $zero, lbl_8099DF5C
+    b       lbl_8099DF5C
     sw      t2, 0x0154(s0)             # 00000154
 lbl_8099DF54:
     addiu   t3, t3, %lo(func_8099E1EC) # t3 = 8099E1EC
@@ -93,7 +93,7 @@ func_8099DFA4:
     mtc1    $at, $f20                  # $f20 = -1.00
     lui     $at, 0x3F80                # $at = 3F800000
     mtc1    $at, $f20                  # $f20 = 1.00
-    beq     $zero, $zero, lbl_8099E018
+    b       lbl_8099E018
     lui     $at, 0xBF00                # $at = BF000000
     mtc1    $at, $f20                  # $f20 = -0.50
 lbl_8099E010:
@@ -202,7 +202,7 @@ func_8099E160:
     mtc1    $at, $f6                   # $f6 = 120.00
     lwc1    $f4, 0x002C(s0)            # 0000002C
     add.s   $f8, $f4, $f6
-    beq     $zero, $zero, lbl_8099E1B8
+    b       lbl_8099E1B8
     swc1    $f8, 0x002C($sp)
     lwc1    $f10, 0x002C(s0)           # 0000002C
 lbl_8099E1A8:
@@ -349,7 +349,7 @@ func_8099E1EC:
     sw      $zero, 0x0020($sp)
     jal     func_80025110              # ActorSpawn
     sw      t1, 0x001C($sp)
-    beq     $zero, $zero, lbl_8099E4A4
+    b       lbl_8099E4A4
     lw      $ra, 0x0034($sp)
     addiu   $at, $zero, 0x0001         # $at = 00000001
 lbl_8099E3E0:
@@ -426,7 +426,7 @@ lbl_8099E4D8:
     mtc1    $at, $f0                   # $f0 = -4.00
     lui     $at, 0x4080                # $at = 40800000
     mtc1    $at, $f0                   # $f0 = 4.00
-    beq     $zero, $zero, lbl_8099E500
+    b       lbl_8099E500
     lwc1    $f4, 0x0008(a3)            # 00000008
     mtc1    $at, $f0                   # $f0 = 4.00
 lbl_8099E4F8:
@@ -479,7 +479,7 @@ lbl_8099E590:
     mtc1    $at, $f0                   # $f0 = -24.00
     lui     $at, 0x41C0                # $at = 41C00000
     mtc1    $at, $f0                   # $f0 = 24.00
-    beq     $zero, $zero, lbl_8099E5B8
+    b       lbl_8099E5B8
     lwc1    $f4, 0x0008(s0)            # 00000008
     mtc1    $at, $f0                   # $f0 = 24.00
 lbl_8099E5B0:
@@ -552,7 +552,7 @@ func_8099E61C:
     lw      a0, 0x002C($sp)
     jal     func_8007D6B0
     addiu   a1, $zero, 0x0002          # a1 = 00000002
-    beq     $zero, $zero, lbl_8099E6CC
+    b       lbl_8099E6CC
     lh      v1, 0x0158(s0)             # 00000158
 lbl_8099E6B4:
     bne     v1, $zero, lbl_8099E6CC

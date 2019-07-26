@@ -260,7 +260,7 @@ func_800A0128:
     addiu   $at, $zero, 0x0008         # $at = 00000008
     bnel    a1, $at, lbl_800A0140
     addiu   $at, $zero, 0x0004         # $at = 00000004
-    beq     $zero, $zero, lbl_800A019C
+    b       lbl_800A019C
     addiu   v1, $zero, 0xFFF8          # v1 = FFFFFFF8
     addiu   $at, $zero, 0x0004         # $at = 00000004
 lbl_800A0140:
@@ -269,7 +269,7 @@ lbl_800A0140:
     bne     a1, v0, lbl_800A0158
     addiu   $at, $zero, 0x0002         # $at = 00000002
 lbl_800A0150:
-    beq     $zero, $zero, lbl_800A019C
+    b       lbl_800A019C
     addiu   v1, $zero, 0xFFFC          # v1 = FFFFFFFC
 lbl_800A0158:
     beq     a1, $at, lbl_800A0180
@@ -283,13 +283,13 @@ lbl_800A0158:
     bnel    a1, $at, lbl_800A018C
     sltiu   $at, a1, 0x0010
 lbl_800A0180:
-    beq     $zero, $zero, lbl_800A019C
+    b       lbl_800A019C
     addiu   v1, $zero, 0xFFFE          # v1 = FFFFFFFE
     sltiu   $at, a1, 0x0010
 lbl_800A018C:
     bne     $at, $zero, lbl_800A019C
     or      v1, $zero, $zero           # v1 = 00000000
-    beq     $zero, $zero, lbl_800A019C
+    b       lbl_800A019C
     addiu   v1, $zero, 0xFFF0          # v1 = FFFFFFF0
 lbl_800A019C:
     lw      t6, 0x000C(a0)             # 0000000C

@@ -198,10 +198,10 @@ func_80B37A50:
     nop
     mfc1    t2, $f18
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80B37CBC
+    b       lbl_80B37CBC
     or      t2, t2, $at                # t2 = 80000000
 lbl_80B37CA4:
-    beq     $zero, $zero, lbl_80B37CBC
+    b       lbl_80B37CBC
     addiu   t2, $zero, 0xFFFF          # t2 = FFFFFFFF
     mfc1    t2, $f18
 lbl_80B37CB0:
@@ -268,13 +268,13 @@ func_80B37D1C:
     slti    $at, v1, 0x0015
     bnel    $at, $zero, lbl_80B37DA8
     sh      v1, 0x005C(a3)             # 0000005C
-    beq     $zero, $zero, lbl_80B37DA8
+    b       lbl_80B37DA8
     sh      t8, 0x005C(a3)             # 0000005C
     sh      v1, 0x005C(a3)             # 0000005C
 lbl_80B37DA8:
     jal     func_800637D4
     addiu   a2, $zero, 0x0014          # a2 = 00000014
-    beq     $zero, $zero, lbl_80B37DC0
+    b       lbl_80B37DC0
     lw      $ra, 0x0014($sp)
     sw      $zero, 0x003C(a3)          # 0000003C
 lbl_80B37DBC:

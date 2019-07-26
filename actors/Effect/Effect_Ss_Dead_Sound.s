@@ -50,7 +50,7 @@ func_80B38DBC:
     addiu   $at, $zero, 0x0002         # $at = 00000002
     beq     v0, $at, lbl_80B38DFC
     nop
-    beq     $zero, $zero, lbl_80B38E24
+    b       lbl_80B38E24
     lw      $ra, 0x001C($sp)
 lbl_80B38DF4:
     addiu   t6, v1, 0xFFFF             # t6 = FFFFFFFF

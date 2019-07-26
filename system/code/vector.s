@@ -74,7 +74,7 @@ func_80067654:
     nop
     bc1fl   lbl_80067674
     mtc1    $zero, $f4                 # $f4 = 0.00
-    beq     $zero, $zero, lbl_80067698
+    b       lbl_80067698
     mov.s   $f2, $f12
     mtc1    $zero, $f4                 # $f4 = 0.00
 lbl_80067674:
@@ -83,7 +83,7 @@ lbl_80067674:
     nop
     bc1fl   lbl_80067694
     neg.s   $f0, $f14
-    beq     $zero, $zero, lbl_80067694
+    b       lbl_80067694
     mov.s   $f0, $f14
     neg.s   $f0, $f14
 lbl_80067694:
@@ -100,7 +100,7 @@ func_800676A4:
     nop
     bc1fl   lbl_800676C4
     mtc1    $zero, $f4                 # $f4 = 0.00
-    beq     $zero, $zero, lbl_800676E8
+    b       lbl_800676E8
     mov.s   $f2, $f12
     mtc1    $zero, $f4                 # $f4 = 0.00
 lbl_800676C4:
@@ -109,7 +109,7 @@ lbl_800676C4:
     nop
     bc1fl   lbl_800676E4
     neg.s   $f0, $f14
-    beq     $zero, $zero, lbl_800676E4
+    b       lbl_800676E4
     mov.s   $f0, $f14
     neg.s   $f0, $f14
 lbl_800676E4:
@@ -255,7 +255,7 @@ func_80067894:
     nop
     bc1fl   lbl_800678F4
     lwc1    $f14, 0x0004(a1)           # 00000004
-    beq     $zero, $zero, lbl_80067940
+    b       lbl_80067940
     sh      $zero, 0x002C($sp)
 lbl_800678F0:
     lwc1    $f14, 0x0004(a1)           # 00000004
@@ -295,7 +295,7 @@ lbl_80067940:
     nop
     bc1f    lbl_80067984
     nop
-    beq     $zero, $zero, lbl_800679C0
+    b       lbl_800679C0
     sh      $zero, 0x002E($sp)
 lbl_80067984:
     jal     func_800CD76C

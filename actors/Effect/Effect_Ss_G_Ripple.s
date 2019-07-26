@@ -125,7 +125,7 @@ func_80B2F99C:
     addu    t0, t8, t9
     lh      t1, 0x0002(t0)             # 00000002
     mtc1    t1, $f10                   # $f10 = 0.00
-    beq     $zero, $zero, lbl_80B2FA14
+    b       lbl_80B2FA14
     cvt.s.w $f0, $f10
     lwc1    $f0, 0x0004(s1)            # 00000004
 lbl_80B2FA14:
@@ -257,7 +257,7 @@ func_80B2FBD0:
     lh      v0, 0x0056(s0)             # 00000056
     bne     v0, $zero, lbl_80B2FBFC
     addiu   t6, v0, 0xFFFF             # t6 = FFFFFFFF
-    beq     $zero, $zero, lbl_80B2FC04
+    b       lbl_80B2FC04
     or      v1, $zero, $zero           # v1 = 00000000
 lbl_80B2FBFC:
     sh      t6, 0x0056(s0)             # 00000056

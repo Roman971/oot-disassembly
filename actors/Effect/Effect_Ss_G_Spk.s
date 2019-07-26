@@ -56,7 +56,7 @@ func_80B2E900:
     lwc1    $f6, 0x002C(t7)            # 0000002C
     sw      t8, 0x0024(s0)             # 00000024
     sub.s   $f8, $f4, $f6
-    beq     $zero, $zero, lbl_80B2E9F8
+    b       lbl_80B2E9F8
     swc1    $f8, 0x0034(s0)            # 00000034
 lbl_80B2E9E8:
     lui     t0, %hi(func_80B2ED6C)     # t0 = 80B30000

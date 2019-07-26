@@ -63,7 +63,7 @@ func_80B3C7DC:
     lui     a2, 0x0600                 # a2 = 06000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3C8C4
+    b       lbl_80B3C8C4
     lw      $ra, 0x001C($sp)
 lbl_80B3C81C:
     addiu   a2, a2, 0x04A8             # a2 = 000004A8
@@ -87,19 +87,19 @@ lbl_80B3C81C:
     addiu   v0, $zero, 0x0011          # v0 = 00000011
     beq     t7, $zero, lbl_80B3C878
     nop
-    beq     $zero, $zero, lbl_80B3C878
+    b       lbl_80B3C878
     addiu   v0, $zero, 0x0005          # v0 = 00000005
 lbl_80B3C878:
     bne     v0, $at, lbl_80B3C890
     nop
     jal     func_80B3C9C0
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3C8AC
+    b       lbl_80B3C8AC
     addiu   t8, $zero, 0xFFFF          # t8 = FFFFFFFF
 lbl_80B3C890:
     jal     func_80B3C990
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3C8AC
+    b       lbl_80B3C8AC
     addiu   t8, $zero, 0xFFFF          # t8 = FFFFFFFF
 lbl_80B3C8A0:
     jal     func_80B3C92C
@@ -228,7 +228,7 @@ func_80B3C9E8:
     lui     a2, 0x3F00                 # a2 = 3F000000
     bc1fl   lbl_80B3CA40
     mov.s   $f2, $f0
-    beq     $zero, $zero, lbl_80B3CA40
+    b       lbl_80B3CA40
     mov.s   $f2, $f12
     mov.s   $f2, $f0
 lbl_80B3CA40:
@@ -258,7 +258,7 @@ lbl_80B3CA40:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022FD0
     addiu   a1, $zero, 0x2835          # a1 = 00002835
-    beq     $zero, $zero, lbl_80B3CABC
+    b       lbl_80B3CABC
     lw      $ra, 0x0024($sp)
 lbl_80B3CAB0:
     jal     func_8002313C
@@ -325,7 +325,7 @@ lbl_80B3CB60:
     or      a0, s0, $zero              # a0 = 00000000
     beq     v0, $zero, lbl_80B3CB88
     or      v1, $zero, $zero           # v1 = 00000000
-    beq     $zero, $zero, lbl_80B3CB88
+    b       lbl_80B3CB88
     addiu   v1, $zero, 0x0001          # v1 = 00000001
 lbl_80B3CB88:
     lw      v0, 0x01A0(s0)             # 000001A0
@@ -342,7 +342,7 @@ lbl_80B3CBA8:
     lw      a0, 0x0790(s1)             # 00000790
     jal     func_800495BC
     sw      v1, 0x0024($sp)
-    beq     $zero, $zero, lbl_80B3CBEC
+    b       lbl_80B3CBEC
     lw      v1, 0x0024($sp)
 lbl_80B3CBC4:
     bnel    v1, $zero, lbl_80B3CBF0
@@ -369,7 +369,7 @@ lbl_80B3CBF0:
     addu    a1, s1, $at
     jal     func_8004C130              # CollisionCheck_setOT
     or      a0, s1, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3CC30
+    b       lbl_80B3CC30
     lw      $ra, 0x001C($sp)
 lbl_80B3CC24:
     jal     func_80020EB4

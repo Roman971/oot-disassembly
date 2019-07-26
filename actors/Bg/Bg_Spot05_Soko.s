@@ -36,10 +36,10 @@ func_80B3C410:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3C4F4
+    b       lbl_80B3C4F4
     lw      a0, 0x0034($sp)
 lbl_80B3C4A8:
-    beq     $zero, $zero, lbl_80B3C4F0
+    b       lbl_80B3C4F0
     sw      t3, 0x0154(s0)             # 00000154
 lbl_80B3C4B0:
     jal     func_80033EF4
@@ -51,7 +51,7 @@ lbl_80B3C4B0:
     lui     t4, %hi(func_80B3C560)     # t4 = 80B40000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3C4F4
+    b       lbl_80B3C4F4
     lw      a0, 0x0034($sp)
 lbl_80B3C4DC:
     lw      t5, 0x0004(s0)             # 00000004

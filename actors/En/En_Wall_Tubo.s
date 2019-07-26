@@ -31,10 +31,10 @@ func_80B71960:
 lbl_80B71978:
     beq     v1, t6, lbl_80B71988
     nop
-    beq     $zero, $zero, lbl_80B71990
+    b       lbl_80B71990
     lw      v0, 0x0124(v0)             # 00000124
 lbl_80B71988:
-    beq     $zero, $zero, lbl_80B71998
+    b       lbl_80B71998
     sw      v0, 0x0150(a0)             # 00000150
 lbl_80B71990:
     bnel    v0, $zero, lbl_80B71978
@@ -91,7 +91,7 @@ lbl_80B71A3C:
     beql    a0, t7, lbl_80B71A5C
     lwc1    $f4, 0x0024(v0)            # 00000024
 lbl_80B71A50:
-    beq     $zero, $zero, lbl_80B71BA4
+    b       lbl_80B71BA4
     lw      v0, 0x0124(v0)             # 00000124
     lwc1    $f4, 0x0024(v0)            # 00000024
 lbl_80B71A5C:
@@ -177,7 +177,7 @@ lbl_80B71AEC:
     addiu   a1, $zero, 0x0064          # a1 = 00000064
     lui     t6, %hi(func_80B71BC0)     # t6 = 80B70000
     addiu   t6, t6, %lo(func_80B71BC0) # t6 = 80B71BC0
-    beq     $zero, $zero, lbl_80B71BAC
+    b       lbl_80B71BAC
     sw      t6, 0x013C(s0)             # 0000013C
     lw      v0, 0x0124(v0)             # 00000124
 lbl_80B71BA4:

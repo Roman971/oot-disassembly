@@ -219,7 +219,7 @@ lbl_8099C0DC:
     addiu   a1, $zero, 0x0000          # a1 = 00000000
     lui     t3, %hi(func_8099C280)     # t3 = 809A0000
     addiu   t3, t3, %lo(func_8099C280) # t3 = 8099C280
-    beq     $zero, $zero, lbl_8099C26C
+    b       lbl_8099C26C
     sw      t3, 0x0154(s0)             # 00000154
 lbl_8099C214:
     jal     func_80050B00
@@ -336,7 +336,7 @@ lbl_8099C378:
 lbl_8099C3B0:
     bne     s0, s2, lbl_8099C33C
     nop
-    beq     $zero, $zero, lbl_8099C4E0
+    b       lbl_8099C4E0
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
 lbl_8099C3C0:
     lwc1    $f4, %lo(var_8099C7F8)($at)
@@ -366,7 +366,7 @@ lbl_8099C3C0:
     sw      t6, 0x001C($sp)
     jal     func_800646F0
     addiu   a0, $zero, 0x4806          # a0 = 00004806
-    beq     $zero, $zero, lbl_8099C4E0
+    b       lbl_8099C4E0
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
 lbl_8099C434:
     lwc1    $f18, %lo(var_8099C7FC)($at)
@@ -375,7 +375,7 @@ lbl_8099C434:
     nop
     bc1f    lbl_8099C454
     nop
-    beq     $zero, $zero, lbl_8099C494
+    b       lbl_8099C494
     addiu   s5, $zero, 0x0004          # s5 = 00000004
 lbl_8099C454:
     lwc1    $f4, %lo(var_8099C800)($at)
@@ -384,7 +384,7 @@ lbl_8099C454:
     nop
     bc1f    lbl_8099C474
     nop
-    beq     $zero, $zero, lbl_8099C494
+    b       lbl_8099C494
     addiu   s5, $zero, 0x000E          # s5 = 0000000E
 lbl_8099C474:
     lwc1    $f6, %lo(var_8099C804)($at)
@@ -393,12 +393,12 @@ lbl_8099C474:
     nop
     bc1f    lbl_8099C494
     nop
-    beq     $zero, $zero, lbl_8099C494
+    b       lbl_8099C494
     addiu   s5, $zero, 0x000F          # s5 = 0000000F
 lbl_8099C494:
     jal     func_800646F0
     addiu   a0, $zero, 0x4807          # a0 = 00004807
-    beq     $zero, $zero, lbl_8099C4E0
+    b       lbl_8099C4E0
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
 lbl_8099C4A4:
     jal     func_800206E8
@@ -407,7 +407,7 @@ lbl_8099C4A4:
     addiu   s5, $zero, 0x0003          # s5 = 00000003
     jal     func_800646F0
     addiu   a0, $zero, 0x4807          # a0 = 00004807
-    beq     $zero, $zero, lbl_8099C4E0
+    b       lbl_8099C4E0
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
 lbl_8099C4C4:
     lh      s5, 0x001C(s4)             # 0000001C

@@ -161,7 +161,7 @@ func_800977C0:
 lbl_80097858:
     bne     t5, $zero, lbl_80097868
     sw      t5, 0x0008(s0)             # 00000008
-    beq     $zero, $zero, lbl_8009786C
+    b       lbl_8009786C
     lw      a3, 0x0010(s0)             # 00000010
 lbl_80097868:
     lw      a3, 0x0014(s0)             # 00000014
@@ -559,7 +559,7 @@ lbl_80097E04:
     nop
     sw      $zero, 0x00D8(s0)          # 000000D8
 lbl_80097E18:
-    beq     $zero, $zero, lbl_80097E38
+    b       lbl_80097E38
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80097E20:
     jal     func_800977C0
@@ -593,7 +593,7 @@ lbl_80097E68:
 lbl_80097E7C:
     bnel    t6, $zero, lbl_80097E90
     lw      v1, 0x0014(a0)             # 00000014
-    beq     $zero, $zero, lbl_80097E90
+    b       lbl_80097E90
     lw      v1, 0x0010(a0)             # 00000010
     lw      v1, 0x0014(a0)             # 00000014
 lbl_80097E90:
@@ -614,7 +614,7 @@ lbl_80097E90:
     lw      t8, 0x0008(a0)             # 00000008
     bnel    t8, $zero, lbl_80097EE0
     lw      v1, 0x0014(a0)             # 00000014
-    beq     $zero, $zero, lbl_80097EE0
+    b       lbl_80097EE0
     lw      v1, 0x0010(a0)             # 00000010
     lw      v1, 0x0014(a0)             # 00000014
 lbl_80097EE0:
@@ -699,7 +699,7 @@ func_80097F60:
     bne     t5, $zero, lbl_80098018
     lui     t8, 0xDB06                 # t8 = DB060000
     lw      t6, 0x0010(a0)             # 00000010
-    beq     $zero, $zero, lbl_80098020
+    b       lbl_80098020
     sw      t6, 0x0004(a2)             # 00000014
 lbl_80098018:
     lw      t7, 0x0014(a0)             # 00000014

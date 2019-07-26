@@ -15,7 +15,7 @@ func_80B25340:
     slti    $at, v0, 0x0259
     bne     $at, $zero, lbl_80B25384
     addiu   t9, $zero, 0x0258          # t9 = 00000258
-    beq     $zero, $zero, lbl_80B25388
+    b       lbl_80B25388
     sh      t9, 0x001C(a0)             # 0000001C
 lbl_80B25384:
     sh      v0, 0x001C(a0)             # 0000001C
@@ -98,7 +98,7 @@ lbl_80B25468:
     addiu   a0, $zero, 0x4802          # a0 = 00004802
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B254F4
+    b       lbl_80B254F4
     lw      $ra, 0x0024($sp)
     lh      t8, 0x001C(s0)             # 0000001C
 lbl_80B2549C:

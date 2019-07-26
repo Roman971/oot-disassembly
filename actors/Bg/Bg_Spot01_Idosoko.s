@@ -37,7 +37,7 @@ func_80AA89BC:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80AA8A4C
+    b       lbl_80AA8A4C
     lw      $ra, 0x001C($sp)
 lbl_80AA8A40:
     jal     func_80AA89B0

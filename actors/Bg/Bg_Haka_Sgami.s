@@ -144,7 +144,7 @@ lbl_8097C438:
     addiu   $at, $zero, 0xFFFE         # $at = FFFFFFFE
     sb      v0, 0x0140(s0)             # 00000140
     and     t3, t2, $at
-    beq     $zero, $zero, lbl_8097C64C
+    b       lbl_8097C64C
     sw      t3, 0x0004(s0)             # 00000004
 lbl_8097C624:
     jal     func_80081628              # ObjectIndex
@@ -165,7 +165,7 @@ lbl_8097C64C:
     sw      t7, 0x013C(s0)             # 0000013C
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8097C678
+    b       lbl_8097C678
     lw      $ra, 0x0024($sp)
     sw      t7, 0x013C(s0)             # 0000013C
 lbl_8097C674:
@@ -296,7 +296,7 @@ lbl_8097C814:
     addiu   t0, $zero, 0x0002          # t0 = 00000002
     beq     t8, $zero, lbl_8097C844
     addiu   t9, $zero, 0x0004          # t9 = 00000004
-    beq     $zero, $zero, lbl_8097C848
+    b       lbl_8097C848
     sw      t9, 0x0080($sp)
 lbl_8097C844:
     sw      t0, 0x0080($sp)
@@ -618,7 +618,7 @@ func_8097CCC8:
     lh      t7, 0x001C(a0)             # 0000001C
     jal     func_800280C8
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8097CD30
+    b       lbl_8097CD30
     lw      $ra, 0x0014($sp)
     lh      t7, 0x001C(a0)             # 0000001C
 lbl_8097CCFC:
@@ -630,7 +630,7 @@ lbl_8097CCFC:
     addiu   a1, a1, 0xBF20             # a1 = 0600BF20
     jal     func_80028048
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8097CD30
+    b       lbl_8097CD30
     lw      $ra, 0x0014($sp)
 lbl_8097CD24:
     jal     func_80028048

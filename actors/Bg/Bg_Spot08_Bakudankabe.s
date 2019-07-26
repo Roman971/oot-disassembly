@@ -116,13 +116,13 @@ lbl_80B544BC:
     sll     s3, v0, 16
     beq     $at, $zero, lbl_80B54598
     sra     s3, s3, 16
-    beq     $zero, $zero, lbl_80B545AC
+    b       lbl_80B545AC
     addiu   s0, $zero, 0xFED4          # s0 = FFFFFED4
 lbl_80B54598:
     slti    $at, v1, 0x0032
     beq     $at, $zero, lbl_80B545AC
     addiu   s0, $zero, 0xFE5C          # s0 = FFFFFE5C
-    beq     $zero, $zero, lbl_80B545AC
+    b       lbl_80B545AC
     addiu   s0, $zero, 0xFE98          # s0 = FFFFFE98
 lbl_80B545AC:
     jal     func_800CDCCC              # Rand.Next() float
@@ -137,7 +137,7 @@ lbl_80B545AC:
     addiu   t7, $zero, 0x001E          # t7 = 0000001E
     bc1f    lbl_80B545E4
     addiu   t8, $zero, 0x0004          # t8 = 00000004
-    beq     $zero, $zero, lbl_80B545E8
+    b       lbl_80B545E8
     addiu   v0, $zero, 0x0041          # v0 = 00000041
 lbl_80B545E4:
     addiu   v0, $zero, 0x0021          # v0 = 00000021
@@ -240,7 +240,7 @@ func_80B5471C:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B547AC
+    b       lbl_80B547AC
     lw      $ra, 0x001C($sp)
 lbl_80B54768:
     jal     func_80B543D0
@@ -316,7 +316,7 @@ func_80B54804:
     addiu   a0, $zero, 0x4802          # a0 = 00004802
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B548A8
+    b       lbl_80B548A8
     lw      $ra, 0x001C($sp)
     lwc1    $f4, 0x0090(s0)            # 00000090
 lbl_80B5487C:

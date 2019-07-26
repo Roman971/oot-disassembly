@@ -159,7 +159,7 @@ lbl_80A77CC8:
     nop
     bc1f    lbl_80A77D88
     nop
-    beq     $zero, $zero, lbl_80A77DA8
+    b       lbl_80A77DA8
     addiu   s0, $zero, 0x0060          # s0 = 00000060
 lbl_80A77D88:
     lwc1    $f10, %lo(var_80A78718)($at)
@@ -168,7 +168,7 @@ lbl_80A77D88:
     nop
     bc1f    lbl_80A77DA8
     nop
-    beq     $zero, $zero, lbl_80A77DA8
+    b       lbl_80A77DA8
     addiu   s0, $zero, 0x0040          # s0 = 00000040
 lbl_80A77DA8:
     jal     func_800CDCCC              # Rand.Next() float
@@ -343,7 +343,7 @@ lbl_80A77F88:
     nop
     bc1f    lbl_80A78050
     nop
-    beq     $zero, $zero, lbl_80A78050
+    b       lbl_80A78050
     addiu   s0, $zero, 0x0040          # s0 = 00000040
 lbl_80A78050:
     jal     func_800CDCCC              # Rand.Next() float
@@ -438,7 +438,7 @@ func_80A78134:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A7834C
+    b       lbl_80A7834C
     lw      $ra, 0x001C($sp)
     lbu     v0, 0x0160(s0)             # 00000160
 lbl_80A781C0:
@@ -465,7 +465,7 @@ lbl_80A781C0:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A7834C
+    b       lbl_80A7834C
     lw      $ra, 0x001C($sp)
 lbl_80A78224:
     lbu     v1, 0x0161(s0)             # 00000161
@@ -493,7 +493,7 @@ lbl_80A78224:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A7834C
+    b       lbl_80A7834C
     lw      $ra, 0x001C($sp)
 lbl_80A78290:
     beql    t2, $zero, lbl_80A78300
@@ -521,7 +521,7 @@ lbl_80A78290:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A7834C
+    b       lbl_80A7834C
     lw      $ra, 0x001C($sp)
 lbl_80A782FC:
     lhu     v0, 0x0088(s0)             # 00000088

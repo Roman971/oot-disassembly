@@ -42,7 +42,7 @@ func_808F3480:
     mfc1    t6, $f10
     nop
     sh      t6, 0x0002(t7)             # 00000002
-    beq     $zero, $zero, lbl_808F35CC
+    b       lbl_808F35CC
     sw      t8, 0x0154(s0)             # 00000154
 lbl_808F3530:
     bne     v0, $zero, lbl_808F358C
@@ -66,7 +66,7 @@ lbl_808F3530:
     nop
     cvt.s.w $f18, $f16
     add.s   $f6, $f18, $f4
-    beq     $zero, $zero, lbl_808F35B4
+    b       lbl_808F35B4
     swc1    $f6, 0x0028(s0)            # 00000028
 lbl_808F358C:
     addiu   a0, a0, 0x5780             # a0 = 00005780
@@ -242,7 +242,7 @@ lbl_808F37E8:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80023108
     addiu   a1, $zero, 0x205E          # a1 = 0000205E
-    beq     $zero, $zero, lbl_808F383C
+    b       lbl_808F383C
     lw      t9, 0x0024($sp)
 lbl_808F37FC:
     lwc1    $f4, 0x000C(s0)            # 0000000C
@@ -360,12 +360,12 @@ lbl_808F395C:
     lui     t7, %hi(func_808F38C0)     # t7 = 808F0000
     addiu   t7, t7, %lo(func_808F38C0) # t7 = 808F38C0
     sw      $zero, 0x0134(s0)          # 00000134
-    beq     $zero, $zero, lbl_808F39E8
+    b       lbl_808F39E8
     sw      t7, 0x0154(s0)             # 00000154
 lbl_808F3994:
     jal     func_80023108
     addiu   a1, $zero, 0x2024          # a1 = 00002024
-    beq     $zero, $zero, lbl_808F39EC
+    b       lbl_808F39EC
     lw      $ra, 0x001C($sp)
 lbl_808F39A4:
     lwc1    $f4, 0x000C(s0)            # 0000000C
@@ -381,7 +381,7 @@ lbl_808F39A4:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80023108
     addiu   a1, $zero, 0x2024          # a1 = 00002024
-    beq     $zero, $zero, lbl_808F39EC
+    b       lbl_808F39EC
     lw      $ra, 0x001C($sp)
 lbl_808F39E0:
     jal     func_80023164
@@ -424,7 +424,7 @@ lbl_808F3A4C:
     addu    a1, a1, t6
     jal     func_80028048
     lw      a1, %lo(var_808F3B74)(a1)
-    beq     $zero, $zero, lbl_808F3B38
+    b       lbl_808F3B38
     lw      $ra, 0x003C($sp)
 lbl_808F3A64:
     lw      a0, 0x0000(s1)             # 00000000

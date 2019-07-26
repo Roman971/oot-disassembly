@@ -49,7 +49,7 @@ func_80B2D1B0:
     sw      t1, 0x0024(a2)             # 00000024
     lh      t2, 0x002E(a3)             # 0000002E
     sh      $zero, 0x0056(a2)          # 00000056
-    beq     $zero, $zero, lbl_80B2D2E0
+    b       lbl_80B2D2E0
     sh      t2, 0x0052(a2)             # 00000052
 lbl_80B2D27C:
     lui     v0, 0x0403                 # v0 = 04030000
@@ -70,7 +70,7 @@ lbl_80B2D27C:
     bne     t0, $zero, lbl_80B2D2CC
     addiu   t2, t2, %lo(func_80B2D624) # t2 = 80B2D624
     addiu   t1, t1, %lo(func_80B2D56C) # t1 = 80B2D56C
-    beq     $zero, $zero, lbl_80B2D2D0
+    b       lbl_80B2D2D0
     sw      t1, 0x0024(a2)             # 00000024
 lbl_80B2D2CC:
     sw      t2, 0x0024(a2)             # 00000024
@@ -281,7 +281,7 @@ func_80B2D56C:
     bgez    v1, lbl_80B2D5F0
     swc1    $f6, 0x0020(a2)            # 00000020
     sh      $zero, 0x0052(a2)          # 00000052
-    beq     $zero, $zero, lbl_80B2D608
+    b       lbl_80B2D608
     sh      t8, 0x0054(a2)             # 00000054
 lbl_80B2D5F0:
     slti    $at, v1, 0x0100
@@ -334,7 +334,7 @@ func_80B2D624:
     bgez    v1, lbl_80B2D6B0
     slti    $at, v1, 0x0100
     sh      $zero, 0x0052(a2)          # 00000052
-    beq     $zero, $zero, lbl_80B2D6C4
+    b       lbl_80B2D6C4
     sh      t8, 0x0054(a2)             # 00000054
 lbl_80B2D6B0:
     bne     $at, $zero, lbl_80B2D6C4

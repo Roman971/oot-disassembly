@@ -402,7 +402,7 @@ lbl_808DABAC:
     cvt.s.w $f4, $f18
     cvt.s.w $f16, $f10
     mul.s   $f8, $f4, $f6
-    beq     $zero, $zero, lbl_808DAC78
+    b       lbl_808DAC78
     add.s   $f14, $f16, $f8
 lbl_808DAC6C:
     mtc1    a2, $f18                   # $f18 = 0.00
@@ -453,7 +453,7 @@ lbl_808DAC78:
     sra     a0, a0, 16
     lw      a3, 0x0064($sp)
     lwc1    $f14, 0x0048($sp)
-    beq     $zero, $zero, lbl_808DAD88
+    b       lbl_808DAD88
     neg.s   $f12, $f0
 lbl_808DAD30:
     subu    v0, v0, a2
@@ -626,7 +626,7 @@ lbl_808DAF8C:
     addiu   s0, s0, 0x0001             # s0 = 00000001
     bne     s0, s2, lbl_808DAF8C
     sw      v0, 0x02D0(s1)             # 000002D0
-    beq     $zero, $zero, lbl_808DB038
+    b       lbl_808DB038
     lw      $ra, 0x0034($sp)
 lbl_808DAFC8:
     addiu   t2, $zero, 0x0001          # t2 = 00000001

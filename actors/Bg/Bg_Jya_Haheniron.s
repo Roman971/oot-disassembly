@@ -88,14 +88,14 @@ lbl_80B3CE94:
     or      a2, s5, $zero              # a2 = FFFFFFF4
     bc1f    lbl_80B3CF18
     or      a3, s4, $zero              # a3 = 00000000
-    beq     $zero, $zero, lbl_80B3CF30
+    b       lbl_80B3CF30
     addiu   v0, $zero, 0x0060          # v0 = 00000060
 lbl_80B3CF18:
     c.lt.s  $f0, $f26
     addiu   v0, $zero, 0x0020          # v0 = 00000020
     bc1f    lbl_80B3CF30
     nop
-    beq     $zero, $zero, lbl_80B3CF30
+    b       lbl_80B3CF30
     addiu   v0, $zero, 0x0040          # v0 = 00000040
 lbl_80B3CF30:
     lh      t9, 0x0000(s1)             # 80B3D484
@@ -202,14 +202,14 @@ func_80B3D040:
     mfc1    t9, $f8
     jal     func_80B3D144
     sh      t9, 0x00B8(s0)             # 000000B8
-    beq     $zero, $zero, lbl_80B3D0FC
+    b       lbl_80B3D0FC
     lw      $ra, 0x001C($sp)
 lbl_80B3D0CC:
     bnel    v0, $at, lbl_80B3D0E8
     addiu   $at, $zero, 0x0002         # $at = 00000002
     jal     func_80B3D294
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3D0FC
+    b       lbl_80B3D0FC
     lw      $ra, 0x001C($sp)
     addiu   $at, $zero, 0x0002         # $at = 00000002
 lbl_80B3D0E8:
@@ -306,7 +306,7 @@ lbl_80B3D1D4:
     swc1    $f10, 0x0034($sp)
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3D270
+    b       lbl_80B3D270
     lh      t3, 0x00B6(s0)             # 000000B6
     lh      t2, 0x01A0(s0)             # 000001A0
 lbl_80B3D238:
@@ -317,7 +317,7 @@ lbl_80B3D238:
     lui     $at, 0x0001                # $at = 00010000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3D270
+    b       lbl_80B3D270
     lh      t3, 0x00B6(s0)             # 000000B6
     lui     $at, 0x0001                # $at = 00010000
 lbl_80B3D260:
@@ -357,7 +357,7 @@ func_80B3D2A8:
     slti    $at, v0, 0x0011
     jal     func_8002121C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3D304
+    b       lbl_80B3D304
     lh      t6, 0x00B6(s0)             # 000000B6
     slti    $at, v0, 0x0011
 lbl_80B3D2E0:

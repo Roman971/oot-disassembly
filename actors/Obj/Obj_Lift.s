@@ -109,7 +109,7 @@ lbl_80A85D0C:
     addiu   s1, $zero, 0x0020          # s1 = 00000020
     bc1f    lbl_80A85DB0
     nop
-    beq     $zero, $zero, lbl_80A85DB0
+    b       lbl_80A85DB0
     addiu   s1, $zero, 0x0040          # s1 = 00000040
 lbl_80A85DB0:
     jal     func_800CDCCC              # Rand.Next() float
@@ -163,7 +163,7 @@ lbl_80A85DB0:
     lui     a2, 0x42F0                 # a2 = 42F00000
     jal     func_80026308
     addiu   a3, $zero, 0x000C          # a3 = 0000000C
-    beq     $zero, $zero, lbl_80A85EB8
+    b       lbl_80A85EB8
     lw      $ra, 0x0094($sp)
 lbl_80A85E84:
     bne     v0, $at, lbl_80A85EB4
@@ -220,7 +220,7 @@ func_80A85EF8:
     lh      t6, 0x001C(s0)             # 0000001C
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A85FE8
+    b       lbl_80A85FE8
     lw      $ra, 0x001C($sp)
     lh      t6, 0x001C(s0)             # 0000001C
 lbl_80A85F54:
@@ -325,7 +325,7 @@ func_80A86070:
     lh      t0, 0x07A0(v1)             # 000007A0
     jal     func_80A862D4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A86150
+    b       lbl_80A86150
     lw      $ra, 0x0024($sp)
     lh      t0, 0x07A0(v1)             # 000007A0
 lbl_80A860CC:
@@ -351,7 +351,7 @@ lbl_80A860CC:
     addiu   a1, $zero, 0x0014          # a1 = 00000014
     jal     func_80A86160
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A86150
+    b       lbl_80A86150
     lw      $ra, 0x0024($sp)
 lbl_80A8612C:
     lh      t3, 0x001C(s0)             # 0000001C
@@ -395,7 +395,7 @@ func_80A8618C:
     lh      t7, 0x0158(s0)             # 00000158
     jal     func_80A862D4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A862A0
+    b       lbl_80A862A0
     lh      t7, 0x015E(s0)             # 0000015E
     lh      t7, 0x0158(s0)             # 00000158
 lbl_80A861C0:

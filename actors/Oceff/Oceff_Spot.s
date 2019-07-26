@@ -83,7 +83,7 @@ func_80B19D1C:
     nop
     lui     $at, %hi(var_80B1AB70)     # $at = 80B20000
     lwc1    $f4, %lo(var_80B1AB70)($at)
-    beq     $zero, $zero, lbl_80B19E60
+    b       lbl_80B19E60
     swc1    $f4, 0x0054(s0)            # 00000054
 lbl_80B19E58:
     lwc1    $f6, %lo(var_80B1AB74)($at)
@@ -149,7 +149,7 @@ func_80B19F08:
     nop
     lwc1    $f6, %lo(var_80B1AB78)($at)
     sub.s   $f8, $f0, $f6
-    beq     $zero, $zero, lbl_80B19FC0
+    b       lbl_80B19FC0
     swc1    $f8, 0x0164(a0)            # 00000164
 lbl_80B19F3C:
     jal     func_80020EB4
@@ -181,7 +181,7 @@ lbl_80B19F3C:
     beql    t1, $at, lbl_80B19FC4
     lw      $ra, 0x0014($sp)
 lbl_80B19FAC:
-    beq     $zero, $zero, lbl_80B19FC0
+    b       lbl_80B19FC0
     sh      v1, 0x1422(a0)             # 8011B9F2
 lbl_80B19FB4:
     lui     $at, 0x0001                # $at = 00010000
@@ -204,7 +204,7 @@ func_80B19FD0:
     lui     a1, %hi(func_80B19F08)     # a1 = 80B20000
     blez    v0, lbl_80B19FF4
     addiu   t6, v0, 0xFFFF             # t6 = FFFFFFFF
-    beq     $zero, $zero, lbl_80B19FFC
+    b       lbl_80B19FFC
     sh      t6, 0x0168(a0)             # 00000168
 lbl_80B19FF4:
     jal     func_80B19D10
@@ -231,7 +231,7 @@ func_80B1A00C:
     nop
     lwc1    $f6, %lo(var_80B1AB7C)($at)
     add.s   $f8, $f0, $f6
-    beq     $zero, $zero, lbl_80B1A060
+    b       lbl_80B1A060
     swc1    $f8, 0x0164(a0)            # 00000164
 lbl_80B1A04C:
     jal     func_80B19D10

@@ -10,7 +10,7 @@ func_80B55920:
     lw      a0, 0x001C($sp)
     beq     v0, $zero, lbl_80B55950
     andi    v1, v0, 0xFFFF             # v1 = 00000000
-    beq     $zero, $zero, lbl_80B559AC
+    b       lbl_80B559AC
     or      v0, v1, $zero              # v0 = 00000000
 lbl_80B55950:
     lw      t6, 0x0018($sp)
@@ -24,10 +24,10 @@ lbl_80B55950:
     beq     t9, $zero, lbl_80B55984
     nop
     addiu   v1, $zero, 0x5089          # v1 = 00005089
-    beq     $zero, $zero, lbl_80B559AC
+    b       lbl_80B559AC
     andi    v0, v1, 0xFFFF             # v0 = 00005089
 lbl_80B55984:
-    beq     $zero, $zero, lbl_80B559AC
+    b       lbl_80B559AC
     andi    v0, v1, 0xFFFF             # v0 = 00005089
     lbu     t0, 0x01F8(a0)             # 000001F8
 lbl_80B55990:
@@ -35,7 +35,7 @@ lbl_80B55990:
     andi    t1, t0, 0x0001             # t1 = 00000000
     beq     t1, $zero, lbl_80B559A8
     nop
-    beq     $zero, $zero, lbl_80B559A8
+    b       lbl_80B559A8
     addiu   v1, $zero, 0x7025          # v1 = 00007025
 lbl_80B559A8:
     andi    v0, v1, 0xFFFF             # v0 = 00007025
@@ -63,7 +63,7 @@ func_80B559BC:
     jr      t6
     nop
 var_80B559F8:
-    beq     $zero, $zero, lbl_80B55A68
+    b       lbl_80B55A68
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 var_80B55A00:
     lhu     v0, 0x010E(a1)             # 0000010E
@@ -76,13 +76,13 @@ var_80B55A00:
     addiu   $at, $zero, 0x7026         # $at = 00007026
     beql    v0, $at, lbl_80B55A48
     lh      t9, 0x001C(a1)             # 0000001C
-    beq     $zero, $zero, lbl_80B55A68
+    b       lbl_80B55A68
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B55A30:
     lbu     t7, 0x01F8(a1)             # 000001F8
     or      v0, $zero, $zero           # v0 = 00000000
     addiu   t8, t7, 0x0001             # t8 = 00000001
-    beq     $zero, $zero, lbl_80B55A68
+    b       lbl_80B55A68
     sb      t8, 0x01F8(a1)             # 000001F8
 lbl_80B55A44:
     lh      t9, 0x001C(a1)             # 0000001C
@@ -92,7 +92,7 @@ lbl_80B55A48:
     addiu   t2, t1, 0x0001             # t2 = 00000001
     sh      t0, 0x001C(a1)             # 0000001C
     sb      t2, 0x01F8(a1)             # 000001F8
-    beq     $zero, $zero, lbl_80B55A68
+    b       lbl_80B55A68
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B55A64:
     addiu   v0, $zero, 0x0001          # v0 = 00000001

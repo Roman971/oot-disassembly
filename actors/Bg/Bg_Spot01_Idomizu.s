@@ -19,14 +19,14 @@ func_80A53170:
     addiu   v0, $zero, 0x0011          # v0 = 00000011
     beq     t8, $zero, lbl_80A531C4
     nop
-    beq     $zero, $zero, lbl_80A531C4
+    b       lbl_80A531C4
     addiu   v0, $zero, 0x0005          # v0 = 00000005
 lbl_80A531C4:
     bne     v0, $at, lbl_80A531D8
 lbl_80A531C8:
     lui     $at, %hi(var_80A53420)     # $at = 80A50000
     lwc1    $f4, %lo(var_80A53420)($at)
-    beq     $zero, $zero, lbl_80A531E8
+    b       lbl_80A531E8
     swc1    $f4, 0x0140(a0)            # 00000140
 lbl_80A531D8:
     lui     $at, 0x4250                # $at = 42500000

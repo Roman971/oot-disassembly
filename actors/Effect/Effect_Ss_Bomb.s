@@ -207,7 +207,7 @@ func_80B2DB14:
     bne     $at, $zero, lbl_80B2DB48
     addiu   t6, $zero, 0x0014          # t6 = 00000014
     subu    t7, t6, v0
-    beq     $zero, $zero, lbl_80B2DB58
+    b       lbl_80B2DB58
     sh      t7, 0x0042(a2)             # 00000042
 lbl_80B2DB48:
     lh      t8, 0x0040(a2)             # 00000040

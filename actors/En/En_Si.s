@@ -84,7 +84,7 @@ func_80B4B0E0:
     lui     a1, 0x3E80                 # a1 = 3E800000
     lui     t9, %hi(func_80B4B214)     # t9 = 80B50000
     addiu   t9, t9, %lo(func_80B4B214) # t9 = 80B4B214
-    beq     $zero, $zero, lbl_80B4B200
+    b       lbl_80B4B200
     sw      t9, 0x013C(s0)             # 0000013C
 lbl_80B4B130:
     mtc1    $zero, $f4                 # $f4 = 0.00
@@ -124,7 +124,7 @@ lbl_80B4B130:
     addiu   a0, $zero, 0x0039          # a0 = 00000039
     lui     t6, %hi(func_80B4B2CC)     # t6 = 80B50000
     addiu   t6, t6, %lo(func_80B4B2CC) # t6 = 80B4B2CC
-    beq     $zero, $zero, lbl_80B4B200
+    b       lbl_80B4B200
     sw      t6, 0x013C(s0)             # 0000013C
 lbl_80B4B1CC:
     jal     func_80050B00
@@ -211,7 +211,7 @@ func_80B4B2CC:
     lw      a0, 0x0020($sp)
     lw      t8, 0x001C($sp)
     addiu   t7, $zero, 0x000A          # t7 = 0000000A
-    beq     $zero, $zero, lbl_80B4B350
+    b       lbl_80B4B350
     sh      t7, 0x0110(t8)             # 00000110
 lbl_80B4B304:
     lh      v0, 0x001C(a0)             # 0000001C

@@ -46,7 +46,7 @@ func_80B38320:
     lh      v0, 0x0030(s1)             # 00000030
     beql    v0, $zero, lbl_80B383E4
     lbu     t5, 0x002B(s1)             # 0000002B
-    beq     $zero, $zero, lbl_80B38418
+    b       lbl_80B38418
     sh      v0, 0x0054(s0)             # 00000054
     lbu     t5, 0x002B(s1)             # 0000002B
 lbl_80B383E4:
@@ -82,7 +82,7 @@ lbl_80B38418:
     lbu     t6, 0x002D(s1)             # 0000002D
     sh      t6, 0x004E(s0)             # 0000004E
     lbu     t7, 0x002E(s1)             # 0000002E
-    beq     $zero, $zero, lbl_80B385C0
+    b       lbl_80B385C0
     sh      t7, 0x0050(s0)             # 00000050
     addiu   $at, $zero, 0x0001         # $at = 00000001
 lbl_80B38468:
@@ -171,10 +171,10 @@ lbl_80B38514:
     swc1    $f22, 0x0014(s0)           # 00000014
     bgtz    s2, lbl_80B38514
     swc1    $f22, 0x0020(s0)           # 00000020
-    beq     $zero, $zero, lbl_80B385C4
+    b       lbl_80B385C4
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80B385B8:
-    beq     $zero, $zero, lbl_80B385C4
+    b       lbl_80B385C4
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B385C0:
     addiu   v0, $zero, 0x0001          # v0 = 00000001

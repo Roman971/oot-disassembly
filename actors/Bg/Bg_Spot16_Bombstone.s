@@ -109,7 +109,7 @@ func_809C4D68:
     lh      a1, 0x0146(s0)             # 00000146
     beq     v0, $zero, lbl_809C4D98
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C4E04
+    b       lbl_809C4E04
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_809C4D98:
     lui     a1, %hi(var_809C5F3C)      # a1 = 809C0000
@@ -265,7 +265,7 @@ func_809C4E18:
     lb      t6, 0x0204(s0)             # 00000204
     bgez    t6, lbl_809C4FF4
     nop
-    beq     $zero, $zero, lbl_809C5000
+    b       lbl_809C5000
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_809C4FF4:
     jal     func_809C5A14
@@ -298,7 +298,7 @@ func_809C5014:
     addiu   $at, $zero, 0x00FF         # $at = 000000FF
     beq     v0, $at, lbl_809C5080
     nop
-    beq     $zero, $zero, lbl_809C50A4
+    b       lbl_809C50A4
     nop
 lbl_809C5064:
     sltiu   $at, v0, 0x0006
@@ -312,7 +312,7 @@ lbl_809C5080:
     jal     func_809C4D68
     or      a0, s0, $zero              # a0 = 00000000
     sll     v1, v0, 16
-    beq     $zero, $zero, lbl_809C50A4
+    b       lbl_809C50A4
     sra     v1, v1, 16
 var_809C5094:
     jal     func_809C4E18
@@ -477,7 +477,7 @@ lbl_809C51FC:
     swc1    $f6, 0x0058($sp)
     lh      t9, 0x0148(s0)             # 00000148
     addiu   t2, t9, 0x0001             # t2 = 00000001
-    beq     $zero, $zero, lbl_809C51FC
+    b       lbl_809C51FC
     sh      t2, 0x0148(s0)             # 00000148
 lbl_809C52F0:
     lw      $ra, 0x0044($sp)
@@ -529,7 +529,7 @@ func_809C5318:
     addiu   a2, $zero, 0x00CD          # a2 = 000000CD
     jal     func_80025110              # ActorSpawn
     swc1    $f6, 0x0014($sp)
-    beq     $zero, $zero, lbl_809C53AC
+    b       lbl_809C53AC
     addiu   v0, $zero, 0x0003          # v0 = 00000003
 lbl_809C53AC:
     slti    $at, v0, 0x0005
@@ -733,7 +733,7 @@ func_809C5630:
     subu    v0, t6, t7
     bltz    v0, lbl_809C56B0
     subu    v1, $zero, v0
-    beq     $zero, $zero, lbl_809C56B0
+    b       lbl_809C56B0
     or      v1, v0, $zero              # v1 = 00000000
 lbl_809C56B0:
     addiu   a0, v1, 0xC001             # a0 = FFFFC001
@@ -792,7 +792,7 @@ lbl_809C5760:
     lw      t8, 0x0130(v0)             # 00000130
     bnel    t8, $zero, lbl_809C5788
     lh      t9, 0x0000(t1)             # 809C5CD4
-    beq     $zero, $zero, lbl_809C5874
+    b       lbl_809C5874
     sw      $zero, 0x0000(a0)          # 809C5CD0
     lh      t9, 0x0000(t1)             # 809C5CD4
 lbl_809C5788:
@@ -837,7 +837,7 @@ lbl_809C5788:
     lw      a0, 0x0024($sp)
     jal     func_8006B6FC
     sw      $zero, 0x0010($sp)
-    beq     $zero, $zero, lbl_809C5878
+    b       lbl_809C5878
     lw      $ra, 0x001C($sp)
     lw      t4, 0x066C(v1)             # 0000066C
 lbl_809C5838:
@@ -915,7 +915,7 @@ func_809C58A4:
     ori     t9, t8, 0x0008             # t9 = 00000008
     jal     func_809C5990
     sh      t9, 0x0ED8(v0)             # 8011B4A8
-    beq     $zero, $zero, lbl_809C5980
+    b       lbl_809C5980
     lw      $ra, 0x0024($sp)
 lbl_809C5948:
     addu    a1, s0, $at
@@ -1045,7 +1045,7 @@ func_809C5A9C:
     sh      t1, 0x00B8(s0)             # 000000B8
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C5B88
+    b       lbl_809C5B88
     lw      $ra, 0x0024($sp)
 lbl_809C5AF4:
     lhu     v0, 0x0088(s0)             # 00000088
@@ -1075,7 +1075,7 @@ lbl_809C5B2C:
     addiu   a3, $zero, 0x2852          # a3 = 00002852
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809C5B88
+    b       lbl_809C5B88
     lw      $ra, 0x0024($sp)
 lbl_809C5B64:
     mtc1    $zero, $f8                 # $f8 = 0.00
@@ -1148,7 +1148,7 @@ func_809C5BCC:
     sw      t2, 0x0000(v0)             # 00000000
     lw      t3, 0x0140(a2)             # 00000140
     sw      t3, 0x0004(v0)             # 00000004
-    beq     $zero, $zero, lbl_809C5CC0
+    b       lbl_809C5CC0
     lw      $ra, 0x0014($sp)
     lw      v0, 0x02C0(v1)             # 000002C0
 lbl_809C5C64:

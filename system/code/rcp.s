@@ -51,7 +51,7 @@ lbl_8007DC68:
     sw      t1, 0x0000(v0)             # 00000008
     addiu   a0, a0, 0x0008             # a0 = 00000010
     sw      $zero, 0x0004(v0)          # 0000000C
-    beq     $zero, $zero, lbl_8007DDB0
+    b       lbl_8007DDB0
     or      v0, a0, $zero              # v0 = 00000010
 lbl_8007DCC0:
     slti    $at, s0, 0x03E5
@@ -63,7 +63,7 @@ lbl_8007DCC0:
     sw      t0, 0x0000(v0)             # 00000010
     sw      t2, 0x0004(v0)             # 00000014
     addiu   a0, a0, 0x0008             # a0 = 00000018
-    beq     $zero, $zero, lbl_8007DDB0
+    b       lbl_8007DDB0
     or      v0, a0, $zero              # v0 = 00000018
 lbl_8007DCEC:
     bgez    s0, lbl_8007DD14
@@ -74,7 +74,7 @@ lbl_8007DCEC:
     sw      t3, 0x0004(v0)             # 0000001C
     sw      t4, 0x0000(v0)             # 00000018
     addiu   a0, a0, 0x0008             # a0 = 00000020
-    beq     $zero, $zero, lbl_8007DDB0
+    b       lbl_8007DDB0
     or      v0, a0, $zero              # v0 = 00000020
 lbl_8007DD14:
     lui     t5, 0xDB08                 # t5 = DB080000
@@ -163,7 +163,7 @@ lbl_8007DDE4:
     sw      t2, 0x0000(v0)             # 00000010
     addiu   a0, a0, 0x0008             # a0 = 00000018
     sw      $zero, 0x0004(v0)          # 00000014
-    beq     $zero, $zero, lbl_8007DF40
+    b       lbl_8007DF40
     or      v0, a0, $zero              # v0 = 00000018
 lbl_8007DE50:
     slti    $at, s0, 0x03E5
@@ -175,7 +175,7 @@ lbl_8007DE50:
     sw      t1, 0x0000(v0)             # 00000018
     sw      t3, 0x0004(v0)             # 0000001C
     addiu   a0, a0, 0x0008             # a0 = 00000020
-    beq     $zero, $zero, lbl_8007DF40
+    b       lbl_8007DF40
     or      v0, a0, $zero              # v0 = 00000020
 lbl_8007DE7C:
     bgez    s0, lbl_8007DEA4
@@ -186,7 +186,7 @@ lbl_8007DE7C:
     sw      t4, 0x0004(v0)             # 00000024
     sw      t5, 0x0000(v0)             # 00000020
     addiu   a0, a0, 0x0008             # a0 = 00000028
-    beq     $zero, $zero, lbl_8007DF40
+    b       lbl_8007DF40
     or      v0, a0, $zero              # v0 = 00000028
 lbl_8007DEA4:
     lui     t6, 0xDB08                 # t6 = DB080000

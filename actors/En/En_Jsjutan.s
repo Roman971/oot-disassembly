@@ -127,7 +127,7 @@ lbl_80ADBED0:
     lh      t1, 0x0000(s0)             # 00000000
     sh      s7, 0x0002(s2)             # 00000002
     lh      t9, 0x0002(s2)             # 00000002
-    beq     $zero, $zero, lbl_80ADBFA0
+    b       lbl_80ADBFA0
     sh      t9, 0x0002(s0)             # 00000002
     lh      t1, 0x0000(s0)             # 00000000
 lbl_80ADBF0C:
@@ -244,7 +244,7 @@ func_80ADBFF4:
     lw      t9, 0x0000(t8)             # 00000000
     and     t6, v1, t1
     addu    t7, t9, t6
-    beq     $zero, $zero, lbl_80ADC128
+    b       lbl_80ADC128
     addu    s3, t7, t2
 lbl_80ADC0C8:
     lui     v0, %hi(var_80ADFFF8)      # v0 = 80AE0000
@@ -409,7 +409,7 @@ lbl_80ADC2AC:
     sub.s   $f10, $f6, $f8
     mul.s   $f4, $f10, $f2
     swc1    $f4, 0x00C4($sp)
-    beq     $zero, $zero, lbl_80ADC428
+    b       lbl_80ADC428
     lui     $at, 0x44FA                # $at = 44FA0000
 lbl_80ADC338:
     beq     a2, $zero, lbl_80ADC424
@@ -463,7 +463,7 @@ lbl_80ADC358:
     addu    t9, t2, s1
     bnel    t4, t7, lbl_80ADC40C
     sb      $ra, 0x0000(t9)            # 00000001
-    beq     $zero, $zero, lbl_80ADC40C
+    b       lbl_80ADC40C
     sb      t5, 0x0000(t8)             # 00000000
     sb      $ra, 0x0000(t9)            # 00000001
 lbl_80ADC40C:
@@ -541,7 +541,7 @@ lbl_80ADC4F8:
     nop
     bc1f    lbl_80ADC534
     nop
-    beq     $zero, $zero, lbl_80ADC534
+    b       lbl_80ADC534
     mov.s   $f18, $f26
 lbl_80ADC520:
     lui     $at, 0x4348                # $at = 43480000
@@ -581,7 +581,7 @@ lbl_80ADC538:
 lbl_80ADC5A0:
     lwc1    $f12, %lo(var_80AE0990)($at)
     sub.s   $f10, $f12, $f0
-    beq     $zero, $zero, lbl_80ADC5B8
+    b       lbl_80ADC5B8
     div.s   $f2, $f10, $f12
     sub.s   $f8, $f30, $f0
 lbl_80ADC5B4:
@@ -693,7 +693,7 @@ lbl_80ADC658:
     sra     v1, v1, 16
     sh      v1, 0x0002(s0)             # 00000002
 lbl_80ADC748:
-    beq     $zero, $zero, lbl_80ADC7DC
+    b       lbl_80ADC7DC
     addiu   s1, s1, 0x0001             # s1 = 00000001
 lbl_80ADC750:
     mul.s   $f2, $f0, $f18
@@ -774,7 +774,7 @@ lbl_80ADC850:
     swc1    $f6, 0x0160(s2)            # 00000160
     add.s   $f10, $f4, $f8
     swc1    $f10, 0x015C(s2)           # 0000015C
-    beq     $zero, $zero, lbl_80ADC8F4
+    b       lbl_80ADC8F4
     lui     $at, 0x42F0                # $at = 42F00000
     mtc1    $at, $f20                  # $f20 = 120.00
 lbl_80ADC888:
@@ -832,7 +832,7 @@ lbl_80ADC910:
     subu    t6, t7, t9
     mtc1    t6, $f4                    # $f4 = 0.00
     addiu   s2, s1, 0x0001             # s2 = 00000001
-    beq     $zero, $zero, lbl_80ADC98C
+    b       lbl_80ADC98C
     cvt.s.w $f22, $f4
 lbl_80ADC960:
     sra     t7, t8, 16
@@ -870,7 +870,7 @@ lbl_80ADC98C:
     lh      t8, 0x0000(s0)             # 00000000
     subu    t7, t8, t6
     mtc1    t7, $f6                    # $f6 = NaN
-    beq     $zero, $zero, lbl_80ADCA1C
+    b       lbl_80ADCA1C
     cvt.s.w $f20, $f6
 lbl_80ADC9F0:
     addiu   t9, s1, 0x000C             # t9 = 0000000C
@@ -1019,7 +1019,7 @@ func_80ADCBAC:
     swc1    $f10, 0x0158(s0)           # 00000158
     jal     func_80ADBDE8
     sb      t8, 0x0165(s0)             # 00000165
-    beq     $zero, $zero, lbl_80ADCCBC
+    b       lbl_80ADCCBC
     or      a0, s0, $zero              # a0 = 00000000
     lbu     t9, 0x0165(s0)             # 00000165
 lbl_80ADCC28:
@@ -1081,7 +1081,7 @@ lbl_80ADCCEC:
     addu    t7, v1, v0
     beql    t5, $zero, lbl_80ADCD10
     sb      $zero, 0x0000(t7)          # 00000000
-    beq     $zero, $zero, lbl_80ADCD10
+    b       lbl_80ADCD10
     sb      a1, 0x0000(t6)             # 00000000
     sb      $zero, 0x0000(t7)          # 00000000
 lbl_80ADCD10:
@@ -1157,7 +1157,7 @@ lbl_80ADCD28:
     ori     t6, t6, 0x0030             # t6 = DB060030
     sw      t6, 0x0000(v1)             # 00000000
     sw      t7, 0x0004(v1)             # 00000004
-    beq     $zero, $zero, lbl_80ADCE5C
+    b       lbl_80ADCE5C
     lw      v1, 0x02C0(s1)             # 000002C0
     lw      v1, 0x02C0(s1)             # 000002C0
 lbl_80ADCE38:
@@ -1232,7 +1232,7 @@ lbl_80ADCE5C:
     sw      t3, 0x02C0(s1)             # 000002C0
     sw      t5, 0x0004(v1)             # 00000004
     sw      t4, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_80ADCF78
+    b       lbl_80ADCF78
     lw      v1, 0x02C0(s1)             # 000002C0
 lbl_80ADCF58:
     lw      v1, 0x02C0(s1)             # 000002C0

@@ -13,7 +13,7 @@ func_80B51F50:
     addu    a0, a3, $at
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B51FA4
+    b       lbl_80B51FA4
     lw      $ra, 0x0014($sp)
 lbl_80B51F8C:
     addiu   a1, $zero, 0x00C5          # a1 = 000000C5
@@ -148,16 +148,16 @@ func_80B5214C:
     addiu   t8, $zero, 0x0001          # t8 = 00000001
     beq     v0, $zero, lbl_80B52178
     addiu   t7, v0, 0xFFFF             # t7 = FFFFFFFF
-    beq     $zero, $zero, lbl_80B521E8
+    b       lbl_80B521E8
     sh      t7, 0x02BA(a0)             # 000002BA
 lbl_80B52178:
-    beq     $zero, $zero, lbl_80B521E8
+    b       lbl_80B521E8
     sb      t8, 0x02FD(a0)             # 000002FD
     lh      v0, 0x02BA(a0)             # 000002BA
 lbl_80B52184:
     beq     v0, $zero, lbl_80B52194
     addiu   t9, v0, 0xFFFF             # t9 = FFFFFFFF
-    beq     $zero, $zero, lbl_80B521E8
+    b       lbl_80B521E8
     sh      t9, 0x02BA(a0)             # 000002BA
 lbl_80B52194:
     lbu     t0, 0x02FE(a0)             # 000002FE
@@ -178,7 +178,7 @@ lbl_80B52194:
     mfc1    t4, $f4
     nop
     addiu   t5, t4, 0x0014             # t5 = 00000014
-    beq     $zero, $zero, lbl_80B521E8
+    b       lbl_80B521E8
     sh      t5, 0x02BA(a0)             # 000002BA
 lbl_80B521E4:
     sh      t6, 0x02BA(a0)             # 000002BA
@@ -200,7 +200,7 @@ func_80B521F8:
     lw      a0, 0x0018($sp)
     lui     t6, %hi(func_80B52260)     # t6 = 80B50000
     addiu   t6, t6, %lo(func_80B52260) # t6 = 80B52260
-    beq     $zero, $zero, lbl_80B52250
+    b       lbl_80B52250
     sw      t6, 0x0240(a0)             # 00000240
 lbl_80B52228:
     lui     $at, 0x42C8                # $at = 42C80000
@@ -283,7 +283,7 @@ func_80B522B4:
     mtc1    $at, $f6                   # $f6 = 20.00
     lui     $at, 0x4120                # $at = 41200000
     mtc1    $at, $f4                   # $f4 = 10.00
-    beq     $zero, $zero, lbl_80B52354
+    b       lbl_80B52354
     swc1    $f4, 0x02A4(s0)            # 000002A4
     mtc1    $at, $f6                   # $f6 = 10.00
 lbl_80B5234C:

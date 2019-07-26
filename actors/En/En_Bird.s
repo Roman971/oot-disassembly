@@ -91,7 +91,7 @@ func_8091E5E8:
     beq     t7, $zero, lbl_8091E630
     cvt.s.w $f2, $f4
     mtc1    $zero, $f0                 # $f0 = 0.00
-    beq     $zero, $zero, lbl_8091E63C
+    b       lbl_8091E63C
     swc1    $f0, 0x0028($sp)
 lbl_8091E630:
     mtc1    $at, $f0                   # $f0 = 1.00
@@ -233,7 +233,7 @@ lbl_8091E80C:
     addiu   a0, s0, 0x0032             # a0 = 00000032
     jal     func_800639B8
     lh      a2, 0x01B0(s0)             # 000001B0
-    beq     $zero, $zero, lbl_8091E85C
+    b       lbl_8091E85C
     lh      t3, 0x0032(s0)             # 00000032
 lbl_8091E830:
     jal     func_800CF470

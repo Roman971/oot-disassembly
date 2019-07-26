@@ -17,7 +17,7 @@ func_8001E9D0:
     lw      a2, 0x000C(s0)             # 0000000C
     bnel    a2, $zero, lbl_8001EA04
     lw      a0, 0x0004(s0)             # 00000004
-    beq     $zero, $zero, lbl_8001EAE4
+    b       lbl_8001EAE4
     sw      $zero, 0x0028(s0)          # 00000028
     lw      a0, 0x0004(s0)             # 00000004
 lbl_8001EA04:
@@ -33,7 +33,7 @@ lbl_8001EA04:
     lw      t8, 0x0000(s0)             # 00000000
     subu    t9, t7, t8
     subu    t0, v0, t9
-    beq     $zero, $zero, lbl_8001EA40
+    b       lbl_8001EA40
     sw      t0, 0x0014(s0)             # 00000014
     sw      $zero, 0x0014(s0)          # 00000014
 lbl_8001EA40:
@@ -44,7 +44,7 @@ lbl_8001EA40:
     lw      t2, 0x0000(s0)             # 00000000
     subu    t3, t1, t2
     subu    t4, v0, t3
-    beq     $zero, $zero, lbl_8001EA68
+    b       lbl_8001EA68
     sw      t4, 0x0018(s0)             # 00000018
     sw      $zero, 0x0018(s0)          # 00000018
 lbl_8001EA68:
@@ -55,7 +55,7 @@ lbl_8001EA68:
     lw      t6, 0x0000(s0)             # 00000000
     subu    t7, t5, t6
     subu    t8, v0, t7
-    beq     $zero, $zero, lbl_8001EA90
+    b       lbl_8001EA90
     sw      t8, 0x001C(s0)             # 0000001C
     sw      $zero, 0x001C(s0)          # 0000001C
 lbl_8001EA90:
@@ -66,7 +66,7 @@ lbl_8001EA90:
     lw      t0, 0x0000(s0)             # 00000000
     subu    t1, t9, t0
     subu    t2, v0, t1
-    beq     $zero, $zero, lbl_8001EAB8
+    b       lbl_8001EAB8
     sw      t2, 0x0020(s0)             # 00000020
     sw      $zero, 0x0020(s0)          # 00000020
 lbl_8001EAB8:
@@ -77,7 +77,7 @@ lbl_8001EAB8:
     lw      t4, 0x0000(s0)             # 00000000
     subu    t5, t3, t4
     subu    t6, v0, t5
-    beq     $zero, $zero, lbl_8001EAE0
+    b       lbl_8001EAE0
     sw      t6, 0x0024(s0)             # 00000024
     sw      $zero, 0x0024(s0)          # 00000024
 lbl_8001EAE0:
@@ -102,7 +102,7 @@ func_8001EAF8:
     or      v0, $zero, $zero           # v0 = 00000000
     beq     t6, $zero, lbl_8001EB28
     nop
-    beq     $zero, $zero, lbl_8001EB28
+    b       lbl_8001EB28
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_8001EB28:
     bnel    v0, $zero, lbl_8001EC10
@@ -113,7 +113,7 @@ lbl_8001EB28:
     lw      t7, 0x000C(a1)             # 0000000C
     subu    t8, t7, a2
     addu    t9, v0, t8
-    beq     $zero, $zero, lbl_8001EB54
+    b       lbl_8001EB54
     sw      t9, 0x0014(a1)             # 00000014
     sw      $zero, 0x0014(a1)          # 00000014
 lbl_8001EB54:
@@ -124,7 +124,7 @@ lbl_8001EB54:
     lw      t1, 0x0000(a1)             # 00000000
     subu    t2, t0, t1
     addu    t3, v0, t2
-    beq     $zero, $zero, lbl_8001EB7C
+    b       lbl_8001EB7C
     sw      t3, 0x0018(a1)             # 00000018
     sw      $zero, 0x0018(a1)          # 00000018
 lbl_8001EB7C:
@@ -135,7 +135,7 @@ lbl_8001EB7C:
     lw      t5, 0x0000(a1)             # 00000000
     subu    t6, t4, t5
     addu    t7, v0, t6
-    beq     $zero, $zero, lbl_8001EBA4
+    b       lbl_8001EBA4
     sw      t7, 0x001C(a1)             # 0000001C
     sw      $zero, 0x001C(a1)          # 0000001C
 lbl_8001EBA4:
@@ -146,7 +146,7 @@ lbl_8001EBA4:
     lw      t9, 0x0000(a1)             # 00000000
     subu    t0, t8, t9
     addu    t1, v0, t0
-    beq     $zero, $zero, lbl_8001EBCC
+    b       lbl_8001EBCC
     sw      t1, 0x0020(a1)             # 00000020
     sw      $zero, 0x0020(a1)          # 00000020
 lbl_8001EBCC:
@@ -157,7 +157,7 @@ lbl_8001EBCC:
     lw      t2, 0x000C(a1)             # 0000000C
     subu    t3, t2, a2
     addu    t4, v0, t3
-    beq     $zero, $zero, lbl_8001EBF8
+    b       lbl_8001EBF8
     sw      t4, 0x0024(a1)             # 00000024
     sw      $zero, 0x0024(a1)          # 00000024
 lbl_8001EBF4:

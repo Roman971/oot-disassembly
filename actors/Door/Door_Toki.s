@@ -60,7 +60,7 @@ func_8091D58C:
     or      a0, a3, $zero              # a0 = 00000000
     jal     func_800314D8
     lw      a2, 0x013C(t8)             # 0000013C
-    beq     $zero, $zero, lbl_8091D5E0
+    b       lbl_8091D5E0
     lw      $ra, 0x0014($sp)
 lbl_8091D5D0:
     addiu   a1, a3, 0x0810             # a1 = 00000810

@@ -40,7 +40,7 @@ func_8009151C:
     nop
     bc1f    lbl_80091554
     nop
-    beq     $zero, $zero, lbl_8009156C
+    b       lbl_8009156C
     addiu   a0, $zero, 0x03E8          # a0 = 000003E8
 lbl_80091554:
     jal     func_800D0DC0
@@ -91,7 +91,7 @@ func_800915CC:
     nop
     bc1f    lbl_80091604
     nop
-    beq     $zero, $zero, lbl_8009161C
+    b       lbl_8009161C
     addiu   a0, $zero, 0x03E8          # a0 = 000003E8
 lbl_80091604:
     jal     func_800D0DC0
@@ -125,7 +125,7 @@ lbl_80091648:
     lbu     t0, 0x0023($sp)
     sb      v1, 0x0004(v0)             # 8011CF14
     sb      a3, 0x0084(v0)             # 8011CF94
-    beq     $zero, $zero, lbl_8009168C
+    b       lbl_8009168C
     sb      t0, 0x0044(v0)             # 8011CF54
 lbl_80091680:
     addiu   v0, v0, 0x0001             # v0 = 8011CF11
@@ -709,7 +709,7 @@ func_80091DDC:
     nop
     bc1fl   lbl_80091E1C
     mtc1    $at, $f4                   # $f4 = 1.00
-    beq     $zero, $zero, lbl_80091F80
+    b       lbl_80091F80
     or      v0, $zero, $zero           # v0 = 00000000
     mtc1    $at, $f4                   # $f4 = 1.00
 lbl_80091E1C:
@@ -730,7 +730,7 @@ lbl_80091E1C:
     sw      t6, 0x0108(s0)             # 00000108
     sw      t7, 0x010C(s0)             # 0000010C
     sw      t9, 0x0118(s0)             # 00000118
-    beq     $zero, $zero, lbl_80091EFC
+    b       lbl_80091EFC
     sw      t8, 0x0114(s0)             # 00000114
     lwc1    $f2, 0x0104(s0)            # 00000104
 lbl_80091E6C:
@@ -824,7 +824,7 @@ func_80091F94:
     nop
     jal     func_800922D4
     nop
-    beq     $zero, $zero, lbl_80091FD4
+    b       lbl_80091FD4
     lw      $ra, 0x0014($sp)
 lbl_80091FC8:
     jal     func_80091FE0
@@ -1691,7 +1691,7 @@ lbl_80092C8C:
     ori     t8, t8, 0x0007             # t8 = DA380007
     sw      t8, 0x0000(v0)             # 00000000
     sw      s1, 0x0004(v0)             # 00000004
-    beq     $zero, $zero, lbl_80092DC4
+    b       lbl_80092DC4
     andi    t3, s3, 0x0001             # t3 = 00000000
     andi    t9, s3, 0x0006             # t9 = 00000000
 lbl_80092CDC:

@@ -42,13 +42,13 @@ func_80B7EBD8:
     sw      t0, 0x0024($sp)
     lui     t1, %hi(func_80B7EC8C)     # t1 = 80B80000
     addiu   t1, t1, %lo(func_80B7EC8C) # t1 = 80B7EC8C
-    beq     $zero, $zero, lbl_80B7EC78
+    b       lbl_80B7EC78
     sw      t1, 0x013C(s0)             # 0000013C
 lbl_80B7EC64:
     lh      t2, 0x0140(s0)             # 00000140
 lbl_80B7EC68:
     addiu   t3, t2, 0x0001             # t3 = 00000001
-    beq     $zero, $zero, lbl_80B7EC78
+    b       lbl_80B7EC78
     sh      t3, 0x0140(s0)             # 00000140
     sh      $zero, 0x0140(s0)          # 00000140
 lbl_80B7EC78:

@@ -187,7 +187,7 @@ lbl_80ADA854:
     lui     $at, %hi(var_80ADB244)     # $at = 80AE0000
     bc1f    lbl_80ADA878
     cvt.s.w $f2, $f10
-    beq     $zero, $zero, lbl_80ADA898
+    b       lbl_80ADA898
     addiu   s1, $zero, 0x0060          # s1 = 00000060
 lbl_80ADA878:
     lwc1    $f6, %lo(var_80ADB244)($at)
@@ -196,7 +196,7 @@ lbl_80ADA878:
     nop
     bc1f    lbl_80ADA898
     nop
-    beq     $zero, $zero, lbl_80ADA898
+    b       lbl_80ADA898
     addiu   s1, $zero, 0x0040          # s1 = 00000040
 lbl_80ADA898:
     mul.s   $f16, $f30, $f2
@@ -453,7 +453,7 @@ lbl_80ADAC50:
     nop
     bc1f    lbl_80ADAC7C
     nop
-    beq     $zero, $zero, lbl_80ADAC9C
+    b       lbl_80ADAC9C
     addiu   s1, $zero, 0x0060          # s1 = 00000060
 lbl_80ADAC7C:
     lwc1    $f6, %lo(var_80ADB254)($at)
@@ -462,7 +462,7 @@ lbl_80ADAC7C:
     nop
     bc1f    lbl_80ADAC9C
     nop
-    beq     $zero, $zero, lbl_80ADAC9C
+    b       lbl_80ADAC9C
     addiu   s1, $zero, 0x0040          # s1 = 00000040
 lbl_80ADAC9C:
     jal     func_800CDCCC              # Rand.Next() float
@@ -744,7 +744,7 @@ lbl_80ADB090:
     swc1    $f4, 0x0044($sp)
     jal     func_80020EB4
     or      a0, s4, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80ADB0D8
+    b       lbl_80ADB0D8
     lw      $ra, 0x0034($sp)
 lbl_80ADB0C8:
     addu    a1, s3, $at

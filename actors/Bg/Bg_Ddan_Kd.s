@@ -50,7 +50,7 @@ func_80903C3C:
     addiu   a1, a1, %lo(func_80903D7C) # a1 = 80903D7C
     jal     func_80903C30
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80903D24
+    b       lbl_80903D24
     lw      $ra, 0x001C($sp)
 lbl_80903CF4:
     lwc1    $f4, 0x000C(s0)            # 0000000C
@@ -134,7 +134,7 @@ lbl_80903DB0:
     or      a3, s0, $zero              # a3 = 00000000
     jal     func_8006B6FC
     sw      $zero, 0x0010($sp)
-    beq     $zero, $zero, lbl_80903E84
+    b       lbl_80903E84
     lw      $ra, 0x0024($sp)
 lbl_80903E20:
     lh      v0, 0x0158(s0)             # 00000158
@@ -142,7 +142,7 @@ lbl_80903E24:
     or      a0, s0, $zero              # a0 = 00000000
     beq     v0, $zero, lbl_80903E38
     addiu   t7, v0, 0xFFFF             # t7 = FFFFFFFF
-    beq     $zero, $zero, lbl_80903E60
+    b       lbl_80903E60
     sh      t7, 0x0158(s0)             # 00000158
 lbl_80903E38:
     beq     a2, $zero, lbl_80903E60
@@ -222,7 +222,7 @@ func_80903E94:
     addiu   a1, a1, %lo(func_80904368) # a1 = 80904368
     jal     func_80903C30
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80904358
+    b       lbl_80904358
     lw      $ra, 0x002C($sp)
     lwc1    $f18, 0x0068(s0)           # 00000068
 lbl_80903F64:
@@ -284,7 +284,7 @@ lbl_80903F64:
     mul.s   $f4, $f0, $f10
     add.s   $f6, $f18, $f4
     add.s   $f8, $f16, $f6
-    beq     $zero, $zero, lbl_809040A8
+    b       lbl_809040A8
     swc1    $f8, 0x0058($sp)
 lbl_80904054:
     jal     func_800CDCCC              # Rand.Next() float

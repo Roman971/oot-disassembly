@@ -65,7 +65,7 @@ func_80B8682C:
     sw      a0, 0x0038($sp)
     beq     v0, $zero, lbl_80B86850
     lw      a0, 0x0038($sp)
-    beq     $zero, $zero, lbl_80B8699C
+    b       lbl_80B8699C
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B86850:
     lui     v1, %hi(var_80B87168)      # v1 = 80B80000
@@ -124,7 +124,7 @@ lbl_80B868C4:
     nop
     bc1t    lbl_80B86934
     nop
-    beq     $zero, $zero, lbl_80B8699C
+    b       lbl_80B8699C
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B86934:
     jal     func_8002154C
@@ -149,10 +149,10 @@ lbl_80B86934:
     nop
     bc1t    lbl_80B8699C
     nop
-    beq     $zero, $zero, lbl_80B8699C
+    b       lbl_80B8699C
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B86994:
-    beq     $zero, $zero, lbl_80B8699C
+    b       lbl_80B8699C
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B8699C:
     lw      $ra, 0x0014($sp)
@@ -267,7 +267,7 @@ func_80B869AC:
     lw      a0, 0x004C($sp)
     jal     func_80020510
     andi    a1, a1, 0x003F             # a1 = 00000000
-    beq     $zero, $zero, lbl_80B86B6C
+    b       lbl_80B86B6C
     lw      $ra, 0x001C($sp)
     lh      a1, 0x001C(s0)             # 0000001C
 lbl_80B86B5C:
@@ -307,7 +307,7 @@ func_80B86B7C:
     lw      t8, 0x0020($sp)
     lui     t7, %hi(func_80B86BFC)     # t7 = 80B80000
     addiu   t7, t7, %lo(func_80B86BFC) # t7 = 80B86BFC
-    beq     $zero, $zero, lbl_80B86BE8
+    b       lbl_80B86BE8
     sw      t7, 0x0158(t8)             # 00000158
 lbl_80B86BE4:
     sw      t9, 0x0670(v1)             # 00000670
@@ -339,7 +339,7 @@ lbl_80B86C1C:
     addiu   t0, $zero, 0x006E          # t0 = 0000006E
     bnel    t9, $at, lbl_80B86C50
     lh      t1, 0x015E(a0)             # 0000015E
-    beq     $zero, $zero, lbl_80B86C6C
+    b       lbl_80B86C6C
     sh      t0, 0x015E(a0)             # 0000015E
     lh      t1, 0x015E(a0)             # 0000015E
 lbl_80B86C50:
@@ -440,7 +440,7 @@ lbl_80B86D88:
     lw      a3, 0x0024($sp)
     jal     func_800313A4              # DynaPolyInfo_setActor
     addiu   a1, a0, 0x0810             # a1 = 00000810
-    beq     $zero, $zero, lbl_80B86DC4
+    b       lbl_80B86DC4
     sw      v0, 0x013C(s0)             # 0000013C
 lbl_80B86DBC:
     jal     func_80B86E18
@@ -539,7 +539,7 @@ lbl_80B86E78:
 lbl_80B86EE8:
     jal     func_80B86F38
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B86F2C
+    b       lbl_80B86F2C
     lw      $ra, 0x0014($sp)
     lw      v0, 0x0124(v0)             # 00000124
 lbl_80B86EFC:

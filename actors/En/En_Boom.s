@@ -157,19 +157,19 @@ lbl_808BD250:
     nop
     bltz    a2, lbl_808BD274
     subu    v0, $zero, a2
-    beq     $zero, $zero, lbl_808BD274
+    b       lbl_808BD274
     or      v0, a2, $zero              # v0 = 00000000
 lbl_808BD274:
     slti    $at, v0, 0x4001
     bne     $at, $zero, lbl_808BD288
     nop
 lbl_808BD280:
-    beq     $zero, $zero, lbl_808BD310
+    b       lbl_808BD310
     sw      $zero, 0x01BC(s0)          # 000001BC
 lbl_808BD288:
     bltz    a2, lbl_808BD298
     subu    v0, $zero, a2
-    beq     $zero, $zero, lbl_808BD298
+    b       lbl_808BD298
     or      v0, a2, $zero              # v0 = 00000000
 lbl_808BD298:
     mtc1    v0, $f10                   # $f10 = 0.00
@@ -189,7 +189,7 @@ lbl_808BD298:
     lwc1    $f12, 0x0064($sp)
     bltz    a3, lbl_808BD2E4
     subu    v0, $zero, a3
-    beq     $zero, $zero, lbl_808BD2E4
+    b       lbl_808BD2E4
     or      v0, a3, $zero              # v0 = 00000000
 lbl_808BD2E4:
     mtc1    v0, $f6                    # $f6 = 0.00
@@ -239,7 +239,7 @@ lbl_808BD368:
 lbl_808BD38C:
     bne     v1, $zero, lbl_808BD39C
     addiu   t8, v1, 0xFFFF             # t8 = FFFFFFFF
-    beq     $zero, $zero, lbl_808BD3A4
+    b       lbl_808BD3A4
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_808BD39C:
     sb      t8, 0x01C4(s0)             # 000001C4
@@ -274,7 +274,7 @@ lbl_808BD3A4:
     andi    t1, t0, 0xFFFC             # t1 = 00000000
     sh      t1, 0x0088(v1)             # 00000088
     swc1    $f4, 0x006C(v1)            # 0000006C
-    beq     $zero, $zero, lbl_808BD434
+    b       lbl_808BD434
     lw      v0, 0x0078($sp)
     lw      t2, 0x0004(v1)             # 00000004
 lbl_808BD424:
@@ -290,7 +290,7 @@ lbl_808BD434:
     sw      t5, 0x066C(v0)             # 0000066C
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_808BD58C
+    b       lbl_808BD58C
     lw      v1, 0x01C0(s0)             # 000001C0
 lbl_808BD458:
     lbu     v1, 0x014C(s0)             # 0000014C
@@ -304,7 +304,7 @@ lbl_808BD458:
     addiu   a1, s0, 0x0100             # a1 = 00000100
     jal     func_80063CAC              # Vec3f_Copy
     sw      v1, 0x0074($sp)
-    beq     $zero, $zero, lbl_808BD558
+    b       lbl_808BD558
     lw      v1, 0x0074($sp)
 lbl_808BD48C:
     addiu   t6, s0, 0x0074             # t6 = 00000074
@@ -352,7 +352,7 @@ lbl_808BD48C:
     bnel    t4, $zero, lbl_808BD548
     lw      a0, 0x0084($sp)
 lbl_808BD53C:
-    beq     $zero, $zero, lbl_808BD558
+    b       lbl_808BD558
     or      v1, $zero, $zero           # v1 = 00000000
 lbl_808BD544:
     lw      a0, 0x0084($sp)
@@ -382,7 +382,7 @@ lbl_808BD58C:
     addiu   a0, v1, 0x0024             # a0 = 00000024
     bne     t0, $zero, lbl_808BD5AC
     nop
-    beq     $zero, $zero, lbl_808BD5B4
+    b       lbl_808BD5B4
     sw      $zero, 0x01C0(s0)          # 000001C0
 lbl_808BD5AC:
     jal     func_80063CAC              # Vec3f_Copy

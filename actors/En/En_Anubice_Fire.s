@@ -239,7 +239,7 @@ lbl_809ED148:
     lh      t6, 0x001C(s1)             # 0000001C
     jal     func_80020EB4
     or      a0, s1, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809ED364
+    b       lbl_809ED364
     lw      $ra, 0x005C($sp)
     lh      t6, 0x001C(s1)             # 0000001C
 lbl_809ED190:
@@ -280,7 +280,7 @@ lbl_809ED190:
     sh      t5, 0x001C(s1)             # 0000001C
     swc1    $f10, 0x005C(s1)           # 0000005C
     swc1    $f4, 0x0060(s1)            # 00000060
-    beq     $zero, $zero, lbl_809ED360
+    b       lbl_809ED360
     swc1    $f8, 0x0064(s1)            # 00000064
 lbl_809ED22C:
     sh      $zero, 0x014A(s1)          # 0000014A
@@ -300,7 +300,7 @@ lbl_809ED22C:
     addiu   a1, $zero, 0x399D          # a1 = 0000399D
     lui     t8, %hi(func_809ED398)     # t8 = 809F0000
     addiu   t8, t8, %lo(func_809ED398) # t8 = 809ED398
-    beq     $zero, $zero, lbl_809ED360
+    b       lbl_809ED360
     sw      t8, 0x013C(s1)             # 0000013C
     lwc1    $f10, 0x0140(s1)           # 00000140
 lbl_809ED27C:

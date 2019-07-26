@@ -64,7 +64,7 @@ func_80B7E700:
     lw      t9, 0x0028($sp)
     lui     $at, 0x8012                # $at = 80120000
     addiu   v0, $zero, 0x0001          # v0 = 00000001
-    beq     $zero, $zero, lbl_80B7E80C
+    b       lbl_80B7E80C
     sw      t9, 0x0C50($at)            # 80120C50
 lbl_80B7E808:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -243,7 +243,7 @@ func_80B7E820:
     addu    t7, t5, t6
     addu    t8, t7, $at
     sw      t8, 0x0004(v1)             # 00000004
-    beq     $zero, $zero, lbl_80B7EACC
+    b       lbl_80B7EACC
     lw      $ra, 0x0044($sp)
 lbl_80B7EAC0:
     addiu   t9, $zero, 0xFFFF          # t9 = FFFFFFFF
@@ -283,7 +283,7 @@ func_80B7EAE0:
     slti    $at, v0, 0x0064
     beq     $at, $zero, lbl_80B7EB4C
     addiu   t6, v0, 0x000A             # t6 = 0000000A
-    beq     $zero, $zero, lbl_80B7EB4C
+    b       lbl_80B7EB4C
     sh      t6, 0x0042(v1)             # 00000042
 lbl_80B7EB44:
     addiu   t7, $zero, 0xFFFF          # t7 = FFFFFFFF

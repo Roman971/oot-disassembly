@@ -145,7 +145,7 @@ func_80B345A0:
     sw      t6, 0x02D0(s0)             # 000002D0
     sw      t8, 0x0004(v1)             # 00000004
     sw      t7, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_80B3475C
+    b       lbl_80B3475C
     lw      v1, 0x02D0(s0)             # 000002D0
     lw      v1, 0x02D0(s0)             # 000002D0
 lbl_80B34714:
@@ -232,7 +232,7 @@ func_80B347FC:
     sh      v1, 0x004A(a2)             # 0000004A
     beql    t0, $at, lbl_80B3487C
     lh      t3, 0x0046(a2)             # 00000046
-    beq     $zero, $zero, lbl_80B34878
+    b       lbl_80B34878
     sh      v1, 0x0048(a2)             # 00000048
     lh      v0, 0x0040(a2)             # 00000040
 lbl_80B34858:

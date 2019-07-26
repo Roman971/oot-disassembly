@@ -37,7 +37,7 @@ func_80A571F0:
     lw      t9, 0x0004(s0)             # 00000004
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A5729C
+    b       lbl_80A5729C
     lw      $ra, 0x001C($sp)
 lbl_80A5728C:
     lw      t9, 0x0004(s0)             # 00000004

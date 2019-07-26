@@ -31,7 +31,7 @@ func_809EEA34:
     mtc1    $at, $f0                   # $f0 = 1.00
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809EEB48
+    b       lbl_809EEB48
     lw      $ra, 0x001C($sp)
     mtc1    $at, $f0                   # $f0 = 0.00
 lbl_809EEA70:
@@ -58,7 +58,7 @@ lbl_809EEA70:
     swc1    $f10, 0x0028(s0)           # 00000028
     jal     func_809EEA0C
     lw      a0, 0x0024($sp)
-    beq     $zero, $zero, lbl_809EEAF0
+    b       lbl_809EEAF0
     lw      a0, 0x0024($sp)
 lbl_809EEAD4:
     lui     $at, 0x4338                # $at = 43380000
@@ -80,7 +80,7 @@ lbl_809EEAF0:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809EEB48
+    b       lbl_809EEB48
     lw      $ra, 0x001C($sp)
 lbl_809EEB24:
     jal     func_809EEB78
@@ -180,7 +180,7 @@ func_809EEC18:
     sw      v0, 0x002C($sp)
     lui     $at, 0xC38D                # $at = C38D0000
     mtc1    $at, $f4                   # $f4 = -282.00
-    beq     $zero, $zero, lbl_809EEC78
+    b       lbl_809EEC78
     swc1    $f4, 0x0140(s0)            # 00000140
 lbl_809EEC68:
     lui     $at, 0x4338                # $at = 43380000
@@ -199,7 +199,7 @@ lbl_809EEC78:
     jal     func_8006B6FC
     sw      $zero, 0x0010($sp)
     addiu   t8, $zero, 0x005A          # t8 = 0000005A
-    beq     $zero, $zero, lbl_809EECE4
+    b       lbl_809EECE4
     sh      t8, 0x014A(s0)             # 0000014A
 lbl_809EECAC:
     bnel    v0, $zero, lbl_809EECE8
@@ -254,12 +254,12 @@ lbl_809EED10:
     nop
     jal     func_80064738
     addiu   a0, $zero, 0x205E          # a0 = 0000205E
-    beq     $zero, $zero, lbl_809EEDC4
+    b       lbl_809EEDC4
     lw      t8, 0x002C($sp)
 lbl_809EED78:
     jal     func_80064738
     addiu   a0, $zero, 0x205E          # a0 = 0000205E
-    beq     $zero, $zero, lbl_809EEDC4
+    b       lbl_809EEDC4
     lw      t8, 0x002C($sp)
     lwc1    $f18, 0x0140(s0)           # 00000140
 lbl_809EED8C:
@@ -274,7 +274,7 @@ lbl_809EED8C:
     sra     a1, a1, 16
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809EEDCC
+    b       lbl_809EEDCC
     lw      $ra, 0x0024($sp)
     lw      t8, 0x002C($sp)
 lbl_809EEDC4:

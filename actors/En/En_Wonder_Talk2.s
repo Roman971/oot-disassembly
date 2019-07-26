@@ -73,7 +73,7 @@ lbl_80B233E4:
     lw      a2, 0x0018($sp)
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B23494
+    b       lbl_80B23494
     lw      $ra, 0x0014($sp)
 lbl_80B2340C:
     lh      v0, 0x0144(a2)             # 00000144
@@ -108,7 +108,7 @@ lbl_80B23460:
     addiu   t2, t2, %lo(func_80B238A8) # t2 = 80B238A8
     and     t1, t0, $at
     sw      t1, 0x0004(a2)             # 00000004
-    beq     $zero, $zero, lbl_80B23490
+    b       lbl_80B23490
     sw      t2, 0x013C(a2)             # 0000013C
 lbl_80B2348C:
     sw      t3, 0x013C(a2)             # 0000013C
@@ -172,7 +172,7 @@ func_80B234F0:
     addiu   t3, $zero, 0x0001          # t3 = 00000001
     sb      t3, 0x014A(s0)             # 0000014A
     and     t2, t1, $at
-    beq     $zero, $zero, lbl_80B2365C
+    b       lbl_80B2365C
     sw      t2, 0x0004(s0)             # 00000004
 lbl_80B23560:
     or      a0, s0, $zero              # a0 = 00000000
@@ -194,7 +194,7 @@ lbl_80B23564:
 lbl_80B2359C:
     lui     t5, %hi(func_80B234A0)     # t5 = 80B20000
     addiu   t5, t5, %lo(func_80B234A0) # t5 = 80B234A0
-    beq     $zero, $zero, lbl_80B2365C
+    b       lbl_80B2365C
     sw      t5, 0x013C(s0)             # 0000013C
 lbl_80B235AC:
     lh      t6, 0x008A(s0)             # 0000008A
@@ -207,7 +207,7 @@ lbl_80B235AC:
     bltz    v0, lbl_80B235DC
     subu    v1, $zero, v0
     sll     v1, v0, 16
-    beq     $zero, $zero, lbl_80B235E4
+    b       lbl_80B235E4
     sra     v1, v1, 16
 lbl_80B235DC:
     sll     v1, v1, 16
@@ -347,7 +347,7 @@ func_80B23758:
     addiu   t2, $zero, 0x0001          # t2 = 00000001
     sb      t2, 0x014A(a3)             # 0000014A
     and     t1, t0, $at
-    beq     $zero, $zero, lbl_80B23898
+    b       lbl_80B23898
     sw      t1, 0x0004(a3)             # 00000004
 lbl_80B237CC:
     lh      t3, 0x0144(a3)             # 00000144
@@ -399,7 +399,7 @@ lbl_80B237E8:
     lw      t6, 0x0004(a3)             # 00000004
     sw      t8, 0x013C(a3)             # 0000013C
     ori     t7, t6, 0x0011             # t7 = 00000011
-    beq     $zero, $zero, lbl_80B23898
+    b       lbl_80B23898
     sw      t7, 0x0004(a3)             # 00000004
 lbl_80B23894:
     sh      $zero, 0x0146(a3)          # 00000146

@@ -18,7 +18,7 @@ func_80B661F0:
 lbl_80B66210:
     jal     func_80020EB4
     nop
-    beq     $zero, $zero, lbl_80B6622C
+    b       lbl_80B6622C
     lw      $ra, 0x0014($sp)
     sw      $zero, 0x013C(a0)          # 0000013C
 lbl_80B66224:
@@ -233,7 +233,7 @@ func_80B664F8:
     addiu   $at, $zero, 0x0002         # $at = 00000002
     beql    v0, $at, lbl_80B66534
     addiu   v0, $zero, 0x0001          # v0 = 00000001
-    beq     $zero, $zero, lbl_80B66534
+    b       lbl_80B66534
     addiu   v0, $zero, 0x0002          # v0 = 00000002
 lbl_80B66530:
     addiu   v0, $zero, 0x0001          # v0 = 00000001
@@ -343,7 +343,7 @@ func_80B6666C:
     nop
     jal     func_80020EB4
     nop
-    beq     $zero, $zero, lbl_80B666AC
+    b       lbl_80B666AC
     lw      $ra, 0x0014($sp)
 lbl_80B666A0:
     jalr    $ra, v1
@@ -378,7 +378,7 @@ func_80B666B8:
     or      a2, v0, $zero              # a2 = 00000000
     jal     func_80020EB4
     or      a0, a3, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B66748
+    b       lbl_80B66748
     lw      $ra, 0x0014($sp)
 lbl_80B66718:
     or      a1, a2, $zero              # a1 = 00000000

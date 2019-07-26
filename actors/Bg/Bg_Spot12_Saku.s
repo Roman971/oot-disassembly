@@ -48,7 +48,7 @@ func_80B3DA18:
     nop
     jal     func_80B3DC94
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B3DA88
+    b       lbl_80B3DA88
     lw      $ra, 0x001C($sp)
 lbl_80B3DA7C:
     jal     func_80B3DACC
@@ -194,7 +194,7 @@ func_80B3DB84:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022FD0
     addiu   a1, $zero, 0x280E          # a1 = 0000280E
-    beq     $zero, $zero, lbl_80B3DC84
+    b       lbl_80B3DC84
     lw      $ra, 0x0024($sp)
 lbl_80B3DC78:
     jal     func_8002313C

@@ -61,7 +61,7 @@ func_80059A28:
     nop
     bc1f    lbl_80059A64
     nop
-    beq     $zero, $zero, lbl_80059BB4
+    b       lbl_80059BB4
     lwc1    $f0, 0x0008(a1)            # 00000008
 lbl_80059A64:
     multu   a2, t0
@@ -76,7 +76,7 @@ lbl_80059A64:
     nop
     bc1fl   lbl_80059AA0
     or      v0, a1, $zero              # v0 = 00000000
-    beq     $zero, $zero, lbl_80059BB4
+    b       lbl_80059BB4
     lwc1    $f0, -0x0004(v0)           # FFFFFFFC
     or      v0, a1, $zero              # v0 = 00000000
 lbl_80059AA0:
@@ -92,7 +92,7 @@ lbl_80059AA0:
     andi    t1, a2, 0x0001             # t1 = 00000000
     beq     t1, $zero, lbl_80059AD8
     andi    t2, a2, 0x0002             # t2 = 00000000
-    beq     $zero, $zero, lbl_80059BB4
+    b       lbl_80059BB4
     lwc1    $f0, 0x0008(v0)            # 00000008
 lbl_80059AD8:
     beq     t2, $zero, lbl_80059B30
@@ -115,7 +115,7 @@ lbl_80059AD8:
     sub.s   $f18, $f10, $f2
     div.s   $f6, $f8, $f4
     mul.s   $f8, $f18, $f6
-    beq     $zero, $zero, lbl_80059BB4
+    b       lbl_80059BB4
     add.s   $f0, $f8, $f2
 lbl_80059B30:
     multu   a0, t0
@@ -146,11 +146,11 @@ lbl_80059B30:
     mul.s   $f14, $f0, $f8
     jal     func_80059990
     swc1    $f6, 0x0014($sp)
-    beq     $zero, $zero, lbl_80059BB8
+    b       lbl_80059BB8
     lw      $ra, 0x0024($sp)
     addiu   v1, v1, 0x0001             # v1 = 00000001
 lbl_80059BAC:
-    beq     $zero, $zero, lbl_80059AA0
+    b       lbl_80059AA0
     addiu   v0, v0, 0x000C             # v0 = 0000000C
 lbl_80059BB4:
     lw      $ra, 0x0024($sp)
@@ -395,7 +395,7 @@ lbl_80059F10:
     trunc.w.s $f16, $f0
     addiu   s5, s5, 0x0002             # s5 = 00000002
     mfc1    t8, $f16
-    beq     $zero, $zero, lbl_80059F88
+    b       lbl_80059F88
     sh      t8, 0x0000(s0)             # 00000000
 lbl_80059F24:
     jal     func_80059A28
@@ -409,7 +409,7 @@ lbl_80059F24:
     mul.s   $f4, $f0, $f20
     trunc.w.s $f6, $f4
     mfc1    t6, $f6
-    beq     $zero, $zero, lbl_80059F88
+    b       lbl_80059F88
     sh      t6, 0x0000(s0)             # 00000000
 lbl_80059F58:
     bne     s2, s8, lbl_80059F74
@@ -417,7 +417,7 @@ lbl_80059F58:
     mul.s   $f8, $f0, $f22
     trunc.w.s $f10, $f8
     mfc1    t8, $f10
-    beq     $zero, $zero, lbl_80059F88
+    b       lbl_80059F88
     sh      t8, 0x0000(s0)             # 00000000
 lbl_80059F74:
     mul.s   $f18, $f0, $f24
@@ -587,7 +587,7 @@ lbl_8005A0A8:
     sw      t7, 0x02C0(s0)             # 000002C0
     sw      a1, 0x0004(v1)             # 00000004
     sw      t9, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_8005A2C8
+    b       lbl_8005A2C8
     lw      s0, 0x0098($sp)
 lbl_8005A200:
     bne     t0, $at, lbl_8005A2C4

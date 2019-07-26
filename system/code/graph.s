@@ -46,7 +46,7 @@ func_800A1010:
     sw      a2, 0x0000(v0)             # 00000000
     lw      t9, 0x0010(a2)             # 00000010
     addiu   v0, v0, 0x0010             # v0 = 00000010
-    beq     $zero, $zero, lbl_800A106C
+    b       lbl_800A106C
     sw      t9, 0x0004(a2)             # 00000004
 lbl_800A1068:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -205,7 +205,7 @@ func_800A1248:
     bne     v0, t6, lbl_800A1274
     lw      $ra, 0x0014($sp)
     lui     v0, 0x800F                 # v0 = 800F0000
-    beq     $zero, $zero, lbl_800A12F0
+    b       lbl_800A12F0
     addiu   v0, v0, 0x1340             # v0 = 800F1340
 lbl_800A1274:
     lui     t7, 0x8080                 # t7 = 80800000
@@ -213,34 +213,34 @@ lbl_800A1274:
     bne     v0, t7, lbl_800A1290
     lui     t8, 0x8080                 # t8 = 80800000
     lui     v0, 0x800F                 # v0 = 800F0000
-    beq     $zero, $zero, lbl_800A12F0
+    b       lbl_800A12F0
     addiu   v0, v0, 0x1370             # v0 = 800F1370
 lbl_800A1290:
     addiu   t8, t8, 0x07B0             # t8 = 808007B0
     bne     v0, t8, lbl_800A12A8
     lui     t9, 0x800A                 # t9 = 800A0000
     lui     v0, 0x800F                 # v0 = 800F0000
-    beq     $zero, $zero, lbl_800A12F0
+    b       lbl_800A12F0
     addiu   v0, v0, 0x13A0             # v0 = 800F13A0
 lbl_800A12A8:
     addiu   t9, t9, 0xA750             # t9 = 8009A750
     bne     v0, t9, lbl_800A12C0
     lui     t0, 0x8080                 # t0 = 80800000
     lui     v0, 0x800F                 # v0 = 800F0000
-    beq     $zero, $zero, lbl_800A12F0
+    b       lbl_800A12F0
     addiu   v0, v0, 0x13D0             # v0 = 800F13D0
 lbl_800A12C0:
     addiu   t0, t0, 0x37E8             # t0 = 808037E8
     bne     v0, t0, lbl_800A12D8
     lui     t1, 0x8081                 # t1 = 80810000
     lui     v0, 0x800F                 # v0 = 800F0000
-    beq     $zero, $zero, lbl_800A12F0
+    b       lbl_800A12F0
     addiu   v0, v0, 0x1400             # v0 = 800F1400
 lbl_800A12D8:
     addiu   t1, t1, 0x2394             # t1 = 80812394
     bne     v0, t1, lbl_800A12EC
     lui     v0, 0x800F                 # v0 = 800F0000
-    beq     $zero, $zero, lbl_800A12F0
+    b       lbl_800A12F0
     addiu   v0, v0, 0x1430             # v0 = 800F1430
 lbl_800A12EC:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -836,7 +836,7 @@ func_800A1B14:
     lw      a2, 0x0018($sp)
     bne     v0, $zero, lbl_800A1B40
     or      a0, v0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_800A1B70
+    b       lbl_800A1B70
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_800A1B40:
     lw      v1, 0x0004(a2)             # 00000004

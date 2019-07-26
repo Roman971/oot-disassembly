@@ -75,7 +75,7 @@ lbl_80B796C0:
     sw      $zero, 0x0018($sp)
     lui     t8, %hi(func_80B79AA4)     # t8 = 80B80000
     addiu   t8, t8, %lo(func_80B79AA4) # t8 = 80B79AA4
-    beq     $zero, $zero, lbl_80B797B8
+    b       lbl_80B797B8
     sw      t8, 0x013C(s0)             # 0000013C
 lbl_80B797A0:
     lui     $at, 0xC5FA                # $at = C5FA0000

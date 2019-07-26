@@ -186,7 +186,7 @@ lbl_80A290B4:
     jal     func_80063CAC              # Vec3f_Copy
     sh      v0, 0x0022($sp)
     lh      v0, 0x0022($sp)
-    beq     $zero, $zero, lbl_80A290F8
+    b       lbl_80A290F8
     addiu   $at, $zero, 0x0002         # $at = 00000002
 lbl_80A290DC:
     lui     a1, %hi(var_80A29D70)      # a1 = 80A30000
@@ -202,7 +202,7 @@ lbl_80A290F8:
     addiu   $at, $zero, 0x0003         # $at = 00000003
     beq     v0, $at, lbl_80A29130
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A29148
+    b       lbl_80A29148
     or      a0, s0, $zero              # a0 = 00000000
 lbl_80A29114:
     lui     a2, 0x0600                 # a2 = 06000000
@@ -210,7 +210,7 @@ lbl_80A29114:
     lw      a1, 0x002C($sp)
     jal     func_80A28F54
     or      a3, $zero, $zero           # a3 = 00000000
-    beq     $zero, $zero, lbl_80A29148
+    b       lbl_80A29148
     or      a0, s0, $zero              # a0 = 00000000
 lbl_80A29130:
     lui     a2, 0x0600                 # a2 = 06000000
@@ -235,7 +235,7 @@ lbl_80A29148:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A29198
+    b       lbl_80A29198
     lw      $ra, 0x001C($sp)
 lbl_80A2918C:
     jal     func_80A2970C
@@ -271,7 +271,7 @@ var_80A291E8:
     addiu   a1, a0, 0x0810             # a1 = 00000810
     jal     func_80031638              # DynaPolyInfo_delReserve
     lw      a2, 0x013C(t1)             # 0000013C
-    beq     $zero, $zero, lbl_80A29218
+    b       lbl_80A29218
     lw      a1, 0x0018($sp)
 var_80A29204:
     lw      a1, 0x0018($sp)
@@ -679,7 +679,7 @@ lbl_80A297E0:
     lui     $at, 0x0001                # $at = 00010000
     ori     $at, $at, 0x1E60           # $at = 00011E60
     addu    a1, a1, $at
-    beq     $zero, $zero, lbl_80A29848
+    b       lbl_80A29848
     addiu   a3, s0, 0x0158             # a3 = 00000158
 lbl_80A2980C:
     lw      a0, 0x003C($sp)
@@ -734,12 +734,12 @@ func_80A29884:
     andi    a2, a2, 0x0007             # a2 = 00000000
     bgez    v0, lbl_80A298C4
     slti    $at, v0, 0x0100
-    beq     $zero, $zero, lbl_80A298D8
+    b       lbl_80A298D8
     sh      $zero, 0x01F0(s0)          # 000001F0
 lbl_80A298C4:
     bne     $at, $zero, lbl_80A298D4
     or      v1, v0, $zero              # v1 = 00000000
-    beq     $zero, $zero, lbl_80A298D4
+    b       lbl_80A298D4
     addiu   v1, $zero, 0x00FF          # v1 = 000000FF
 lbl_80A298D4:
     sh      v1, 0x01F0(s0)             # 000001F0
@@ -758,7 +758,7 @@ lbl_80A298D8:
     nop
     bc1fl   lbl_80A2991C
     swc1    $f0, 0x0054(s0)            # 00000054
-    beq     $zero, $zero, lbl_80A2991C
+    b       lbl_80A2991C
     swc1    $f2, 0x0054(s0)            # 00000054
     swc1    $f0, 0x0054(s0)            # 00000054
 lbl_80A2991C:
@@ -793,14 +793,14 @@ lbl_80A29980:
     or      a0, s0, $zero              # a0 = 00000000
     lui     $at, 0x3F80                # $at = 3F800000
     mtc1    $at, $f0                   # $f0 = 1.00
-    beq     $zero, $zero, lbl_80A299B8
+    b       lbl_80A299B8
     nop
 lbl_80A29998:
     slti    $at, v0, 0x003D
     bne     $at, $zero, lbl_80A299B0
     lui     $at, 0x3F00                # $at = 3F000000
     mtc1    $at, $f0                   # $f0 = 0.50
-    beq     $zero, $zero, lbl_80A299B8
+    b       lbl_80A299B8
     nop
 lbl_80A299B0:
     mtc1    $zero, $f0                 # $f0 = 0.00
@@ -960,7 +960,7 @@ var_80A29B54:
     sw      t6, 0x02D0(s0)             # 000002D0
     sw      t8, 0x0004(v1)             # 00000004
     sw      t7, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_80A29D34
+    b       lbl_80A29D34
     lw      $ra, 0x003C($sp)
 var_80A29BF8:
     lw      v1, 0x02D0(s0)             # 000002D0
@@ -1031,7 +1031,7 @@ var_80A29BF8:
     sw      t7, 0x02D0(s0)             # 000002D0
     sw      t9, 0x0004(v1)             # 00000004
     sw      t8, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_80A29D34
+    b       lbl_80A29D34
     lw      $ra, 0x003C($sp)
 var_80A29D10:
     lw      v1, 0x02D0(s0)             # 000002D0

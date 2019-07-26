@@ -94,7 +94,7 @@ func_80AD81FC:
     lw      t6, 0x003C($sp)
     jal     func_800495BC
     lw      a0, 0x0790(t5)             # 00000790
-    beq     $zero, $zero, lbl_80AD82D8
+    b       lbl_80AD82D8
     nop
 lbl_80AD82C8:
     lw      t6, 0x003C($sp)

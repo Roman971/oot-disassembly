@@ -123,7 +123,7 @@ func_80B35C8C:
     add.s   $f18, $f0, $f0
     div.s   $f20, $f18, $f6
     mul.s   $f20, $f20, $f8
-    beq     $zero, $zero, lbl_80B35D38
+    b       lbl_80B35D38
     lwc1    $f12, 0x0000(s1)           # 00000000
     lui     $at, 0x437F                # $at = 437F0000
 lbl_80B35D2C:

@@ -29,7 +29,7 @@ func_80B33000:
     bne     t5, $at, lbl_80B3307C
     addiu   t8, t8, %lo(func_80B33100) # t8 = 80B33100
     addiu   t6, $zero, 0x0010          # t6 = 00000010
-    beq     $zero, $zero, lbl_80B33084
+    b       lbl_80B33084
     sh      t6, 0x005C(a2)             # 0000005C
 lbl_80B3307C:
     addiu   t7, $zero, 0x0008          # t7 = 00000008
@@ -225,7 +225,7 @@ func_80B33310:
     addiu   $at, t8, 0x0001            # $at = 00000001
     sra     t9, $at,  1
 lbl_80B3335C:
-    beq     $zero, $zero, lbl_80B33374
+    b       lbl_80B33374
     sh      t9, 0x0040(s0)             # 00000040
 lbl_80B33364:
     lh      v0, 0x005C(s0)             # 0000005C

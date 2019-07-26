@@ -18,7 +18,7 @@ func_80A912F0:
     addiu   $at, $zero, 0x0001         # $at = 00000001
     bnel    t6, $at, lbl_80A9130C
     lw      v0, 0x1C44(a1)             # 00001C44
-    beq     $zero, $zero, lbl_80A9130C
+    b       lbl_80A9130C
     lw      v0, 0x0118(a0)             # 00000118
     lw      v0, 0x1C44(a1)             # 00001C44
 lbl_80A9130C:
@@ -46,7 +46,7 @@ func_80A9132C:
     lh      t9, 0x001C(a0)             # 0000001C
     bnel    t9, $at, lbl_80A9136C
     lw      s0, 0x1C44(a3)             # 00001C44
-    beq     $zero, $zero, lbl_80A9136C
+    b       lbl_80A9136C
     lw      s0, 0x0118(a0)             # 00000118
     lw      s0, 0x1C44(a3)             # 00001C44
 lbl_80A9136C:
@@ -165,7 +165,7 @@ lbl_80A91474:
     swc1    $f10, 0x008C($sp)
     lwc1    $f6, 0x002C(s4)            # 0000002C
     sub.s   $f4, $f18, $f6
-    beq     $zero, $zero, lbl_80A91584
+    b       lbl_80A91584
     swc1    $f4, 0x0090($sp)
 lbl_80A91528:
     multu   s3, s6
@@ -292,7 +292,7 @@ lbl_80A916F0:
     slti    $at, t3, 0x000C
     bne     $at, $zero, lbl_80A9166C
     sra     a2, a2, 16
-    beq     $zero, $zero, lbl_80A919CC
+    b       lbl_80A919CC
     addiu   s3, s3, 0x0001             # s3 = 00000002
 lbl_80A9170C:
     addiu   $at, $zero, 0x0001         # $at = 00000001
@@ -341,7 +341,7 @@ lbl_80A917A0:
     slti    $at, t3, 0x0008
     bne     $at, $zero, lbl_80A9171C
     sra     a2, a2, 16
-    beq     $zero, $zero, lbl_80A919CC
+    b       lbl_80A919CC
     addiu   s3, s3, 0x0001             # s3 = 00000003
 lbl_80A917BC:
     bne     v0, $zero, lbl_80A91874
@@ -392,7 +392,7 @@ lbl_80A91858:
     slti    $at, t3, 0x0007
     bne     $at, $zero, lbl_80A917CC
     sra     a2, a2, 16
-    beq     $zero, $zero, lbl_80A919CC
+    b       lbl_80A919CC
     addiu   s3, s3, 0x0001             # s3 = 00000004
 lbl_80A91874:
     bne     v0, $at, lbl_80A91924
@@ -441,7 +441,7 @@ lbl_80A91908:
     slti    $at, t3, 0x000E
     bne     $at, $zero, lbl_80A91884
     sra     a2, a2, 16
-    beq     $zero, $zero, lbl_80A919CC
+    b       lbl_80A919CC
     addiu   s3, s3, 0x0001             # s3 = 00000005
 lbl_80A91924:
     addiu   a2, $zero, 0xFF80          # a2 = FFFFFF80
@@ -563,7 +563,7 @@ lbl_80A91AC0:
     bnel    a0, v1, lbl_80A91ADC
     sb      $zero, 0x0000(v0)          # 00000000
 lbl_80A91AD0:
-    beq     $zero, $zero, lbl_80A91ADC
+    b       lbl_80A91ADC
     sb      s0, 0x0000(v0)             # 00000000
     sb      $zero, 0x0000(v0)          # 00000000
 lbl_80A91ADC:
@@ -573,7 +573,7 @@ lbl_80A91ADC:
     slti    $at, s3, 0x1000
     bne     $at, $zero, lbl_80A91A9C
     addiu   v0, v0, 0x0001             # v0 = 00000001
-    beq     $zero, $zero, lbl_80A91B1C
+    b       lbl_80A91B1C
     lw      t8, 0x0000(s8)             # 8011BA00
 lbl_80A91AFC:
     addiu   s3, s3, 0x0001             # s3 = 00000002

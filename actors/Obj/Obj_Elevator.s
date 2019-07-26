@@ -129,7 +129,7 @@ func_80A8599C:
     cvt.s.w $f10, $f8
     mul.s   $f18, $f10, $f16
     add.s   $f4, $f12, $f18
-    beq     $zero, $zero, lbl_80A85A24
+    b       lbl_80A85A24
     swc1    $f4, 0x0158(a0)            # 00000158
     swc1    $f12, 0x0158(a0)           # 00000158
 lbl_80A85A24:
@@ -179,7 +179,7 @@ func_80A85A60:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80A85978
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A85AD4
+    b       lbl_80A85AD4
     lw      $ra, 0x0024($sp)
 lbl_80A85AC8:
     jal     func_80022FD0

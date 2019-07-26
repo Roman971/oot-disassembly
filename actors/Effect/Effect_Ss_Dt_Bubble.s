@@ -17,7 +17,7 @@ func_80B30DF0:
     bc1f    lbl_80B30E3C
     nop
     lui     v1, 0x0406                 # v1 = 04060000
-    beq     $zero, $zero, lbl_80B30E3C
+    b       lbl_80B30E3C
     addiu   v1, v1, 0xB2E0             # v1 = 0405B2E0
 lbl_80B30E3C:
     sw      v1, 0x001C($sp)
@@ -35,7 +35,7 @@ lbl_80B30E3C:
     bc1f    lbl_80B30E80
     sll     t7, v1,  4
     lui     v0, 0x0406                 # v0 = 04060000
-    beq     $zero, $zero, lbl_80B30E88
+    b       lbl_80B30E88
     addiu   v0, v0, 0xB2E0             # v0 = 0405B2E0
 lbl_80B30E80:
     lui     v0, 0x0406                 # v0 = 04060000
@@ -117,7 +117,7 @@ lbl_80B30E88:
     sll     t0, t6,  2
     addu    t1, v1, t0
     lbu     t2, 0x0003(t1)             # 00000003
-    beq     $zero, $zero, lbl_80B31000
+    b       lbl_80B31000
     sh      t2, 0x004E(a2)             # 0000004E
     lbu     t3, 0x0024(a3)             # 00000024
 lbl_80B30FC4:

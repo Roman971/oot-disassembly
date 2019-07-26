@@ -124,7 +124,7 @@ lbl_8086A440:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086A4A0
+    b       lbl_8086A4A0
     nop
 lbl_8086A484:
     jal     func_80013678
@@ -135,7 +135,7 @@ lbl_8086A484:
     nop
     swc1    $f4, 0x0068(v0)            # 00000068
 lbl_8086A4A0:
-    beq     $zero, $zero, lbl_8086A53C
+    b       lbl_8086A53C
     lh      v0, 0x001C(s0)             # 0000001C
     addiu   $at, $zero, 0x0003         # $at = 00000003
 lbl_8086A4AC:
@@ -152,13 +152,13 @@ lbl_8086A4AC:
 lbl_8086A4D4:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086A4EC
+    b       lbl_8086A4EC
     nop
 lbl_8086A4E4:
     jal     func_800204D0
     addiu   a1, $zero, 0x0028          # a1 = 00000028
 lbl_8086A4EC:
-    beq     $zero, $zero, lbl_8086A53C
+    b       lbl_8086A53C
     lh      v0, 0x001C(s0)             # 0000001C
 lbl_8086A4F4:
     addiu   $at, $zero, 0x0002         # $at = 00000002
@@ -175,7 +175,7 @@ lbl_8086A4F4:
 lbl_8086A520:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086A53C
+    b       lbl_8086A53C
     lh      v0, 0x001C(s0)             # 0000001C
 lbl_8086A530:
     jal     func_800204D0
@@ -193,7 +193,7 @@ lbl_8086A53C:
     addiu   t7, $zero, 0x0044          # t7 = 00000044
     sb      v0, 0x0186(s0)             # 00000186
     sb      $zero, 0x0187(s0)          # 00000187
-    beq     $zero, $zero, lbl_8086A594
+    b       lbl_8086A594
     sb      t7, 0x0117(s0)             # 00000117
 lbl_8086A570:
     lui     $at, 0x0001                # $at = 00010000
@@ -347,7 +347,7 @@ func_8086A750:
     addiu   a1, a1, 0x01A8             # a1 = 060001A8
     jal     func_8008D328
     addiu   a0, s0, 0x013C             # a0 = 0000013C
-    beq     $zero, $zero, lbl_8086A798
+    b       lbl_8086A798
     mtc1    $zero, $f4                 # $f4 = 0.00
 lbl_8086A78C:
     jal     func_8008D2D4
@@ -384,7 +384,7 @@ func_8086A7D0:
     addiu   a1, a1, 0x04EC             # a1 = 060004EC
     jal     func_8008D21C
     addiu   a0, s0, 0x013C             # a0 = 0000013C
-    beq     $zero, $zero, lbl_8086A818
+    b       lbl_8086A818
     lw      t7, 0x02E8(s0)             # 000002E8
 lbl_8086A80C:
     jal     func_8008D1C4
@@ -400,7 +400,7 @@ lbl_8086A818:
     nop
     lw      t0, 0x02B4(s0)             # 000002B4
     lh      t1, 0x0032(t0)             # 00000032
-    beq     $zero, $zero, lbl_8086A858
+    b       lbl_8086A858
     sh      t1, 0x0032(s0)             # 00000032
 lbl_8086A844:
     jal     func_800213B4
@@ -483,7 +483,7 @@ func_8086A920:
     addiu   a2, $zero, 0x0000          # a2 = 00000000
     lui     t9, %hi(func_8086B4AC)     # t9 = 80870000
     addiu   t9, t9, %lo(func_8086B4AC) # t9 = 8086B4AC
-    beq     $zero, $zero, lbl_8086A9BC
+    b       lbl_8086A9BC
     sw      t9, 0x0180(s0)             # 00000180
 lbl_8086A970:
     lui     a1, 0x0600                 # a1 = 06000000
@@ -720,7 +720,7 @@ func_8086AC24:
     swc1    $f0, 0x0060(s0)            # 00000060
     addiu   t0, $zero, 0x00C8          # t0 = 000000C8
     sb      t0, 0x028B(s0)             # 0000028B
-    beq     $zero, $zero, lbl_8086ACD0
+    b       lbl_8086ACD0
     sb      $zero, 0x028C(s0)          # 0000028C
 lbl_8086ACC4:
     addiu   t1, $zero, 0x00C8          # t1 = 000000C8
@@ -795,7 +795,7 @@ lbl_8086ADAC:
     and     t7, t5, t6
     beq     t7, $zero, lbl_8086ADD8
     addiu   a1, $zero, 0x000A          # a1 = 0000000A
-    beq     $zero, $zero, lbl_8086AE70
+    b       lbl_8086AE70
     sh      t8, 0x010E(a2)             # 0000010E
 lbl_8086ADD8:
     jal     func_8002049C
@@ -809,7 +809,7 @@ lbl_8086ADD8:
     bne     v0, $zero, lbl_8086AE0C
     lw      a2, 0x0018($sp)
     addiu   t9, $zero, 0x500F          # t9 = 0000500F
-    beq     $zero, $zero, lbl_8086AE70
+    b       lbl_8086AE70
     sh      t9, 0x010E(a2)             # 0000010E
 lbl_8086AE0C:
     lh      v0, 0x001C(a2)             # 0000001C
@@ -833,11 +833,11 @@ lbl_8086AE34:
     lw      a2, 0x0018($sp)
 lbl_8086AE54:
     addiu   t0, $zero, 0x5013          # t0 = 00005013
-    beq     $zero, $zero, lbl_8086AE70
+    b       lbl_8086AE70
     sh      t0, 0x010E(a2)             # 0000010E
 lbl_8086AE60:
     addiu   t1, $zero, 0x5012          # t1 = 00005012
-    beq     $zero, $zero, lbl_8086AE70
+    b       lbl_8086AE70
     sh      t1, 0x010E(a2)             # 0000010E
 lbl_8086AE6C:
     sh      t2, 0x010E(a2)             # 0000010E
@@ -1006,7 +1006,7 @@ lbl_8086B078:
     lh      t7, 0x0188(s0)             # 00000188
     jal     func_8086A700
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086B0C4
+    b       lbl_8086B0C4
     lbu     t8, 0x028D(s0)             # 0000028D
     lh      t7, 0x0188(s0)             # 00000188
 lbl_8086B0B0:
@@ -1072,7 +1072,7 @@ lbl_8086B148:
     lh      t8, 0x0188(s0)             # 00000188
     jal     func_8086A700
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086B1E0
+    b       lbl_8086B1E0
     lbu     t9, 0x028D(s0)             # 0000028D
     lh      t8, 0x0188(s0)             # 00000188
 lbl_8086B19C:
@@ -1088,7 +1088,7 @@ lbl_8086B19C:
     nop
     jal     func_8086AA5C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086B1E0
+    b       lbl_8086B1E0
     lbu     t9, 0x028D(s0)             # 0000028D
 lbl_8086B1D4:
     jal     func_8086A658
@@ -1140,7 +1140,7 @@ lbl_8086B24C:
     slti    $at, v0, 0xD000
     jal     func_80063704
     sra     a1, a1, 16
-    beq     $zero, $zero, lbl_8086B2C8
+    b       lbl_8086B2C8
     or      a0, s0, $zero              # a0 = 00000000
     slti    $at, v0, 0xD000
 lbl_8086B28C:
@@ -1152,7 +1152,7 @@ lbl_8086B28C:
     addiu   a0, s0, 0x0032             # a0 = 00000032
     jal     func_80063704
     addiu   a2, $zero, 0x071C          # a2 = 0000071C
-    beq     $zero, $zero, lbl_8086B2C8
+    b       lbl_8086B2C8
     or      a0, s0, $zero              # a0 = 00000000
 lbl_8086B2B4:
     sll     a1, a3, 16
@@ -1172,7 +1172,7 @@ lbl_8086B2C8:
     lh      t1, 0x0188(s0)             # 00000188
     jal     func_8086A6B0
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086B344
+    b       lbl_8086B344
     lbu     t2, 0x028D(s0)             # 0000028D
     lh      t1, 0x0188(s0)             # 00000188
 lbl_8086B300:
@@ -1240,7 +1240,7 @@ lbl_8086B3BC:
     addiu   $at, $zero, 0x0009         # $at = 00000009
     jal     func_80063704
     lh      a1, 0x008A(s0)             # 0000008A
-    beq     $zero, $zero, lbl_8086B430
+    b       lbl_8086B430
     lw      $ra, 0x001C($sp)
     addiu   $at, $zero, 0x0009         # $at = 00000009
 lbl_8086B3F4:
@@ -1250,7 +1250,7 @@ lbl_8086B3F4:
     lui     $at, 0x4000                # $at = 40000000
     mtc1    $at, $f6                   # $f6 = 2.00
     swc1    $f4, 0x0068(s0)            # 00000068
-    beq     $zero, $zero, lbl_8086B42C
+    b       lbl_8086B42C
     swc1    $f6, 0x0158(s0)            # 00000158
 lbl_8086B414:
     bnel    v0, $zero, lbl_8086B430
@@ -1288,7 +1288,7 @@ func_8086B440:
     nop
     jal     func_8086A8AC
     or      a0, a3, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086B4A0
+    b       lbl_8086B4A0
     lw      $ra, 0x0014($sp)
 lbl_8086B494:
     jal     func_8086A9D0
@@ -1322,7 +1322,7 @@ func_8086B4AC:
     ori     t8, t7, 0x0001             # t8 = 00000001
     jal     func_8086A6B0
     sw      t8, 0x0004(s0)             # 00000004
-    beq     $zero, $zero, lbl_8086B5C8
+    b       lbl_8086B5C8
     lui     $at, 0x3F00                # $at = 3F000000
 lbl_8086B504:
     mtc1    $at, $f2                   # $f2 = 0.50
@@ -1362,10 +1362,10 @@ lbl_8086B504:
     nop
     mfc1    t0, $f18
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086B5B8
+    b       lbl_8086B5B8
     or      t0, t0, $at                # t0 = 80000000
 lbl_8086B5A0:
-    beq     $zero, $zero, lbl_8086B5B8
+    b       lbl_8086B5B8
     addiu   t0, $zero, 0xFFFF          # t0 = FFFFFFFF
     mfc1    t0, $f18
 lbl_8086B5AC:
@@ -1428,7 +1428,7 @@ func_8086B62C:
     ori     t8, t7, 0x0001             # t8 = 00000001
     jal     func_8086A6B0
     sw      t8, 0x0004(a0)             # 00000004
-    beq     $zero, $zero, lbl_8086B6C4
+    b       lbl_8086B6C4
     lw      $ra, 0x0014($sp)
 lbl_8086B688:
     lui     $at, 0x41CC                # $at = 41CC0000
@@ -1442,7 +1442,7 @@ lbl_8086B688:
     slti    $at, v0, 0x0100
     bnel    $at, $zero, lbl_8086B6C0
     sb      v0, 0x028D(a2)             # 0000028D
-    beq     $zero, $zero, lbl_8086B6C0
+    b       lbl_8086B6C0
     sb      t0, 0x028D(a2)             # 0000028D
     sb      v0, 0x028D(a2)             # 0000028D
 lbl_8086B6C0:
@@ -1522,7 +1522,7 @@ func_8086B6D0:
     lwc1    $f10, 0x002C(s0)           # 0000002C
     mul.s   $f6, $f0, $f4
     add.s   $f16, $f6, $f10
-    beq     $zero, $zero, lbl_8086B88C
+    b       lbl_8086B88C
     swc1    $f16, 0x0074($sp)
 lbl_8086B7E8:
     mtc1    t4, $f10                   # $f10 = 0.00
@@ -1684,7 +1684,7 @@ lbl_8086B88C:
     addiu   $at, $zero, 0x0012         # $at = 00000012
     jal     func_80022FD0
     addiu   a1, $zero, 0x3878          # a1 = 00003878
-    beq     $zero, $zero, lbl_8086BAC0
+    b       lbl_8086BAC0
     lh      v0, 0x0188(s0)             # 00000188
 lbl_8086BA68:
     bne     v1, v0, lbl_8086BA84
@@ -1692,7 +1692,7 @@ lbl_8086BA68:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_8086AB58
     or      a1, s1, $zero              # a1 = 00000000
-    beq     $zero, $zero, lbl_8086BAC0
+    b       lbl_8086BAC0
     lh      v0, 0x0188(s0)             # 00000188
 lbl_8086BA84:
     bne     $at, $zero, lbl_8086BAC0
@@ -1740,7 +1740,7 @@ func_8086BAE8:
     jal     func_8086A6B0
     sh      t6, 0x0032(s0)             # 00000032
     addiu   t7, $zero, 0x0017          # t7 = 00000017
-    beq     $zero, $zero, lbl_8086BB40
+    b       lbl_8086BB40
     sh      t7, 0x0188(s0)             # 00000188
 lbl_8086BB28:
     addiu   a1, $zero, 0x0000          # a1 = 00000000
@@ -1848,10 +1848,10 @@ lbl_8086BC34:
     nop
     mfc1    t0, $f18
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086BCC0
+    b       lbl_8086BCC0
     or      t0, t0, $at                # t0 = 80000000
 lbl_8086BCA8:
-    beq     $zero, $zero, lbl_8086BCC0
+    b       lbl_8086BCC0
     addiu   t0, $zero, 0xFFFF          # t0 = FFFFFFFF
     mfc1    t0, $f18
 lbl_8086BCB4:
@@ -1926,10 +1926,10 @@ lbl_8086BD4C:
     nop
     mfc1    t1, $f18
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086BDD8
+    b       lbl_8086BDD8
     or      t1, t1, $at                # t1 = 80000000
 lbl_8086BDC0:
-    beq     $zero, $zero, lbl_8086BDD8
+    b       lbl_8086BDD8
     addiu   t1, $zero, 0xFFFF          # t1 = FFFFFFFF
     mfc1    t1, $f18
 lbl_8086BDCC:
@@ -2047,7 +2047,7 @@ lbl_8086BF3C:
     addiu   v0, $zero, 0x0009          # v0 = 00000009
     bne     t9, $at, lbl_8086BF70
     nop
-    beq     $zero, $zero, lbl_8086BF70
+    b       lbl_8086BF70
     addiu   v0, $zero, 0x006E          # v0 = 0000006E
 lbl_8086BF70:
     sw      t0, 0x0010($sp)
@@ -2064,7 +2064,7 @@ lbl_8086BF70:
     sw      t5, 0x0024($sp)
     jal     func_8086AC24
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086BFCC
+    b       lbl_8086BFCC
     nop
 lbl_8086BFB0:
     lh      t6, 0x0188(s0)             # 00000188
@@ -2072,7 +2072,7 @@ lbl_8086BFB0:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086C000
+    b       lbl_8086C000
     lw      $ra, 0x0034($sp)
 lbl_8086BFCC:
     jal     func_8002121C
@@ -2104,12 +2104,12 @@ func_8086C010:
     addu    v0, t6, a1
     bgez    v0, lbl_8086C038
     slti    $at, v0, 0x0100
-    beq     $zero, $zero, lbl_8086C04C
+    b       lbl_8086C04C
     sb      $zero, 0x028D(s0)          # 0000028D
 lbl_8086C038:
     bne     $at, $zero, lbl_8086C048
     or      v1, v0, $zero              # v1 = 00000000
-    beq     $zero, $zero, lbl_8086C048
+    b       lbl_8086C048
     addiu   v1, $zero, 0x00FF          # v1 = 000000FF
 lbl_8086C048:
     sb      v1, 0x028D(s0)             # 0000028D
@@ -2142,7 +2142,7 @@ lbl_8086C07C:
     swc1    $f0, 0x0058(s0)            # 00000058
     swc1    $f0, 0x0050(s0)            # 00000050
     add.s   $f8, $f6, $f14
-    beq     $zero, $zero, lbl_8086C118
+    b       lbl_8086C118
     swc1    $f8, 0x0054(s0)            # 00000054
     lbu     t8, 0x028D(s0)             # 0000028D
 lbl_8086C0C4:
@@ -2204,10 +2204,10 @@ lbl_8086C13C:
     nop
     mfc1    t1, $f8
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086C1C0
+    b       lbl_8086C1C0
     or      t1, t1, $at                # t1 = 80000000
 lbl_8086C1A8:
-    beq     $zero, $zero, lbl_8086C1C0
+    b       lbl_8086C1C0
     addiu   t1, $zero, 0xFFFF          # t1 = FFFFFFFF
     mfc1    t1, $f8
 lbl_8086C1B4:
@@ -2251,10 +2251,10 @@ lbl_8086C1E8:
     nop
     mfc1    t4, $f4
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086C26C
+    b       lbl_8086C26C
     or      t4, t4, $at                # t4 = 80000000
 lbl_8086C254:
-    beq     $zero, $zero, lbl_8086C26C
+    b       lbl_8086C26C
     addiu   t4, $zero, 0xFFFF          # t4 = FFFFFFFF
     mfc1    t4, $f4
 lbl_8086C260:
@@ -2298,10 +2298,10 @@ lbl_8086C294:
     nop
     mfc1    t7, $f18
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086C318
+    b       lbl_8086C318
     or      t7, t7, $at                # t7 = 80000000
 lbl_8086C300:
-    beq     $zero, $zero, lbl_8086C318
+    b       lbl_8086C318
     addiu   t7, $zero, 0xFFFF          # t7 = FFFFFFFF
     mfc1    t7, $f18
 lbl_8086C30C:
@@ -2396,12 +2396,12 @@ lbl_8086C42C:
     nop
     jal     func_8086AF1C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086C60C
+    b       lbl_8086C60C
     lw      $ra, 0x002C($sp)
 lbl_8086C45C:
     jal     func_8086AEF4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086C60C
+    b       lbl_8086C60C
     lw      $ra, 0x002C($sp)
 lbl_8086C46C:
     lh      t8, 0x0188(s0)             # 00000188
@@ -2414,7 +2414,7 @@ lbl_8086C46C:
     lui     $at, 0xFFFE                # $at = FFFE0000
     ori     $at, $at, 0xFFFF           # $at = FFFEFFFF
     and     t0, t9, $at
-    beq     $zero, $zero, lbl_8086C608
+    b       lbl_8086C608
     sw      t0, 0x0004(s0)             # 00000004
     lbu     t1, 0x02BE(s0)             # 000002BE
 lbl_8086C4A0:
@@ -2429,7 +2429,7 @@ lbl_8086C4A0:
     or      t4, t3, $at                # t4 = 00010000
     jal     func_80022A90
     sw      t4, 0x0004(s0)             # 00000004
-    beq     $zero, $zero, lbl_8086C4FC
+    b       lbl_8086C4FC
     lbu     a0, 0x0185(s0)             # 00000185
 lbl_8086C4D4:
     lw      t5, 0x0004(s0)             # 00000004
@@ -2555,7 +2555,7 @@ func_8086C65C:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_8086C010
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086C6A0
+    b       lbl_8086C6A0
     lw      a0, 0x0024($sp)
 lbl_8086C694:
     jal     func_8002313C
@@ -2594,14 +2594,14 @@ lbl_8086C6A0:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022FD0
     addiu   a1, $zero, 0x3883          # a1 = 00003883
-    beq     $zero, $zero, lbl_8086C74C
+    b       lbl_8086C74C
     lw      a0, 0x0024($sp)
 lbl_8086C728:
     sh      t0, 0x010E(s0)             # 0000010E
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022FD0
     addiu   a1, $zero, 0x38EC          # a1 = 000038EC
-    beq     $zero, $zero, lbl_8086C74C
+    b       lbl_8086C74C
     lw      a0, 0x0024($sp)
 lbl_8086C740:
     jal     func_80022FD0
@@ -2610,7 +2610,7 @@ lbl_8086C740:
 lbl_8086C74C:
     jal     func_800DCE80
     lhu     a1, 0x010E(s0)             # 0000010E
-    beq     $zero, $zero, lbl_8086C778
+    b       lbl_8086C778
     lw      $ra, 0x001C($sp)
 lbl_8086C75C:
     jal     func_80022AD0
@@ -2660,7 +2660,7 @@ func_8086C788:
     addiu   a1, $zero, 0x000A          # a1 = 0000000A
     bne     v0, $zero, lbl_8086C80C
     addiu   t7, $zero, 0x5010          # t7 = 00005010
-    beq     $zero, $zero, lbl_8086C814
+    b       lbl_8086C814
     sh      t7, 0x010E(s1)             # 0000010E
 lbl_8086C80C:
     addiu   t8, $zero, 0x5014          # t8 = 00005014
@@ -2669,7 +2669,7 @@ lbl_8086C814:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_800DCE80
     lhu     a1, 0x010E(s1)             # 0000010E
-    beq     $zero, $zero, lbl_8086C8A4
+    b       lbl_8086C8A4
     lw      $ra, 0x001C($sp)
     lh      t9, 0x001C(s1)             # 0000001C
 lbl_8086C82C:
@@ -2679,7 +2679,7 @@ lbl_8086C82C:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_800204D0
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8086C858
+    b       lbl_8086C858
     or      a0, s1, $zero              # a0 = 00000000
 lbl_8086C84C:
     jal     func_800204D0
@@ -2688,7 +2688,7 @@ lbl_8086C84C:
 lbl_8086C858:
     jal     func_8086AEA8
     addiu   a1, $zero, 0x0001          # a1 = 00000001
-    beq     $zero, $zero, lbl_8086C8A4
+    b       lbl_8086C8A4
     lw      $ra, 0x001C($sp)
 lbl_8086C868:
     jal     func_80022AD0
@@ -2744,7 +2744,7 @@ lbl_8086C8F8:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022FD0
     addiu   a1, $zero, 0x3876          # a1 = 00003876
-    beq     $zero, $zero, lbl_8086C930
+    b       lbl_8086C930
     nop
 lbl_8086C928:
     jal     func_80022FD0
@@ -2796,10 +2796,10 @@ lbl_8086C99C:
     slti    $at, v0, 0x0015
     bne     $at, $zero, lbl_8086C9DC
     sb      t3, 0x0184(a0)             # 00000184
-    beq     $zero, $zero, lbl_8086C9E8
+    b       lbl_8086C9E8
     sb      t4, 0x0184(a0)             # 00000184
 lbl_8086C9DC:
-    beq     $zero, $zero, lbl_8086C9E8
+    b       lbl_8086C9E8
     sb      v0, 0x0184(a0)             # 00000184
     sb      $zero, 0x0184(a0)          # 00000184
 lbl_8086C9E8:
@@ -2831,7 +2831,7 @@ lbl_8086CA08:
 lbl_8086CA48:
     jal     func_8086AAB4
     nop
-    beq     $zero, $zero, lbl_8086CAB0
+    b       lbl_8086CAB0
     lw      $ra, 0x0014($sp)
 lbl_8086CA58:
     bnel    v0, $zero, lbl_8086CAB0
@@ -2905,7 +2905,7 @@ func_8086CABC:
     addiu   a1, s0, 0x013C             # a1 = 0000013C
     lui     t2, %hi(func_8086D46C)     # t2 = 80870000
     addiu   t2, t2, %lo(func_8086D46C) # t2 = 8086D46C
-    beq     $zero, $zero, lbl_8086CBDC
+    b       lbl_8086CBDC
     sw      t2, 0x0134(s0)             # 00000134
 lbl_8086CB64:
     lui     a3, 0x0600                 # a3 = 06000000
@@ -2968,7 +2968,7 @@ func_8086CC08:
     slti    $at, v0, 0x0100
     bnel    $at, $zero, lbl_8086CC4C
     sb      v0, 0x028A(a0)             # 0000028A
-    beq     $zero, $zero, lbl_8086CC4C
+    b       lbl_8086CC4C
     sb      t7, 0x028A(a0)             # 0000028A
     sb      v0, 0x028A(a0)             # 0000028A
 lbl_8086CC4C:
@@ -2979,7 +2979,7 @@ lbl_8086CC4C:
     slti    $at, v0, 0x0032
     beql    $at, $zero, lbl_8086CC74
     sb      v0, 0x028B(a0)             # 0000028B
-    beq     $zero, $zero, lbl_8086CC74
+    b       lbl_8086CC74
     sb      t8, 0x028B(a0)             # 0000028B
     sb      v0, 0x028B(a0)             # 0000028B
 lbl_8086CC74:
@@ -3007,7 +3007,7 @@ lbl_8086CC9C:
     slti    $at, v0, 0x0051
     bne     $at, $zero, lbl_8086CCD4
     addiu   t2, $zero, 0x00E1          # t2 = 000000E1
-    beq     $zero, $zero, lbl_8086CCD8
+    b       lbl_8086CCD8
     sb      t0, 0x028A(a0)             # 0000028A
 lbl_8086CCD4:
     sb      v0, 0x028A(a0)             # 0000028A
@@ -3019,7 +3019,7 @@ lbl_8086CCD8:
     slti    $at, v0, 0x0100
     bnel    $at, $zero, lbl_8086CD00
     sb      v0, 0x028B(a0)             # 0000028B
-    beq     $zero, $zero, lbl_8086CD00
+    b       lbl_8086CD00
     sb      t1, 0x028B(a0)             # 0000028B
     sb      v0, 0x028B(a0)             # 0000028B
 lbl_8086CD00:
@@ -3065,7 +3065,7 @@ lbl_8086CD74:
     slti    $at, v0, 0x0100
     bnel    $at, $zero, lbl_8086CDA0
     sb      v0, 0x028A(a0)             # 0000028A
-    beq     $zero, $zero, lbl_8086CDA0
+    b       lbl_8086CDA0
     sb      t9, 0x028A(a0)             # 0000028A
     sb      v0, 0x028A(a0)             # 0000028A
 lbl_8086CDA0:
@@ -3076,7 +3076,7 @@ lbl_8086CDA0:
     slti    $at, v0, 0x0100
     bnel    $at, $zero, lbl_8086CDC8
     sb      v0, 0x028B(a0)             # 0000028B
-    beq     $zero, $zero, lbl_8086CDC8
+    b       lbl_8086CDC8
     sb      t0, 0x028B(a0)             # 0000028B
     sb      v0, 0x028B(a0)             # 0000028B
 lbl_8086CDC8:
@@ -3166,10 +3166,10 @@ lbl_8086CE4C:
     nop
     mfc1    t0, $f4
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_8086CF24
+    b       lbl_8086CF24
     or      t0, t0, $at                # t0 = 80000000
 lbl_8086CF0C:
-    beq     $zero, $zero, lbl_8086CF24
+    b       lbl_8086CF24
     addiu   t0, $zero, 0xFFFF          # t0 = FFFFFFFF
     mfc1    t0, $f4
 lbl_8086CF18:
@@ -3178,7 +3178,7 @@ lbl_8086CF18:
     nop
 lbl_8086CF24:
     ctc1    t9, $f31
-    beq     $zero, $zero, lbl_8086CF98
+    b       lbl_8086CF98
     sb      t0, 0x0291(a0)             # 00000291
 lbl_8086CF30:
     jal     func_800CDCCC              # Rand.Next() float
@@ -3309,7 +3309,7 @@ lbl_8086D0B0:
     lh      t2, 0x0032(s0)             # 00000032
     ori     $at, $zero, 0x8000         # $at = 00008000
     addu    t3, t2, $at
-    beq     $zero, $zero, lbl_8086D120
+    b       lbl_8086D120
     sh      t3, 0x00B6(s0)             # 000000B6
     lh      t4, 0x0032(s0)             # 00000032
 lbl_8086D11C:
@@ -3365,7 +3365,7 @@ func_8086D188:
     bnel    $at, $zero, lbl_8086D1E4
     lh      t2, 0x001C(a0)             # 0000001C
 lbl_8086D1D8:
-    beq     $zero, $zero, lbl_8086D200
+    b       lbl_8086D200
     sw      $zero, 0x0000(a2)          # 00000000
     lh      t2, 0x001C(a0)             # 0000001C
 lbl_8086D1E4:
@@ -3601,7 +3601,7 @@ lbl_8086D4C0:
     addiu   a3, a3, %lo(func_8086D188) # a3 = 8086D188
     jal     func_8008A414
     sw      t8, 0x0018($sp)
-    beq     $zero, $zero, lbl_8086D5CC
+    b       lbl_8086D5CC
     sw      v0, 0x02C0(s0)             # 000002C0
 lbl_8086D554:
     lw      v0, 0x02D0(s0)             # 000002D0
@@ -3705,7 +3705,7 @@ func_8086D68C:
     lui     s5, %hi(var_8086DFAC)      # s5 = 80870000
     lui     s4, %hi(var_8086DFB4)      # s4 = 80870000
     addiu   s5, s5, %lo(var_8086DFAC)  # s5 = 8086DFAC
-    beq     $zero, $zero, lbl_8086D6F0
+    b       lbl_8086D6F0
     addiu   s4, s4, %lo(var_8086DFB4)  # s4 = 8086DFB4
 lbl_8086D6E0:
     lui     s5, %hi(var_8086DFB0)      # s5 = 80870000
@@ -3793,7 +3793,7 @@ lbl_8086D708:
     or      a0, s3, $zero              # a0 = 00000000
     jal     func_8008A88C
     sw      t5, 0x001C($sp)
-    beq     $zero, $zero, lbl_8086D964
+    b       lbl_8086D964
     sw      v0, 0x02C0(s1)             # 000002C0
 lbl_8086D834:
     jal     func_8007E298
@@ -4069,7 +4069,7 @@ func_8086DB08:
     bne     t9, $at, lbl_8086DC60
     addiu   a2, a2, %lo(var_8086DFB0)  # a2 = 8086DFB0
     lui     a2, %hi(var_8086DFAC)      # a2 = 80870000
-    beq     $zero, $zero, lbl_8086DC60
+    b       lbl_8086DC60
     addiu   a2, a2, %lo(var_8086DFAC)  # a2 = 8086DFAC
 lbl_8086DC60:
     lw      v1, 0x02C0(s1)             # 000002C0
@@ -4107,7 +4107,7 @@ lbl_8086DC60:
     sw      t1, 0x02C0(s1)             # 000002C0
     sw      t9, 0x0004(v1)             # 00000004
     sw      t0, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_8086DE94
+    b       lbl_8086DE94
     lw      $ra, 0x0044($sp)
 lbl_8086DCF4:
     jal     func_8007E2C0

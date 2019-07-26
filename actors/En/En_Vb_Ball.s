@@ -37,7 +37,7 @@ func_80979D40:
     lui     $at, %hi(var_8097ADE0)     # $at = 80980000
     swc1    $f6, 0x0064(s0)            # 00000064
     lwc1    $f8, %lo(var_8097ADE0)($at)
-    beq     $zero, $zero, lbl_80979EAC
+    b       lbl_80979EAC
     swc1    $f8, 0x006C(s0)            # 0000006C
 lbl_80979DDC:
     jal     func_8004AB7C
@@ -166,7 +166,7 @@ lbl_80979F0C:
     jal     func_80026D64
     swc1    $f0, 0x0034(a1)            # 00000034
     lw      a1, 0x001C($sp)
-    beq     $zero, $zero, lbl_80979FC4
+    b       lbl_80979FC4
     swc1    $f0, 0x0038(a1)            # 00000038
 lbl_80979FB8:
     slti    $at, v0, 0x00B4
@@ -469,7 +469,7 @@ lbl_8097A3BC:
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8097A074
     or      a1, s4, $zero              # a1 = 00000000
-    beq     $zero, $zero, lbl_8097AAF8
+    b       lbl_8097AAF8
     lw      $ra, 0x0064($sp)
 lbl_8097A42C:
     jal     func_80064280
@@ -527,7 +527,7 @@ lbl_8097A4F4:
     bne     s5, v0, lbl_8097A508
     or      s2, $zero, $zero           # s2 = 00000000
     addiu   t7, $zero, 0x0002          # t7 = 00000002
-    beq     $zero, $zero, lbl_8097A510
+    b       lbl_8097A510
     sh      t7, 0x00FA($sp)
 lbl_8097A508:
     addiu   t8, $zero, 0x0002          # t8 = 00000002
@@ -561,7 +561,7 @@ lbl_8097A53C:
     add.s   $f16, $f0, $f10
     jal     func_80026D90
     swc1    $f16, 0x00F0($sp)
-    beq     $zero, $zero, lbl_8097A5B4
+    b       lbl_8097A5B4
     swc1    $f0, 0x00F4($sp)
 lbl_8097A584:
     jal     func_80026D90
@@ -821,7 +821,7 @@ lbl_8097A874:
     slti    $at, s2, 0x000A
     bne     $at, $zero, lbl_8097A874
     nop
-    beq     $zero, $zero, lbl_8097AAB0
+    b       lbl_8097AAB0
     lbu     v0, 0x0168(s1)             # 00000168
 lbl_8097A978:
     lui     $at, 0x40A0                # $at = 40A00000
@@ -989,7 +989,7 @@ func_8097AB24:
     addu    t8, t6, t7
     addu    t9, t8, $at
     sw      t9, 0x0004(v0)             # 00000004
-    beq     $zero, $zero, lbl_8097AD14
+    b       lbl_8097AD14
     lw      $ra, 0x001C($sp)
 lbl_8097ABF4:
     lw      v0, 0x02C0(s0)             # 000002C0

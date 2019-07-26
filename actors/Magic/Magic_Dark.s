@@ -11,7 +11,7 @@ func_80A2BA10:
     nop
     lui     $at, %hi(var_80A2D0E0)     # $at = 80A30000
     lwc1    $f4, %lo(var_80A2D0E0)($at)
-    beq     $zero, $zero, lbl_80A2BA4C
+    b       lbl_80A2BA4C
     swc1    $f4, 0x014C(a0)            # 0000014C
 lbl_80A2BA44:
     lwc1    $f6, %lo(var_80A2D0E4)($at)
@@ -51,7 +51,7 @@ lbl_80A2BA4C:
     sh      $zero, 0x013C(a0)          # 0000013C
     sb      $zero, 0x013E(a0)          # 0000013E
     mul.s   $f4, $f16, $f18
-    beq     $zero, $zero, lbl_80A2BAE4
+    b       lbl_80A2BAE4
     swc1    $f4, 0x0054(a0)            # 00000054
 lbl_80A2BADC:
     sh      $zero, 0x013C(a0)          # 0000013C
@@ -100,7 +100,7 @@ func_80A2BB2C:
 lbl_80A2BB68:
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A2BD68
+    b       lbl_80A2BD68
     lw      $ra, 0x0014($sp)
     slti    $at, v1, 0x04B0
 lbl_80A2BB7C:
@@ -110,7 +110,7 @@ lbl_80A2BB7C:
     sh      $zero, 0x13C8(t0)          # 000013C8
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A2BD68
+    b       lbl_80A2BD68
     lw      $ra, 0x0014($sp)
 lbl_80A2BB9C:
     sb      t6, 0x0A68(a3)             # 00000A68
@@ -145,7 +145,7 @@ lbl_80A2BB9C:
     mul.s   $f10, $f8, $f16
     add.s   $f4, $f10, $f18
     mul.s   $f8, $f4, $f6
-    beq     $zero, $zero, lbl_80A2BC38
+    b       lbl_80A2BC38
     swc1    $f8, 0x0054(a2)            # 00000054
 lbl_80A2BC24:
     lwc1    $f0, 0x014C(a2)            # 0000014C
@@ -168,7 +168,7 @@ lbl_80A2BC38:
     sll     a0, v0,  2
     subu    a0, a0, v0
     sll     a0, a0,  2
-    beq     $zero, $zero, lbl_80A2BC78
+    b       lbl_80A2BC78
     andi    a0, a0, 0x00FF             # a0 = 000000FF
 lbl_80A2BC78:
     slti    $at, v1, 0x049C
@@ -183,7 +183,7 @@ lbl_80A2BC78:
     sb      t2, 0x013E(a2)             # 0000013E
     andi    t4, t2, 0x00FF             # t4 = 00000000
     sra     t5, t4,  1
-    beq     $zero, $zero, lbl_80A2BCD0
+    b       lbl_80A2BCD0
     sb      t5, 0x013E(a2)             # 0000013E
     slti    $at, v1, 0x044C
 lbl_80A2BCB4:
@@ -191,7 +191,7 @@ lbl_80A2BCB4:
     addiu   t8, $zero, 0x00FF          # t8 = 000000FF
     sll     t7, v1,  7
     addiu   t9, t7, 0x007F             # t9 = 0000007F
-    beq     $zero, $zero, lbl_80A2BCD0
+    b       lbl_80A2BCD0
     sb      t9, 0x013E(a2)             # 0000013E
 lbl_80A2BCCC:
     sb      t8, 0x013E(a2)             # 0000013E
@@ -229,7 +229,7 @@ lbl_80A2BCE8:
     or      a0, a2, $zero              # a0 = 00000000
     jal     func_8002313C
     addiu   a1, $zero, 0x007C          # a1 = 0000007C
-    beq     $zero, $zero, lbl_80A2BD68
+    b       lbl_80A2BD68
     lw      $ra, 0x0014($sp)
 lbl_80A2BD58:
     or      a0, a2, $zero              # a0 = 00000000
@@ -379,7 +379,7 @@ func_80A2BEC0:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80020F88
     lw      a1, 0x0050(s0)             # 00000050
-    beq     $zero, $zero, lbl_80A2C04C
+    b       lbl_80A2C04C
     lh      v0, 0x013C(s0)             # 0000013C
     slti    $at, v0, 0x0037
 lbl_80A2BF74:
@@ -416,7 +416,7 @@ lbl_80A2BF74:
     mfc1    a1, $f10
     jal     func_80A2BD74
     nop
-    beq     $zero, $zero, lbl_80A2C04C
+    b       lbl_80A2C04C
     lh      v0, 0x013C(s0)             # 0000013C
 lbl_80A2C000:
     lui     t2, %hi(func_80A2C068)     # t2 = 80A30000
@@ -482,7 +482,7 @@ func_80A2C068:
     nop
     add.s   $f10, $f0, $f12
     swc1    $f10, 0x0028(s0)           # 00000028
-    beq     $zero, $zero, lbl_80A2C11C
+    b       lbl_80A2C11C
     lwc1    $f14, 0x0028(s0)           # 00000028
 lbl_80A2C0F4:
     lui     $at, 0x4000                # $at = 40000000
@@ -668,7 +668,7 @@ lbl_80A2C39C:
     lw      t0, 0x0004(t9)             # FFFFFFF4
     sw      t0, 0x0144(s2)             # 00000144
     lw      t1, 0x0008(t9)             # FFFFFFF8
-    beq     $zero, $zero, lbl_80A2C3E0
+    b       lbl_80A2C3E0
     sw      t1, 0x0148(s2)             # 00000148
     slti    $at, v1, 0x0082
 lbl_80A2C3BC:

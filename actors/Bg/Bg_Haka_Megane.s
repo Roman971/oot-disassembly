@@ -24,7 +24,7 @@ func_8097AEE0:
     addiu   a1, $zero, 0x008D          # a1 = 0000008D
     jal     func_80081628              # ObjectIndex
     addu    a0, a0, $at
-    beq     $zero, $zero, lbl_8097AF5C
+    b       lbl_8097AF5C
     sb      v0, 0x0159(s0)             # 00000159
     lui     $at, 0x0001                # $at = 00010000
 lbl_8097AF4C:
@@ -40,7 +40,7 @@ lbl_8097AF5C:
     sw      t8, 0x0154(s0)             # 00000154
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8097AF88
+    b       lbl_8097AF88
     lw      $ra, 0x001C($sp)
     sw      t8, 0x0154(s0)             # 00000154
 lbl_8097AF84:
@@ -113,7 +113,7 @@ func_8097AFCC:
     jal     func_800313A4              # DynaPolyInfo_setActor
     lw      a3, 0x0024($sp)
     sw      v0, 0x013C(s0)             # 0000013C
-    beq     $zero, $zero, lbl_8097B08C
+    b       lbl_8097B08C
     lw      $ra, 0x001C($sp)
 lbl_8097B084:
     sw      t2, 0x0154(s0)             # 00000154
@@ -143,7 +143,7 @@ func_8097B09C:
     ori     t8, t7, 0x0080             # t8 = 00000080
     jal     func_800314D8
     sw      t8, 0x0004(a3)             # 00000004
-    beq     $zero, $zero, lbl_8097B100
+    b       lbl_8097B100
     lw      $ra, 0x001C($sp)
 lbl_8097B0E4:
     lw      t9, 0x0004(a3)             # 00000004
@@ -197,7 +197,7 @@ func_8097B144:
     addu    a1, a1, t9
     jal     func_800280C8
     lw      a1, %lo(var_8097B238)(a1)
-    beq     $zero, $zero, lbl_8097B1B0
+    b       lbl_8097B1B0
     lw      t2, 0x0018($sp)
 lbl_8097B190:
     lh      t0, 0x001C(a2)             # 0000001C

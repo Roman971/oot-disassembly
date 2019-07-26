@@ -110,7 +110,7 @@ lbl_80B4C938:
     nop
     bc1f    lbl_80B4CA10
     nop
-    beq     $zero, $zero, lbl_80B4CA30
+    b       lbl_80B4CA30
     addiu   s0, $zero, 0x0060          # s0 = 00000060
 lbl_80B4CA10:
     lwc1    $f18, %lo(var_80B4CE9C)($at)
@@ -119,7 +119,7 @@ lbl_80B4CA10:
     nop
     bc1f    lbl_80B4CA30
     nop
-    beq     $zero, $zero, lbl_80B4CA30
+    b       lbl_80B4CA30
     addiu   s0, $zero, 0x0040          # s0 = 00000040
 lbl_80B4CA30:
     jal     func_800CDCCC              # Rand.Next() float
@@ -318,7 +318,7 @@ lbl_80B4CCC4:
     lui     t1, %hi(func_80B4CD50)     # t1 = 80B50000
     addiu   t1, t1, %lo(func_80B4CD50) # t1 = 80B4CD50
     sw      $zero, 0x0134(s0)          # 00000134
-    beq     $zero, $zero, lbl_80B4CD3C
+    b       lbl_80B4CD3C
     sw      t1, 0x01A0(s0)             # 000001A0
 lbl_80B4CD10:
     lwc1    $f4, 0x0090(s0)            # 00000090

@@ -442,7 +442,7 @@ func_80B2E284:
     add.s   $f10, $f6, $f8
     trunc.w.s $f16, $f10
     mfc1    t4, $f16
-    beq     $zero, $zero, lbl_80B2E32C
+    b       lbl_80B2E32C
     sh      t4, 0x0054(s0)             # 00000054
 lbl_80B2E300:
     lh      t5, 0x0054(s0)             # 00000054
@@ -497,7 +497,7 @@ lbl_80B2E32C:
     or      a1, $zero, $zero           # a1 = 00000000
     jal     func_8001B8FC
     or      a2, s1, $zero              # a2 = FFFFFFF3
-    beq     $zero, $zero, lbl_80B2E474
+    b       lbl_80B2E474
     sh      v0, 0x0050(s0)             # 00000050
 lbl_80B2E3D4:
     slti    $at, v0, 0x000E

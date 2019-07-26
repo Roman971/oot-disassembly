@@ -62,7 +62,7 @@ func_80B75FB0:
     lw      a3, 0x0018($sp)
     jal     func_80020EB4
     or      a0, a3, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B76008
+    b       lbl_80B76008
     lw      $ra, 0x0014($sp)
 lbl_80B75FF8:
     lwc1    $f0, 0x0050(a3)            # 00000050

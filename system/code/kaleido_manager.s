@@ -142,12 +142,12 @@ lbl_80099DFC:
     jal     func_80099C60
     sw      t0, 0x001C($sp)
     lw      a1, 0x0020($sp)
-    beq     $zero, $zero, lbl_80099E40
+    b       lbl_80099E40
     lw      t0, 0x001C($sp)
 lbl_80099E30:
     bnel    v0, a3, lbl_80099DFC
     sltu    $at, a1, v1
-    beq     $zero, $zero, lbl_80099E78
+    b       lbl_80099E78
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80099E40:
     beq     t0, $zero, lbl_80099E68
@@ -161,7 +161,7 @@ lbl_80099E40:
     bnel    $at, $zero, lbl_80099E74
     lw      t8, 0x0014(t0)             # 00000014
 lbl_80099E68:
-    beq     $zero, $zero, lbl_80099E78
+    b       lbl_80099E78
     or      v0, $zero, $zero           # v0 = 00000000
     lw      t8, 0x0014(t0)             # 00000014
 lbl_80099E74:

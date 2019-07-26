@@ -121,7 +121,7 @@ lbl_8005B994:
     addu    t9, t9, t8
     swc1    $f6, 0x01E0(a2)            # 000001E0
     lh      t9, 0x15B0(t9)             # 800F15B0
-    beq     $zero, $zero, lbl_8005BA60
+    b       lbl_8005BA60
     sh      t9, 0x01E8(a2)             # 000001E8
     lhu     v0, 0x01E8(a2)             # 000001E8
 lbl_8005BA28:

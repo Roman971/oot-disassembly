@@ -42,7 +42,7 @@ lbl_80058F84:
     addiu   s1, s1, 0x0001             # s1 = 00000001
     bne     v0, $zero, lbl_80058FA0
     addiu   t6, v0, 0xFFFF             # t6 = FFFFFFFF
-    beq     $zero, $zero, lbl_80058FA8
+    b       lbl_80058FA8
     or      v1, $zero, $zero           # v1 = 00000000
 lbl_80058FA0:
     sh      t6, 0x0000(s0)             # 00001DB4
@@ -52,7 +52,7 @@ lbl_80058FA8:
     addu    a0, s2, s4
     jal     func_800C9568
     addiu   a0, s0, 0x0010             # a0 = 00001DC4
-    beq     $zero, $zero, lbl_80058FD0
+    b       lbl_80058FD0
     addiu   s1, s1, 0x0001             # s1 = 00000002
 lbl_80058FC0:
     addiu   a1, s0, 0x0004             # a1 = 00001DB8

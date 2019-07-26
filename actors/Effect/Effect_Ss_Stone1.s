@@ -72,7 +72,7 @@ func_80B32CFC:
     bc1f    lbl_80B32D8C
     lui     $at, 0x4040                # $at = 40400000
     mtc1    $at, $f20                  # $f20 = 3.00
-    beq     $zero, $zero, lbl_80B32DA8
+    b       lbl_80B32DA8
     lwc1    $f12, 0x0000(s2)           # 00000000
 lbl_80B32D8C:
     div.s   $f4, $f0, $f2

@@ -29,7 +29,7 @@ func_80B864E0:
     addiu   v0, $zero, 0x0011          # v0 = 00000011
     beq     t6, $zero, lbl_80B8655C
     nop
-    beq     $zero, $zero, lbl_80B8655C
+    b       lbl_80B8655C
     addiu   v0, $zero, 0x0005          # v0 = 00000005
 lbl_80B8655C:
     bne     v0, $at, lbl_80B8657C

@@ -21,7 +21,7 @@ func_808DC680:
     lui     a0, 0x0601                 # a0 = 06010000
     jal     func_80033EF4
     addiu   a0, a0, 0x20E8             # a0 = 060120E8
-    beq     $zero, $zero, lbl_808DC6E8
+    b       lbl_808DC6E8
     lw      a0, 0x0044($sp)
 lbl_808DC6DC:
     jal     func_80033EF4
@@ -60,7 +60,7 @@ lbl_808DC734:
     bne     t0, $zero, lbl_808DC76C
     addiu   t2, t2, %lo(func_808DCA24) # t2 = 808DCA24
     addiu   t1, t1, %lo(func_808DC7CC) # t1 = 808DC7CC
-    beq     $zero, $zero, lbl_808DC770
+    b       lbl_808DC770
     sw      t1, 0x0154(s0)             # 00000154
 lbl_808DC76C:
     sw      t2, 0x0154(s0)             # 00000154
@@ -133,7 +133,7 @@ func_808DC7CC:
     addiu   t6, t6, %lo(func_808DC888) # t6 = 808DC888
     bc1f    lbl_808DC870
     addiu   t7, t7, %lo(func_808DC98C) # t7 = 808DC98C
-    beq     $zero, $zero, lbl_808DC874
+    b       lbl_808DC874
     sw      t6, 0x0154(s0)             # 00000154
 lbl_808DC870:
     sw      t7, 0x0154(s0)             # 00000154
@@ -186,7 +186,7 @@ lbl_808DC8B8:
     lwc1    $f4, 0x0010(s0)            # 00000010
     mul.s   $f18, $f0, $f16
     add.s   $f6, $f18, $f4
-    beq     $zero, $zero, lbl_808DC93C
+    b       lbl_808DC93C
     swc1    $f6, 0x002C(s0)            # 0000002C
     lwc1    $f8, 0x0008(s0)            # 00000008
 lbl_808DC92C:
@@ -230,7 +230,7 @@ func_808DC98C:
     beq     v0, $zero, lbl_808DC9BC
     lw      a3, 0x0018($sp)
     addiu   t6, $zero, 0x0014          # t6 = 00000014
-    beq     $zero, $zero, lbl_808DC9CC
+    b       lbl_808DC9CC
     sh      t6, 0x0158(a3)             # 00000158
 lbl_808DC9BC:
     lh      v0, 0x0158(a3)             # 00000158
@@ -324,7 +324,7 @@ lbl_808DCA98:
     mtc1    $at, $f16                  # $f16 = 200.00
     add.s   $f10, $f0, $f8
     mul.s   $f2, $f10, $f16
-    beq     $zero, $zero, lbl_808DCB5C
+    b       lbl_808DCB5C
     lh      a0, 0x0032(s0)             # 00000032
     mtc1    v0, $f18                   # $f18 = 0.00
 lbl_808DCB08:
@@ -493,7 +493,7 @@ func_808DCD30:
     lh      t8, 0x0032(s0)             # 00000032
     bnel    t7, t8, lbl_808DCD80
     lh      v0, 0x0158(s0)             # 00000158
-    beq     $zero, $zero, lbl_808DCD84
+    b       lbl_808DCD84
     lh      v0, 0x0158(s0)             # 00000158
     lh      v0, 0x0158(s0)             # 00000158
 lbl_808DCD80:
@@ -887,7 +887,7 @@ func_808DD2B8:
     sw      t1, 0x02C0(s0)             # 000002C0
     sw      t3, 0x0004(v0)             # 00000004
     sw      t2, 0x0000(v0)             # 00000000
-    beq     $zero, $zero, lbl_808DD3D8
+    b       lbl_808DD3D8
     lw      $ra, 0x001C($sp)
     lw      v0, 0x02C0(s0)             # 000002C0
 lbl_808DD34C:

@@ -74,7 +74,7 @@ func_80B375D0:
     sh      t2, 0x0042(a2)             # 00000042
     sh      a1, 0x0040(a2)             # 00000040
     sh      t1, 0x0046(a2)             # 00000046
-    beq     $zero, $zero, lbl_80B37704
+    b       lbl_80B37704
     sw      v1, 0x0018(a0)             # 80120C50
 lbl_80B37700:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -202,7 +202,7 @@ func_80B378C8:
     lh      v0, 0x0042(a2)             # 00000042
     beq     v0, $zero, lbl_80B378E0
     addiu   t6, v0, 0xFFFF             # t6 = FFFFFFFF
-    beq     $zero, $zero, lbl_80B378EC
+    b       lbl_80B378EC
     sh      t6, 0x0042(a2)             # 00000042
 lbl_80B378E0:
     mtc1    $zero, $f4                 # $f4 = 0.00

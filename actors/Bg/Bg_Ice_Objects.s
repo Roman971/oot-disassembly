@@ -76,7 +76,7 @@ lbl_809CC350:
     bne     v1, $zero, lbl_809CC38C
     lui     v0, %hi(var_809CCF5A)      # v0 = 809D0000
     lui     v0, %hi(var_809CCF58)      # v0 = 809D0000
-    beq     $zero, $zero, lbl_809CC390
+    b       lbl_809CC390
     lh      v0, %lo(var_809CCF58)(v0)
 lbl_809CC38C:
     lh      v0, %lo(var_809CCF5A)(v0)
@@ -94,7 +94,7 @@ lbl_809CC3A4:
     bne     v1, $zero, lbl_809CC3C8
     lui     v0, %hi(var_809CCF5E)      # v0 = 809D0000
     lui     v0, %hi(var_809CCF5C)      # v0 = 809D0000
-    beq     $zero, $zero, lbl_809CC3CC
+    b       lbl_809CC3CC
     lh      v0, %lo(var_809CCF5C)(v0)
 lbl_809CC3C8:
     lh      v0, %lo(var_809CCF5E)(v0)
@@ -113,7 +113,7 @@ lbl_809CC3E0:
     bne     v1, $zero, lbl_809CC408
     lui     v0, %hi(var_809CCF62)      # v0 = 809D0000
     lui     v0, %hi(var_809CCF60)      # v0 = 809D0000
-    beq     $zero, $zero, lbl_809CC40C
+    b       lbl_809CC40C
     lh      v0, %lo(var_809CCF60)(v0)
 lbl_809CC408:
     lh      v0, %lo(var_809CCF62)(v0)
@@ -134,7 +134,7 @@ lbl_809CC420:
     sll     t3, a1,  2
     lui     v0, %hi(var_809CCF58)      # v0 = 809D0000
     addu    v0, v0, t3
-    beq     $zero, $zero, lbl_809CC45C
+    b       lbl_809CC45C
     lh      v0, %lo(var_809CCF58)(v0)
 lbl_809CC450:
     lui     v0, %hi(var_809CCF5A)      # v0 = 809D0000
@@ -156,7 +156,7 @@ lbl_809CC474:
     sll     t6, a1,  2
     lui     v0, %hi(var_809CCF5C)      # v0 = 809D0000
     addu    v0, v0, t6
-    beq     $zero, $zero, lbl_809CC4A4
+    b       lbl_809CC4A4
     lh      v0, %lo(var_809CCF5C)(v0)
 lbl_809CC498:
     lui     v0, %hi(var_809CCF5E)      # v0 = 809D0000
@@ -178,7 +178,7 @@ lbl_809CC4BC:
     sll     t9, a1,  2
     lui     v0, %hi(var_809CCF60)      # v0 = 809D0000
     addu    v0, v0, t9
-    beq     $zero, $zero, lbl_809CC4EC
+    b       lbl_809CC4EC
     lh      v0, %lo(var_809CCF60)(v0)
 lbl_809CC4E0:
     lui     v0, %hi(var_809CCF62)      # v0 = 809D0000
@@ -200,7 +200,7 @@ lbl_809CC504:
     sll     t2, a1,  2
     lui     v0, %hi(var_809CCF64)      # v0 = 809D0000
     addu    v0, v0, t2
-    beq     $zero, $zero, lbl_809CC534
+    b       lbl_809CC534
     lh      v0, %lo(var_809CCF64)(v0)
 lbl_809CC528:
     lui     v0, %hi(var_809CCF66)      # v0 = 809D0000
@@ -240,7 +240,7 @@ lbl_809CC570:
     bne     v1, $at, lbl_809CC5B0
     lui     v0, %hi(var_809CCF76)      # v0 = 809D0000
     lui     v0, %hi(var_809CCF74)      # v0 = 809D0000
-    beq     $zero, $zero, lbl_809CC5B4
+    b       lbl_809CC5B4
     lh      v0, %lo(var_809CCF74)(v0)
 lbl_809CC5B0:
     lh      v0, %lo(var_809CCF76)(v0)
@@ -259,7 +259,7 @@ lbl_809CC5C8:
     bne     v1, $at, lbl_809CC5F0
     lui     v0, %hi(var_809CCF7A)      # v0 = 809D0000
     lui     v0, %hi(var_809CCF78)      # v0 = 809D0000
-    beq     $zero, $zero, lbl_809CC5F4
+    b       lbl_809CC5F4
     lh      v0, %lo(var_809CCF78)(v0)
 lbl_809CC5F0:
     lh      v0, %lo(var_809CCF7A)(v0)
@@ -279,7 +279,7 @@ lbl_809CC608:
     bne     v1, $at, lbl_809CC634
     lui     v0, %hi(var_809CCF7E)      # v0 = 809D0000
     lui     v0, %hi(var_809CCF7C)      # v0 = 809D0000
-    beq     $zero, $zero, lbl_809CC638
+    b       lbl_809CC638
     lh      v0, %lo(var_809CCF7C)(v0)
 lbl_809CC634:
     lh      v0, %lo(var_809CCF7E)(v0)
@@ -301,7 +301,7 @@ lbl_809CC64C:
     sll     t1, a1,  2
     lui     v0, %hi(var_809CCF74)      # v0 = 809D0000
     addu    v0, v0, t1
-    beq     $zero, $zero, lbl_809CC68C
+    b       lbl_809CC68C
     lh      v0, %lo(var_809CCF74)(v0)
 lbl_809CC680:
     lui     v0, %hi(var_809CCF76)      # v0 = 809D0000
@@ -324,7 +324,7 @@ lbl_809CC6A4:
     sll     t4, a1,  2
     lui     v0, %hi(var_809CCF78)      # v0 = 809D0000
     addu    v0, v0, t4
-    beq     $zero, $zero, lbl_809CC6D8
+    b       lbl_809CC6D8
     lh      v0, %lo(var_809CCF78)(v0)
 lbl_809CC6CC:
     lui     v0, %hi(var_809CCF7A)      # v0 = 809D0000
@@ -347,7 +347,7 @@ lbl_809CC6F0:
     sll     t7, a1,  2
     lui     v0, %hi(var_809CCF7C)      # v0 = 809D0000
     addu    v0, v0, t7
-    beq     $zero, $zero, lbl_809CC724
+    b       lbl_809CC724
     lh      v0, %lo(var_809CCF7C)(v0)
 lbl_809CC718:
     lui     v0, %hi(var_809CCF7E)      # v0 = 809D0000
@@ -371,7 +371,7 @@ lbl_809CC73C:
     sll     t0, a1,  2
     lui     v0, %hi(var_809CCF80)      # v0 = 809D0000
     addu    v0, v0, t0
-    beq     $zero, $zero, lbl_809CC774
+    b       lbl_809CC774
     lh      v0, %lo(var_809CCF80)(v0)
 lbl_809CC768:
     lui     v0, %hi(var_809CCF82)      # v0 = 809D0000
@@ -649,10 +649,10 @@ lbl_809CCADC:
     nop
     bc1f    lbl_809CCB58
     nop
-    beq     $zero, $zero, lbl_809CCDAC
+    b       lbl_809CCDAC
     sw      t8, 0x0154(s0)             # 00000154
 lbl_809CCB58:
-    beq     $zero, $zero, lbl_809CCDAC
+    b       lbl_809CCDAC
     sw      t9, 0x0154(s0)             # 00000154
 lbl_809CCB60:
     mtc1    $at, $f6                   # $f6 = 260.00

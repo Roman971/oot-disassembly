@@ -95,7 +95,7 @@ lbl_80099F7C:
     sh      $zero, 0x01E4(v1)          # 000001E4
     sh      $zero, 0x01EC(v1)          # 000001EC
     addiu   t1, t0, 0x0001             # t1 = 00000001
-    beq     $zero, $zero, lbl_8009A0D8
+    b       lbl_8009A0D8
     sh      t1, 0x01D4(v1)             # 000001D4
 lbl_80099FC8:
     bne     v0, $at, lbl_80099FF0
@@ -106,7 +106,7 @@ lbl_80099FC8:
     sh      $zero, 0x01E4(v1)          # 000001E4
     sh      $zero, 0x01EC(v1)          # 000001EC
     addiu   t5, t4, 0x0001             # t5 = 00000001
-    beq     $zero, $zero, lbl_8009A0D8
+    b       lbl_8009A0D8
     sh      t5, 0x01D4(v1)             # 000001D4
 lbl_80099FF0:
     addiu   $at, $zero, 0x0002         # $at = 00000002
@@ -122,7 +122,7 @@ lbl_8009A008:
     slti    $at, t7, 0x0003
     bnel    $at, $zero, lbl_8009A0DC
     lw      $ra, 0x0014($sp)
-    beq     $zero, $zero, lbl_8009A0D8
+    b       lbl_8009A0D8
     sh      t8, 0x01D4(v1)             # 000001D4
 lbl_8009A028:
     beq     v0, $zero, lbl_8009A0D8

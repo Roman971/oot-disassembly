@@ -98,14 +98,14 @@ lbl_800ACC34:
     addu    t4, a0, v0
     blez    a3, lbl_800ACC58
     addiu   t8, a3, 0xFFFF             # t8 = FFFFFFFF
-    beq     $zero, $zero, lbl_800ACC74
+    b       lbl_800ACC74
     sb      t8, 0x0044(a1)             # 00000044
 lbl_800ACC58:
     lbu     t9, 0x0084(a1)             # 00000084
     subu    a3, a2, t9
     blezl   a3, lbl_800ACC74
     sb      $zero, 0x0004(a1)          # 00000004
-    beq     $zero, $zero, lbl_800ACC74
+    b       lbl_800ACC74
     sb      a3, 0x0004(a1)             # 00000004
     sb      $zero, 0x0004(a1)          # 00000004
 lbl_800ACC74:
@@ -117,7 +117,7 @@ lbl_800ACC74:
     slti    t3, a3, 0x0100
     xori    t3, t3, 0x0001             # t3 = 00000001
     or      v0, v1, $zero              # v0 = 00000001
-    beq     $zero, $zero, lbl_800ACCBC
+    b       lbl_800ACCBC
     sb      t3, 0x0000(a0)             # 00000000
 lbl_800ACC9C:
     lbu     t5, 0x0004(t4)             # 00000004
@@ -139,14 +139,14 @@ lbl_800ACCC0:
     lbu     a1, 0x010B(a0)             # 0000010B
     blez    a1, lbl_800ACCE8
     addiu   t7, a1, 0xFFFF             # t7 = 00000000
-    beq     $zero, $zero, lbl_800ACD04
+    b       lbl_800ACD04
     sb      t7, 0x010B(a0)             # 0000010B
 lbl_800ACCE8:
     lbu     t8, 0x010C(a0)             # 0000010C
     subu    a3, v1, t8
     blezl   a3, lbl_800ACD04
     sb      $zero, 0x010A(a0)          # 0000010A
-    beq     $zero, $zero, lbl_800ACD04
+    b       lbl_800ACD04
     sb      a3, 0x010A(a0)             # 0000010A
     sb      $zero, 0x010A(a0)          # 0000010A
 lbl_800ACD04:
@@ -160,12 +160,12 @@ lbl_800ACD04:
 lbl_800ACD20:
     beq     v1, $zero, lbl_800ACD30
     nop
-    beq     $zero, $zero, lbl_800ACD44
+    b       lbl_800ACD44
     or      a3, v1, $zero              # a3 = 00000003
 lbl_800ACD30:
     bne     v0, t1, lbl_800ACD40
     addu    t3, a0, v0
-    beq     $zero, $zero, lbl_800ACD44
+    b       lbl_800ACD44
     or      a3, $zero, $zero           # a3 = 00000000
 lbl_800ACD40:
     lbu     a3, 0x0004(t3)             # 00000005

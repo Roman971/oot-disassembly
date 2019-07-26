@@ -116,7 +116,7 @@ lbl_8090B304:
     sra     v0, v0, 16
     bltz    v0, lbl_8090B340
     subu    v1, $zero, v0
-    beq     $zero, $zero, lbl_8090B340
+    b       lbl_8090B340
     or      v1, v0, $zero              # v1 = 00000000
 lbl_8090B340:
     slti    $at, v1, 0x5001
@@ -138,7 +138,7 @@ lbl_8090B340:
     slti    $at, v0, 0x0005
     bne     $at, $zero, lbl_8090B394
     sw      v0, 0x0000(a2)             # 8090B620
-    beq     $zero, $zero, lbl_8090B398
+    b       lbl_8090B398
     sw      t8, 0x0000(a2)             # 8090B620
 lbl_8090B394:
     sw      v0, 0x0000(a2)             # 8090B620
@@ -199,7 +199,7 @@ func_8090B408:
     lui     t8, 0xFB00                 # t8 = FB000000
     sw      t8, 0x0000(v1)             # 00000000
     sw      t9, 0x0004(v1)             # 00000004
-    beq     $zero, $zero, lbl_8090B4C4
+    b       lbl_8090B4C4
     lwc1    $f12, 0x0024(s0)           # 00000024
 lbl_8090B46C:
     lh      t0, 0x013C(s0)             # 0000013C
@@ -214,7 +214,7 @@ lbl_8090B46C:
     sw      t1, 0x02D0(s1)             # 000002D0
     sw      t3, 0x0004(v1)             # 00000004
     sw      t2, 0x0000(v1)             # 00000000
-    beq     $zero, $zero, lbl_8090B4C4
+    b       lbl_8090B4C4
     lwc1    $f12, 0x0024(s0)           # 00000024
     lw      v1, 0x02D0(s1)             # 000002D0
 lbl_8090B4A8:

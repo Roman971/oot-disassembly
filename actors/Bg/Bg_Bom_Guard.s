@@ -93,7 +93,7 @@ lbl_80B529E4:
     nop
     bc1fl   lbl_80B52A54
     lbu     t9, 0x0158(a0)             # 00000158
-    beq     $zero, $zero, lbl_80B52A50
+    b       lbl_80B52A50
     sb      t8, 0x0158(a0)             # 00000158
     lw      v0, 0x0124(v0)             # 00000124
 lbl_80B52A48:

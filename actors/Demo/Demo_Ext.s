@@ -218,18 +218,18 @@ func_80A721A8:
     addiu   $at, $zero, 0x0003         # $at = 00000003
     beq     a2, $at, lbl_80A72230
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A72240
+    b       lbl_80A72240
     sw      a2, 0x0144(s0)             # 00000144
 lbl_80A7220C:
     jal     func_80A72088
     sw      a2, 0x0020($sp)
-    beq     $zero, $zero, lbl_80A7223C
+    b       lbl_80A7223C
     lw      a2, 0x0020($sp)
 lbl_80A7221C:
     lw      a1, 0x002C($sp)
     jal     func_80A72098
     sw      a2, 0x0020($sp)
-    beq     $zero, $zero, lbl_80A7223C
+    b       lbl_80A7223C
     lw      a2, 0x0020($sp)
 lbl_80A72230:
     jal     func_80A72124

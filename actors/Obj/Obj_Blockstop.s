@@ -12,7 +12,7 @@ func_80A91130:
     lw      a2, 0x0018($sp)
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A91180
+    b       lbl_80A91180
     lw      $ra, 0x0014($sp)
 lbl_80A91168:
     lui     $at, 0x3F80                # $at = 3F800000
@@ -78,7 +78,7 @@ func_80A9119C:
 lbl_80A9123C:
     jal     func_800646F0
     addiu   a0, $zero, 0x4802          # a0 = 00004802
-    beq     $zero, $zero, lbl_80A91258
+    b       lbl_80A91258
     lw      a0, 0x0064($sp)
 lbl_80A9124C:
     jal     func_800646F0

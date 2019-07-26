@@ -238,19 +238,19 @@ lbl_8005B3A8:
 lbl_8005B3F8:
     beq     v0, $zero, lbl_8005B3A8
     nop
-    beq     $zero, $zero, lbl_8005B4F4
+    b       lbl_8005B4F4
     nop
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     lbu     t9, 0x0000(s1)             # 00000000
     addiu   t8, s0, 0x0002             # t8 = 00000004
@@ -262,7 +262,7 @@ lbl_8005B3F8:
     addiu   t3, t2, 0x0001             # t3 = 00000001
     jal     func_8005B314
     sb      t3, 0x0000(s1)             # 00000000
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     lbu     t5, 0x0010(s1)             # 00000010
     addiu   t4, s0, 0x0002             # t4 = 00000004
@@ -274,16 +274,16 @@ lbl_8005B3F8:
     addiu   t0, t9, 0x0001             # t0 = 00000001
     jal     func_8005B314
     sb      t0, 0x0010(s1)             # 00000010
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     lbu     v0, 0x0009(s0)             # 0000000B
     bne     s4, v0, lbl_8005B4BC
     nop
-    beq     $zero, $zero, lbl_8005B4C8
+    b       lbl_8005B4C8
     sw      $zero, 0x0028(s1)          # 00000028
 lbl_8005B4BC:
     bne     s5, v0, lbl_8005B4C8
@@ -292,19 +292,19 @@ lbl_8005B4BC:
 lbl_8005B4C8:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
     addu    s0, s0, v0
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     sw      s0, 0x0024(s1)             # 00000024
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addiu   s2, $zero, 0x0001          # s2 = 00000001
 lbl_8005B4F4:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
-    beq     $zero, $zero, lbl_8005B3A8
+    b       lbl_8005B3A8
     addu    s0, s0, v0
     lw      $ra, 0x0034($sp)
 lbl_8005B508:
@@ -362,12 +362,12 @@ func_8005B52C:
     addiu   $at, $zero, 0x0003         # $at = 00000003
     beq     a0, $at, lbl_8005B620
     addiu   a1, s5, 0x0220             # a1 = 00000220
-    beq     $zero, $zero, lbl_8005B828
+    b       lbl_8005B828
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_8005B5DC:
     jal     func_800CE870
     lw      a0, 0x01FC($sp)
-    beq     $zero, $zero, lbl_8005B65C
+    b       lbl_8005B65C
     nop
 lbl_8005B5EC:
     lw      a0, 0x01FC($sp)
@@ -381,7 +381,7 @@ lbl_8005B5EC:
     addiu   a1, s5, 0x0320             # a1 = 00000320
     jal     func_800CE870
     addiu   a2, $zero, 0x0001          # a2 = 00000001
-    beq     $zero, $zero, lbl_8005B65C
+    b       lbl_8005B65C
     nop
 lbl_8005B620:
     lw      a0, 0x01FC($sp)
@@ -395,9 +395,9 @@ lbl_8005B620:
     addiu   a1, s5, 0x0320             # a1 = 00000320
     jal     func_800CE870
     addiu   a2, $zero, 0x0001          # a2 = 00000001
-    beq     $zero, $zero, lbl_8005B65C
+    b       lbl_8005B65C
     nop
-    beq     $zero, $zero, lbl_8005B828
+    b       lbl_8005B828
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_8005B65C:
     jal     func_800048C0              # osGetTime
@@ -410,7 +410,7 @@ lbl_8005B65C:
     addiu   $at, $zero, 0x0004         # $at = 00000004
     beq     a0, $at, lbl_8005B6B0
     addiu   s4, $sp, 0x00A8            # s4 = FFFFFDE8
-    beq     $zero, $zero, lbl_8005B828
+    b       lbl_8005B828
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_8005B68C:
     addiu   t6, $zero, 0x0004          # t6 = 00000004
@@ -420,7 +420,7 @@ lbl_8005B68C:
     addiu   a3, s5, 0x04B0             # a3 = 000004B0
     beq     v0, $zero, lbl_8005B740
     nop
-    beq     $zero, $zero, lbl_8005B740
+    b       lbl_8005B740
     nop
 lbl_8005B6B0:
     addiu   s0, s5, 0x03A0             # s0 = 000003A0
@@ -455,9 +455,9 @@ lbl_8005B6B0:
     or      a3, s1, $zero              # a3 = 000004B0
     beq     v0, $zero, lbl_8005B740
     nop
-    beq     $zero, $zero, lbl_8005B740
+    b       lbl_8005B740
     nop
-    beq     $zero, $zero, lbl_8005B828
+    b       lbl_8005B828
     addiu   v0, $zero, 0xFFFF          # v0 = FFFFFFFF
 lbl_8005B740:
     jal     func_800048C0              # osGetTime

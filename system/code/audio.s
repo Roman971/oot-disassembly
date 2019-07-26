@@ -82,7 +82,7 @@ lbl_800A03B8:
     slti    $at, t7, 0x0002
     bne     $at, $zero, lbl_800A03F0
     nop
-    beq     $zero, $zero, lbl_800A03FC
+    b       lbl_800A03FC
     sw      $zero, 0x0024($sp)
 lbl_800A03F0:
     jal     func_800BA5A0
@@ -189,7 +189,7 @@ lbl_800A053C:
     nop
     beq     v0, s3, lbl_800A05C0
     nop
-    beq     $zero, $zero, lbl_800A053C
+    b       lbl_800A053C
     or      a0, s4, $zero              # a0 = 00000074
 lbl_800A0568:
     jal     func_800A0318
@@ -214,12 +214,12 @@ lbl_800A0580:
 lbl_800A05B0:
     bnel    t9, $zero, lbl_800A0580
     or      a0, s4, $zero              # a0 = 00000074
-    beq     $zero, $zero, lbl_800A053C
+    b       lbl_800A053C
     or      a0, s4, $zero              # a0 = 00000074
 lbl_800A05C0:
     jal     func_800A04A0
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_800A053C
+    b       lbl_800A053C
     or      a0, s4, $zero              # a0 = 00000074
     lw      $ra, 0x002C($sp)
     lw      s0, 0x0014($sp)

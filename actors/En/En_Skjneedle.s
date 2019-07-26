@@ -97,7 +97,7 @@ lbl_80A704F8:
 lbl_80A7051C:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A705A4
+    b       lbl_80A705A4
     lw      $ra, 0x0024($sp)
 lbl_80A7052C:
     jal     func_80020F88

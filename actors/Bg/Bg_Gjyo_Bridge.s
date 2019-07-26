@@ -32,7 +32,7 @@ func_80AAB4C0:
     andi    t7, t6, 0x2000             # t7 = 00000000
     beql    t7, $zero, lbl_80AAB54C
     sw      $zero, 0x0134(s0)          # 00000134
-    beq     $zero, $zero, lbl_80AAB564
+    b       lbl_80AAB564
     sw      t8, 0x0154(s0)             # 00000154
     sw      $zero, 0x0134(s0)          # 00000134
 lbl_80AAB54C:

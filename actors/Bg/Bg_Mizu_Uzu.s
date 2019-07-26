@@ -66,7 +66,7 @@ func_809CAD40:
     addiu   a1, a3, 0x0810             # a1 = 00000810
     jal     func_800314D8
     lw      a2, 0x013C(s0)             # 0000013C
-    beq     $zero, $zero, lbl_809CAD94
+    b       lbl_809CAD94
     or      a0, s0, $zero              # a0 = 00000000
 lbl_809CAD88:
     jal     func_80031530

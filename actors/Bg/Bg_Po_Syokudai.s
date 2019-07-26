@@ -107,7 +107,7 @@ func_80A53480:
     lui     $at, 0x0001                # $at = 00010000
     addu    $at, $at, s1
     addiu   t3, $zero, 0x0004          # t3 = 00000004
-    beq     $zero, $zero, lbl_80A536E4
+    b       lbl_80A536E4
     sb      t3, 0x0AE3($at)            # 00010AE3
 lbl_80A53634:
     or      a0, s1, $zero              # a0 = 00000000
@@ -139,7 +139,7 @@ lbl_80A53634:
     addiu   t8, t7, 0x1000             # t8 = 00001000
     jal     func_80025110              # ActorSpawn
     sw      t8, 0x0024($sp)
-    beq     $zero, $zero, lbl_80A536E4
+    b       lbl_80A536E4
     nop
 lbl_80A536B0:
     or      a0, s1, $zero              # a0 = 00000000
@@ -327,10 +327,10 @@ lbl_80A53900:
     nop
     mfc1    a1, $f6
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80A53980
+    b       lbl_80A53980
     or      a1, a1, $at                # a1 = 80000000
 lbl_80A53968:
-    beq     $zero, $zero, lbl_80A53980
+    b       lbl_80A53980
     addiu   a1, $zero, 0xFFFF          # a1 = FFFFFFFF
 lbl_80A53970:
     mfc1    a1, $f6
@@ -373,10 +373,10 @@ lbl_80A539A8:
     nop
     mfc1    a2, $f4
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80A53A28
+    b       lbl_80A53A28
     or      a2, a2, $at                # a2 = 80000000
 lbl_80A53A10:
-    beq     $zero, $zero, lbl_80A53A28
+    b       lbl_80A53A28
     addiu   a2, $zero, 0xFFFF          # a2 = FFFFFFFF
 lbl_80A53A18:
     mfc1    a2, $f4
@@ -419,10 +419,10 @@ lbl_80A53A50:
     nop
     mfc1    a3, $f16
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80A53AD0
+    b       lbl_80A53AD0
     or      a3, a3, $at                # a3 = 80000000
 lbl_80A53AB8:
-    beq     $zero, $zero, lbl_80A53AD0
+    b       lbl_80A53AD0
     addiu   a3, $zero, 0xFFFF          # a3 = FFFFFFFF
 lbl_80A53AC0:
     mfc1    a3, $f16

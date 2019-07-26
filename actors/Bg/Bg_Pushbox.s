@@ -85,7 +85,7 @@ func_808B6D28:
     nop
     bc1fl   lbl_808B6D8C
     mtc1    $at, $f12                  # $f12 = 1.00
-    beq     $zero, $zero, lbl_808B6DB0
+    b       lbl_808B6DB0
     swc1    $f2, 0x0068(s0)            # 00000068
     mtc1    $at, $f12                  # $f12 = 1.00
 lbl_808B6D8C:
@@ -94,7 +94,7 @@ lbl_808B6D8C:
     nop
     bc1fl   lbl_808B6DAC
     mov.s   $f2, $f0
-    beq     $zero, $zero, lbl_808B6DAC
+    b       lbl_808B6DAC
     mov.s   $f2, $f12
     mov.s   $f2, $f0
 lbl_808B6DAC:

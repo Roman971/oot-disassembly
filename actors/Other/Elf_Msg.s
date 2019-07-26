@@ -35,7 +35,7 @@ func_80A75FFC:
 lbl_80A76064:
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A76124
+    b       lbl_80A76124
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80A76074:
     lh      t6, 0x0032(a2)             # 00000032
@@ -63,7 +63,7 @@ lbl_80A76074:
 lbl_80A760CC:
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A76124
+    b       lbl_80A76124
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80A760DC:
     lh      a1, 0x001C(a2)             # 0000001C
@@ -74,7 +74,7 @@ lbl_80A760E0:
     andi    a1, a1, 0x003F             # a1 = 00000000
     bne     a1, $at, lbl_80A76100
     nop
-    beq     $zero, $zero, lbl_80A76124
+    b       lbl_80A76124
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80A76100:
     jal     func_8002049C
@@ -83,7 +83,7 @@ lbl_80A76100:
     lw      a2, 0x0018($sp)
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A76124
+    b       lbl_80A76124
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80A76120:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -113,7 +113,7 @@ func_80A76134:
     lui     a1, %hi(func_80A76388)     # a1 = 80A70000
     lwc1    $f0, %lo(var_80A76550)($at)
     swc1    $f0, 0x0058(s0)            # 00000058
-    beq     $zero, $zero, lbl_80A761A8
+    b       lbl_80A761A8
     swc1    $f0, 0x0050(s0)            # 00000050
 lbl_80A76184:
     mtc1    v0, $f4                    # $f4 = 0.00
@@ -129,7 +129,7 @@ lbl_80A761A8:
     lh      v0, 0x0034(s0)             # 00000034
     bnel    v0, $zero, lbl_80A761C0
     mtc1    v0, $f10                   # $f10 = 0.00
-    beq     $zero, $zero, lbl_80A761D4
+    b       lbl_80A761D4
     swc1    $f0, 0x0054(s0)            # 00000054
     mtc1    v0, $f10                   # $f10 = 0.00
 lbl_80A761C0:
@@ -147,7 +147,7 @@ lbl_80A761D4:
     addiu   a1, a1, %lo(func_80A76264) # a1 = 80A76264
     jal     func_80A75FF0
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A76208
+    b       lbl_80A76208
     sh      $zero, 0x00B8(s0)          # 000000B8
 lbl_80A761FC:
     jal     func_80A75FF0
@@ -350,7 +350,7 @@ func_80A76450:
 lbl_80A764AC:
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A764FC
+    b       lbl_80A764FC
     lw      $ra, 0x001C($sp)
     lh      v0, 0x0032(s0)             # 00000032
 lbl_80A764C0:

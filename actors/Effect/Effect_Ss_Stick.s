@@ -122,7 +122,7 @@ func_80B31B20:
     or      a2, $zero, $zero           # a2 = 00000000
     jal     func_800AAF00
     addiu   a3, $zero, 0x0001          # a3 = 00000001
-    beq     $zero, $zero, lbl_80B31BFC
+    b       lbl_80B31BFC
     lw      v0, 0x02C0(s0)             # 000002C0
 lbl_80B31BA4:
     lwc1    $f12, %lo(var_80B31D08)($at)

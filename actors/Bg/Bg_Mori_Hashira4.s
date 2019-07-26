@@ -52,7 +52,7 @@ func_809EE4D4:
     lw      a1, 0x0024($sp)
     jal     func_809EE47C
     addiu   a3, $zero, 0x0003          # a3 = 00000003
-    beq     $zero, $zero, lbl_809EE540
+    b       lbl_809EE540
     nop
 lbl_809EE530:
     lw      a1, 0x0024($sp)
@@ -76,7 +76,7 @@ lbl_809EE540:
     lh      t1, 0x001C(s0)             # 0000001C
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809EE5D8
+    b       lbl_809EE5D8
     lw      $ra, 0x001C($sp)
     lh      t1, 0x001C(s0)             # 0000001C
 lbl_809EE58C:
@@ -89,7 +89,7 @@ lbl_809EE58C:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809EE5D8
+    b       lbl_809EE5D8
     lw      $ra, 0x001C($sp)
     or      a0, s0, $zero              # a0 = 00000000
 lbl_809EE5BC:
@@ -155,7 +155,7 @@ func_809EE640:
     lui     a1, %hi(func_809EE718)     # a1 = 809F0000
     jal     func_809EE6BC
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809EE69C
+    b       lbl_809EE69C
     nop
 lbl_809EE694:
     jal     func_809EE470

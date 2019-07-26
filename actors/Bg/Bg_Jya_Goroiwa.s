@@ -200,7 +200,7 @@ lbl_80A31850:
     bc1f    lbl_80A318EC
     nop
     lwc1    $f16, %lo(var_80A31CA0)($at)
-    beq     $zero, $zero, lbl_80A31924
+    b       lbl_80A31924
     swc1    $f16, 0x0028(s0)           # 00000028
 lbl_80A318EC:
     lui     $at, %hi(var_80A31CA4)     # $at = 80A30000
@@ -283,7 +283,7 @@ lbl_80A319B8:
     nop
     jal     func_80A31A94
     swc1    $f0, 0x00BC(s0)            # 000000BC
-    beq     $zero, $zero, lbl_80A31A30
+    b       lbl_80A31A30
     nop
 lbl_80A31A28:
     jal     func_8006385C
@@ -298,7 +298,7 @@ lbl_80A31A30:
     or      a0, s0, $zero              # a0 = 00000000
     bc1f    lbl_80A31A5C
     nop
-    beq     $zero, $zero, lbl_80A31A78
+    b       lbl_80A31A78
     sh      t2, 0x0032(s0)             # 00000032
 lbl_80A31A5C:
     lwc1    $f4, %lo(var_80A31CB8)($at)

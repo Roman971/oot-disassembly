@@ -94,7 +94,7 @@ lbl_80A72944:
     ori     t1, v1, 0x0001             # t1 = 00000001
 lbl_80A72988:
     sh      t1, 0x013C(a2)             # 0000013C
-    beq     $zero, $zero, lbl_80A729A4
+    b       lbl_80A729A4
     lbu     v0, 0x1D6C(a1)             # 00001D6C
     lhu     t2, 0x013C(a2)             # 0000013C
 lbl_80A72998:
@@ -120,7 +120,7 @@ lbl_80A729A4:
     sh      t6, 0x013E(a2)             # 0000013E
     ori     t7, v1, 0x0002             # t7 = 00000002
 lbl_80A729E8:
-    beq     $zero, $zero, lbl_80A729FC
+    b       lbl_80A729FC
     sh      t7, 0x013C(a2)             # 0000013C
     lhu     t8, 0x013C(a2)             # 0000013C
 lbl_80A729F4:
@@ -228,7 +228,7 @@ func_80A72A38:
     sw      t5, 0x02D0(s1)             # 000002D0
     sw      t8, 0x0004(s0)             # 00000004
     sw      t6, 0x0000(s0)             # 00000000
-    beq     $zero, $zero, lbl_80A72C2C
+    b       lbl_80A72C2C
     lw      $ra, 0x003C($sp)
 lbl_80A72B7C:
     andi    t7, a0, 0x0002             # t7 = 00000000

@@ -140,7 +140,7 @@ func_80918AC4:
     nop
     jal     func_80020EB4
     nop
-    beq     $zero, $zero, lbl_80918B18
+    b       lbl_80918B18
     lw      $ra, 0x0014($sp)
 lbl_80918B0C:
     jal     func_8002313C

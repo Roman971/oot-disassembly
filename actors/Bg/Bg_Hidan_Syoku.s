@@ -129,7 +129,7 @@ lbl_808DD71C:
     swc1    $f4, 0x0028(a0)            # 00000028
     jal     func_808DD660
     nop
-    beq     $zero, $zero, lbl_808DD77C
+    b       lbl_808DD77C
     lw      $ra, 0x0014($sp)
 lbl_808DD770:
     jal     func_8002313C
@@ -170,7 +170,7 @@ lbl_808DD7A8:
     swc1    $f4, 0x0028(a0)            # 00000028
     jal     func_808DD660
     nop
-    beq     $zero, $zero, lbl_808DD808
+    b       lbl_808DD808
     lw      $ra, 0x0014($sp)
 lbl_808DD7FC:
     jal     func_8002313C
@@ -236,7 +236,7 @@ lbl_808DD8C0:
     addiu   a1, $zero, 0x0030          # a1 = 00000030
     jal     func_800495BC
     lw      a0, 0x0790(t8)             # 00000790
-    beq     $zero, $zero, lbl_808DD908
+    b       lbl_808DD908
     lw      $ra, 0x001C($sp)
 lbl_808DD8D4:
     jal     func_80035364

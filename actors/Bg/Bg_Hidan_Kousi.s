@@ -58,7 +58,7 @@ func_8091CF7C:
     addiu   a1, a1, %lo(func_8091D304) # a1 = 8091D304
     jal     func_8091CF70
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8091D064
+    b       lbl_8091D064
     lw      $ra, 0x001C($sp)
 lbl_8091D054:
     lui     a1, %hi(func_8091D134)     # a1 = 80920000
@@ -247,7 +247,7 @@ func_8091D268:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022FD0
     addiu   a1, $zero, 0x2837          # a1 = 00002837
-    beq     $zero, $zero, lbl_8091D2F4
+    b       lbl_8091D2F4
     lw      $ra, 0x001C($sp)
 lbl_8091D2E8:
     jal     func_8002313C

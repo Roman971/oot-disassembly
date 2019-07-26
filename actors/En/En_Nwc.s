@@ -208,7 +208,7 @@ lbl_80A8E214:
     add.s   $f8, $f2, $f6
     swc1    $f8, 0x0008(s0)            # 00000168
     add.s   $f4, $f12, $f10
-    beq     $zero, $zero, lbl_80A8E318
+    b       lbl_80A8E318
     swc1    $f4, 0x0010(s0)            # 00000170
     add.s   $f6, $f2, $f20
 lbl_80A8E30C:

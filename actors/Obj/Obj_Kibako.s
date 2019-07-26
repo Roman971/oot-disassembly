@@ -200,7 +200,7 @@ lbl_80A64738:
     nop
     bc1f    lbl_80A64800
     nop
-    beq     $zero, $zero, lbl_80A64820
+    b       lbl_80A64820
     addiu   s0, $zero, 0x0060          # s0 = 00000060
 lbl_80A64800:
     lwc1    $f16, %lo(var_80A6513C)($at)
@@ -209,7 +209,7 @@ lbl_80A64800:
     nop
     bc1f    lbl_80A64820
     nop
-    beq     $zero, $zero, lbl_80A64820
+    b       lbl_80A64820
     addiu   s0, $zero, 0x0040          # s0 = 00000040
 lbl_80A64820:
     jal     func_800CDCCC              # Rand.Next() float
@@ -385,7 +385,7 @@ lbl_80A64A04:
     nop
     bc1f    lbl_80A64ACC
     nop
-    beq     $zero, $zero, lbl_80A64ACC
+    b       lbl_80A64ACC
     addiu   s0, $zero, 0x0040          # s0 = 00000040
 lbl_80A64ACC:
     jal     func_800CDCCC              # Rand.Next() float
@@ -471,7 +471,7 @@ func_80A64BCC:
     lhu     t6, 0x0088(s0)             # 00000088
     jal     func_80A64DC8
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A64DB8
+    b       lbl_80A64DB8
     lw      $ra, 0x0024($sp)
     lhu     t6, 0x0088(s0)             # 00000088
 lbl_80A64C0C:
@@ -498,7 +498,7 @@ lbl_80A64C0C:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A64DB8
+    b       lbl_80A64DB8
     lw      $ra, 0x0024($sp)
     lbu     t8, 0x0151(s0)             # 00000151
 lbl_80A64C74:
@@ -518,7 +518,7 @@ lbl_80A64C74:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A64DB8
+    b       lbl_80A64DB8
     lw      $ra, 0x0024($sp)
 lbl_80A64CBC:
     jal     func_8002121C
@@ -640,7 +640,7 @@ func_80A64DFC:
     or      a0, s0, $zero              # a0 = 00000000
     lbu     t8, 0x0152(s0)             # 00000152
     andi    t9, t8, 0xFFF7             # t9 = 00000000
-    beq     $zero, $zero, lbl_80A64E90
+    b       lbl_80A64E90
     sb      t9, 0x0152(s0)             # 00000152
 lbl_80A64E78:
     jal     func_80A64EC8
@@ -724,7 +724,7 @@ lbl_80A64F68:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A65054
+    b       lbl_80A65054
     lw      $ra, 0x0024($sp)
 lbl_80A64FA0:
     beq     t9, $zero, lbl_80A64FE0
@@ -741,7 +741,7 @@ lbl_80A64FA0:
     or      a1, s1, $zero              # a1 = 00000000
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A65054
+    b       lbl_80A65054
     lw      $ra, 0x0024($sp)
 lbl_80A64FE0:
     jal     func_80A64580

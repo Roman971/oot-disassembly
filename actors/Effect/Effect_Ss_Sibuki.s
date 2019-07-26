@@ -48,7 +48,7 @@ func_80B31D60:
     lui     $at, 0x8000                # $at = 80000000
     addu    t9, t7, t8
     addu    t0, t9, $at
-    beq     $zero, $zero, lbl_80B31E48
+    b       lbl_80B31E48
     sw      t0, 0x0038(a2)             # 00000038
     sll     t3, t2,  2
 lbl_80B31E2C:
@@ -384,7 +384,7 @@ lbl_80B321AC:
     nop
     mul.s   $f6, $f18, $f8
     swc1    $f6, 0x001C(s0)            # 0000001C
-    beq     $zero, $zero, lbl_80B3236C
+    b       lbl_80B3236C
     lw      $ra, 0x001C($sp)
 lbl_80B32340:
     lh      v0, 0x0054(s0)             # 00000054

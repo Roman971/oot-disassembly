@@ -76,14 +76,14 @@ lbl_80AC56DC:
     lbu     t4, 0x014C(s0)             # 0000014C
     lbu     t5, 0x0000(v0)             # 00000000
     or      t6, t4, t5                 # t6 = 00000000
-    beq     $zero, $zero, lbl_80AC5788
+    b       lbl_80AC5788
     sb      t6, 0x014C(s0)             # 0000014C
     lbu     t8, 0x0000(v0)             # 00000000
 lbl_80AC5728:
     lbu     t7, 0x014C(s0)             # 0000014C
     nor     t9, t8, $zero
     and     t0, t7, t9
-    beq     $zero, $zero, lbl_80AC5788
+    b       lbl_80AC5788
     sb      t0, 0x014C(s0)             # 0000014C
     lwc1    $f4, 0x0000(s2)            # 80AC5D24
 lbl_80AC5740:
@@ -111,7 +111,7 @@ lbl_80AC5788:
     addiu   s3, s3, 0x0008             # s3 = 00000008
     bne     s4, s6, lbl_80AC56DC
     addiu   s1, s1, 0x0008             # s1 = 00000144
-    beq     $zero, $zero, lbl_80AC57F4
+    b       lbl_80AC57F4
     lw      $ra, 0x0054($sp)
 lbl_80AC57A4:
     lw      t3, 0x013C(s3)             # 00000144
@@ -161,7 +161,7 @@ func_80AC5818:
     lw      a2, 0x0018($sp)
     lbu     t6, 0x014C(a2)             # 0000014C
     ori     t7, t6, 0x0004             # t7 = 00000004
-    beq     $zero, $zero, lbl_80AC585C
+    b       lbl_80AC585C
     sb      t7, 0x014C(a2)             # 0000014C
 lbl_80AC5850:
     lbu     t8, 0x014C(a2)             # 0000014C
@@ -204,7 +204,7 @@ func_80AC586C:
 lbl_80AC58D4:
     sw      $zero, 0x0158(s2)          # 00000158
     sw      $zero, 0x0154(s2)          # 00000154
-    beq     $zero, $zero, lbl_80AC59DC
+    b       lbl_80AC59DC
     sw      $zero, 0x0150(s2)          # 00000150
 lbl_80AC58E4:
     lbu     v1, 0x014C(s2)             # 0000014C
@@ -260,7 +260,7 @@ lbl_80AC5938:
     swc1    $f4, 0x0010($sp)
     jal     func_80025110              # ActorSpawn
     swc1    $f6, 0x0014($sp)
-    beq     $zero, $zero, lbl_80AC59CC
+    b       lbl_80AC59CC
     sw      v0, 0x0150(s0)             # 00000150
     lw      a0, 0x0150(s0)             # 00000150
 lbl_80AC59B8:
@@ -304,7 +304,7 @@ func_80AC5A14:
     nop
     jal     func_80020EB4
     nop
-    beq     $zero, $zero, lbl_80AC5A8C
+    b       lbl_80AC5A8C
     lw      $ra, 0x0014($sp)
 lbl_80AC5A48:
     jal     func_80020F88

@@ -19,24 +19,24 @@ func_80920000:
     addiu   $at, $zero, 0x0003         # $at = 00000003
     beq     v0, $at, lbl_8092008C
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_8092009C
+    b       lbl_8092009C
     lui     $at, 0x4496                # $at = 44960000
 lbl_80920054:
     jal     func_80020F88
     ori     a1, a1, 0xD70A             # a1 = 3B23D70A
-    beq     $zero, $zero, lbl_8092009C
+    b       lbl_8092009C
     lui     $at, 0x4496                # $at = 44960000
 lbl_80920064:
     lui     a1, 0x3BA3                 # a1 = 3BA30000
     jal     func_80020F88
     ori     a1, a1, 0xD70A             # a1 = 3BA3D70A
-    beq     $zero, $zero, lbl_8092009C
+    b       lbl_8092009C
     lui     $at, 0x4496                # $at = 44960000
 lbl_80920078:
     lui     a1, 0x3BF5                 # a1 = 3BF50000
     jal     func_80020F88
     ori     a1, a1, 0xC28F             # a1 = 3BF5C28F
-    beq     $zero, $zero, lbl_8092009C
+    b       lbl_8092009C
     lui     $at, 0x4496                # $at = 44960000
 lbl_8092008C:
     lui     a1, 0x3C23                 # a1 = 3C230000
@@ -121,7 +121,7 @@ func_8092016C:
     nop
     bc1fl   lbl_809201C4
     mtc1    $at, $f12                  # $f12 = 2.50
-    beq     $zero, $zero, lbl_809201E8
+    b       lbl_809201E8
     swc1    $f2, 0x0068(s0)            # 00000068
     mtc1    $at, $f12                  # $f12 = 2.50
 lbl_809201C4:
@@ -130,7 +130,7 @@ lbl_809201C4:
     nop
     bc1fl   lbl_809201E4
     mov.s   $f2, $f0
-    beq     $zero, $zero, lbl_809201E4
+    b       lbl_809201E4
     mov.s   $f2, $f12
     mov.s   $f2, $f0
 lbl_809201E4:

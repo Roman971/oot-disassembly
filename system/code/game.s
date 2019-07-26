@@ -69,7 +69,7 @@ func_800A0770:
     lh      t1, 0x017C(v0)             # 8012017C
     jal     func_800939A0
     sb      t1, 0x000B(a0)             # 8011D19B
-    beq     $zero, $zero, lbl_800A08B0
+    b       lbl_800A08B0
     lw      t9, 0x0024($sp)
 lbl_800A07DC:
     addiu   $at, $zero, 0x0005         # $at = 00000005
@@ -100,7 +100,7 @@ lbl_800A07F0:
     lh      t0, 0x017C(v0)             # 0000017C
     jal     func_800943B0
     sb      t0, 0x000F(a0)             # 8011D1AF
-    beq     $zero, $zero, lbl_800A08B0
+    b       lbl_800A08B0
     lw      t9, 0x0024($sp)
 lbl_800A0850:
     addiu   $at, $zero, 0x0007         # $at = 00000007
@@ -437,7 +437,7 @@ func_800A0CC8:
     addiu   a0, a3, 0x0074             # a0 = 00000074
     jal     func_800A0248
     lw      a2, 0x001C($sp)
-    beq     $zero, $zero, lbl_800A0D2C
+    b       lbl_800A0D2C
     lw      $ra, 0x0014($sp)
 lbl_800A0D08:
     addiu   a0, a3, 0x0074             # a0 = 00000074
@@ -495,7 +495,7 @@ lbl_800A0DA4:
     lw      a0, 0x0020($sp)
     jal     func_800A0248
     lw      a2, 0x0044($sp)
-    beq     $zero, $zero, lbl_800A0DEC
+    b       lbl_800A0DEC
     lw      $ra, 0x0014($sp)
 lbl_800A0DC8:
     lw      a0, 0x0020($sp)

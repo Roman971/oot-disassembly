@@ -85,7 +85,7 @@ func_80B52C1C:
     lw      a0, 0x0018($sp)
     lw      t6, 0x0024($sp)
     addiu   v0, $zero, 0x0001          # v0 = 00000001
-    beq     $zero, $zero, lbl_80B52CC0
+    b       lbl_80B52CC0
     sw      t6, 0x029C(a0)             # 0000029C
 lbl_80B52C54:
     lh      t8, 0x008A(a0)             # 0000008A
@@ -96,7 +96,7 @@ lbl_80B52C54:
     sra     v0, v0, 16
     bltz    v0, lbl_80B52C7C
     sh      t7, 0x010E(a0)             # 0000010E
-    beq     $zero, $zero, lbl_80B52C80
+    b       lbl_80B52C80
     or      v1, v0, $zero              # v1 = 00000001
 lbl_80B52C7C:
     subu    v1, $zero, v0
@@ -228,7 +228,7 @@ lbl_80B52DE8:
     sw      t1, 0x0018($sp)
     lhu     t2, 0x0298(s0)             # 00000298
     andi    t3, t2, 0xFFFE             # t3 = 00000000
-    beq     $zero, $zero, lbl_80B52EB0
+    b       lbl_80B52EB0
     sh      t3, 0x0298(s0)             # 00000298
 lbl_80B52E4C:
     addiu   t4, $zero, 0x0064          # t4 = 00000064
@@ -292,7 +292,7 @@ func_80B52EFC:
     sh      t9, 0x0000(v1)             # 00000000
     lh      t1, 0x028C(v0)             # 0000028C
     addu    t2, t0, t1
-    beq     $zero, $zero, lbl_80B52F40
+    b       lbl_80B52F40
     sh      t2, 0x0004(v1)             # 00000004
 var_80B52F28:
     sw      $zero, 0x0000(a2)          # 00000000

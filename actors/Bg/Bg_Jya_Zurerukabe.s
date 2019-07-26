@@ -96,7 +96,7 @@ var_80A31E98:
     sw      $zero, 0x0014($sp)
     jal     func_80022E7C
     swc1    $f18, 0x0010($sp)
-    beq     $zero, $zero, lbl_80A31F78
+    b       lbl_80A31F78
     lw      $ra, 0x001C($sp)
 var_80A31EFC:
     lui     t8, %hi(var_80A32320)      # t8 = 80A30000
@@ -169,7 +169,7 @@ lbl_80A31FD4:
     nop
     bc1fl   lbl_80A32008
     addiu   v0, v0, 0x0001             # v0 = 00000001
-    beq     $zero, $zero, lbl_80A32010
+    b       lbl_80A32010
     sh      v0, 0x0158(s0)             # 00000158
     addiu   v0, v0, 0x0001             # v0 = 00000002
 lbl_80A32008:
@@ -257,7 +257,7 @@ func_80A320F0:
     addiu   $at, $zero, 0x0004         # $at = 00000004
     bltz    v0, lbl_80A32128
     sh      t9, 0x015A(a0)             # 0000015A
-    beq     $zero, $zero, lbl_80A3212C
+    b       lbl_80A3212C
     or      v1, v0, $zero              # v1 = 00000000
 lbl_80A32128:
     subu    v1, $zero, v0

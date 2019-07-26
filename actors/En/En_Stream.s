@@ -172,7 +172,7 @@ func_80AD0214:
     mfc1    a3, $f2
     jal     func_80064178
     swc1    $f16, 0x0010($sp)
-    beq     $zero, $zero, lbl_80AD0330
+    b       lbl_80AD0330
     mtc1    $zero, $f0                 # $f0 = 0.00
 lbl_80AD02E8:
     mtc1    $zero, $f0                 # $f0 = 0.00
@@ -215,7 +215,7 @@ lbl_80AD0330:
     lw      t9, 0x0670(s0)             # 00000670
     lui     $at, 0x8000                # $at = 80000000
     or      t0, t9, $at                # t0 = 80000000
-    beq     $zero, $zero, lbl_80AD0398
+    b       lbl_80AD0398
     sw      t0, 0x0670(s0)             # 00000670
 lbl_80AD038C:
     lui     a1, %hi(func_80AD03AC)     # a1 = 80AD0000

@@ -96,7 +96,7 @@ lbl_80B49414:
     addiu   t5, $zero, 0x00FF          # t5 = 000000FF
     addiu   t6, t6, %lo(func_80B49768) # t6 = 80B49768
     sb      t5, 0x00AE(s0)             # 000000AE
-    beq     $zero, $zero, lbl_80B4950C
+    b       lbl_80B4950C
     sw      t6, 0x024C(s0)             # 0000024C
 lbl_80B49504:
     jal     func_80020EB4
@@ -211,7 +211,7 @@ lbl_80B49650:
     lw      t5, 0x0034($sp)
     lw      t8, 0x0274(s0)             # 00000274
     lbu     t6, 0x0000(t5)             # 00000000
-    beq     $zero, $zero, lbl_80B496C0
+    b       lbl_80B496C0
     sh      t6, 0x02DC(t8)             # 000002DC
     mtc1    $at, $f6                   # $f6 = 150.00
 lbl_80B496A4:
@@ -320,15 +320,15 @@ lbl_80B497F8:
     nop
 var_80B49824:
     addiu   t4, $zero, 0x7118          # t4 = 00007118
-    beq     $zero, $zero, lbl_80B49850
+    b       lbl_80B49850
     sh      t4, 0x010E(s0)             # 0000010E
 var_80B49830:
     addiu   t5, $zero, 0x7119          # t5 = 00007119
-    beq     $zero, $zero, lbl_80B49850
+    b       lbl_80B49850
     sh      t5, 0x010E(s0)             # 0000010E
 var_80B4983C:
     addiu   t6, $zero, 0x711A          # t6 = 0000711A
-    beq     $zero, $zero, lbl_80B49850
+    b       lbl_80B49850
     sh      t6, 0x010E(s0)             # 0000010E
 var_80B49848:
     addiu   t7, $zero, 0x711B          # t7 = 0000711B
@@ -378,7 +378,7 @@ lbl_80B498B4:
     addiu   t8, $zero, 0x0001          # t8 = 00000001
     bnel    t7, $at, lbl_80B4995C
     lw      $ra, 0x001C($sp)
-    beq     $zero, $zero, lbl_80B49958
+    b       lbl_80B49958
     sh      t8, 0x026A(s0)             # 0000026A
     lh      t9, 0x025C(s0)             # 0000025C
 lbl_80B498FC:
@@ -399,7 +399,7 @@ lbl_80B498FC:
     sw      t2, 0x024C(s0)             # 0000024C
     trunc.w.s $f8, $f6
     mfc1    t1, $f8
-    beq     $zero, $zero, lbl_80B49958
+    b       lbl_80B49958
     sh      t1, 0x025C(s0)             # 0000025C
 lbl_80B49948:
     or      a0, s0, $zero              # a0 = 00000000
@@ -495,7 +495,7 @@ lbl_80B49A68:
     lhu     t5, 0x02D0(s0)             # 000002D0
     lhu     t7, 0x02D6(s0)             # 000002D6
     sh      t5, 0x0254(s0)             # 00000254
-    beq     $zero, $zero, lbl_80B49AE8
+    b       lbl_80B49AE8
     sh      t7, 0x025A(s0)             # 0000025A
 lbl_80B49AA4:
     or      a1, $zero, $zero           # a1 = 00000000

@@ -95,7 +95,7 @@ func_809826F8:
     nop
     jal     func_80063D48              # Vec3f_Sub
     addiu   a0, v1, 0x0024             # a0 = 00000024
-    beq     $zero, $zero, lbl_809827B4
+    b       lbl_809827B4
     lwc1    $f0, 0x0018(s1)            # 00000018
 lbl_809827A8:
     jal     func_80063D48              # Vec3f_Sub
@@ -142,7 +142,7 @@ lbl_809827B4:
     lh      t3, 0x0288(s0)             # 00000288
     jal     func_80065BCC
     sw      t3, 0x001C($sp)
-    beq     $zero, $zero, lbl_8098288C
+    b       lbl_8098288C
     lw      $ra, 0x002C($sp)
 lbl_8098285C:
     addiu   a0, s0, 0x0288             # a0 = 00000288
@@ -479,7 +479,7 @@ func_80982C98:
     mtc1    $at, $f2                   # $f2 = 1.00
     lui     $at, 0x3F80                # $at = 3F800000
     mtc1    $at, $f2                   # $f2 = 1.00
-    beq     $zero, $zero, lbl_80982D54
+    b       lbl_80982D54
     swc1    $f2, 0x0268(s0)            # 00000268
     mtc1    $at, $f2                   # $f2 = 1.00
 lbl_80982D48:
@@ -495,7 +495,7 @@ lbl_80982D54:
     andi    t9, t8, 0x0001             # t9 = 00000000
     beql    t9, $zero, lbl_80982D80
     lwc1    $f10, 0x0278(s0)           # 00000278
-    beq     $zero, $zero, lbl_80982E38
+    b       lbl_80982E38
     swc1    $f2, 0x021C(s0)            # 0000021C
     lwc1    $f10, 0x0278(s0)           # 00000278
 lbl_80982D80:
@@ -656,7 +656,7 @@ lbl_80982F14:
     beq     v0, $zero, lbl_80982FE4
     addiu   s1, s1, 0x000C             # s1 = 0000000C
     lw      t7, 0x006C($sp)
-    beq     $zero, $zero, lbl_80982FE8
+    b       lbl_80982FE8
     sw      t7, 0x004C(s2)             # 0000004C
 lbl_80982FE4:
     sw      $zero, 0x004C(s2)          # 0000004C
@@ -710,7 +710,7 @@ lbl_80983064:
     subu    t1, t8, t9
     bltz    t1, lbl_809830A0
     subu    t2, $zero, t1
-    beq     $zero, $zero, lbl_809830A0
+    b       lbl_809830A0
     or      t2, t1, $zero              # t2 = 00000000
 lbl_809830A0:
     slti    $at, t2, 0x0064
@@ -721,7 +721,7 @@ lbl_809830A0:
     subu    t1, t5, t6
     bltz    t1, lbl_809830C8
     subu    t2, $zero, t1
-    beq     $zero, $zero, lbl_809830C8
+    b       lbl_809830C8
     or      t2, t1, $zero              # t2 = 00000000
 lbl_809830C8:
     slti    $at, t2, 0x0064
@@ -732,7 +732,7 @@ lbl_809830C8:
     subu    t1, t7, t8
     bltz    t1, lbl_809830F0
     subu    t2, $zero, t1
-    beq     $zero, $zero, lbl_809830F0
+    b       lbl_809830F0
     or      t2, t1, $zero              # t2 = 00000000
 lbl_809830F0:
     slti    $at, t2, 0x0064
@@ -944,7 +944,7 @@ lbl_80983308:
     nop
     bc1f    lbl_80983424
     nop
-    beq     $zero, $zero, lbl_80983440
+    b       lbl_80983440
     sb      t7, 0x0050(s0)             # 00000050
 lbl_80983424:
     mtc1    $at, $f16                  # $f16 = 800.00
@@ -1082,7 +1082,7 @@ lbl_80983560:
     lwc1    $f8, 0x0120($sp)
     lwc1    $f16, 0x00FC($sp)
     sub.s   $f18, $f16, $f8
-    beq     $zero, $zero, lbl_80983644
+    b       lbl_80983644
     swc1    $f18, 0x0024(s0)           # 00000024
 lbl_80983640:
     sw      $zero, 0x004C(s0)          # 0000004C
@@ -1341,7 +1341,7 @@ func_8098398C:
     swc1    $f10, 0x0034($sp)
     bc1fl   lbl_80983A10
     sub.s   $f6, $f4, $f16
-    beq     $zero, $zero, lbl_80983BBC
+    b       lbl_80983BBC
     or      v0, $zero, $zero           # v0 = 00000000
     sub.s   $f6, $f4, $f16
 lbl_80983A10:
@@ -1426,7 +1426,7 @@ lbl_80983A10:
     nop
     bc1fl   lbl_80983B60
     lwc1    $f6, 0x0000(s0)            # 00000000
-    beq     $zero, $zero, lbl_80983BBC
+    b       lbl_80983BBC
     or      v0, $zero, $zero           # v0 = 00000000
     lwc1    $f6, 0x0000(s0)            # 00000000
 lbl_80983B60:
@@ -1449,10 +1449,10 @@ lbl_80983B60:
     nop
     bc1f    lbl_80983BB4
     nop
-    beq     $zero, $zero, lbl_80983BBC
+    b       lbl_80983BBC
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80983BB4:
-    beq     $zero, $zero, lbl_80983BBC
+    b       lbl_80983BBC
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80983BBC:
     lw      $ra, 0x001C($sp)

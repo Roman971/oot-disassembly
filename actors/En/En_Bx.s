@@ -271,7 +271,7 @@ lbl_809EB420:
     slti    $at, v0, 0xFFD9
     beq     $at, $zero, lbl_809EB458
     lui     t9, 0x0001                 # t9 = 00010000
-    beq     $zero, $zero, lbl_809EB474
+    b       lbl_809EB474
     sb      $zero, 0x0A68(s0)          # 00000A68
 lbl_809EB458:
     sb      $zero, 0x0A68(s0)          # 00000A68

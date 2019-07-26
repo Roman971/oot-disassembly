@@ -92,7 +92,7 @@ func_80B35F80:
     mfc1    t3, $f6
     nop
     sh      t3, 0x0044(a2)             # 00000044
-    beq     $zero, $zero, lbl_80B36218
+    b       lbl_80B36218
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80B360F8:
     bne     v0, $at, lbl_80B3620C
@@ -162,10 +162,10 @@ lbl_80B360F8:
     sh      t3, 0x0052(a2)             # 00000052
     lbu     t4, 0x0032(a3)             # 00000032
     sh      $zero, 0x0056(a2)          # 00000056
-    beq     $zero, $zero, lbl_80B36214
+    b       lbl_80B36214
     sh      t4, 0x0054(a2)             # 00000054
 lbl_80B3620C:
-    beq     $zero, $zero, lbl_80B36218
+    b       lbl_80B36218
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80B36214:
     addiu   v0, $zero, 0x0001          # v0 = 00000001
@@ -207,7 +207,7 @@ func_80B36228:
     subu    t2, t2, t9
     sll     t2, t2,  2
     mtc1    t2, $f16                   # $f16 = 0.00
-    beq     $zero, $zero, lbl_80B36300
+    b       lbl_80B36300
     cvt.s.w $f20, $f16
     lh      v0, 0x0040(s0)             # 00000040
 lbl_80B362AC:
@@ -227,7 +227,7 @@ lbl_80B362AC:
     add.s   $f4, $f0, $f0
     div.s   $f20, $f4, $f8
     mul.s   $f20, $f20, $f10
-    beq     $zero, $zero, lbl_80B36304
+    b       lbl_80B36304
     lwc1    $f12, 0x0000(s0)           # 00000000
     lui     $at, 0x437F                # $at = 437F0000
 lbl_80B362F8:
@@ -374,10 +374,10 @@ lbl_80B36304:
     nop
     mfc1    t4, $f18
     lui     $at, 0x8000                # $at = 80000000
-    beq     $zero, $zero, lbl_80B3654C
+    b       lbl_80B3654C
     or      t4, t4, $at                # t4 = 80000000
 lbl_80B36534:
-    beq     $zero, $zero, lbl_80B3654C
+    b       lbl_80B3654C
     addiu   t4, $zero, 0xFFFF          # t4 = FFFFFFFF
     mfc1    t4, $f18
 lbl_80B36540:
@@ -437,7 +437,7 @@ func_80B36594:
     lwc1    $f4, 0x002C(v0)            # 0000002C
     sh      t9, 0x005C(s0)             # 0000005C
     add.s   $f8, $f4, $f6
-    beq     $zero, $zero, lbl_80B366B4
+    b       lbl_80B366B4
     swc1    $f8, 0x0008(s0)            # 00000008
     addiu   $at, $zero, 0x0009         # $at = 00000009
 lbl_80B3661C:

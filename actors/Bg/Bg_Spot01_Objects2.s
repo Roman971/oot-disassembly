@@ -16,11 +16,11 @@ func_80B4B500:
     nop
 var_80B4B538:
     addiu   t8, $zero, 0x0180          # t8 = 00000180
-    beq     $zero, $zero, lbl_80B4B558
+    b       lbl_80B4B558
     sw      t8, 0x0168(a2)             # 00000168
 var_80B4B544:
     addiu   t9, $zero, 0x0181          # t9 = 00000181
-    beq     $zero, $zero, lbl_80B4B558
+    b       lbl_80B4B558
     sw      t9, 0x0168(a2)             # 00000168
 var_80B4B550:
     addiu   t0, $zero, 0x0180          # t0 = 00000180
@@ -43,7 +43,7 @@ lbl_80B4B558:
     nop
     jal     func_80020EB4
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B4B5D0
+    b       lbl_80B4B5D0
     lw      $ra, 0x0014($sp)
 lbl_80B4B5A4:
     jal     func_80020EB4
@@ -163,7 +163,7 @@ var_80B4B724:
     or      a2, s0, $zero              # a2 = 00000000
     jal     func_800313A4              # DynaPolyInfo_setActor
     lw      a3, 0x0054($sp)
-    beq     $zero, $zero, lbl_80B4B804
+    b       lbl_80B4B804
     sw      v0, 0x013C(s0)             # 0000013C
 var_80B4B750:
     lui     a0, 0x0600                 # a0 = 06000000

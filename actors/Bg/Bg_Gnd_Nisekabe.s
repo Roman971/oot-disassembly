@@ -58,7 +58,7 @@ func_80B67FE0:
     lw      a1, %lo(var_80B68070)(a1)
     jal     func_800280C8
     or      a0, a2, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80B68040
+    b       lbl_80B68040
     lw      $ra, 0x0014($sp)
 lbl_80B68024:
     sll     t9, v0,  2

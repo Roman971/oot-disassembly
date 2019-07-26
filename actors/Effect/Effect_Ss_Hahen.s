@@ -75,7 +75,7 @@ func_80B313F4:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80B31380
     sh      t3, 0x0048(s0)             # 00000048
-    beq     $zero, $zero, lbl_80B314D8
+    b       lbl_80B314D8
     lh      t2, 0x0048(s0)             # 00000048
 lbl_80B314A0:
     lui     v0, 0x0401                 # v0 = 04010000
@@ -103,7 +103,7 @@ lbl_80B314D8:
     bne     t3, t4, lbl_80B31508
     lui     t5, %hi(func_80B316F0)     # t5 = 80B30000
     addiu   t5, t5, %lo(func_80B316F0) # t5 = 80B316F0
-    beq     $zero, $zero, lbl_80B31514
+    b       lbl_80B31514
     sw      t5, 0x0028(s0)             # 00000028
 lbl_80B31508:
     lui     t6, %hi(func_80B31590)     # t6 = 80B30000

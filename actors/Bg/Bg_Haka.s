@@ -134,7 +134,7 @@ func_8095B510:
     addiu   t0, $zero, 0x0064          # t0 = 00000064
     addiu   t1, t1, %lo(func_8095B818) # t1 = 8095B818
     sh      t0, 0x001C(a3)             # 0000001C
-    beq     $zero, $zero, lbl_8095B644
+    b       lbl_8095B644
     sw      t1, 0x0154(a3)             # 00000154
 lbl_8095B5C8:
     c.lt.s  $f2, $f0
@@ -161,7 +161,7 @@ lbl_8095B614:
     lw      t3, 0x0670(s0)             # 00000670
     addiu   $at, $zero, 0xFFEF         # $at = FFFFFFEF
     and     t4, t3, $at
-    beq     $zero, $zero, lbl_8095B644
+    b       lbl_8095B644
     sw      t4, 0x0670(s0)             # 00000670
 lbl_8095B628:
     lh      t5, 0x00B6(a3)             # 000000B6
@@ -207,7 +207,7 @@ func_8095B664:
     nop
     bc1fl   lbl_8095B6C8
     swc1    $f0, 0x0068(s0)            # 00000068
-    beq     $zero, $zero, lbl_8095B6C8
+    b       lbl_8095B6C8
     swc1    $f2, 0x0068(s0)            # 00000068
     swc1    $f0, 0x0068(s0)            # 00000068
 lbl_8095B6C8:
@@ -245,7 +245,7 @@ lbl_8095B6C8:
     nop
     jal     func_800646F0
     addiu   a0, $zero, 0x4802          # a0 = 00004802
-    beq     $zero, $zero, lbl_8095B7B0
+    b       lbl_8095B7B0
     nop
 lbl_8095B758:
     lw      t2, -0x5A20(t2)            # FFFFA5E0

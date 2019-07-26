@@ -477,10 +477,10 @@ func_80A52B30:
     add.s   $f6, $f4, $f8
     bc1f    lbl_80A52C60
     swc1    $f6, 0x0008(v0)            # 0000002C
-    beq     $zero, $zero, lbl_80A52C6C
+    b       lbl_80A52C6C
     addiu   v0, $zero, 0x0001          # v0 = 00000001
 lbl_80A52C60:
-    beq     $zero, $zero, lbl_80A52C6C
+    b       lbl_80A52C6C
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_80A52C68:
     or      v0, $zero, $zero           # v0 = 00000000
@@ -548,18 +548,18 @@ func_80A52CDC:
     addiu   $at, $zero, 0x0003         # $at = 00000003
     beq     a2, $at, lbl_80A52D64
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A52D74
+    b       lbl_80A52D74
     sw      a2, 0x015C(s0)             # 0000015C
 lbl_80A52D40:
     jal     func_80A52C7C
     sw      a2, 0x0020($sp)
-    beq     $zero, $zero, lbl_80A52D70
+    b       lbl_80A52D70
     lw      a2, 0x0020($sp)
 lbl_80A52D50:
     lw      a1, 0x002C($sp)
     jal     func_80A52C90
     sw      a2, 0x0020($sp)
-    beq     $zero, $zero, lbl_80A52D70
+    b       lbl_80A52D70
     lw      a2, 0x0020($sp)
 lbl_80A52D64:
     jal     func_80020EB4
@@ -688,10 +688,10 @@ func_80A52E64:
     nop
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_80A52F6C
+    b       lbl_80A52F6C
     lw      $ra, 0x001C($sp)
 lbl_80A52F04:
-    beq     $zero, $zero, lbl_80A52F68
+    b       lbl_80A52F68
     sw      $zero, 0x0154(s0)          # 00000154
     addiu   $at, $zero, 0x0004         # $at = 00000004
 lbl_80A52F10:
@@ -708,13 +708,13 @@ lbl_80A52F10:
     cvt.s.w $f6, $f4
     add.s   $f10, $f6, $f8
     neg.s   $f16, $f10
-    beq     $zero, $zero, lbl_80A52F68
+    b       lbl_80A52F68
     swc1    $f16, 0x00BC(s0)           # 000000BC
 lbl_80A52F4C:
     addiu   $at, $zero, 0x0006         # $at = 00000006
     bne     v1, $at, lbl_80A52F60
     nop
-    beq     $zero, $zero, lbl_80A52F68
+    b       lbl_80A52F68
     sw      $zero, 0x0154(s0)          # 00000154
 lbl_80A52F60:
     jal     func_80020EB4

@@ -19,11 +19,11 @@ func_809CA650:
     sb      t8, 0x018C(s0)             # 0000018C
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809CA74C
+    b       lbl_809CA74C
     lw      $ra, 0x001C($sp)
     sb      t8, 0x018C(s0)             # 0000018C
 lbl_809CA6A8:
-    beq     $zero, $zero, lbl_809CA6B8
+    b       lbl_809CA6B8
     sb      $zero, 0x018B(s0)          # 0000018B
 lbl_809CA6B0:
     sb      $zero, 0x018C(s0)          # 0000018C
@@ -36,7 +36,7 @@ lbl_809CA6B8:
     mtc1    $zero, $f0                 # $f0 = 0.00
     jal     func_80020EB4
     or      a0, s0, $zero              # a0 = 00000000
-    beq     $zero, $zero, lbl_809CA74C
+    b       lbl_809CA74C
     lw      $ra, 0x001C($sp)
     mtc1    $zero, $f0                 # $f0 = 0.00
 lbl_809CA6E0:
@@ -140,7 +140,7 @@ func_809CA7F4:
     bnel    t0, $zero, lbl_809CA848
     lhu     t2, 0x1D74(a3)             # 00001D74
     sb      t1, 0x018C(a2)             # 0000018C
-    beq     $zero, $zero, lbl_809CA994
+    b       lbl_809CA994
     sb      $zero, 0x018B(a2)          # 0000018B
     lhu     t2, 0x1D74(a3)             # 00001D74
 lbl_809CA848:
@@ -289,7 +289,7 @@ lbl_809CAA1C:
     swc1    $f8, 0x0024(s0)            # 00000024
     add.s   $f8, $f4, $f6
     swc1    $f18, 0x0028(s0)           # 00000028
-    beq     $zero, $zero, lbl_809CAA80
+    b       lbl_809CAA80
     swc1    $f8, 0x002C(s0)            # 0000002C
 lbl_809CAA6C:
     jal     func_8002AB20
