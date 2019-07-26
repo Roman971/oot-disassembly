@@ -1,8 +1,8 @@
-#ifndef _Z64_TYPES_H_
-#define _Z64_TYPES_H_
+#ifndef _Z64_H_
+#define _Z64_H_
 
-#include "ultra_types.h"
-#include "os_types.h"
+#include "ultra.h"
+#include "os.h"
 
 typedef struct z_getfile_t {
   /* 0x00 */ u32            vrom_addr;  // VROM address (source)

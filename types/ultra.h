@@ -1,5 +1,5 @@
-#ifndef _ULTRA_TYPES_H_
-#define _ULTRA_TYPES_H_
+#ifndef _ULTRA_H_
+#define _ULTRA_H_
 
 typedef unsigned char                u8;   // Unsigned  8-bit
 typedef unsigned short               u16;  // Unsigned 16-bit

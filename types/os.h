@@ -1,7 +1,7 @@
-#ifndef _OS_TYPES_H_
-#define _OS_TYPES_H_
+#ifndef _OS_H_
+#define _OS_H_
 
-#include "ultra_types.h"
+#include "ultra.h"
 
 /************************* Thread ***************************/
 
