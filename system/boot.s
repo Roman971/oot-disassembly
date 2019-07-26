@@ -492,7 +492,7 @@ func_80000AF8:
 
 
 func_80000B0C:
-# s32 DMAGetFile(z_getfile_t* getfile)
+# s32 DMAGetFile(z_getfile* getfile)
 # Resolves a file transfer request (without sending the completion notification message)
 # A0 = Pointer to the transfer request struct
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
@@ -652,7 +652,7 @@ lbl_80000D10:
 
 
 func_80000D28:
-# s32 DMARequestFile(z_getfile_t* getfile_buf, void* dram_addr, u32 vrom_addr, u32 size, s32 ?, OSMesgQueue* notify_mq, OSMesg notify_msg)
+# s32 DMARequestFile(z_getfile* getfile, void* dram_addr, u32 vrom_addr, u32 size, s32 ?, OSMesgQueue* notify_mq, OSMesg notify_msg)
 # Requests a DMA file transfer from ROM to RAM
 # A0 = Pointer to the transfer request struct
 # A1 = void* RDRAM address to write to

@@ -4,7 +4,7 @@
 #include "ultra.h"
 #include "os.h"
 
-typedef struct z_getfile_t {
+typedef struct z_getfile {
   /* 0x00 */ u32            vrom_addr;  // VROM address (source)
   /* 0x04 */ void*          dram_addr;  // DRAM address (destination)
   /* 0x08 */ u32            size;       // File Transfer size
@@ -14,6 +14,6 @@ typedef struct z_getfile_t {
   /* 0x18 */ OSMesgQueue*   notify_mq;  // Message queue for the notification message
   /* 0x1C */ OSMesg         notify_msg; // Completion notification message
   /* 0x20 */
-} z_getfile_t;
+} z_getfile;
 
 #endif
