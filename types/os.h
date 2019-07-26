@@ -125,7 +125,7 @@ typedef struct OSTimer {
 #define OS_IM_RDBWRITE      0x00002401  // RDB Write interrupt
 #define OS_IM_RDBREAD       0x00004401  // RDB Read interrupt
 #define OS_IM_COUNTER       0x00008401  // Internal counter interrupt
-#define OS_IM_CPU           0x0000ff01  // CPU interrupt
+#define OS_IM_CPU           0x0000FF01  // CPU interrupt
 #define OS_IM_SP            0x00010401  // RCP Signal Processor (SP) interrupt
 #define OS_IM_SI            0x00020401  // RCP Serial Interface (SI) interrupt
 #define OS_IM_AI            0x00040401  // RCP Audio Interface (AI) interrupt
@@ -133,7 +133,7 @@ typedef struct OSTimer {
 #define OS_IM_PI            0x00100401  // RCP Parallel Interface (PI) interrupt
 #define OS_IM_DP            0x00200401  // RCP Display Processor (DP) interrupt
 #define OS_IM_ALL           0x003FFF01  // All interrupts enabled
-#define RCP_IMASK           0x003f0000
+#define RCP_IMASK           0x003F0000
 #define RCP_IMASKSHIFT      16
 
 typedef u32 OSIntMask; // Interrupt Mask
