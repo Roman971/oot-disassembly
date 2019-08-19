@@ -1,11 +1,15 @@
 .section .text
 func_80959A10:
+# Store new update routine function for this actor
+# A0 = Actor Instance
+# A1 = Pointer to function
     sw      a1, 0x0188(a0)             # 00000188
     jr      $ra
     nop
 
 
 func_80959A1C:
+# Init function
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -60,6 +64,7 @@ lbl_80959AC4:
 
 
 func_80959AD8:
+# Destruct function
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -79,6 +84,9 @@ lbl_80959B08:
 
 
 func_80959B14:
+# Update routine while the grotto actor is not visible (waiting for storms or explosion/hammer)
+# Either checks for the proximity storm flag or an explosion/hammer collision
+# When detected, plays a sfx, updates the actor to be visible and changes the update routine
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -165,6 +173,7 @@ lbl_80959C30:
 
 
 func_80959C4C:
+# Update routine while the grotto actor is visible but the player hasn't touched it yet
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -282,6 +291,9 @@ lbl_80959DE4:
 
 
 func_80959E00:
+# Update routine once the player has touched the grotto actor collision
+# Positions the player actor at the center of the grotto actor (X and Z coordinates) if it is too far away
+# Doesn't seem to do anything else since the player actor drops by itself (since we previously disabled its floor collision)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -329,6 +341,9 @@ lbl_80959EA0:
 
 
 func_80959EAC:
+# Main Update function
+# Calls the current update routine function previously stored by 80959A10
+# Then also does something camera/rotation related
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -353,6 +368,7 @@ func_80959EAC:
 
 
 func_80959F00:
+# Main Draw function
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -393,15 +409,15 @@ func_80959F00:
 .section .data
 
 var_80959F90: .word 0x009B0700, 0x02000000, 0x00020000, 0x0000018C
-.word func_80959A1C
-.word func_80959AD8
-.word func_80959EAC
-.word func_80959F00
-var_80959FB0: .word \
+.word func_80959A1C # Init
+.word func_80959AD8 # Dest
+.word func_80959EAC # Main
+.word func_80959F00 # Draw
+var_80959FB0: .word \ # Actor OverlayCollision
 0x0A000900, 0x00010000, 0x02000000, 0x00000000, \
 0x00000000, 0x00000048, 0x00000000, 0x00010000, \
 0x0032000A, 0x00000000, 0x00000000
-var_80959FDC: .word \
+var_80959FDC: .word \ # List of entrance ids to load inside each grotto type
 0x036D003F, 0x0598059C, 0x05A005A4, 0x05A805AC, \
 0x05B005B4, 0x05B805BC, 0x05C005C4, 0x05FC0000, \
 0x00000000
@@ -409,4 +425,3 @@ var_80959FDC: .word \
 .section .rodata
 
 var_8095A000: .word 0x471C4000, 0x00000000, 0x00000000, 0x00000000
-
