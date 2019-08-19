@@ -1,6 +1,6 @@
 # "Kanji Font" part of the code file
 #
-# Handles the kanji font and maybe other fonts.
+# Handles loading character fonts (textures) into memory.
 #
 # General Documentation about Text:
 # https://wiki.cloudmodding.com/oot/Text_Format
@@ -10,25 +10,28 @@
 
 .section .text
 func_8005BC90:
-# Load jpn_font_static character
-# ROM st: jpn_font_static
+# Load jpn_font_static character into memory
+# Uses 800AF790 (kancode.s) to map the character to its font offset
+# A0 = Current Message Context (GC + 0x2200)
+# A1 = u16 character code to load
+# A2 = u16 ? (offset to apply in RAM when loading the character)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
-    andi    a1, a1, 0xFFFF             # a1 = 00000000
+    andi    a1, a1, 0xFFFF
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a2, 0x0020($sp)
-    jal     func_800AF790
-    or      a0, a1, $zero              # a0 = 00000000
+    jal     func_800AF790              # Map character code (A1) to jpn_font_static offset (kancode.s)
+    or      a0, a1, $zero              # a0 = a1 = character code
     lw      t6, 0x0018($sp)
     lhu     t7, 0x0022($sp)
-    lui     t8, 0x004E                 # t8 = 004E0000
-    addiu   t8, t8, 0x9F40             # t8 = 004D9F40
+    lui     t8, 0x004E
+    addiu   t8, t8, 0x9F40             # t8 = 0x004D9F40 (ROM st: jpn_font_static)
     addu    a0, t6, t7
-    addiu   a0, a0, 0x0008             # a0 = 00000008
-    addu    a1, v0, t8
-    jal     func_80000DF0
-    addiu   a2, $zero, 0x0080          # a2 = 00000080
+    addiu   a0, a0, 0x0008             # a0 = GC + 0x2200 + A2 + 0x8
+    addu    a1, v0, t8                 # a1 = ROM address of the character font to load
+    jal     func_80000DF0              # DMALoadFile(GC + 0x2200 + A2 + 0x8, jpn_font_static:st + kancode(A1), 0x80)
+    addiu   a2, $zero, 0x0080          # a2 = 0x80
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
@@ -36,24 +39,27 @@ func_8005BC90:
 
 
 func_8005BCE4:
-# Load nes_font_static character
-# ROM st: nes_font_static
+# Load nes_font_static character into memory
+# Maps the character to its font offset directly (offset = (code & 0xFF) << 7)
+# A0 = Current Message Context (GC + 0x2200)
+# A1 = u16 character code to load
+# A2 = u16 ? (offset to apply in RAM when loading the character)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
     sw      a1, 0x001C($sp)
     sw      a2, 0x0020($sp)
-    andi    a3, a1, 0x00FF             # a3 = 00000000
+    andi    a3, a1, 0x00FF
     lw      t6, 0x0018($sp)
     lhu     t7, 0x0022($sp)
-    lui     t9, 0x0093                 # t9 = 00930000
-    addiu   t9, t9, 0x8000             # t9 = 00928000
-    sll     t8, a3,  7
+    lui     t9, 0x0093
+    addiu   t9, t9, 0x8000             # t9 = 0x00928000 (ROM st: nes_font_static)
+    sll     t8, a3,  7                 # offset = (A1 & 0xFF) << 7
     addu    a0, t6, t7
-    addiu   a0, a0, 0x0008             # a0 = 00000008
-    addu    a1, t8, t9
-    jal     func_80000DF0
-    addiu   a2, $zero, 0x0080          # a2 = 00000080
+    addiu   a0, a0, 0x0008             # a0 = GC + 0x2200 + A2 + 0x8
+    addu    a1, t8, t9                 # a1 = ROM address of the character font to load
+    jal     func_80000DF0              # DMALoadFile(GC + 0x2200 + A2 + 0x8, nes_font_static:st + (A1 & 0xFF) << 7, 0x80)
+    addiu   a2, $zero, 0x0080          # a2 = 0x80
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
@@ -61,20 +67,23 @@ func_8005BCE4:
 
 
 func_8005BD34:
-# ROM st: message_static
+# Load message_static character into memory
+# Maps the character to its font offset directly (offset = code << 7 + 0x4000)
+# A0 = Current Message Context (GC + 0x2200)
+# A1 = u16 character code to load
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
-    or      a3, a0, $zero              # a3 = 00000000
+    or      a3, a0, $zero
     lhu     t6, 0x001E($sp)
-    lui     t9, 0x008E                 # t9 = 008E0000
-    addiu   t9, t9, 0x6000             # t9 = 008E6000
+    lui     t9, 0x008E
+    addiu   t9, t9, 0x6000             # t9 = 0x008E6000 (ROM st: message_static)
     sll     t7, t6,  7
-    addiu   t8, t7, 0x4000             # t8 = 00004000
-    addu    a1, t8, t9
-    addiu   a0, a3, 0x3C08             # a0 = 00003C08
-    jal     func_80000DF0
-    addiu   a2, $zero, 0x0080          # a2 = 00000080
+    addiu   t8, t7, 0x4000             # offset = A1 << 7 + 0x4000
+    addu    a1, t8, t9                 # a1 = ROM address of the character font to load
+    addiu   a0, a3, 0x3C08             # a0 = GC + 0x2200 + 0x3C00 + 0x8
+    jal     func_80000DF0              # DMALoadFile(GC + 0x2200 + 0x3C00 + 0x8, message_static:st + A1 << 7 + 0x4000, 0x80)
+    addiu   a2, $zero, 0x0080          # a2 = 0x80
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
     jr      $ra
@@ -82,8 +91,8 @@ func_8005BD34:
 
 
 func_8005BD78:
-# Initialize File Select Character Set Data?
-# ROM st: jpn_message_data_static & jpn_font_static
+# Load "File Select" Character Set Data into memory
+# A0 = some message context ptr?
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s5, 0x002C($sp)
     lui     a3, 0x0804                 # a3 = 08040000
