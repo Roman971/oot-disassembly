@@ -1,3 +1,16 @@
+# "File Select" Game State Overlay File
+#
+# This file handles the "File Select" game state which is used to select manage save files and settings.
+#
+# General documentation about Game States:
+# - https://wiki.cloudmodding.com/oot/Game_States
+#
+# The variables for this game state can be found in the Game State Table located in code/data.s
+# (VRAM: 800F1430-800F1460, VROM: E0390-E03C0)
+#
+# Starts at VRAM: 80803880 / VROM: BA12C0
+#
+
 .section .text
 func_80803880:
     lui     $at, 0x0001                # $at = 00010000
@@ -15498,6 +15511,8 @@ lbl_80811CA8:
 
 
 func_80811D5C:
+# Main Update function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -15896,12 +15911,16 @@ func_80811D5C:
 
 
 func_80812388:
+# Deconstructor function
+# A0 = Global Context
     sw      a0, 0x0000($sp)
     jr      $ra
     nop
 
 
 func_80812394:
+# Constructor function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

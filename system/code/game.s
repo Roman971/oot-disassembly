@@ -7,6 +7,8 @@
 
 .section .text
 func_800A0700:
+# Called by the Initial Game State Constructor
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80051AA0
@@ -25,12 +27,16 @@ func_800A0700:
 
 
 func_800A073C:
+# Initial Game State Deconstructor
+# A0 = Global Context
     sw      a0, 0x0000($sp)
     jr      $ra
     nop
 
 
 func_800A0748:
+# Initial Game State Constructor
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     t6, 0x800A                 # t6 = 800A0000

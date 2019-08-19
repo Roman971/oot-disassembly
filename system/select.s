@@ -1,3 +1,16 @@
+# "Map Select" Game State Overlay File
+#
+# This file handles the "Map Select" game state which is part of the debug menu.
+#
+# General documentation about Game States:
+# - https://wiki.cloudmodding.com/oot/Game_States
+#
+# The variables for this game state can be found in the Game State Table located in code/data.s
+# (VRAM: 800F1370-800F13A0, VROM: E02D0-E0300)
+#
+# Starts at VRAM: 808009C0 / VROM: B9E400
+#
+
 .section .text
 func_808009C0:
     sw      $zero, 0x0098(a0)          # 00000098
@@ -111,6 +124,7 @@ lbl_80800B34:
 
 
 func_80800B40:
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -784,6 +798,7 @@ lbl_80801490:
 
 
 func_808014A0:
+# Draws "ZELDA LEVEL SELECT", level entries, and "OPT"
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s3, 0x0028($sp)
     sw      s2, 0x0024($sp)
@@ -912,6 +927,7 @@ lbl_808015FC:
 
 
 func_8080167C:
+# Draws the loading message
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
@@ -950,6 +966,7 @@ func_8080167C:
 
 
 func_80801708:
+# Draws Link's age
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
@@ -1244,6 +1261,7 @@ func_80801A4C:
 
 
 func_80801B34:
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -1291,6 +1309,8 @@ lbl_80801BCC:
 
 
 func_80801BDC:
+# Main Update function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -1305,12 +1325,16 @@ func_80801BDC:
 
 
 func_80801C08:
+# Deonstructor function
+# A0 = Global Context
     sw      a0, 0x0000($sp)
     jr      $ra
     nop
 
 
 func_80801C14:
+# Constructor function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     or      a3, a0, $zero              # a3 = 00000000
@@ -1410,6 +1434,11 @@ lbl_80801D20:
 
 .section .data
 
+# Map Select Table
+# Format seems to be the following:
+# char* locationName (Display name of the location)
+# void* functionPtr (Possibly custom function for initializing game state)
+# u32 entranceIndex (Location entrance index)
 var_80801D90: .word var_80802350
 .word func_808009E0
 .word 0x000000CD
@@ -2181,4 +2210,3 @@ var_808031CC: .word var_80801848
 .word var_808018E8
 .word var_808018F8
 .word 0x00000000, 0x00000000
-

@@ -1,5 +1,19 @@
+# "Nintendo Logo" Game State Overlay File
+#
+# This file handles the "Nintendo Logo" game state which runs the N64 Logo intro animation.
+#
+# General documentation about Game States:
+# - https://wiki.cloudmodding.com/oot/Game_States
+#
+# The variables for this game state can be found in the Game State Table located in code/data.s
+# (VRAM: 800F13A0-800F13D0, VROM: E0300-E0330)
+#
+# Starts at VRAM: 80800000 / VROM: B9DA40
+#
+
 .section .text
 func_80800000:
+# A0 = Global Context
     lh      v0, 0x01D6(a0)             # 000001D6
     bnel    v0, $zero, lbl_80800048
     lh      t1, 0x01D8(a0)             # 000001D8
@@ -87,6 +101,7 @@ func_8080009C:
 
 
 func_80800134:
+# A0 = Global Context
     addiu   $sp, $sp, 0xFF00           # $sp -= 0x100
     lui     $at, 0x428A                # $at = 428A0000
     sw      s2, 0x0028($sp)
@@ -434,6 +449,8 @@ lbl_808004C0:
 
 
 func_80800690:
+# Main Update function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -486,6 +503,8 @@ lbl_8080073C:
 
 
 func_80800750:
+# Deconstructor function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -515,6 +534,8 @@ lbl_80800790:
 
 
 func_808007B0:
+# Constructor function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -619,4 +640,3 @@ var_80800920: .word 0xFFFFFF00, 0xFFFFFF00, 0x45454500, 0x00000000
 var_80800930: .word 0xC59AA92F
 var_80800934: .word 0x457A28AB
 var_80800938: .word 0x448BE2AE, 0x00000000
-
