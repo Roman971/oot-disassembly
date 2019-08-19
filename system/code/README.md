@@ -14,7 +14,8 @@ This directory contains all files composing the massive "code" file which holds 
 | [**actor.s**](actor.s)                                 | Actor                                |  8001EC20  |   A94B80   | C740  |
 | [**bgcheck.s**](bgcheck.s)                             | Background Check                     |  8002B360  |   AA12C0   | A290  |
 | [**camera.s**](camera.s)                               | Camera                               |  800355F0  |   AAB550   | 14820 |
-| [**collision_check.s**](collision_check.s)             | Collision Check                      |  80049E70  |   ABFD70   | 7D40  |
+| [**collision_check.s**](collision_check.s)             | Collision Check                      |  80049E10  |   ABFD70   | 7C90  |
+| [**code_80051AA0.s**](code_80051AA0.s)                 | Unknown (80051AA0)                   |  80051AA0  |   AC7A00   |  B0   |
 | [**debug.s**](debug.s)                                 | Static Context                       |  80051B50  |   AC7AB0   |  310  |
 | [**debug_display.s**](debug_display.s)                 | Debugger Display                     |  80051E60  |   AC7DC0   |  4B0  |
 | [**demo.s**](demo.s)                                   | Cutscene                             |  80052310  |   AC8270   | 4D20  |
