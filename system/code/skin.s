@@ -713,6 +713,12 @@ lbl_8008E1A8:
 
 
 func_8008E1D4:
+# Draw object that uses a weighted skeleton structure
+# A0 = Actor Instance
+# A1 = Global Context
+# A2 = Weighted Skeleton
+# A3 = Callback function, called after drawing the object
+# SP+0x10 = u32 ? (something to do with Y translation?)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lw      t6, 0x0038($sp)
@@ -728,6 +734,13 @@ func_8008E1D4:
 
 
 func_8008E204:
+# Draw object that uses a weighted skeleton structure with a texture? (Used by Epona)
+# A0 = Actor Instance
+# A1 = Global Context
+# A2 = Weighted Skeleton
+# A3 = Callback function, called after drawing the object
+# SP+0x10 = Function called to set the texture?
+# SP+0x14 = u32 ? (something to do with Y translation?)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     lw      t6, 0x0038($sp)

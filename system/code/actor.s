@@ -11266,6 +11266,9 @@ lbl_80028388:
 
 
 func_80028390:
+# Subtracts damage amount (from colliding damage source) from this actor's health
+# A0 = Actor Instance
+# V0 = u8 resulting actor health
     lbu     v0, 0x00B0(a0)             # 000000B0
     lbu     v1, 0x00AF(a0)             # 000000AF
     slt     $at, v0, v1

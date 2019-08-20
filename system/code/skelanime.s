@@ -1370,9 +1370,9 @@ func_8008A158:
 
 
 func_8008A194:
-# Gets some value from Gameplay Keep (animation frame count?)
+# Get current animation frame count
 # A0 = Segment Offset
-# V0 = u16 value referenced by Segment Offset (decremented?)
+# V0 = u16 animation frame count
     sll     t6, a0,  4
     srl     t7, t6, 28
     sll     t8, t7,  2
@@ -4808,7 +4808,7 @@ func_8008D17C:
 # A0 = out* Actor Instance + 0x014C (Drawing Table)
 # A1 = ptr New Animation Pointer
 # A2 = float Animation Speed
-# A3 = ?
+# A3 = float ?
 # SP+0x10 = float number of frames
 # SP+0x14 = some counter related to how long the animation should be played?
 # SP+0x18 = float transition rate (between 0.0 and 1.0)
@@ -4913,6 +4913,9 @@ func_8008D278:
 
 
 func_8008D2D4:
+# Set Animation
+# A0 = out* Actor Instance + 0x014C (Drawing Table)
+# A1 = ptr Animation Pointer
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0024($sp)
     sw      a0, 0x0028($sp)

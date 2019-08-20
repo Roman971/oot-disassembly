@@ -5361,6 +5361,8 @@ func_800721A0:
 
 
 func_800721CC:
+# Adds or removes rupees from the rupee accumulator (negative values subtract, positive add)
+# A0 = s32 rupee amount
     sw      a0, 0x0000($sp)
     sll     a0, a0, 16
     lui     v0, 0x8012                 # v0 = 80120000

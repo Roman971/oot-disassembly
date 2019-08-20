@@ -3997,7 +3997,7 @@ lbl_8009D9A8:
 
 
 func_8009D9B8:
-# Set Zoneout Type 1?
+# Trigger a "void out" (zone-out respawn type 1)
 # A0 = Global Context
     lui     v0, 0x8012                 # v0 = 80120000
     addiu   v0, v0, 0xA5D0             # v0 = 8011A5D0
@@ -4024,8 +4024,8 @@ func_8009D9B8:
 
 
 func_8009DA10:
-# ?, Called after game over -> continue
-# Related to zone outs in Tower Collapse
+# Trigger a "death warp"? (zone-out respawn type -1)
+# Called after game over -> continue, Related to zone outs in Tower Collapse
 # A0 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v1, 0x8012                 # v1 = 80120000
