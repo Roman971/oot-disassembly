@@ -1,3 +1,13 @@
+# Actor File: player_actor (Link, ID=0000)
+#
+# This file is the main overlay which drives the Link actor.
+#
+# External Documentation about this actor:
+# - https://wiki.cloudmodding.com/oot/Player_actor
+#
+# Starts at VRAM: 808301C0 / VROM: BCDB70
+#
+
 .section .text
 func_808301C0:
     mtc1    $zero, $f0                 # $f0 = 0.00

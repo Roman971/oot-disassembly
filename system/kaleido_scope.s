@@ -1,3 +1,14 @@
+# "Kaleido Scope" Overlay File
+#
+# This file handles the whole pause menu, including the inventory, equipment, map and quest status screens.
+# It also seems to handle the "Game Over" screen.
+#
+# External documentation about this overlay:
+# - https://wiki.cloudmodding.com/oot/Ovl_kaleido_scope
+#
+# Starts at VRAM: 808137C0 / VROM: BB11E0
+#
+
 .section .text
 func_808137C0:
     addiu   $sp, $sp, 0xFDD8           # $sp -= 0x228

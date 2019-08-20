@@ -1,3 +1,10 @@
+# "N64 Disk Drive" Game System File
+#
+# This file supposedly contains the boot sequence to use with the 64DD.
+#
+# Starts at VRAM: 801C6E80 / VROM: B8AD30
+#
+
 .section .text
 func_801C6E80:
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18

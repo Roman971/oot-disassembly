@@ -1,3 +1,14 @@
+# "Boot" Game System File
+#
+# This file handles the boot sequence used to initialize the game.
+# It also contains a part of the N64 library functions used by the game code.
+#
+# External documentation about the boot file:
+# - https://wiki.cloudmodding.com/oot/Boot_(File)
+#
+# Starts at VRAM: 80000460 / VROM: 001060
+#
+
 .section .text
 func_80000460:
 # Clears memory from the end of "boot" to the end of RAM
