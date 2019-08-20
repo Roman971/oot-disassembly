@@ -15106,6 +15106,8 @@ func_808113AC:
 
 
 func_80811760:
+# Main Update function
+# A0 = Global Context
     addiu   $sp, $sp, 0xFF78           # $sp -= 0x88
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -15511,8 +15513,6 @@ lbl_80811CA8:
 
 
 func_80811D5C:
-# Main Update function
-# A0 = Global Context
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
