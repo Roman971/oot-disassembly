@@ -40,10 +40,10 @@ typedef struct __OSThreadContext {
   /* 0x00B8 */          t8, t9, gp, sp, s8, ra, lo, hi;
   /* 0x00F8 */  u32     sr, pc, cause, badvaddr, rcp;
   /* 0x010C */  u32     fpcsr;
-  /* 0x0120 */  union {
+  /* 0x0110 */  union {
                   f32   fp32[32];
                   f64   fp64[16];
-  /* 0x01D8 */  };
+  /* 0x0190 */  };
 } __OSThreadContext;
 
 typedef struct OSThread {
@@ -56,7 +56,7 @@ typedef struct OSThread {
   /* 0x0014 */ OSId                 id;       // ID for debugging
   /* 0x0018 */ s32                  fp;
   /* 0x001C */ __OSThreadContext    context;
-  /* 0x01F4 */
+  /* 0x01B0 */
 } OSThread;
 
 /************************* Message **************************/
@@ -172,7 +172,7 @@ typedef struct __OSBlockInfo {
   /* 0x0C */ u32            sectorSize;     // Size of transfering sector
   /* 0x10 */ u32            C1ErrNum;       // Number of C1 errors
   /* 0x14 */ u32            C1ErrSector[4]; // Error Sectors
-  /* 0x18 */
+  /* 0x24 */
 } __OSBlockInfo;
 
 typedef struct __OSTranxInfo {
@@ -184,7 +184,7 @@ typedef struct __OSTranxInfo {
   /* 0x10 */ u32            bmCtlShadow;
   /* 0x14 */ u32            seqCtlShadow;
   /* 0x18 */ __OSBlockInfo  block[2];     // Block transfer info
-  /* 0x30 */
+  /* 0x60 */
 } __OSTranxInfo;
 
 typedef struct OSPiHandle {
@@ -195,16 +195,16 @@ typedef struct OSPiHandle {
   /* 0x07 */ u8             relDuration;  // Domain release duration
   /* 0x08 */ u8             pulse;        // Domain pulse width
   /* 0x09 */ u8             domain;       // Which Domain (PI_DOMAIN*)
-  /* 0x10 */ u32            baseAddress;  // Domain address
-  /* 0x14 */ u32            speed;
-  /* 0x18 */ __OSTranxInfo  transferInfo; // Transfer Info
-  /* 0x48 */
+  /* 0x0C */ u32            baseAddress;  // Domain address
+  /* 0x10 */ u32            speed;
+  /* 0x14 */ __OSTranxInfo  transferInfo; // Transfer Info
+  /* 0x74 */
 } OSPiHandle;
 
 typedef struct OSPiInfo {
   /* 0x00 */ u8             type;
-  /* 0x01 */ u32            address;
-  /* 0x05 */
+  /* 0x04 */ u32            address;
+  /* 0x08 */
 } OSPiInfo;
 
 typedef struct OSIoMesgHdr {
