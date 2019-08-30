@@ -25,7 +25,7 @@ func_8007CC44:
     mtc1    $at, $f12                  # $f12 = 1.00
     jal     func_800D5CF0
     sw      a1, 0x0018($sp)
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     jal     func_8007CC30
     lw      a0, 0x0018($sp)

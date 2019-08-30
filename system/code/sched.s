@@ -13,7 +13,7 @@ func_800A2B20:
     lw      a1, 0x0004(a3)             # 00000004
     beq     a1, $zero, lbl_800A2B88
     or      a0, a1, $zero              # a0 = 00000000
-    jal     func_800D2420
+    jal     func_800D2420              # osViSwapBuffer
     sw      a3, 0x0018($sp)
     lw      a3, 0x0018($sp)
     lui     t7, 0x8010                 # t7 = 80100000
@@ -39,10 +39,10 @@ lbl_800A2B88:
     lw      a0, 0x0008(a3)             # 00000008
     beql    a0, $zero, lbl_800A2BB0
     sb      $zero, 0x0010(a3)          # 00000010
-    jal     func_80003D60
+    jal     func_80003D60              # osViSetMode
     sw      a3, 0x0018($sp)
     lw      a3, 0x0018($sp)
-    jal     func_800D2E40
+    jal     func_800D2E40              # osViSetSpecialFeatures
     lw      a0, 0x000C(a3)             # 0000000C
     lw      a3, 0x0018($sp)
     sb      $zero, 0x0010(a3)          # 00000010
@@ -63,7 +63,7 @@ func_800A2BC0:
     lw      t7, 0x024C(t6)             # 0000024C
     beql    t7, $zero, lbl_800A2BF8
     lw      $ra, 0x0014($sp)
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     or      a0, $zero, $zero           # a0 = 00000000
     lw      t8, 0x0018($sp)
     sw      $zero, 0x024C(t8)          # 0000024C
@@ -88,7 +88,7 @@ func_800A2C10:
     mtc1    $at, $f12                  # $f12 = 1.00
     jal     func_800D5CF0
     nop
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -143,7 +143,7 @@ func_800A2CC4:
     andi    t6, v1, 0x0010             # t6 = 00000000
     bne     t6, $zero, lbl_800A2CF4
     ori     t7, v1, 0x0010             # t7 = 00000010
-    jal     func_800D0710
+    jal     func_800D0710              # osSpTaskYield
     sw      t7, 0x0004(v0)             # 00000004
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0xE520             # t8 = 800FE520
@@ -198,7 +198,7 @@ lbl_800A2D80:
     b       lbl_800A2DB8
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_800A2D90:
-    jal     func_800D5D50
+    jal     func_800D5D50              # osViGetCurrentFramebuffer
     sw      a1, 0x001C($sp)
     lw      a1, 0x001C($sp)
     lw      t7, 0x000C(a1)             # 0000000C
@@ -405,7 +405,7 @@ lbl_800A3044:
     jal     func_800D5AA0              # osWritebackDCacheAll
     sw      a0, 0x0028($sp)
     addiu   a0, s0, 0x0010             # a0 = 00000010
-    jal     func_800CF7BC
+    jal     func_800CF7BC              # osSpTaskLoad
     sw      a0, 0x0020($sp)
     lw      v0, 0x0010(s0)             # 00000010
     addiu   $at, $zero, 0x0002         # $at = 00000002
@@ -434,7 +434,7 @@ lbl_800A30B0:
     sw      v0, 0x0F50($at)            # 80120F50
     sw      v1, 0x0F54($at)            # 80120F54
 lbl_800A30C4:
-    jal     func_800CF94C
+    jal     func_800CF94C              # osSpTaskStartGo
     lw      a0, 0x0020($sp)
     lui     v0, 0x8010                 # v0 = 80100000
     addiu   v0, v0, 0xE520             # v0 = 800FE520
@@ -554,7 +554,7 @@ func_800A3244:
     lw      t8, 0x0238(a0)             # 00000238
     addiu   t9, t8, 0x0001             # t9 = 00000001
     sw      t9, 0x0238(a0)             # 00000238
-    jal     func_800D5D50
+    jal     func_800D5D50              # osViGetCurrentFramebuffer
     sw      a0, 0x0018($sp)
     lw      a0, 0x0018($sp)
     or      v1, $zero, $zero           # v1 = 00000000
@@ -709,7 +709,7 @@ lbl_800A3474:
     andi    t8, t7, 0x0010             # t8 = 00000000
     beq     t8, $zero, lbl_800A34E4
     nop
-    jal     func_800D2690
+    jal     func_800D2690              # osSpTaskYielded
     sw      a1, 0x003C($sp)
     beq     v0, $zero, lbl_800A34E4
     lw      a1, 0x003C($sp)
@@ -969,9 +969,9 @@ func_800A37D0:
     addiu   a1, s0, 0x0050             # a1 = 00000050
     jal     func_80004220              # osCreateMesgQueue
     addiu   a2, $zero, 0x0008          # a2 = 00000008
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     addiu   a0, $zero, 0x0001          # a0 = 00000001
-    jal     func_800D2E40
+    jal     func_800D2E40              # osViSetSpecialFeatures
     addiu   a0, $zero, 0x0042          # a0 = 00000042
     addiu   a0, $zero, 0x0004          # a0 = 00000004
     or      a1, s0, $zero              # a1 = 00000000

@@ -1853,15 +1853,15 @@ lbl_800AEF08:
     bne     t0, $sp, lbl_800AEF08
     sw      t9, 0x0004(t0)             # FFFFFFFC
     sw      $ra, 0x0014($sp)
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     or      a0, $zero, $zero           # a0 = 00000000
-    jal     func_800D5D50
+    jal     func_800D5D50              # osViGetCurrentFramebuffer
     nop
     lui     $at, 0x8010                # $at = 80100000
     sltu    $at, v0, $at
     bne     $at, $zero, lbl_800AEF54
     lui     v1, 0x8012                 # v1 = 80120000
-    jal     func_800D5D50
+    jal     func_800D5D50              # osViGetCurrentFramebuffer
     nop
     lui     v1, 0x8012                 # v1 = 80120000
     addiu   v1, v1, 0x1290             # v1 = 80121290
@@ -1876,7 +1876,7 @@ lbl_800AEF54:
     lui     $at, 0xFFFD                # $at = FFFD0000
     ori     $at, $at, 0xA800           # $at = FFFDA800
     addu    a0, t7, $at
-    jal     func_800D2420
+    jal     func_800D2420              # osViSwapBuffer
     sw      a0, 0x05CC(v1)             # 80122AEC
 lbl_800AEF7C:
     lw      $ra, 0x0014($sp)

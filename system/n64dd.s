@@ -277,7 +277,7 @@ lbl_801C71A8:
     b       lbl_801C7224
     nop
 lbl_801C71DC:
-    jal     func_800034C0
+    jal     func_800034C0              # osViGetNextFramebuffer
     nop
     lui     t8, 0x801E                 # t8 = 801E0000
     lw      t8, -0x4038(t8)            # 801DBFC8
@@ -475,7 +475,7 @@ func_801C746C:
     beql    t8, $zero, lbl_801C75B0
     lw      $ra, 0x0024($sp)
 lbl_801C74A0:
-    jal     func_800034C0
+    jal     func_800034C0              # osViGetNextFramebuffer
     nop
     lui     $at, 0x2000                # $at = 20000000
     addu    a0, v0, $at
@@ -544,7 +544,7 @@ lbl_801C756C:
     jal     func_801CA1F0
     sw      t2, 0x0018($sp)
 lbl_801C75A4:
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     or      a0, $zero, $zero           # a0 = 00000000
 lbl_801C75AC:
     lw      $ra, 0x0024($sp)
@@ -3802,7 +3802,7 @@ func_801CA0B0:
     sw      a1, 0x0064($sp)
     sw      a2, 0x0068($sp)
     sw      a3, 0x006C($sp)
-    jal     func_80001600              # osCartRomInit
+    jal     func_80001600              # osBulkRomInit
     nop
     slti    $at, s0, 0x0020
     bne     $at, $zero, lbl_801CA110
@@ -5000,7 +5000,7 @@ lbl_801CB11C:
     ori     a1, a1, 0x0514             # a1 = 05000514
     bne     s7, t9, lbl_801CB168
     nop
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0074            # a2 = FFFFFFFC
     lw      a0, 0x0074($sp)
     sll     t0, a0,  3
@@ -5194,7 +5194,7 @@ func_801CB3CC:
     ori     a1, a1, 0x050C             # a1 = 0500050C
     lw      a0, 0x5EC0(a0)             # 801E5EC0
     addiu   a2, $sp, 0x0018            # a2 = FFFFFFF8
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     sw      v0, 0x001C($sp)
     lw      t6, 0x0018($sp)
     lui     a0, 0x6000                 # a0 = 60000000
@@ -5224,7 +5224,7 @@ func_801CB434:
     or      t6, a2, $at                # t6 = 10000000
     or      a2, t6, $zero              # a2 = 10000000
     ori     a1, a1, 0x0510             # a1 = 05000510
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a0, 0x5EC0(a0)             # 801E5EC0
     lui     v0, 0x801E                 # v0 = 801E0000
     addiu   v0, v0, 0x5E7C             # v0 = 801E5E7C
@@ -5232,7 +5232,7 @@ func_801CB434:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0510             # a1 = 05000510
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a2, 0x0000(v0)             # 801E5E7C
     lui     v1, 0x801E                 # v1 = 801E0000
     addiu   v1, v1, 0x5E90             # v1 = 801E5E90
@@ -5269,7 +5269,7 @@ lbl_801CB4E0:
     sw      t6, 0x0000(v0)             # 801E5E7C
 lbl_801CB500:
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a2, 0x0000(v0)             # 801E5E7C
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -5284,7 +5284,7 @@ func_801CB51C:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0514             # a1 = 05000514
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x001C            # a2 = FFFFFFFC
     lui     a2, 0x801E                 # a2 = 801E0000
     lw      a2, 0x5E7C(a2)             # 801E5E7C
@@ -5294,14 +5294,14 @@ func_801CB51C:
     or      t6, a2, $at                # t6 = 901E0000
     or      a2, t6, $zero              # a2 = 901E0000
     ori     a1, a1, 0x0510             # a1 = 05000510
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a0, 0x5EC0(a0)             # 801E5EC0
     lui     a0, 0x801E                 # a0 = 801E0000
     lui     a1, 0x0500                 # a1 = 05000000
     lui     a2, 0x801E                 # a2 = 801E0000
     lw      a2, 0x5E7C(a2)             # 801E5E7C
     ori     a1, a1, 0x0510             # a1 = 05000510
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a0, 0x5EC0(a0)             # 801E5EC0
     lw      v0, 0x001C($sp)
     sll     t7, v0,  5
@@ -5338,7 +5338,7 @@ lbl_801CB5EC:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x050C             # a1 = 0500050C
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0018            # a2 = FFFFFFF8
     lw      t4, 0x0018($sp)
     lui     v0, 0x6000                 # v0 = 60000000
@@ -5391,7 +5391,7 @@ func_801CB640:
     sb      $zero, 0x5E84($at)         # 801E5E84
     jal     func_801CCCC0
     sb      $zero, 0x0000(t4)          # 801E5E85
-    jal     func_801CC0F0
+    jal     func_801CC0F0              # osDriveRomInit
     nop
     lui     v1, 0x801E                 # v1 = 801E0000
     lui     a3, 0x801E                 # a3 = 801E0000
@@ -5406,7 +5406,7 @@ func_801CB640:
     sw      t6, 0x0004(v1)             # 801E5ECC
     ori     a1, a1, 0x0508             # a1 = 05000508
     or      a0, v0, $zero              # a0 = 00000000
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0044            # a2 = FFFFFFFC
     lw      v1, 0x0044($sp)
     lui     $at, 0x0680                # $at = 06800000
@@ -5572,7 +5572,7 @@ lbl_801CB934:
     bne     t9, $zero, lbl_801CB978
     lui     a0, 0x801E                 # a0 = 801E0000
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0044            # a2 = FFFFFFFC
     lw      v1, 0x0044($sp)
     lui     $at, 0x0007                # $at = 00070000
@@ -6078,7 +6078,7 @@ func_801CC040:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0540             # a1 = 05000540
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x001C            # a2 = FFFFFFFC
     lui     a0, 0x001B                 # a0 = 001B0000
     jal     func_801CC820
@@ -6088,7 +6088,7 @@ func_801CC040:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0018            # a2 = FFFFFFF8
     lw      t6, 0x0018($sp)
     lw      t8, 0x001C($sp)
@@ -6120,6 +6120,9 @@ lbl_801CC0A4:
 
 
 func_801CC0F0:
+# OSPiHandle* osDriveRomInit(void)
+# Initialize PI bus and return the PI device handle to use in the EPI routine
+# V0 = OSPiHandle* handle specifying the hardware settings necessary when using the N64DD
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s0, 0x0018($sp)
     lui     s0, 0x801E                 # s0 = 801E0000
@@ -6309,7 +6312,7 @@ func_801CC380:
     lui     a2, 0x801E                 # a2 = 801E0000
     addiu   a2, a2, 0x5F70             # a2 = 801E5F70
     ori     a1, a1, 0x0508             # a1 = 05000508
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     lw      a0, 0x5EC0(a0)             # 801E5EC0
     lui     t6, 0x801E                 # t6 = 801E0000
     lw      t6, 0x5F70(t6)             # 801E5F70
@@ -6425,7 +6428,7 @@ lbl_801CC524:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0508             # a1 = 05000508
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lui     a2, 0x0009                 # a2 = 00090000
     jal     func_801CCA5C
     addiu   a0, $zero, 0x0001          # a0 = 00000001
@@ -6483,7 +6486,7 @@ lbl_801CC5E4:
     ori     a1, a1, 0x0508             # a1 = 05000508
     lw      a0, 0x5EC0(a0)             # 801E5EC0
     lui     a2, 0x0009                 # a2 = 00090000
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     sw      v1, 0x0020($sp)
     jal     func_801CCA5C
     addiu   a0, $zero, 0x0001          # a0 = 00000001
@@ -6502,7 +6505,7 @@ lbl_801CC62C:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     or      a2, $zero, $zero           # a2 = 00000000
     jal     func_801CCA5C
     or      a0, $zero, $zero           # a0 = 00000000
@@ -6514,7 +6517,7 @@ lbl_801CC65C:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0508             # a1 = 05000508
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lui     a2, 0x000C                 # a2 = 000C0000
     jal     func_801CCA5C
     addiu   a0, $zero, 0x0001          # a0 = 00000001
@@ -6526,7 +6529,7 @@ lbl_801CC688:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0024            # a2 = FFFFFFFC
     jal     func_801CC48C
     lui     a0, 0x000C                 # a0 = 000C0000
@@ -6593,7 +6596,7 @@ lbl_801CC760:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a2, 0x001C($sp)
     jal     func_801CCA5C
     or      a0, $zero, $zero           # a0 = 00000000
@@ -6611,7 +6614,7 @@ lbl_801CC7A4:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0508             # a1 = 05000508
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a2, 0x0018($sp)
     or      v0, $zero, $zero           # v0 = 00000000
 lbl_801CC7C0:
@@ -6687,7 +6690,7 @@ lbl_801CC898:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a2, 0x001C($sp)
     jal     func_801CCA5C
     or      a0, $zero, $zero           # a0 = 00000000
@@ -6705,7 +6708,7 @@ lbl_801CC8DC:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0508             # a1 = 05000508
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a2, 0x0018($sp)
     jal     func_801CCA5C
     addiu   a0, $zero, 0x0001          # a0 = 00000001
@@ -6954,7 +6957,7 @@ func_801CCC00:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0520             # a1 = 05000520
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lui     a2, 0xAAAA                 # a2 = AAAA0000
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -8276,7 +8279,7 @@ func_801CDE80:
     and     a2, t6, $at
     sw      a2, 0x0000(s1)             # 801E5E80
     ori     a1, a1, 0x0518             # a1 = 05000518
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a0, 0x0000(s2)             # 801E5EC0
     addiu   $at, $zero, 0x0001         # $at = 00000001
     bne     s0, $at, lbl_801CDEE8
@@ -8341,7 +8344,7 @@ lbl_801CDEF8:
     ori     a2, v0, 0x5900             # a2 = 00005900
     sll     t8, a2, 16
     or      a2, t8, $zero              # a2 = 00000000
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a0, 0x0000(s2)             # 801E5EC0
     lui     t0, 0x801E                 # t0 = 801E0000
     addiu   t0, t0, 0x5E86             # t0 = 801E5E86
@@ -8354,7 +8357,7 @@ lbl_801CDEF8:
     addiu   s0, s0, 0x0100             # s0 = 00000100
     lw      a0, 0x0000(s2)             # 801E5EC0
 lbl_801CDFF0:
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     sll     a2, s0,  8
     lw      t3, 0x0000(s1)             # 801E5E80
     lui     $at, 0x4000                # $at = 40000000
@@ -8362,7 +8365,7 @@ lbl_801CDFF0:
     or      a2, t3, $at                # a2 = 40000000
     sw      a2, 0x0000(s1)             # 801E5E80
     ori     a1, a1, 0x0518             # a1 = 05000518
-    jal     func_80005800
+    jal     func_80005800              # osEPiWriteIo
     lw      a0, 0x0000(s2)             # 801E5EC0
     lw      $ra, 0x0024($sp)
     lw      s0, 0x0018($sp)
@@ -8445,7 +8448,7 @@ lbl_801CE0F8:
 func_801CE120:
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
-    jal     func_80001DB0
+    jal     func_80001DB0              # __osPiGetAccess
     nop
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
@@ -8482,7 +8485,7 @@ lbl_801CE160:
     sw      v0, 0x0000(a2)             # A4600014
     sw      v1, 0x0000(a3)             # A460001C
     sw      a0, 0x0000(t0)             # A4600020
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     sw      a1, 0x0000(t1)             # A4600018
     lw      t4, 0x001C($sp)
     lui     $at, 0x2129                # $at = 21290000
@@ -9439,7 +9442,7 @@ lbl_801CEEC0:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x002C            # a2 = FFFFFFFC
     lw      t6, 0x002C($sp)
     lui     $at, 0xFF00                # $at = FF000000
@@ -9466,7 +9469,7 @@ lbl_801CEF28:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x002C            # a2 = FFFFFFFC
     lw      t4, 0x002C($sp)
     lui     $at, 0xFF00                # $at = FF000000
@@ -9493,7 +9496,7 @@ lbl_801CEF90:
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0500             # a1 = 05000500
     lw      a0, 0x5EC0(a0)             # 801E5EC0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x002C            # a2 = FFFFFFFC
     lw      t2, 0x002C($sp)
     lui     $at, 0xFF00                # $at = FF000000
@@ -10516,9 +10519,9 @@ lbl_801D219C:
     b       lbl_801D2394
     addiu   v0, $zero, 0x0029          # v0 = 00000029
 lbl_801D21B4:
-    jal     func_801CC0F0
+    jal     func_801CC0F0              # osDriveRomInit
     nop
-    jal     func_80001600              # osCartRomInit
+    jal     func_80001600              # osBulkRomInit
     nop
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     lui     $at, 0x801E                # $at = 801E0000
@@ -10615,7 +10618,7 @@ lbl_801D2314:
     lui     a1, 0x0009                 # a1 = 00090000
     ori     a1, a1, 0xFF00             # a1 = 0009FF00
     addiu   a2, $sp, 0x0028            # a2 = FFFFFFA0
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     sw      a3, 0x001C($sp)
     lw      v1, 0x0028($sp)
     lui     $at, 0xFF00                # $at = FF000000
@@ -10822,7 +10825,7 @@ lbl_801D25DC:
     lw      t7, 0x000C(t1)             # 0000000C
     lw      a3, 0x0004(t1)             # 00000004
     lw      a0, 0x0000(t2)             # 00000000
-    jal     func_800046E0
+    jal     func_800046E0              # osEPiRawStartDma
     sw      t7, 0x0010($sp)
     b       lbl_801D2900
     addiu   v0, $zero, 0x0001          # v0 = 00000001
@@ -10942,7 +10945,7 @@ lbl_801D27A0:
     lw      a0, 0x0000(t2)             # 00000000
     sll     t5, t8,  2
     sw      t5, 0x0010($sp)
-    jal     func_800046E0
+    jal     func_800046E0              # osEPiRawStartDma
     lui     a2, 0x0500                 # a2 = 05000000
     b       lbl_801D2900
     addiu   v0, $zero, 0x0001          # v0 = 00000001
@@ -11009,7 +11012,7 @@ lbl_801D2898:
     sw      t1, 0x0024($sp)
     ori     a2, a2, 0x0400             # a2 = 05000400
     lw      a0, 0x0000(t2)             # 00000000
-    jal     func_800046E0
+    jal     func_800046E0              # osEPiRawStartDma
     sw      t7, 0x0010($sp)
     lw      t1, 0x0024($sp)
     addiu   v0, $zero, 0x0001          # v0 = 00000001
@@ -11131,11 +11134,11 @@ lbl_801D2A44:
     lw      t5, 0x0000(t4)             # 00000000
     beql    t5, $zero, lbl_801D2A74
     lw      $ra, 0x0014($sp)
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     nop
     lui     a0, 0x8000                 # a0 = 80000000
     addiu   a0, a0, 0x6338             # a0 = 80006338
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     or      a1, v0, $zero              # a1 = 00000000
     lw      $ra, 0x0014($sp)
 lbl_801D2A74:
@@ -11164,9 +11167,9 @@ lbl_801D2AAC:
     b       lbl_801D2C98
     addiu   v0, $zero, 0x0029          # v0 = 00000029
 lbl_801D2AC4:
-    jal     func_801CC0F0
+    jal     func_801CC0F0              # osDriveRomInit
     nop
-    jal     func_80001600              # osCartRomInit
+    jal     func_80001600              # osBulkRomInit
     nop
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     lui     $at, 0x801E                # $at = 801E0000
@@ -11263,7 +11266,7 @@ lbl_801D2C14:
 lbl_801D2C28:
     lui     a1, 0x0009                 # a1 = 00090000
     ori     a1, a1, 0xFF00             # a1 = 0009FF00
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0028            # a2 = FFFFFFA0
     lw      v1, 0x0028($sp)
     lui     $at, 0xFF00                # $at = FF000000

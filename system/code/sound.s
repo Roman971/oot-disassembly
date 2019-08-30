@@ -9709,7 +9709,7 @@ lbl_800B871C:
     jal     func_80004220              # osCreateMesgQueue
     addiu   a2, $zero, 0x0010          # a2 = 00000010
     sw      $zero, 0x28A0(s1)          # 80127ED0
-    jal     func_80005680
+    jal     func_80005680              # osCartRomInit
     sw      $zero, 0x2620(s1)          # 80127C50
     lw      v1, 0x0070($sp)
     sw      v0, 0x1E18(s1)             # 80127448
@@ -13784,6 +13784,11 @@ func_800BBE40:
 
 
 func_800BBE80:
+# s32 osAiSetNextBuffer(void* vaddr, u32 nbytes)
+# Sets up DMA transfer from RDRAM to the audio interface buffer
+# A0 = RDRAM virtual address (64-bit aligned)
+# A1 = u32 number of bytes to transfer (multiple of 8 bytes)
+# V0 = 0 if success, else -1 (if the interface is busy)
     lui     t6, 0x8010                 # t6 = 80100000
     lbu     t6, 0x1810(t6)             # 80101810
     addu    t7, a0, a1

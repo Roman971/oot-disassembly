@@ -46,19 +46,19 @@ func_80000498:
     sw      t7, 0x0014($sp)
     jal     func_80001890              # __osInitStack
     or      a3, $zero, $zero           # a3 = 00000000
-    jal     func_80003E90
+    jal     func_80003E90              # osGetMemSize
     nop
     lui     $at, 0x8000                # $at = 80000000
     jal     func_80001570
     sw      v0, 0x0318($at)            # 80000318
     jal     func_80000460
     nop
-    jal     func_80003070
+    jal     func_80003070              # osInitialize
     nop
-    jal     func_80005680
+    jal     func_80005680              # osCartRomInit
     nop
     lui     $at, 0x8000                # $at = 80000000
-    jal     func_80001600              # osCartRomInit
+    jal     func_80001600              # osBulkRomInit
     sw      v0, 0x6260($at)            # 80006260
     jal     func_800012A0
     nop
@@ -211,9 +211,9 @@ lbl_800006F0:
     sw      t6, 0x0000(t3)             # 80007CDC
     sw      t5, 0x0004(t3)             # 80007CE0
 lbl_80000724:
-    jal     func_80003D60
+    jal     func_80003D60              # osViSetMode
     addiu   a0, a0, 0x7CD0             # a0 = 80007CD0
-    jal     func_80003BE0
+    jal     func_80003BE0              # osViBlack
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lui     a1, 0x8000                 # a1 = 80000000
     lui     a2, 0x8000                 # a2 = 80000000
@@ -456,7 +456,7 @@ func_80000A54:
     sw      a0, 0x0058($sp)
     sw      a1, 0x005C($sp)
     sw      a2, 0x0060($sp)
-    jal     func_80001600              # osCartRomInit
+    jal     func_80001600              # osBulkRomInit
     nop
     sw      v0, 0x0050($sp)
     lw      a0, 0x0058($sp)
@@ -669,9 +669,9 @@ func_80000D28:
 # A1 = void* RDRAM address to write to
 # A2 = u32 VROM address to read from
 # A3 = u32 size of data transfer
-# SP + 0x10 = s32 ? (always 0)
-# SP + 0x14 = OSMesgQueue* queue to use for the completion notification
-# SP + 0x18 = OSMesg message to use for the completion notification
+# SP+0x10 = s32 ? (always 0)
+# SP+0x14 = OSMesgQueue* queue to use for the completion notification
+# SP+0x18 = OSMesg message to use for the completion notification
 # V0 = 0 for success
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
@@ -1076,7 +1076,7 @@ func_800012A0:
     lui     a0, 0x8000                 # a0 = 80000000
     lw      a0, 0x6260(a0)             # 80006260
     addiu   a1, $zero, 0x003C          # a1 = 0000003C
-    jal     func_80005630
+    jal     func_80005630              # osEPiReadIo
     addiu   a2, $sp, 0x0024            # a2 = FFFFFFFC
     lbu     v1, 0x0026($sp)
     addiu   $at, $zero, 0x0045         # $at = 00000045
@@ -1112,6 +1112,7 @@ func_80001310:
 
 
 func_80001320:
+# Set the audio thread state to 1 in Static Context
     lui     t7, 0x8012                 # t7 = 80120000
     lw      t7, -0x4600(t7)            # 8011BA00
     addiu   t6, $zero, 0x0001          # t6 = 00000001
@@ -1121,6 +1122,7 @@ func_80001320:
 
 
 func_80001338:
+# Set the audio thread state to 0 in Static Context
     lui     t6, 0x8012                 # t6 = 80120000
     lw      t6, -0x4600(t6)            # 8011BA00
     sh      $zero, 0x00FC(t6)          # 801200FC
@@ -1338,12 +1340,12 @@ func_800015F4:
 
 
 func_80001600:
-# OSPiHandle* osCartRomInit(void)
+# OSPiHandle* osBulkRomInit(void)
 # Initialize PI bus and return the PI device handle to use in the EPI routine
-# V0 = OSPiHandle* handle specifying the hardware settings necessary when using a cartridge
+# V0 = OSPiHandle* handle specifying the hardware settings necessary when using a disk (DEVICE_TYPE_BULK)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
-    jal     func_80001DB0
+    jal     func_80001DB0              # __osPiGetAccess
     sw      s0, 0x0018($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x62D0(t6)             # 800062D0
@@ -1351,7 +1353,7 @@ func_80001600:
     addiu   s0, s0, 0x88C0             # s0 = 800088C0
     bne     t6, $zero, lbl_8000163C
     lui     $at, 0x8000                # $at = 80000000
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     nop
     lui     s0, 0x8001                 # s0 = 80010000
     b       lbl_800017C4
@@ -1454,7 +1456,7 @@ lbl_80001698:
     or      a0, v0, $zero              # a0 = 00000000
     jal     func_800051A0              # __osRestoreInt
     sw      t3, 0x0000(s0)             # 80010000
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     nop
     or      v0, s0, $zero              # v0 = 80010000
 lbl_800017C4:
@@ -1527,8 +1529,8 @@ func_80001890:
 # A1 = void* stack start address
 # A2 = void* stack end address
 # A3 = u32 stack space initial value (typically null)
-# SP + 0x10 = u32 ?
-# SP + 0x14 = Pointer to thread name
+# SP+0x10 = u32 ?
+# SP+0x14 = Pointer to thread name
 # V0 = Some pointer that never seems used by callers
     bne     a0, $zero, lbl_800018A4
     lui     v0, 0x8000                 # v0 = 80000000
@@ -1894,7 +1896,8 @@ func_80001D20:
 
 
 func_80001D60:
-# Initializes PImgr access queue with size 1 and puts an empty message in it
+# void __osPiCreateAccessQueue(void)
+# Initializes the PImgr access queue with size 1 and puts an empty message in it
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
@@ -1918,15 +1921,15 @@ func_80001D60:
 
 
 func_80001DB0:
+# void __osPiGetAccess(void)
 # Pulls a message from the PImgr access queue with OS_MESG_BLOCK (initializing the access queue if needed)
-# V0 = 0 for success
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x62F0(t6)             # 800062F0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     bne     t6, $zero, lbl_80001DD0
     nop
-    jal     func_80001D60
+    jal     func_80001D60              # __osPiCreateAccessQueue
     nop
 lbl_80001DD0:
     lui     a0, 0x8001                 # a0 = 80010000
@@ -1941,8 +1944,8 @@ lbl_80001DD0:
 
 
 func_80001DF4:
+# void __osPiRelAccess(void)
 # Sends an empty message on the PImgr access queue with OS_MESG_NOBLOCK
-# V0 = 0 for success, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8001                 # a0 = 80010000
@@ -1991,7 +1994,7 @@ lbl_80001E60:
     addiu   t0, $zero, 0x0008          # t0 = 00000008
     sh      t0, 0x0010(t1)             # 80000010
     lw      a0, 0x0038($sp)
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     addiu   a0, a0, 0x0004             # a0 = 00000004
     b       lbl_80001EA4
     nop
@@ -2040,7 +2043,7 @@ lbl_80001F14:
     lw      t5, 0x0000(t9)             # 00000000
     beq     t5, $zero, lbl_80001F48
     nop
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     or      a0, t8, $zero              # a0 = 00000000
     or      s2, v0, $zero              # s2 = 00000000
     jal     func_80005EC0              # osStartThread
@@ -2096,7 +2099,7 @@ lbl_80001FD4:
     lw      t9, 0x6340(t9)             # 80006340
     addiu   t8, $zero, 0x0001          # t8 = 00000001
     or      a0, $zero, $zero           # a0 = 00000000
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     sh      t8, 0x0010(t9)             # 80000010
     b       lbl_80002010
     nop
@@ -2154,7 +2157,7 @@ lbl_80002080:
     lw      t0, 0x6340(t0)             # 80006340
     addiu   t9, $zero, 0x0008          # t9 = 00000008
     sh      t9, 0x0010(t0)             # 80000010
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     lw      a0, 0x0028($sp)
     lw      t1, 0x0028($sp)
     lw      t2, 0x0008(t1)             # 00000008
@@ -2199,7 +2202,7 @@ lbl_80002114:
     lw      t1, 0x0000(t3)             # 00000000
     beq     t1, $zero, lbl_80002148
     nop
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     addiu   a0, t9, 0x0004             # a0 = 00000004
     or      s1, v0, $zero              # s1 = 00000000
     jal     func_80005EC0              # osStartThread
@@ -2447,7 +2450,7 @@ func_80002404:
 
 
 func_80002430:
-# __osExceptionPreamble?
+# __osExceptionPreamble
     lui     k0, 0x8000                 # k0 = 80000000
     addiu   k0, k0, 0x2440             # k0 = 80002440
     jr      k0
@@ -2455,7 +2458,7 @@ func_80002430:
 
 
 func_80002440:
-# __osExceptionHandler?
+# __osException
     lui     k0, 0x8001                 # k0 = 80010000
     addiu   k0, k0, 0x9C30             # k0 = 80009C30
     sd      $at, 0x0020(k0)            # 80009C50
@@ -2779,16 +2782,16 @@ lbl_800028E8:
     nop
     lui     a0, 0x8000                 # a0 = 80000000
     or      a1, k0, $zero              # a1 = 80000000
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     addiu   a0, a0, 0x6338             # a0 = 80006338
-    j       func_80002BA4
+    j       func_80002BA4              # __osDispatchThread
     nop
 lbl_8000291C:
     lui     t1, 0x8000                 # t1 = 80000000
     addiu   t1, t1, 0x6338             # t1 = 80006338
     lw      t2, 0x0000(t1)             # 80006338
     sw      t2, 0x0000(k0)             # 80000000
-    j       func_80002BA4
+    j       func_80002BA4              # __osDispatchThread
     sw      k0, 0x0000(t1)             # 80006338
 lbl_80002934:
     lui     $at, 0x8000                # $at = 80000000
@@ -2801,7 +2804,7 @@ lbl_80002934:
     sw      t2, 0x0124(k0)             # 80000124
     jal     func_80002964
     addiu   a0, $zero, 0x0060          # a0 = 00000060
-    j       func_80002BA4
+    j       func_80002BA4              # __osDispatchThread
     nop
 
 
@@ -2844,12 +2847,12 @@ lbl_800029C4:
     lw      t3, 0x0000(t2)             # 00000001
     beq     t3, $zero, lbl_80002A10
     nop
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     or      a0, t1, $zero              # a0 = 00000000
     or      t2, v0, $zero              # t2 = 00000000
     lui     a0, 0x8000                 # a0 = 80000000
     or      a1, t2, $zero              # a1 = 00000000
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     addiu   a0, a0, 0x6338             # a0 = 80006338
 lbl_80002A10:
     jr      s2
@@ -2871,7 +2874,8 @@ lbl_80002A18:
 
 
 func_80002A4C:
-# __osEnqueueAndYield?
+# void __osEnqueueAndYield(OSThread** queue)
+# A0 = OSThread** thread queue
     lui     a1, 0x8000                 # a1 = 80000000
     lw      a1, 0x6340(a1)             # 80006340
     mfc0    t0, Status
@@ -2935,15 +2939,18 @@ lbl_80002AFC:
 lbl_80002B34:
     beq     a0, $zero, lbl_80002B44
     sw      k1, 0x0128(a1)             # 80000128
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     nop
 lbl_80002B44:
-    j       func_80002BA4
+    j       func_80002BA4              # __osDispatchThread
     nop
 
 
 func_80002B4C:
-# __osEnqueueThread?
+# void __osEnqueueThread(OSThread** queue, OSThread* thread)
+# Puts a thread on the queue
+# A0 = OSThread** thread queue
+# A1 = OSThread* thread
     lw      t8, 0x0000(a0)             # 00000000
     lw      t7, 0x0004(a1)             # 00000004
     or      t9, a0, $zero              # t9 = 00000000
@@ -2967,7 +2974,10 @@ lbl_80002B80:
 
 
 func_80002B94:
-# __osPopThread?
+# OSThread* __osPopThread(OSThread** queue)
+# Pops a thread from the queue
+# A0 = OSThread** thread queue
+# A1 = OSThread* thread
     lw      v0, 0x0000(a0)             # 00000000
     lw      t9, 0x0000(v0)             # 00000000
     jr      $ra
@@ -2975,9 +2985,9 @@ func_80002B94:
 
 
 func_80002BA4:
-# __osDispatchThread?
+# void __osDispatchThread(void)
     lui     a0, 0x8000                 # a0 = 80000000
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     addiu   a0, a0, 0x6338             # a0 = 80006338
     lui     $at, 0x8000                # $at = 80000000
     sw      v0, 0x6340($at)            # 80006340
@@ -3075,7 +3085,7 @@ lbl_80002CD4:
 
 
 func_80002D20:
-# __osCleanupThread?
+# void __osCleanupThread(void)
 # Destroy the thread currently running
 # Simply calls osDestroyThread with argument NULL
     jal     func_80002D70              # osDestroyThread
@@ -3086,7 +3096,7 @@ func_80002D20:
 
 func_80002D30:
 # void __osDequeueThread(OSThread** queue, OSThread* thread)
-# Remove a given thread from the given queue
+# Remove a thread from the queue
 # A0 = OSThread** thread queue
 # A1 = OSThread* thread
     or      a2, a0, $zero              # a2 = 00000000
@@ -3176,7 +3186,7 @@ lbl_80002E38:
     lw      t7, 0x0038($sp)
     bne     t7, t9, lbl_80002E54
     nop
-    jal     func_80002BA4
+    jal     func_80002BA4              # __osDispatchThread
     nop
 lbl_80002E54:
     jal     func_800051A0              # __osRestoreInt
@@ -3253,8 +3263,8 @@ func_80002F20:
 # A1 = OSId thread id (for debugging purposes)
 # A2 = Entrypoint procedure to use for this thread (jumped to when the thread is started)
 # A3 = Argument passed to the entrypoint procedure
-# SP + 0x10 = Pointer to the stack for this thread
-# SP + 0x14 = OSPri priority value, ranges from OS_PRIORITY_IDLE (0) to OS_PRIORITY_APPMAX (127)
+# SP+0x10 = Pointer to the stack for this thread
+# SP+0x14 = OSPri priority value, ranges from OS_PRIORITY_IDLE (0) to OS_PRIORITY_APPMAX (127)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      a0, 0x0028($sp)
     sw      a1, 0x002C($sp)
@@ -3342,6 +3352,8 @@ func_80002F20:
 
 
 func_80003070:
+# void osInitialize(void)
+# Performs hardware and software initialization procedures
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x001C($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
@@ -3359,14 +3371,14 @@ func_80003070:
     ori     a0, a0, 0x0800             # a0 = 01000800
     lui     a0, 0x1FC0                 # a0 = 1FC00000
     ori     a0, a0, 0x07FC             # a0 = 1FC007FC
-    jal     func_80003C50
+    jal     func_80003C50              # __osSiRawReadIo
     addiu   a1, $sp, 0x0034            # a1 = FFFFFFFC
     beq     v0, $zero, lbl_800030DC
     nop
 lbl_800030C4:
     lui     a0, 0x1FC0                 # a0 = 1FC00000
     ori     a0, a0, 0x07FC             # a0 = 1FC007FC
-    jal     func_80003C50
+    jal     func_80003C50              # __osSiRawReadIo
     addiu   a1, $sp, 0x0034            # a1 = FFFFFFFC
     bne     v0, $zero, lbl_800030C4
     nop
@@ -3375,7 +3387,7 @@ lbl_800030DC:
     lui     a0, 0x1FC0                 # a0 = 1FC00000
     ori     a0, a0, 0x07FC             # a0 = 1FC007FC
     ori     t7, a1, 0x0008             # t7 = 00000008
-    jal     func_80005B50
+    jal     func_80005B50              # __osSiRawWriteIo
     or      a1, t7, $zero              # a1 = 00000008
     beq     v0, $zero, lbl_8000311C
     nop
@@ -3384,7 +3396,7 @@ lbl_800030FC:
     lui     a0, 0x1FC0                 # a0 = 1FC00000
     ori     a0, a0, 0x07FC             # a0 = 1FC007FC
     ori     t8, a1, 0x0008             # t8 = 00000008
-    jal     func_80005B50
+    jal     func_80005B50              # __osSiRawWriteIo
     or      a1, t8, $zero              # a1 = 00000008
     bne     v0, $zero, lbl_800030FC
     nop
@@ -3444,7 +3456,7 @@ lbl_8000311C:
     addiu   a1, $zero, 0x0190          # a1 = 00000190
     jal     func_80003318
     nop
-    jal     func_80004070
+    jal     func_80004070              # osUnmapTLBAll
     nop
     jal     func_80005850              # osMapTLBRdb
     nop
@@ -3525,6 +3537,7 @@ lbl_800032E0:
 
 
 func_80003318:
+# Copy data from PI BSD registers to PI handles?
     addiu   t6, $zero, 0x0007          # t6 = 00000007
     lui     $at, 0x8001                # $at = 80010000
     sb      t6, -0x768C($at)           # 80008974
@@ -3658,6 +3671,9 @@ lbl_8000349C:
 
 
 func_800034C0:
+# void* osViGetNextFramebuffer(void)
+# Gets the current frame buffer address
+# V0 = head address of frame buffer
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     jal     func_80005130              # __osDisableInt
@@ -3707,7 +3723,7 @@ func_80003500:
     lw      t7, 0x62F0(t7)             # 800062F0
     bne     t7, $zero, lbl_80003568
     nop
-    jal     func_80001D60
+    jal     func_80001D60              # __osPiCreateAccessQueue
     nop
 lbl_80003568:
     lui     a1, 0x8001                 # a1 = 80010000
@@ -3786,6 +3802,7 @@ lbl_80003660:
 
 
 func_80003680:
+# void __osDevMgrMain(OSDevMgr* pimgr)
 # PImgr thread entrypoint
 # A0 = OSDevMgr* PImgr block (80006370)
     addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
@@ -3869,7 +3886,7 @@ lbl_80003784:
     or      t8, a2, $at                # t8 = 80000000
     or      a2, t8, $zero              # a2 = 80000000
     or      a1, s3, $zero              # a1 = 05000510
-    jal     func_80005910
+    jal     func_80005910              # osPiRawWriteIo
     lw      a0, 0x0014(t7)             # 00000014
 lbl_800037B8:
     lw      a0, 0x000C(s4)             # 0000000C
@@ -3891,18 +3908,18 @@ lbl_800037B8:
     lui     $at, 0x1000                # $at = 10000000
     or      a1, s3, $zero              # a1 = 05000510
     or      t3, a2, $at                # t3 = 10000000
-    jal     func_80005910
+    jal     func_80005910              # osPiRawWriteIo
     or      a2, t3, $zero              # a2 = 10000000
     lw      t4, 0x0074($sp)
     or      a1, s3, $zero              # a1 = 05000510
     lw      a2, 0x0010(s0)             # 00000024
-    jal     func_80005910
+    jal     func_80005910              # osPiRawWriteIo
     lw      a0, 0x0014(t4)             # 00000014
     lw      t5, 0x0074($sp)
     lui     a1, 0x0500                 # a1 = 05000000
     ori     a1, a1, 0x0508             # a1 = 05000508
     addiu   a2, $sp, 0x0054            # a2 = FFFFFFDC
-    jal     func_80004580
+    jal     func_80004580              # osPiRawReadIo
     lw      a0, 0x0014(t5)             # 00000014
     lw      t6, 0x0054($sp)
     lw      t8, 0x0074($sp)
@@ -3914,7 +3931,7 @@ lbl_800037B8:
     lui     $at, 0x0100                # $at = 01000000
     lw      a0, 0x0014(t8)             # 00000014
     or      t9, a2, $at                # t9 = 01000000
-    jal     func_80005910
+    jal     func_80005910              # osPiRawWriteIo
     or      a2, t9, $zero              # a2 = 01000000
     addiu   t0, $zero, 0x0004          # t0 = 00000004
 lbl_8000386C:
@@ -4064,6 +4081,13 @@ lbl_80003A1C:
 
 
 func_80003A90:
+# s32 osPiRawStartDma(s32 direction, u32 devAddr, void* vAddr, u32 nbytes)
+# Sets up a DMA transfer between RDRAM and the PI device
+# A0 = s32 direction of the transfer (OS_READ = 0 or OS_WRITE = 1)
+# A1 = u32 device address on which to perform the transfer
+# A2 = void* RDRAM virtual address
+# A3 = u32 number of bytes to read/write
+# V0 = 0 for success, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
@@ -4167,6 +4191,9 @@ lbl_80003BCC:
 
 
 func_80003BE0:
+# void osViBlack(u8 active)
+# Set screen blackout
+# A0 = u8 flag (1 = set blackout, 0 = unset blackout)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
@@ -4200,10 +4227,15 @@ lbl_80003C34:
 
 
 func_80003C50:
+# s32 __osSiRawReadIo(void* vaddr, u32* data)
+# Perform a 32-bit IO Read operation from the SI device
+# A0 = u32 device address from which to perform the read operation
+# A2 = u32* where to store the read data
+# V0 = 0 for success, else -1 (if the device is busy)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
-    jal     func_80004300
+    jal     func_80004300              # __osSiDeviceBusy
     sw      a1, 0x001C($sp)
     beq     v0, $zero, lbl_80003C74
     lw      t6, 0x0018($sp)
@@ -4288,6 +4320,9 @@ lbl_80003D04:
 
 
 func_80003D60:
+# void osViSetMode(OSViMode* mode)
+# Sets display mode in the VI context
+# A0 = OSViMode* display mode
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
@@ -4375,6 +4410,9 @@ lbl_80003E7C:
 
 
 func_80003E90:
+# u32 osGetMemSize(void)
+# Returns the size of available memory, including Memory Expansion Pack if it's present
+# V0 = u32 memory size
     addiu   $sp, $sp, 0xFFF0           # $sp -= 0x10
     lui     t6, 0x0040                 # t6 = 00400000
     sw      t6, 0x0008($sp)
@@ -4512,6 +4550,8 @@ lbl_80004048:
 
 
 func_80004070:
+# void osUnmapTLBAll(void)
+# Removes all mappings to invalidate the entire CPU Translation Lookaside Buffer (TLB)
     mfc0    t0, EntryHi
     addiu   t1, $zero, 0x001E          # t1 = 0000001E
     lui     t2, 0x8000                 # t2 = 80000000
@@ -4538,7 +4578,7 @@ lbl_80004088:
 func_800040C0:
 # s32 osEPiStartDma(OSPiHandle* pihandle, OSIoMesg* mb, s32 direction)
 # Set up a DMA transfer between RDRAM and the PI device address space
-# A0 = OSPiHandle* handle for this PI device
+# A0 = OSPiHandle* handle for the PI device
 # A1 = OSIoMesg* IO message block request which contains parameters for this transfer
 # A2 = s32 direction of the transfer (OS_READ = 0 or OS_WRITE = 1)
 # V0 = s32 status (osSendMesg/osJamMesg result) or -1 if the PImgr thread is not started
@@ -4726,6 +4766,10 @@ lbl_800042E4:
 
 
 func_80004300:
+# s32 __osSiDeviceBusy(void)
+# Check if the Serial Interface is busy performing IO operations
+# Serial Interface is busy if SI_STATUS_REG is set for dma busy (0x0001) or rd busy (0x0002)
+# V0 = 1 if true, else 0
     lui     t6, 0xA480                 # t6 = A4800000
     lw      a0, 0x0018(t6)             # A4800018
     addiu   $sp, $sp, 0xFFF8           # $sp -= 0x8
@@ -4775,7 +4819,7 @@ lbl_8000436C:
     addiu   t0, $zero, 0x0008          # t0 = 00000008
     sh      t0, 0x0010(t1)             # 80000010
     lw      a0, 0x0028($sp)
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     addiu   a0, a0, 0x0004             # a0 = 00000004
     b       lbl_800043B0
     nop
@@ -4827,7 +4871,7 @@ lbl_80004414:
     lw      t4, 0x0000(t2)             # 00000000
     beq     t4, $zero, lbl_80004460
     nop
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     or      a0, t5, $zero              # a0 = 00000000
     or      s1, v0, $zero              # s1 = 00000000
     jal     func_80005EC0              # osStartThread
@@ -4883,7 +4927,7 @@ lbl_800044B4:
     or      a1, t1, $zero              # a1 = 00000000
     lw      t4, 0x0028($sp)
     lw      a0, 0x0008(t4)             # 00000008
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     or      a1, t4, $zero              # a1 = 00000000
 lbl_8000450C:
     lui     t5, 0x8000                 # t5 = 80000000
@@ -4898,7 +4942,7 @@ lbl_8000450C:
     addiu   t0, $zero, 0x0002          # t0 = 00000002
     lui     a0, 0x8000                 # a0 = 80000000
     sh      t0, 0x0010(t5)             # 80000010
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     addiu   a0, a0, 0x6338             # a0 = 80006338
 lbl_80004544:
     jal     func_800051A0              # __osRestoreInt
@@ -4927,6 +4971,11 @@ lbl_80004570:
 
 
 func_80004580:
+# s32 osPiRawReadIo(u32 devAddr, u32* data)
+# Perform a 32-bit IO Read operation from the PI device
+# A0 = u32 device address from which to perform the read operation
+# A2 = u32* where to store the read data
+# V0 = 0 for success
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
     lw      v0, 0x0000(v1)             # A4600010
@@ -5030,6 +5079,14 @@ lbl_800046C0:
 
 
 func_800046E0:
+# s32 osEPiRawStartDma(OSPiHandle* pihandle, s32 direction, u32 devAddr, void* vAddr, u32 nbytes)
+# Sets up a DMA transfer between RDRAM and the EPI device
+# A0 = OSPiHandle* handle for this device
+# A1 = s32 direction of the transfer (OS_READ = 0 or OS_WRITE = 1)
+# A2 = u32 device address on which to perform the transfer
+# A3 = void* RDRAM virtual address
+# SP+0x10 = u32 number of bytes to read/write
+# V0 = 0 for success, else -1
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
@@ -5211,6 +5268,7 @@ func_800048C0:
 
 
 func_80004950:
+# void __osTimerServicesInit(void)
     lui     $at, 0x8001                # $at = 80010000
     addiu   t6, $zero, 0x0000          # t6 = 00000000
     addiu   t7, $zero, 0x0000          # t7 = 00000000
@@ -5249,6 +5307,7 @@ func_80004950:
 
 
 func_800049DC:
+# void __osTimerInterrupt(void)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x63B0(t6)             # 800063B0
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
@@ -5305,7 +5364,7 @@ lbl_80004A80:
     sw      t0, 0x0010(t9)             # 00000010
     lw      t6, 0x0024($sp)
     lw      a0, 0x0010(t6)             # 00000010
-    jal     func_80004B54
+    jal     func_80004B54              # __osSetTimerIntr
     lw      a1, 0x0014(t6)             # 00000014
     b       lbl_80004B44
     nop
@@ -5341,7 +5400,7 @@ lbl_80004B10:
 lbl_80004B2C:
     sw      t8, 0x0010(t7)             # 00000010
     sw      t9, 0x0014(t7)             # 00000014
-    jal     func_80004BC8
+    jal     func_80004BC8              # __osInsertTimer
     lw      a0, 0x0024($sp)
     b       lbl_800049F8
     nop
@@ -5353,6 +5412,7 @@ lbl_80004B44:
 
 
 func_80004B54:
+# void __osSetTimerIntr(u64 intr)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -5385,6 +5445,7 @@ func_80004B54:
 
 
 func_80004BC8:
+# u64 __osInsertTimer(OSTimer* timer)
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x0014($sp)
     jal     func_80005130              # __osDisableInt
@@ -5788,8 +5849,9 @@ func_800050D0:
 
 
 func_80005130:
-# __osDisableInt
-# enter kernel mode? or disable all interrupts?
+# s32 __osDisableInt(void)
+# Disable all interrupts
+# V0 = s32 mask of disabled interrupts
     lui     t2, 0x8000                 # t2 = 80000000
     addiu   t2, t2, 0x6360             # t2 = 80006360
     lw      t3, 0x0000(t2)             # 80006360
@@ -5822,8 +5884,9 @@ lbl_80005198:
 
 
 func_800051A0:
-# __osRestoreInt
-# exit kernel mode? or re-enable interrupts?
+# void __osRestoreInt(s32 int)
+# Re-enable interrupts specified by the given mask
+# A0 = s32 mask of interrupts to restore
     mfc0    t0, Status
     or      t0, t0, a0                 # t0 = 00000000
     mtc0    t0, Status
@@ -5835,6 +5898,7 @@ func_800051A0:
 
 
 func_800051C0:
+# void __osViInit(void)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8000                 # a0 = 80000000
@@ -5913,7 +5977,7 @@ lbl_800052CC:
     nop
 lbl_800052E0:
     lui     t2, 0xA440                 # t2 = A4400000
-    jal     func_80005300
+    jal     func_80005300              # __osViSwapContext
     sw      $zero, 0x0000(t2)          # A4400000
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0018           # $sp += 0x18
@@ -5923,6 +5987,7 @@ lbl_800052E0:
 
 
 func_80005300:
+# void __osViSwapContext(void)
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s0, 0x0018($sp)
     sw      $ra, 0x001C($sp)
@@ -6131,7 +6196,7 @@ lbl_800055C0:
 
 func_80005600:
 # OSMesgQueue* osPiGetCmdQueue(void)
-# V0 = OSMesgQueue* PImgr command queue, or 0 if the PImgr thread is not currently active (or not initialized?)
+# V0 = OSMesgQueue* PImgr command queue, or NULL if the PImgr thread is not initialized
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x6370(t6)             # 80006370
     bne     t6, $zero, lbl_80005618
@@ -6149,22 +6214,22 @@ lbl_80005618:
 
 func_80005630:
 # s32 osEPiReadIo(OSPiHandle* pihandle, u32 devAddr, u32* data)
-# Perform a 32-bit IO Read operation from a given device address
-# A0 = OSPiHandle* handle for the PI device
+# Perform a 32-bit IO Read operation from an EPI device
+# A0 = OSPiHandle* handle for this device
 # A1 = u32 device address from which to perform the read operation
 # A2 = u32* where to store the read data
-# V0 = 0 for success, else -1
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
-    jal     func_80001DB0
+    jal     func_80001DB0              # __osPiGetAccess
     sw      a2, 0x0028($sp)
     lw      a0, 0x0020($sp)
     lw      a1, 0x0024($sp)
-    jal     func_80004580
+    jal     func_80004580              # osPiRawReadIo
     lw      a2, 0x0028($sp)
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     sw      v0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
@@ -6177,9 +6242,12 @@ func_80005630:
 
 
 func_80005680:
+# OSPiHandle* osCartRomInit(void)
+# Initialize PI bus and return the PI device handle to use in the EPI routine
+# V0 = OSPiHandle* handle specifying the hardware settings necessary when using a cartridge
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
-    jal     func_80001DB0
+    jal     func_80001DB0              # __osPiGetAccess
     sw      s0, 0x0018($sp)
     lui     t6, 0x8000                 # t6 = 80000000
     lw      t6, 0x6520(t6)             # 80006520
@@ -6187,7 +6255,7 @@ func_80005680:
     addiu   s0, s0, 0x9EA0             # s0 = 80009EA0
     bne     t6, $zero, lbl_800056BC
     lui     $at, 0x8000                # $at = 80000000
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     nop
     lui     s0, 0x8001                 # s0 = 80010000
     b       lbl_800057C0
@@ -6257,7 +6325,7 @@ lbl_80005714:
     or      a0, v0, $zero              # a0 = 00000000
     jal     func_800051A0              # __osRestoreInt
     sw      t8, 0x0000(s0)             # 80010000
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     nop
     or      v0, s0, $zero              # v0 = 80010000
 lbl_800057C0:
@@ -6294,22 +6362,22 @@ func_800057F0:
 
 func_80005800:
 # s32 osEPiWriteIo(OSPiHandle* pihandle, u32 devAddr, u32 data)
-# Perform a 32-bit IO Write operation to a given device address
-# A0 = OSPiHandle* handle for the PI device
+# Perform a 32-bit IO Write operation to the EPI device
+# A0 = OSPiHandle* handle for this device
 # A1 = u32 device address to which the write operation should be performed
 # A2 = u32 data to write
-# V0 = 0 for success, else -1
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     sw      a1, 0x0024($sp)
-    jal     func_80001DB0
+    jal     func_80001DB0              # __osPiGetAccess
     sw      a2, 0x0028($sp)
     lw      a0, 0x0020($sp)
     lw      a1, 0x0024($sp)
-    jal     func_80005910
+    jal     func_80005910              # osPiRawWriteIo
     lw      a2, 0x0028($sp)
-    jal     func_80001DF4
+    jal     func_80001DF4              # __osPiRelAccess
     sw      v0, 0x001C($sp)
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
@@ -6322,7 +6390,7 @@ func_80005800:
 
 
 func_80005850:
-# osMapTLBRdb
+# void osMapTLBRdb(void)
     mfc0    t0, EntryHi
     addiu   t1, $zero, 0x001F          # t1 = 0000001F
     mtc0    t1, Index
@@ -6365,7 +6433,7 @@ func_800058B0:
     lui     a0, 0x8000                 # a0 = 80000000
     or      s0, v0, $zero              # s0 = 00000000
     addiu   a0, a0, 0x6338             # a0 = 80006338
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     sh      t6, 0x0010(t7)             # 80000010
     jal     func_800051A0              # __osRestoreInt
     or      a0, s0, $zero              # a0 = 00000000
@@ -6388,6 +6456,11 @@ func_80005900:
 
 
 func_80005910:
+# s32 osPiRawWriteIo(u32 devAddr, u32 data)
+# Perform a 32-bit IO Write operation to the PI device
+# A0 = u32 device address to which the write operation should be performed
+# A1 = u32 data to write
+# V0 = 0 for success
     lui     v1, 0xA460                 # v1 = A4600000
     ori     v1, v1, 0x0010             # v1 = A4600010
     lw      v0, 0x0000(v1)             # A4600010
@@ -6497,9 +6570,9 @@ func_80005A70:
 # A0 = OSTimer* where to store the timer
 # A1 = unused argument
 # A2/A3 = OSTime countdown (duration to the next end of the timer, defaults to interval if zero)
-# SP + 0x10/0x14 = OSTime interval time (value used when resetting the timer after it ends)
-# SP + 0x18 = OSMesgQueue* message queue to put the ending message
-# SP + 0x1C = OSMesg message to send when the timer ends
+# SP+0x10/0x14 = OSTime interval time (value used when resetting the timer after it ends)
+# SP+0x18 = OSMesgQueue* message queue to put the ending message
+# SP+0x1C = OSMesg message to send when the timer ends
 # V0 = 0 for success
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a0, 0x0020($sp)
@@ -6539,7 +6612,7 @@ lbl_80005AE4:
     lw      t0, 0x0020($sp)
     lw      t9, 0x003C($sp)
     sw      t9, 0x001C(t0)             # 0000001C
-    jal     func_80004BC8
+    jal     func_80004BC8              # __osInsertTimer
     lw      a0, 0x0020($sp)
     lui     t2, 0x8000                 # t2 = 80000000
     lw      t2, 0x63B0(t2)             # 800063B0
@@ -6550,7 +6623,7 @@ lbl_80005AE4:
     bne     t3, t1, lbl_80005B30
     nop
     lw      a0, 0x0018($sp)
-    jal     func_80004B54
+    jal     func_80004B54              # __osSetTimerIntr
     lw      a1, 0x001C($sp)
 lbl_80005B30:
     lw      $ra, 0x0014($sp)
@@ -6564,10 +6637,15 @@ lbl_80005B30:
 
 
 func_80005B50:
+# s32 __osSiRawWriteIo(void* vaddr, u32 data)
+# Perform a 32-bit IO Write operation to the SI device
+# A0 = u32 device address to which the write operation should be performed
+# A1 = u32 data to write
+# V0 = 0 for success, else -1 (if the device is busy)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
-    jal     func_80004300
+    jal     func_80004300              # __osSiDeviceBusy
     sw      a1, 0x001C($sp)
     beq     v0, $zero, lbl_80005B74
     lw      t6, 0x001C($sp)
@@ -6601,7 +6679,7 @@ func_80005BA0:
     sw      a0, 0x0030($sp)
     bnel    t6, $zero, lbl_80005D10
     lw      $ra, 0x0024($sp)
-    jal     func_80004950
+    jal     func_80004950              # __osTimerServicesInit
     nop
     lui     $at, 0x8000                # $at = 80000000
     lui     a0, 0x8001                 # a0 = 80010000
@@ -6670,7 +6748,7 @@ lbl_80005C70:
     or      a3, s0, $zero              # a3 = 80006530
     jal     func_80002F20              # osCreateThread
     sw      t3, 0x0014($sp)
-    jal     func_800051C0
+    jal     func_800051C0              # __osViInit
     nop
     lui     a0, 0x8001                 # a0 = 80010000
     jal     func_80005EC0              # osStartThread
@@ -6693,8 +6771,9 @@ lbl_80005D10:
 
 
 func_80005D20:
+# void __osViMgrMain(OSDevMgr* vimgr)
 # VImgr thread entrypoint
-# A0 = OSDevMgr*? VImgr block (80006530)
+# A0 = OSDevMgr* VImgr block (80006530)
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x0034($sp)
     sw      s7, 0x0030($sp)
@@ -6706,7 +6785,7 @@ func_80005D20:
     sw      s2, 0x001C($sp)
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
-    jal     func_80005EB0
+    jal     func_80005EB0              # __osViGetCurrentContext
     sw      $zero, 0x0044($sp)
     lhu     v1, 0x0002(v0)             # 00000002
     lui     $at, 0x8001                # $at = 80010000
@@ -6740,7 +6819,7 @@ lbl_80005D98:
     b       lbl_80005D98
     lw      a0, 0x000C(s7)             # 0000000C
 lbl_80005DC4:
-    jal     func_80005300
+    jal     func_80005300              # __osViSwapContext
     nop
     lui     v1, 0x8001                 # v1 = 80010000
     lhu     v1, -0x4ED0(v1)            # 8000B130
@@ -6749,7 +6828,7 @@ lbl_80005DC4:
     andi    t7, v1, 0xFFFF             # t7 = 0000FFFF
     bne     t7, $zero, lbl_80005E1C
     sh      t7, -0x4ED0($at)           # 8000B130
-    jal     func_80005EB0
+    jal     func_80005EB0              # __osViGetCurrentContext
     nop
     lw      t8, 0x0010(v0)             # 00000010
     or      s0, v0, $zero              # s0 = 00000000
@@ -6782,7 +6861,7 @@ lbl_80005E1C:
     b       lbl_80005D94
     sw      t7, 0x0004(s1)             # 80009E84
 lbl_80005E60:
-    jal     func_800049DC
+    jal     func_800049DC              # __osTimerInterrupt
     nop
     b       lbl_80005D98
     lw      a0, 0x000C(s7)             # 0000000C
@@ -6805,6 +6884,8 @@ lbl_80005E60:
 
 
 func_80005EB0:
+# __OSViContext* __osViGetCurrentContext(void)
+# V0 = __OSViContext* current VI context
     lui     v0, 0x8000                 # v0 = 80000000
     jr      $ra
     lw      v0, 0x64C0(v0)             # 800064C0
@@ -6835,7 +6916,7 @@ func_80005EC0:
     lui     a0, 0x8000                 # a0 = 80000000
     sh      t7, 0x0010(t8)             # 00000010
     lw      a1, 0x0028($sp)
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     addiu   a0, a0, 0x6338             # a0 = 80006338
     b       lbl_80005F9C
     nop
@@ -6854,7 +6935,7 @@ lbl_80005F3C:
     lui     a0, 0x8000                 # a0 = 80000000
     sh      t2, 0x0010(t3)             # 00000010
     lw      a1, 0x0028($sp)
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     addiu   a0, a0, 0x6338             # a0 = 80006338
     b       lbl_80005F9C
     nop
@@ -6864,22 +6945,22 @@ lbl_80005F60:
     sh      t4, 0x0010(t5)             # 00000010
     lw      t6, 0x0028($sp)
     lw      a0, 0x0008(t6)             # 00000008
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     or      a1, t6, $zero              # a1 = 00000000
     lw      t7, 0x0028($sp)
-    jal     func_80002B94
+    jal     func_80002B94              # __osPopThread
     lw      a0, 0x0008(t7)             # 00000008
     or      s1, v0, $zero              # s1 = 00000000
     lui     a0, 0x8000                 # a0 = 80000000
     addiu   a0, a0, 0x6338             # a0 = 80006338
-    jal     func_80002B4C
+    jal     func_80002B4C              # __osEnqueueThread
     or      a1, s1, $zero              # a1 = 00000000
 lbl_80005F9C:
     lui     t8, 0x8000                 # t8 = 80000000
     lw      t8, 0x6340(t8)             # 80006340
     bne     t8, $zero, lbl_80005FBC
     nop
-    jal     func_80002BA4
+    jal     func_80002BA4              # __osDispatchThread
     nop
     b       lbl_80005FF4
     nop
@@ -6896,7 +6977,7 @@ lbl_80005FBC:
     addiu   t3, $zero, 0x0002          # t3 = 00000002
     lui     a0, 0x8000                 # a0 = 80000000
     sh      t3, 0x0010(t9)             # 80000010
-    jal     func_80002A4C
+    jal     func_80002A4C              # __osEnqueueAndYield
     addiu   a0, a0, 0x6338             # a0 = 80006338
 lbl_80005FF4:
     jal     func_800051A0              # __osRestoreInt

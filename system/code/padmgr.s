@@ -455,7 +455,7 @@ func_800A25DC:
     jal     func_800A2000
     or      a0, s0, $zero              # a0 = 00000000
     sw      v0, 0x002C($sp)
-    jal     func_800D0160
+    jal     func_800D0160              # osContStartReadData
     or      a0, v0, $zero              # a0 = 00000000
     lw      v1, 0x0460(s0)             # 00000460
     beq     v1, $zero, lbl_800A2614
@@ -468,7 +468,7 @@ lbl_800A2614:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     addiu   a0, s0, 0x0290             # a0 = 00000290
-    jal     func_800D01E4
+    jal     func_800D01E4              # osContGetReadData
     sw      a0, 0x0020($sp)
     addiu   a0, s0, 0x0296             # a0 = 00000296
     jal     func_80002E80              # bzero
@@ -759,8 +759,8 @@ func_800A2A14:
 # A1 = OSMesgQueue* event mq for available input
 # A2 = Irqmgr Context (8011D968)
 # A3 = OSId thread ID
-# SP + 0x10 = OSPri thread priority
-# SP + 0x14 = void* stack start address
+# SP+0x10 = OSPri thread priority
+# SP+0x14 = void* stack start address
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

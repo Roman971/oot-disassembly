@@ -1105,7 +1105,7 @@ func_800CD3D0:
     sb      t6, 0x0000(a1)             # 00000000
     or      s0, a2, $zero              # s0 = 00000000
     sw      a1, 0x0024($sp)
-    jal     func_800CFE20
+    jal     func_800CFE20              # osContInit
     lw      a0, 0x0020($sp)
     beq     v0, $zero, lbl_800CD408
     lw      a3, 0x0024($sp)
@@ -3943,6 +3943,9 @@ lbl_800CF7A8:
 
 
 func_800CF7BC:
+# void osSpTaskLoad(OSTask* task)
+# Loads the given task into the SP
+# A0 = OSTask* task to load
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
@@ -4055,6 +4058,11 @@ lbl_800CF93C:
 
 
 func_800CF94C:
+# s32 osSpTaskStartGo(OSTask* task)
+# Causes the SP to start executing a task previously loaded with osSpTaskLoad
+# Waits for the SP device to no longer be busy
+# A0 = OSTask* task (unused)
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_800D23F0              # __osSpDeviceBusy
@@ -4094,7 +4102,7 @@ func_800CF990:
     addiu   v0, $zero, 0x0005          # v0 = 00000005
 lbl_800CF9CC:
     sw      a3, 0x0034($sp)
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     sw      t0, 0x0024($sp)
     lw      t3, 0x0008(s0)             # 00000008
     lui     a2, 0x8013                 # a2 = 80130000
@@ -4126,7 +4134,7 @@ lbl_800CFA10:
     sw      a3, 0x0034($sp)
     sll     t9, t8,  6
     addu    a1, a2, t9
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a0, 0x0004(s0)             # 00000004
     or      a1, $zero, $zero           # a1 = 00000000
@@ -4137,7 +4145,7 @@ lbl_800CFA10:
     addiu   t4, t4, 0xBB00             # t4 = 8012BB00
     sll     t3, t1,  6
     addu    a1, t3, t4
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a0, $zero, $zero           # a0 = 00000000
     lw      a0, 0x0004(s0)             # 00000004
     or      a1, $zero, $zero           # a1 = 00000000
@@ -4163,7 +4171,7 @@ lbl_800CFAC8:
     nop
     addiu   s0, $zero, 0x0004          # s0 = 00000004
 lbl_800CFAD8:
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     nop
     or      v0, s0, $zero              # v0 = 00000004
 lbl_800CFAE4:
@@ -4351,6 +4359,8 @@ lbl_800CFD4C:
 
 
 func_800CFD60:
+# void __osSiCreateAccessQueue(void)
+# Initializes the SImgr access queue with size 1 and puts an empty message in it
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   t6, $zero, 0x0001          # t6 = 00000001
@@ -4374,13 +4384,15 @@ func_800CFD60:
 
 
 func_800CFDB0:
+# void __osSiGetAccess(void)
+# Pulls a message from the SImgr access queue with OS_MESG_BLOCK (initializing the access queue if needed)
     lui     t6, 0x8010                 # t6 = 80100000
     lw      t6, 0x5CA0(t6)             # 80105CA0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     bne     t6, $zero, lbl_800CFDD0
     nop
-    jal     func_800CFD60
+    jal     func_800CFD60              # __osSiCreateAccessQueue
     nop
 lbl_800CFDD0:
     lui     a0, 0x8013                 # a0 = 80130000
@@ -4395,6 +4407,8 @@ lbl_800CFDD0:
 
 
 func_800CFDF4:
+# void __osSiRelAccess(void)
+# Sends an empty message on the SImgr access queue with OS_MESG_NOBLOCK
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8013                 # a0 = 80130000
@@ -4409,6 +4423,11 @@ func_800CFDF4:
 
 
 func_800CFE20:
+# s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* status)
+# Initial Setting for SI Device Use
+# A0 = OSMesgQueue* message queue already initialized and associated with OS_EVENT_SI
+# A1 = Pointer to bit pattern
+# A2 = OSContStatus* array of controllers status
     addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     lui     t6, 0x8010                 # t6 = 80100000
     lw      t6, 0x5CB0(t6)             # 80105CB0
@@ -4466,11 +4485,11 @@ lbl_800CFEF0:
     addiu   t8, $zero, 0x0004          # t8 = 00000004
     lui     $at, 0x8013                # $at = 80130000
     sb      t8, -0x439F($at)           # 8012BC61
-    jal     func_800D0060
+    jal     func_800D0060              # __osPackRequestData
     or      a0, $zero, $zero           # a0 = 00000000
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     sw      v0, 0x0068($sp)
     lw      a0, 0x0070($sp)
@@ -4479,7 +4498,7 @@ lbl_800CFEF0:
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a0, $zero, $zero           # a0 = 00000000
     sw      v0, 0x0068($sp)
     lw      a0, 0x0070($sp)
@@ -4487,10 +4506,10 @@ lbl_800CFEF0:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lw      a0, 0x0074($sp)
-    jal     func_800CFF90
+    jal     func_800CFF90              # __osContGetInitData
     lw      a1, 0x0078($sp)
     lui     $at, 0x8013                # $at = 80130000
-    jal     func_800CFD60
+    jal     func_800CFD60              # __osSiCreateAccessQueue
     sb      $zero, -0x43A0($at)        # 8012BC60
     lui     a0, 0x8013                 # a0 = 80130000
     lui     a1, 0x8013                 # a1 = 80130000
@@ -4507,9 +4526,9 @@ lbl_800CFF80:
 
 
 func_800CFF90:
-# padmgr related
-# A0 = ? (struct on stack)
-# A1 = Input Context (8011D500)
+# void __osContGetInitData(u8* bitpattern, OSContStatus* status)
+# A0 = Pointer to bit pattern
+# A1 = OSContStatus*  array of controllers status
     lui     t7, 0x8013                 # t7 = 80130000
     lbu     t7, -0x439F(t7)            # 8012BC61
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
@@ -4568,6 +4587,7 @@ lbl_800D0050:
 
 
 func_800D0060:
+# void __osPackRequestData(u8 ?)
     addiu   $sp, $sp, 0xFFF0           # $sp -= 0x10
     andi    a0, a0, 0x00FF             # a0 = 00000000
     sw      $zero, 0x0000($sp)
@@ -4638,20 +4658,24 @@ lbl_800D0140:
 
 
 func_800D0160:
+# s32 osContStartReadData(OSMesgQueue* mq)
+# Issues a read command to obtain data from the Controller
+# A0 = OSMesgQueue* message queue associated with OS_EVENT_SI
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     sw      a0, 0x0020($sp)
     lui     t6, 0x8013                 # t6 = 80130000
     lbu     t6, -0x43A0(t6)            # 8012BC60
     addiu   $at, $zero, 0x0001         # $at = 00000001
     beq     t6, $at, lbl_800D01AC
     nop
-    jal     func_800D0270
+    jal     func_800D0270              # __osPackReadData
     nop
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a0, 0x0020($sp)
     or      a1, $zero, $zero           # a1 = 00000000
@@ -4660,12 +4684,12 @@ func_800D0160:
 lbl_800D01AC:
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a0, $zero, $zero           # a0 = 00000000
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     lui     $at, 0x8013                # $at = 80130000
     sw      v0, 0x001C($sp)
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     sb      t7, -0x43A0($at)           # 8012BC60
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
@@ -4675,6 +4699,9 @@ lbl_800D01AC:
 
 
 func_800D01E4:
+# void osContGetReadData(OSContPad* pad)
+# Returns Controller data previously issued by osContStartReadData
+# A0 = OSContPad* location where to store the data
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC61             # a1 = 8012BC61
     lbu     t6, 0x0000(a1)             # 8012BC61
@@ -4716,6 +4743,7 @@ lbl_800D0268:
 
 
 func_800D0270:
+# void __osPackReadData(void)
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
     lui     a0, 0x8013                 # a0 = 80130000
@@ -4959,14 +4987,13 @@ func_800D0570:
 
 
 func_800D05D0:
-# s32 __osSpRawStartDma(s32 direction, u32 devAddr, void* dramAddr, u32 size)
-# Transfer To/From RCP IMEM or DMEM
-# Aborts with return -1 if the interface is busy (dma busy, dma full, or io full)
-# A0 = s32 direction (0 to write to RDRAM, 1 to read into I/DMEM)
-# A1 = u32 value to set SP_MEM_ADDR_REG to
-# A2 = void* RDRAM Address to read/write from
-# A3 = u32 transfer size
-# V0 = 0 if the operation could be done, else -1
+# s32 __osSpRawStartDma(s32 direction, u32 devAddr, void* vAddr, u32 nbytes)
+# Sets up a DMA transfer between RDRAM and RCP IMEM or DMEM
+# A0 = s32 direction of the transfer (OS_READ = 0 or OS_WRITE = 1)
+# A1 = u32 RCP I/DMEM address on which to perform the transfer
+# A2 = void* RDRAM virtual address
+# A3 = u32 number of bytes to transfer
+# V0 = 0 for success, else -1 (if the device is busy)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -5009,7 +5036,11 @@ lbl_800D0644:
 
 
 func_800D0660:
-# Related to fetching input
+# s32 __osSiRawStartDma(s32 dir, void* vaddr)
+# Sets up a DMA transfer between RDRAM and VI
+# A0 = s32 direction of the transfer (OS_READ = 0 or OS_WRITE = 1)
+# A2 = void* RDRAM virtual address
+# V0 = 0 for success, else -1 (if the interface is busy)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -5063,6 +5094,8 @@ lbl_800D06FC:
 
 
 func_800D0710:
+# void osSpTaskYield(void)
+# Requests that the SP yields
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_800D5A90              # __osSpSetStatus
@@ -5564,20 +5597,24 @@ func_800D0DD0:
 
 
 func_800D0DF0:
+# s32 osContStartQuery(OSMesgQueue* mq)
+# Issues a read command to obtain the status and type of SI device
+# A0 = OSMesgQueue* message queue associated with OS_EVENT_SI
+# V0 = 0 for success
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     sw      $zero, 0x001C($sp)
     lui     t6, 0x8013                 # t6 = 80130000
     lbu     t6, -0x43A0(t6)            # 8012BC60
     beq     t6, $zero, lbl_800D0E40
     nop
-    jal     func_800D0060
+    jal     func_800D0060              # __osPackRequestData
     or      a0, $zero, $zero           # a0 = 00000000
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     sw      v0, 0x001C($sp)
     lw      a0, 0x0020($sp)
@@ -5587,11 +5624,11 @@ func_800D0DF0:
 lbl_800D0E40:
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBC20             # a1 = 8012BC20
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a0, $zero, $zero           # a0 = 00000000
     lui     $at, 0x8013                # $at = 80130000
     sw      v0, 0x001C($sp)
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     sb      $zero, -0x43A0($at)        # 8012BC60
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
@@ -5601,13 +5638,14 @@ lbl_800D0E40:
 
 
 func_800D0E74:
-# Wrapper for 800CFF90
-# A0 = Input Context (8011D500)
+# void osContGetQuery(OSContStatus* status)
+# Returns Controller status and type previously issued by osContStartQuery
+# A0 = OSContStatus*  array of controllers status where to store the result (8011D500)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
     lw      a1, 0x0020($sp)
-    jal     func_800CFF90
+    jal     func_800CFF90              # __osContGetInitData
     addiu   a0, $sp, 0x001F            # a0 = FFFFFFFF
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0020           # $sp += 0x20
@@ -7144,6 +7182,9 @@ lbl_800D2414:
 
 
 func_800D2420:
+# void osViSwapBuffer(void* vaddr)
+# Registers the frame buffer to be displayed in the next frame
+# A0 = head address of frame buffer
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     jal     func_80005130              # __osDisableInt
@@ -7309,6 +7350,10 @@ func_800D2620:
 
 
 func_800D2690:
+# OSYieldResult osSpTaskYielded(OSTask* task)
+# Check whether or not a task succesfully yielded
+# A0 = OSTask* task to check
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     jal     func_800D5A80              # __osSpGetStatus
@@ -7477,6 +7522,10 @@ func_800D28A4:
 
 
 func_800D2900:
+# s32 osAiSetFrequency(u32 freq)
+# Set internal AI divisors to reach the requested frequency
+# A0 = u32 frequency
+# V0 = s32 actual frequency generated by these divisors
     lui     a1, 0x8000                 # a1 = 80000000
     addiu   a1, a1, 0x6358             # a1 = 80006358
     lw      t6, 0x0000(a1)             # 80006358
@@ -7863,6 +7912,9 @@ lbl_800D2E2C:
 
 
 func_800D2E40:
+# void osViSetSpecialFeatures(u32 func)
+# Sets special VI functions
+# A0 = u32 mask of functions to turn ON/OFF (eg: OS_VI_GAMMA_ON/OS_VI_GAMMA_OFF)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80005130              # __osDisableInt
@@ -7999,6 +8051,11 @@ func_800D2FD0:
 
 
 func_800D3000:
+# void osViSetEvent(OSMesgQueue* mq, OSMesg msg, u32 retraceCount)
+# Registers a vertical synchronization event message in the VI manager
+# A0 = OSMesgQueue* message queue to use
+# A1 = OSMesg message to use
+# A2 = u32 retrace count to use (message send cycle = 60Hz/retrace count)
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0028($sp)
@@ -8177,7 +8234,7 @@ func_800D3270:
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     sw      $zero, 0x001C($sp)
     lbu     t6, 0x0023($sp)
     slti    $at, t6, 0x0005
@@ -8194,7 +8251,7 @@ lbl_800D32A4:
 lbl_800D32B0:
     addiu   t9, $zero, 0x00FE          # t9 = 000000FE
     lui     $at, 0x8013                # $at = 80130000
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     sb      t9, -0x43A0($at)           # 8012BC60
     lw      $ra, 0x0014($sp)
     lw      v0, 0x001C($sp)
@@ -8294,7 +8351,7 @@ func_800D3390:
 lbl_800D3400:
     or      s0, a2, $zero              # s0 = 00000000
 lbl_800D3404:
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     sh      a2, 0x0072($sp)
     sra     t8, s0,  3
     sll     t9, s0,  5
@@ -8366,7 +8423,7 @@ lbl_800D34DC:
     jal     func_80004DC0              # bcopy
     lw      a0, 0x0074($sp)
     addiu   a0, $zero, 0x0001          # a0 = 00000001
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a1, s3, $zero              # a1 = 8012BDD0
     jal     func_800D47B0
     lw      a0, 0x0074($sp)
@@ -8376,7 +8433,7 @@ lbl_800D34DC:
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     or      a0, $zero, $zero           # a0 = 00000000
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a1, s3, $zero              # a1 = 8012BDD0
     or      a0, s5, $zero              # a0 = 00000000
     or      a1, $zero, $zero           # a1 = 00000000
@@ -8406,7 +8463,7 @@ lbl_800D3590:
     beq     v0, $zero, lbl_800D3438
     addiu   s4, s4, 0xFFFF             # s4 = 00000001
 lbl_800D35A0:
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     sw      v1, 0x0064($sp)
     lw      v0, 0x0064($sp)
 lbl_800D35AC:
@@ -8438,7 +8495,7 @@ func_800D35E0:
     or      a1, $zero, $zero           # a1 = 00000000
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBDD0             # a1 = 8012BDD0
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     lw      a0, 0x0030($sp)
     addiu   a1, $sp, 0x0028            # a1 = FFFFFFF8
@@ -8446,7 +8503,7 @@ func_800D35E0:
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBDD0             # a1 = 8012BDD0
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a0, $zero, $zero           # a0 = 00000000
     sw      v0, 0x002C($sp)
     lw      a0, 0x0030($sp)
@@ -9527,7 +9584,7 @@ func_800D44B0:
     sw      s0, 0x0018($sp)
     sw      a2, 0x0068($sp)
     sw      a3, 0x006C($sp)
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     addiu   s5, $zero, 0x0002          # s5 = 00000002
     lhu     a1, 0x006A($sp)
     lui     s8, 0x8010                 # s8 = 80100000
@@ -9598,14 +9655,14 @@ lbl_800D45CC:
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     or      a1, s4, $zero              # a1 = 8012BDD0
     or      t0, v0, t9                 # t0 = 00000000
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     sb      t0, 0x0005(s0)             # 8012BDDA
     or      a0, s6, $zero              # a0 = 00000000
     or      a1, $zero, $zero           # a1 = 00000000
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     or      a0, $zero, $zero           # a0 = 00000000
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a1, s4, $zero              # a1 = 8012BDD0
     or      a0, s6, $zero              # a0 = 00000000
     or      a1, $zero, $zero           # a1 = 00000000
@@ -9645,7 +9702,7 @@ lbl_800D4688:
     beq     v0, $zero, lbl_800D4520
     addiu   s5, s5, 0xFFFF             # s5 = 00000001
 lbl_800D4698:
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     nop
     lw      $ra, 0x003C($sp)
     or      v0, s3, $zero              # v0 = 00000001
@@ -9787,14 +9844,14 @@ func_800D4850:
     sw      a1, 0x0044($sp)
     sw      $zero, 0x003C($sp)
     sb      $zero, 0x001F($sp)
-    jal     func_800CFDB0
+    jal     func_800CFDB0              # __osSiGetAccess
     sw      t6, 0x0018($sp)
 lbl_800D4874:
     jal     func_800D49F0
     or      a0, $zero, $zero           # a0 = 00000000
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBDD0             # a1 = 8012BDD0
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     addiu   a0, $zero, 0x0001          # a0 = 00000001
     sw      v0, 0x003C($sp)
     lw      a0, 0x0040($sp)
@@ -9803,7 +9860,7 @@ lbl_800D4874:
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     lui     a1, 0x8013                 # a1 = 80130000
     addiu   a1, a1, 0xBDD0             # a1 = 8012BDD0
-    jal     func_800D0660
+    jal     func_800D0660              # __osSiRawStartDma
     or      a0, $zero, $zero           # a0 = 00000000
     sw      v0, 0x003C($sp)
     lw      a0, 0x0040($sp)
@@ -9882,7 +9939,7 @@ lbl_800D49A8:
     bne     $at, $zero, lbl_800D4968
     nop
 lbl_800D49C8:
-    jal     func_800CFDF4
+    jal     func_800CFDF4              # __osSiRelAccess
     nop
     lbu     t6, 0x001F($sp)
     lw      t7, 0x0044($sp)
@@ -11317,6 +11374,9 @@ lbl_800D5CE0:
 
 
 func_800D5CF0:
+# void osViSetYScale(f32 scale)
+# Sets the Y scale for the VI
+# F12 = f32 Y scale coefficient
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     swc1    $f12, 0x0028($sp)
@@ -11344,6 +11404,9 @@ func_800D5CF0:
 
 
 func_800D5D50:
+# void* osViGetCurrentFramebuffer(void)
+# Gets the current frame buffer address
+# V0 = head address of frame buffer
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x001C($sp)
     jal     func_80005130              # __osDisableInt

@@ -256,8 +256,8 @@ func_800A0620:
 # A1 = void* stack start address
 # A2 = OSPri thread priority
 # A3 = OSId thread ID
-# SP + 0x10 = Sched Context (8011D2A8)
-# SP + 0x14 = Irqmgr Context (8011D968)
+# SP+0x10 = Sched Context (8011D2A8)
+# SP+0x14 = Irqmgr Context (8011D968)
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000

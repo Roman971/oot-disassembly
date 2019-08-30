@@ -416,7 +416,7 @@ func_800AD33C:
     addiu   a2, $zero, 0x029D          # a2 = 0000029D
     lw      a0, 0x002C($sp)
     addiu   a1, $zero, 0x029A          # a1 = 0000029A
-    jal     func_800D3000
+    jal     func_800D3000              # osViSetEvent
     lbu     a2, 0x003F($sp)
     lw      t9, 0x0034($sp)
     lw      t2, 0x0038($sp)
