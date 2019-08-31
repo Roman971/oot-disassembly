@@ -57,7 +57,7 @@ typedef struct OSThread {
   /* 0x0012 */ u16                  flags;    // Flags for rmon
   /* 0x0014 */ OSId                 id;       // ID for debugging
   /* 0x0018 */ s32                  fp;
-  /* 0x001C */ __OSThreadContext    context;
+  /* 0x0020 */ __OSThreadContext    context;
   /* 0x01B0 */
 } OSThread;
 
