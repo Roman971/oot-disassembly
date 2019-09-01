@@ -86,7 +86,7 @@ func_800A2C10:
     sw      a0, 0x0018($sp)
     lui     $at, 0x3F80                # $at = 3F800000
     mtc1    $at, $f12                  # $f12 = 1.00
-    jal     func_800D5CF0
+    jal     func_800D5CF0              # osViSetYScale
     nop
     jal     func_80003BE0              # osViBlack
     addiu   a0, $zero, 0x0001          # a0 = 00000001

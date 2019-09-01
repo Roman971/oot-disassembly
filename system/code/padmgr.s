@@ -485,13 +485,13 @@ lbl_800A2614:
 lbl_800A2660:
     jal     func_800A23FC
     or      a0, s0, $zero              # a0 = 00000000
-    jal     func_800D0DF0
+    jal     func_800D0DF0              # osContStartQuery
     lw      a0, 0x002C($sp)
     lw      a0, 0x002C($sp)
     or      a1, $zero, $zero           # a1 = 00000000
     jal     func_80002030              # osRecvMesg
     addiu   a2, $zero, 0x0001          # a2 = 00000001
-    jal     func_800D0E74
+    jal     func_800D0E74              # osContGetQuery
     or      a0, s0, $zero              # a0 = 00000000
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_800A2030

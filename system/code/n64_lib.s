@@ -1117,7 +1117,7 @@ lbl_800CD408:
     lw      a0, 0x0020($sp)
     bnel    t7, $at, lbl_800CD4F8
     or      v0, $zero, $zero           # v0 = 00000000
-    jal     func_800D0DF0
+    jal     func_800D0DF0              # osContStartQuery
     sw      a3, 0x0024($sp)
     beq     v0, $zero, lbl_800CD434
     lw      a3, 0x0024($sp)
@@ -1129,7 +1129,7 @@ lbl_800CD434:
     addiu   a2, $zero, 0x0001          # a2 = 00000001
     jal     func_80002030              # osRecvMesg
     sw      a3, 0x0024($sp)
-    jal     func_800D0E74
+    jal     func_800D0E74              # osContGetQuery
     or      a0, s0, $zero              # a0 = 00000000
     lw      a3, 0x0024($sp)
     or      v0, s0, $zero              # v0 = 00000000

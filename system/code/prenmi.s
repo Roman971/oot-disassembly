@@ -23,7 +23,7 @@ func_8007CC44:
     bne     v0, $zero, lbl_8007CC84
     addiu   t6, v0, 0xFFFF             # t6 = FFFFFFFF
     mtc1    $at, $f12                  # $f12 = 1.00
-    jal     func_800D5CF0
+    jal     func_800D5CF0              # osViSetYScale
     sw      a1, 0x0018($sp)
     jal     func_80003BE0              # osViBlack
     addiu   a0, $zero, 0x0001          # a0 = 00000001
