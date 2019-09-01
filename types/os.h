@@ -524,9 +524,13 @@ typedef struct {
 
   /* 0x38 */ u64* yield_data_ptr;
   /* 0x3C */ u32  yield_data_size;
+  /* 0x40 */
+} OSTask_t;
 
-  /* 0x40 */ s64  force_structure_alignment;
-  /* 0x48 */
+typedef union {
+  /* 0x00 */ OSTask_t       t;
+  /* 0x00 */ long long int  force_structure_alignment;
+  /* 0x40 */
 } OSTask;
 
 #endif
