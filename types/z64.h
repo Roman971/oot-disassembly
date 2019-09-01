@@ -14,6 +14,6 @@ typedef struct {
   /* 0x18 */ OSMesgQueue*   notify_mq;  // Message queue for the notification message
   /* 0x1C */ OSMesg         notify_msg; // Completion notification message
   /* 0x20 */
-} z_getfile;
+} getfile_t;
 
 #endif
