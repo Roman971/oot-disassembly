@@ -4,7 +4,7 @@
 #include "ultra.h"
 #include "os.h"
 
-typedef struct z_getfile {
+typedef struct {
   /* 0x00 */ u32            vrom_addr;  // VROM address (source)
   /* 0x04 */ void*          dram_addr;  // DRAM address (destination)
   /* 0x08 */ u32            size;       // File Transfer size

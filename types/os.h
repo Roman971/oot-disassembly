@@ -24,7 +24,7 @@
 typedef s32 OSPri; // Priority Value
 typedef s32 OSId;  // Debugging ID
 
-typedef struct __OSStackContext {
+typedef struct {
   /* 0x00 */ __OSStackContext*      next;     // Next stack
   /* 0x04 */ __OSStackContext*      prev;     // Previous stack
   /* 0x08 */ void*                  start;    // Stack start address
@@ -35,7 +35,7 @@ typedef struct __OSStackContext {
   /* 0x20 */
 } __OSStackContext;
 
-typedef struct __OSThreadContext {
+typedef struct {
   /* 0x0000 */  u64         at, v0, v1, a0, a1, a2, a3,
   /* 0x0038 */          t0, t1, t2, t3, t4, t5, t6, t7,
   /* 0x0078 */          s0, s1, s2, s3, s4, s5, s6, s7,
@@ -48,7 +48,7 @@ typedef struct __OSThreadContext {
   /* 0x0190 */  };
 } __OSThreadContext;
 
-typedef struct OSThread {
+typedef struct {
   /* 0x0000 */ OSThread*            next;     // Next thread in queue
   /* 0x0004 */ OSPri                priority; // Thread priority
   /* 0x0008 */ OSThread**           queue;    // Queue the thread is on
@@ -89,7 +89,7 @@ typedef struct OSThread {
 typedef u32     OSEvent;
 typedef void*   OSMesg;
 
-typedef struct OSMesgQueue {
+typedef struct {
   /* 0x00 */ OSThread*      mtqueue;    // Queue to store threads blocked on empty mailboxes (receive)
   /* 0x04 */ OSThread*      fullqueue;  // Queue to store threads blocked on full mailboxes (send)
   /* 0x08 */ s32            validCount; // Number of valid messages
@@ -106,7 +106,7 @@ typedef struct OSMesgQueue {
 
 typedef u64 OSTime;
 
-typedef struct OSTimer {
+typedef struct {
   /* 0x00 */ OSTimer*       next;     // Points to next timer in list
   /* 0x04 */ OSTimer*       prev;     // Points to previous timer in list
   /* 0x08 */ OSTime         interval; // Interval duration set by user
@@ -242,7 +242,7 @@ typedef u32 OSHWIntr;
 #define OS_VI_BIT_NTSC              0x0400
 #define OS_VI_BIT_PAL               0x0800
 
-typedef struct OSViCommonRegs {
+typedef struct {
   /* 0x00 */ u32            ctrl;
   /* 0x04 */ u32            width;
   /* 0x08 */ u32            burst;
@@ -255,7 +255,7 @@ typedef struct OSViCommonRegs {
   /* 0x24 */
 } OSViCommonRegs;
 
-typedef struct OSViFieldRegs {
+typedef struct {
   /* 0x00 */ u32            origin;
   /* 0x04 */ u32            yScale;
   /* 0x08 */ u32            vStart;
@@ -264,14 +264,14 @@ typedef struct OSViFieldRegs {
   /* 0x14 */
 } OSViFieldRegs;
 
-typedef struct OSViMode {
+typedef struct {
   /* 0x00 */ u8             type;       // Mode type
   /* 0x04 */ OSViCommonRegs comRegs;    // Common registers for both fields
   /* 0x28 */ OSViFieldRegs  fldRegs[2]; // Registers for Field 1  & 2
   /* 0x50 */
 } OSViMode;
 
-typedef struct __OSViContext {
+typedef struct {
   /* 0x00 */ u16            flags;
   /* 0x02 */ u16            retraceCount;
   /* 0x04 */ void*          framebuffer;
@@ -320,7 +320,7 @@ typedef struct __OSViContext {
 #define PI_DOMAIN1              0
 #define PI_DOMAIN2              1
 
-typedef struct __OSBlockInfo {
+typedef struct {
   /* 0x00 */ u32            errStatus;      // Error Status
   /* 0x04 */ void*          dramAddr;       // RDRAM buffer address (DMA)
   /* 0x08 */ void*          C2Addr;         // C2 buffer address
@@ -330,7 +330,7 @@ typedef struct __OSBlockInfo {
   /* 0x24 */
 } __OSBlockInfo;
 
-typedef struct __OSTranxInfo {
+typedef struct {
   /* 0x00 */ u32            cmdType;      // Command Type
   /* 0x04 */ u16            transferMode; // Transfer Mode (block, track, or sector?)
   /* 0x06 */ u16            blockNum;     // Which block is transfering
@@ -342,7 +342,7 @@ typedef struct __OSTranxInfo {
   /* 0x60 */
 } __OSTranxInfo;
 
-typedef struct OSPiHandle {
+typedef struct {
   /* 0x00 */ OSPiHandle*    next;         // Points to next handle in the table
   /* 0x04 */ u8             type;         // Device Type (DEVICE_TYPE_*)
   /* 0x05 */ u8             latency;      // Domain latency
@@ -356,13 +356,13 @@ typedef struct OSPiHandle {
   /* 0x74 */
 } OSPiHandle;
 
-typedef struct OSPiInfo {
+typedef struct {
   /* 0x00 */ u8             type;
   /* 0x04 */ u32            address;
   /* 0x08 */
 } OSPiInfo;
 
-typedef struct OSIoMesgHdr {
+typedef struct {
   /* 0x00 */ u16            type;     // Message type (OS_MESG_TYPE_*)
   /* 0x02 */ u8             pri;      // Message priority (OS_MESG_PRI_*)
   /* 0x03 */ u8             status;   // Return status
@@ -370,7 +370,7 @@ typedef struct OSIoMesgHdr {
   /* 0x08 */
 } OSIoMesgHdr;
 
-typedef struct OSIoMesg {
+typedef struct {
   /* 0x00 */ OSIoMesgHdr    hdr;      // Message header
   /* 0x08 */ void*          dramAddr; // RDRAM buffer address (DMA)
   /* 0x0C */ u32            devAddr;  // Device buffer address (DMA)
@@ -379,7 +379,7 @@ typedef struct OSIoMesg {
   /* 0x18 */
 } OSIoMesg;
 
-typedef struct OSDevMgr {
+typedef struct {
   /* 0x00 */ s32            active;   // Status flag
   /* 0x04 */ OSThread*      thread;   // Associated thread
   /* 0x08 */ OSMesgQueue*   cmdQueue; // Command queue
@@ -458,14 +458,14 @@ typedef struct OSDevMgr {
 #define CONT_ERR_VOICE_WORD         14
 #define CONT_ERR_VOICE_NO_RESPONSE  15
 
-typedef struct OSContStatus {
+typedef struct {
   /* 0x00 */ u16     type;
   /* 0x02 */ u8      status;
   /* 0x03 */ u8      errno;
   /* 0x04 */
 } OSContStatus;
 
-typedef struct OSContPad {
+typedef struct {
   /* 0x00 */ u16     button;
   /* 0x02 */ s8      stick_x;
   /* 0x03 */ s8      stick_y;
@@ -473,7 +473,7 @@ typedef struct OSContPad {
   /* 0x08 */
 } OSContPad;
 
-typedef struct OSContRamIo {
+typedef struct {
   /* 0x00 */ void*   address;        // Ram pad Address (11 bits)
   /* 0x04 */ u8      databuffer[32];
   /* 0x24 */ u8      addressCrc;     // CRC code for address
@@ -500,7 +500,7 @@ typedef struct OSContRamIo {
 
 typedef u32 OSYieldResult;
 
-typedef union OSTask {
+typedef struct {
   /* 0x00 */ u32  type;
   /* 0x04 */ u32  flags;
 
