@@ -818,6 +818,9 @@ lbl_80A35084:
 
 
 func_80A350C8:
+# Init Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s3, 0x0050($sp)
     sw      s2, 0x004C($sp)
@@ -1425,6 +1428,9 @@ lbl_80A35990:
 
 
 func_80A359B0:
+# Destruct Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -8170,6 +8176,9 @@ lbl_80A3BDDC:
 
 
 func_80A3BDE8:
+# Main Update Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFEC8           # $sp -= 0x138
     sw      s1, 0x0030($sp)
     sw      s0, 0x002C($sp)
@@ -12971,6 +12980,9 @@ lbl_80A40430:
 
 
 func_80A40440:
+# Main Draw Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -17743,10 +17755,10 @@ lbl_80A449F8:
 .section .data
 
 var_80A44A10: .word 0x00FE0400, 0x00000010, 0x015B0000, 0x00000540
-.word func_80A350C8
-.word func_80A359B0
-.word func_80A3BDE8
-.word func_80A40440
+.word func_80A350C8 # Init
+.word func_80A359B0 # Dest
+.word func_80A3BDE8 # Main
+.word func_80A40440 # Draw
 var_80A44A30: .word 0x00000000
 var_80A44A34: .word 0x00000000
 var_80A44A38: .word 0x00000000

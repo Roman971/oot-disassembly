@@ -1,5 +1,8 @@
 .section .text
 func_808CED80:
+# Set new update routine function for this actor
+# A0 = Actor Instance
+# A1 = Pointer to function
     sw      a1, 0x0180(a0)             # 00000180
     jr      $ra
     nop
@@ -611,6 +614,9 @@ lbl_808CF574:
 
 
 func_808CF584:
+# Init Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a1, 0x002C($sp)
@@ -740,6 +746,9 @@ lbl_808CF744:
 
 
 func_808CF750:
+# Destruct function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -5115,6 +5124,11 @@ lbl_808D33E4:
 
 
 func_808D3400:
+# Main Update Function
+# Calls the current update routine function previously stored by 808CED80
+# Also increments some counter in Actor + 0x01D4 by 1
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lh      t6, 0x01D4(a0)             # 000001D4
@@ -6286,13 +6300,14 @@ func_808D4474:
 .section .data
 
 var_808D4560: .word 0x003D0400, 0x00000019, 0x00010000, 0x000002C8
-.word func_808CF584
-.word func_808CF750
-.word func_808D3400
-.word \
-0x00000000, 0x0A000039, 0x01000000, 0x00000000, \
-0x00000000, 0x00000000, 0x00000000, 0x00000000, \
-0x00000100, 0x001E0050, 0x00000000, 0x00000000
+.word func_808CF584 # Init
+.word func_808CF750 # Dest
+.word func_808D3400 # Main
+.word 0x00000000
+var_808D4580: .word \ # Actor OverlayCollision
+0x0A000039, 0x01000000, 0x00000000, 0x00000000, \
+0x00000000, 0x00000000, 0x00000000, 0x00000100, \
+0x001E0050, 0x00000000, 0x00000000
 var_808D45AC: .word 0x000A001E, 0x00140032
 var_808D45B4: .word \
 0xEAACEAAC, 0xEAACEAAC, 0x15541554, 0x15541554, \
@@ -6550,4 +6565,3 @@ var_808D4CA4: .word 0x3D4CCCCD
 var_808D4CA8: .word 0x3D4CCCCD
 var_808D4CAC: .word 0x3D4CCCCD
 var_808D4CB0: .word 0x3DCCCCCD, 0x00000000, 0x00000000, 0x00000000
-

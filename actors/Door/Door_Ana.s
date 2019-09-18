@@ -1,6 +1,6 @@
 .section .text
 func_80959A10:
-# Store new update routine function for this actor
+# Set new update routine function for this actor
 # A0 = Actor Instance
 # A1 = Pointer to function
     sw      a1, 0x0188(a0)             # 00000188
@@ -10,6 +10,8 @@ func_80959A10:
 
 func_80959A1C:
 # Init function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -65,6 +67,8 @@ lbl_80959AC4:
 
 func_80959AD8:
 # Destruct function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -87,6 +91,8 @@ func_80959B14:
 # Update routine while the grotto actor is not visible (waiting for storms or explosion/hammer)
 # Either checks for the proximity storm flag or an explosion/hammer collision
 # When detected, plays a sfx, updates the actor to be visible and changes the update routine
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -174,6 +180,8 @@ lbl_80959C30:
 
 func_80959C4C:
 # Update routine while the grotto actor is visible but the player hasn't touched it yet
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -293,7 +301,9 @@ lbl_80959DE4:
 func_80959E00:
 # Update routine once the player has touched the grotto actor collision
 # Positions the player actor at the center of the grotto actor (X and Z coordinates) if it is too far away
-# Doesn't seem to do anything else since the player actor drops by itself (since we previously disabled its floor collision)
+# Doesn't seem to do anything else since the player actor drops by itself (as we previously disabled its floor collision)
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -344,6 +354,8 @@ func_80959EAC:
 # Main Update function
 # Calls the current update routine function previously stored by 80959A10
 # Then also does something camera/rotation related
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -369,6 +381,8 @@ func_80959EAC:
 
 func_80959F00:
 # Main Draw function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)

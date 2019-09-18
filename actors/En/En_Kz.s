@@ -674,6 +674,9 @@ lbl_80AD6610:
 
 
 func_80AD66B4:
+# Init Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s1, 0x0038($sp)
     sw      s0, 0x0034($sp)
@@ -779,6 +782,9 @@ lbl_80AD682C:
 
 
 func_80AD6840:
+# Destruct Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -1147,6 +1153,9 @@ lbl_80AD6D64:
 
 
 func_80AD6D70:
+# Main Update Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0018($sp)
     lui     v1, 0x8012                 # v1 = 80120000
@@ -1279,6 +1288,9 @@ lbl_80AD6F3C:
 
 
 func_80AD6F4C:
+# Main Draw Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -1332,11 +1344,11 @@ func_80AD6F4C:
 .section .data
 
 var_80AD7010: .word 0x01640400, 0x00000009, 0x00FF0000, 0x000002C8
-.word func_80AD66B4
-.word func_80AD6840
-.word func_80AD6D70
-.word func_80AD6F4C
-var_80AD7030: .word \
+.word func_80AD66B4 # Init
+.word func_80AD6840 # Dest
+.word func_80AD6D70 # Main
+.word func_80AD6F4C # Draw
+var_80AD7030: .word \ # Actor OverlayCollision
 0x0A000039, 0x20010000, 0x00000000, 0x00000000, \
 0x00000000, 0x00000000, 0x00000000, 0x00000100, \
 0x00500078, 0x00000000, 0x00000000
@@ -1367,4 +1379,3 @@ var_80AD70E0: .word lbl_80AD60AC
 var_80AD7108: .word 0x44E38000
 var_80AD710C: .word 0x4622F983
 var_80AD7110: .word 0x3DCCCCCD, 0x00000000, 0x00000000, 0x00000000
-
