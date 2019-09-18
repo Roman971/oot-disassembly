@@ -11090,6 +11090,13 @@ func_80028148:
 
 
 func_80028158:
+# Finds the closest actor instance of a specified id and category within a specified dsitance from another actor
+# A0 = Global Context
+# A1 = Actor Instance
+# A2 = s16 Actor Id (-1 means any)
+# A3 = u8 Category Id
+# SP+0x10 = f32 range (max distance from actor)
+# V0 = pointer to closest Actor Instance, else NULL if none was found
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s2, 0x0024($sp)
     sll     s2, a2, 16
