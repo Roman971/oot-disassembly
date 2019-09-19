@@ -1,16 +1,19 @@
-# Actor File: En_Item00 (Collectibles, ID=0015)
+# Actor File: En_Item00 ("Collectibles", ID=0015)
 #
 # This actor is a part of "code" for some reason but seems to work the same as any other actor.
 #
 # External Documentation about this actor:
-# - https://wiki.cloudmodding.com/oot/En_Item00
 # - https://wiki.cloudmodding.com/oot/Actor_List_(Variables)#En_Item00
+# - https://wiki.cloudmodding.com/oot/En_Item00
 #
 # Starts at VRAM: 80011B40 / VROM: A87AA0
 #
 
 .section .text
 func_80011B40:
+# Set new update routine function for this actor
+# A0 = Actor Instance
+# A1 = Pointer to function
     sw      a1, 0x013C(a0)             # 0000013C
     jr      $ra
     nop
@@ -18,6 +21,8 @@ func_80011B40:
 
 func_80011B4C:
 # Init function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -75,7 +80,7 @@ lbl_80011BC0:
     lw      t1, 0x5DB0($at)            # 80105DB0
     jr      t1
     nop
-lbl_80011C2C:
+lbl_80011C2C: # 00-02: Green/Blue/Red Rupee
     lui     a1, 0x3C75                 # a1 = 3C750000
     ori     a1, a1, 0xC28F             # a1 = 3C75C28F
     jal     func_80020F88
@@ -86,7 +91,7 @@ lbl_80011C2C:
     swc1    $f6, 0x014C(s0)            # 0000014C
     b       lbl_80011F68
     lwc1    $f2, 0x5E1C($at)           # 80105E1C
-lbl_80011C54:
+lbl_80011C54: # 11: Small Key
     lui     a1, 0x3CF5                 # a1 = 3CF50000
     sh      $zero, 0x0148(s0)          # 00000148
     ori     a1, a1, 0xC28F             # a1 = 3CF5C28F
@@ -98,7 +103,7 @@ lbl_80011C54:
     mtc1    $at, $f2                   # $f2 = 350.00
     b       lbl_80011F68
     swc1    $f8, 0x014C(s0)            # 0000014C
-lbl_80011C80:
+lbl_80011C80: # 06: Piece of Heart
     sh      $zero, 0x0148(s0)          # 00000148
     lui     $at, 0x8010                # $at = 80100000
     lwc1    $f2, 0x5E24($at)           # 80105E24
@@ -112,7 +117,7 @@ lbl_80011C80:
     lwc1    $f2, 0x0034($sp)
     b       lbl_80011F68
     swc1    $f10, 0x014C(s0)           # 0000014C
-lbl_80011CB4:
+lbl_80011CB4: # 03: Recovery Heart
     lui     $at, 0x8010                # $at = 80100000
     jal     func_80026D90
     lwc1    $f12, 0x5E2C($at)          # 80105E2C
@@ -131,7 +136,7 @@ lbl_80011CB4:
     lwc1    $f2, 0x0034($sp)
     b       lbl_80011F68
     swc1    $f18, 0x014C(s0)           # 0000014C
-lbl_80011CFC:
+lbl_80011CFC: # 07: Heart Container
     lui     $at, 0x43D7                # $at = 43D70000
     mtc1    $at, $f2                   # $f2 = 430.00
     sh      $zero, 0x0148(s0)          # 00000148
@@ -145,7 +150,7 @@ lbl_80011CFC:
     lwc1    $f2, 0x0034($sp)
     b       lbl_80011F68
     swc1    $f4, 0x014C(s0)            # 0000014C
-lbl_80011D30:
+lbl_80011D30: # 05: Arrow (1)
     lui     $at, 0x43C8                # $at = 43C80000
     mtc1    $at, $f2                   # $f2 = 400.00
     lui     a1, 0x3CA3                 # a1 = 3CA30000
@@ -158,7 +163,7 @@ lbl_80011D30:
     lwc1    $f2, 0x0034($sp)
     b       lbl_80011F68
     swc1    $f6, 0x014C(s0)            # 0000014C
-lbl_80011D60:
+lbl_80011D60: # 08-0A: Normal Deku Seeds or Arrows
     lui     a1, 0x3D0F                 # a1 = 3D0F0000
     ori     a1, a1, 0x5C29             # a1 = 3D0F5C29
     jal     func_80020F88
@@ -169,7 +174,7 @@ lbl_80011D60:
     mtc1    $at, $f2                   # $f2 = 250.00
     b       lbl_80011F68
     swc1    $f8, 0x014C(s0)            # 0000014C
-lbl_80011D88:
+lbl_80011D88: # 04 & 0B-0D & 0F & 19: Bomb, Nut, Stick, Small Magic Jar, Small Deku Seeds or Arrows
     lui     a1, 0x3CF5                 # a1 = 3CF50000
     ori     a1, a1, 0xC28F             # a1 = 3CF5C28F
     jal     func_80020F88
@@ -180,7 +185,7 @@ lbl_80011D88:
     mtc1    $at, $f2                   # $f2 = 320.00
     b       lbl_80011F68
     swc1    $f10, 0x014C(s0)           # 0000014C
-lbl_80011DB0:
+lbl_80011DB0: # 0E: Large Magic Jar
     lui     a1, 0x3D38                 # a1 = 3D380000
     ori     a1, a1, 0x51EB             # a1 = 3D3851EB
     jal     func_80020F88
@@ -191,7 +196,7 @@ lbl_80011DB0:
     mtc1    $at, $f2                   # $f2 = 320.00
     b       lbl_80011F68
     swc1    $f16, 0x014C(s0)           # 0000014C
-lbl_80011DD8:
+lbl_80011DD8: # 13: Orange Rupee
     lui     a1, 0x3D38                 # a1 = 3D380000
     ori     a1, a1, 0x51EB             # a1 = 3D3851EB
     jal     func_80020F88
@@ -202,7 +207,7 @@ lbl_80011DD8:
     swc1    $f18, 0x014C(s0)           # 0000014C
     b       lbl_80011F68
     lwc1    $f2, 0x5E4C($at)           # 80105E4C
-lbl_80011E00:
+lbl_80011E00: # 14: Purple Rupee
     lui     a1, 0x3CF5                 # a1 = 3CF50000
     ori     a1, a1, 0xC28F             # a1 = 3CF5C28F
     jal     func_80020F88
@@ -213,7 +218,7 @@ lbl_80011E00:
     swc1    $f4, 0x014C(s0)            # 0000014C
     b       lbl_80011F68
     lwc1    $f2, 0x5E54($at)           # 80105E54
-lbl_80011E28:
+lbl_80011E28: # 12: Flexible Drop
     lui     $at, 0x43FA                # $at = 43FA0000
     mtc1    $at, $f2                   # $f2 = 500.00
     lui     a1, 0x3C23                 # a1 = 3C230000
@@ -226,7 +231,7 @@ lbl_80011E28:
     lwc1    $f2, 0x0034($sp)
     b       lbl_80011F68
     swc1    $f6, 0x014C(s0)            # 0000014C
-lbl_80011E58:
+lbl_80011E58: # 15: Deku Shield
     lw      a0, 0x0044($sp)
     lui     $at, 0x0001                # $at = 00010000
     ori     $at, $at, 0x17A4           # $at = 000117A4
@@ -250,7 +255,7 @@ lbl_80011E58:
     swc1    $f10, 0x0030($sp)
     b       lbl_80011F68
     sh      t4, 0x0030(s0)             # 00000030
-lbl_80011EB4:
+lbl_80011EB4: # 16: Hylian Shield
     lw      a0, 0x0044($sp)
     lui     $at, 0x0001                # $at = 00010000
     ori     $at, $at, 0x17A4           # $at = 000117A4
@@ -274,7 +279,7 @@ lbl_80011EB4:
     swc1    $f18, 0x0030($sp)
     b       lbl_80011F68
     sh      t5, 0x0030(s0)             # 00000030
-lbl_80011F10:
+lbl_80011F10: # 17 & 18: Goron/Zora Tunic
     lw      a0, 0x0044($sp)
     lui     $at, 0x0001                # $at = 00010000
     ori     $at, $at, 0x17A4           # $at = 000117A4
@@ -342,104 +347,104 @@ lbl_80011FDC:
     lw      t4, 0x5E68($at)            # 80105E68
     jr      t4
     nop
-lbl_80012014:
+lbl_80012014: # 00: Green Rupee
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0084          # a1 = 00000084
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_80012028:
+lbl_80012028: # 01: Blue Rupee
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0085          # a1 = 00000085
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_8001203C:
+lbl_8001203C: # 02: Red Rupee
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0086          # a1 = 00000086
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_80012050:
+lbl_80012050: # 14: Purple Rupee
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0087          # a1 = 00000087
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_80012064:
+lbl_80012064: # 13: Orange Rupee
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0088          # a1 = 00000088
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_80012078:
+lbl_80012078: # 03: Recovery Heart
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0083          # a1 = 00000083
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_8001208C:
+lbl_8001208C: # 12: Flexible Drop
     lw      a0, 0x0044($sp)
     jal     func_800720BC
     addiu   a1, $zero, 0x0070          # a1 = 00000070
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_800120A0:
+lbl_800120A0: # 04 & 0B: Bombs
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x008E          # a1 = 0000008E
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_800120B4:
+lbl_800120B4: # 05: Arrow (1)
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0003          # a1 = 00000003
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_800120C8:
+lbl_800120C8: # 08: Deku Seeds or Arrows (5)
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0092          # a1 = 00000092
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_800120DC:
+lbl_800120DC: # 09: Deku Seeds or Arrows (10)
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0093          # a1 = 00000093
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_800120F0:
+lbl_800120F0: # 0A: Deku Seeds or Arrows (30)
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0094          # a1 = 00000094
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_80012104:
+lbl_80012104: # 0E: Large Magic Jar
     addiu   t5, $zero, 0x0043          # t5 = 00000043
     b       lbl_80012150
     sw      t5, 0x002C($sp)
-lbl_80012110:
+lbl_80012110: # 0F: Small Magic Jar
     addiu   t6, $zero, 0x0044          # t6 = 00000044
     b       lbl_80012150
     sw      t6, 0x002C($sp)
-lbl_8001211C:
+lbl_8001211C: # 11: Small Key
     lw      a0, 0x0044($sp)
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0077          # a1 = 00000077
     b       lbl_80012154
     lw      t0, 0x002C($sp)
-lbl_80012130:
+lbl_80012130: # 10: Small Deku Seeds or Arrows (5)
     addiu   t7, $zero, 0x003C          # t7 = 0000003C
     b       lbl_80012150
     sw      t7, 0x002C($sp)
-lbl_8001213C:
+lbl_8001213C: # 0C: Deku Nut
     addiu   t8, $zero, 0x0002          # t8 = 00000002
     b       lbl_80012150
     sw      t8, 0x002C($sp)
-lbl_80012148:
+lbl_80012148: # 0D: Deku Stick
     addiu   t9, $zero, 0x0007          # t9 = 00000007
     sw      t9, 0x002C($sp)
-lbl_80012150:
+lbl_80012150: # 06 & 07 & 15+: Piece of Heart, Heart Container, Shields, Tunics, Special Bomb Drop
     lw      t0, 0x002C($sp)
 lbl_80012154:
     or      a0, s0, $zero              # a0 = 00000000
@@ -473,6 +478,8 @@ lbl_800121A4:
 
 func_800121B4:
 # Destruct function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a0, $zero              # a2 = 00000000
@@ -487,6 +494,8 @@ func_800121B4:
 
 
 func_800121E0:
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -631,6 +640,8 @@ lbl_800123D0:
 
 
 func_800123E0:
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -718,6 +729,8 @@ lbl_8001250C:
 
 
 func_8001251C:
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -909,6 +922,8 @@ lbl_800127D0:
 
 
 func_800127E0:
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -1007,6 +1022,8 @@ lbl_80012928:
 
 func_80012938:
 # Main Update function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s1, 0x0020($sp)
     sw      s0, 0x001C($sp)
@@ -1245,123 +1262,123 @@ lbl_80012C78:
     lw      t7, 0x5EE8($at)            # 80105EE8
     jr      t7
     nop
-lbl_80012CAC:
+lbl_80012CAC: # 00: Green Rupee
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0084          # a1 = 00000084
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012CC0:
+lbl_80012CC0: # 01: Blue Rupee
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0085          # a1 = 00000085
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012CD4:
+lbl_80012CD4: # 02: Red Rupee
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0086          # a1 = 00000086
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012CE8:
+lbl_80012CE8: # 14: Purple Rupee
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0087          # a1 = 00000087
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012CFC:
+lbl_80012CFC: # 13: Orange Rupee
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0088          # a1 = 00000088
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012D10:
+lbl_80012D10: # 0D: Deku Stick
     addiu   t9, $zero, 0x0007          # t9 = 00000007
     b       lbl_80012E28
     sw      t9, 0x003C($sp)
-lbl_80012D1C:
+lbl_80012D1C: # 0C: Deku Nut
     addiu   t8, $zero, 0x0002          # t8 = 00000002
     b       lbl_80012E28
     sw      t8, 0x003C($sp)
-lbl_80012D28:
+lbl_80012D28: # 03: Recovery Heart
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0083          # a1 = 00000083
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012D3C:
+lbl_80012D3C: # 12: Flexible Drop
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_800720BC
     addiu   a1, $zero, 0x0070          # a1 = 00000070
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012D50:
+lbl_80012D50: # 04 & 0B: Bombs
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x008E          # a1 = 0000008E
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012D64:
+lbl_80012D64: # 05: Arrow (1)
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0003          # a1 = 00000003
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012D78:
+lbl_80012D78: # 08: Deku Seeds or Arrows (5)
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0092          # a1 = 00000092
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012D8C:
+lbl_80012D8C: # 09: Deku Seeds or Arrows (10)
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0093          # a1 = 00000093
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012DA0:
+lbl_80012DA0: # 0A: Deku Seeds or Arrows (30)
     or      a0, s1, $zero              # a0 = 00000000
     jal     func_8006FDCC
     addiu   a1, $zero, 0x0094          # a1 = 00000094
     b       lbl_80012E2C
     lw      t0, 0x003C($sp)
-lbl_80012DB4:
+lbl_80012DB4: # 10: Small Deku Seeds or Arrows (5)
     addiu   t0, $zero, 0x003C          # t0 = 0000003C
     b       lbl_80012E28
     sw      t0, 0x003C($sp)
-lbl_80012DC0:
+lbl_80012DC0: # 11: Small Key
     addiu   t1, $zero, 0x0042          # t1 = 00000042
     b       lbl_80012E28
     sw      t1, 0x003C($sp)
-lbl_80012DCC:
+lbl_80012DCC: # 06: Piece of Heart
     addiu   t2, $zero, 0x003E          # t2 = 0000003E
     b       lbl_80012E28
     sw      t2, 0x003C($sp)
-lbl_80012DD8:
+lbl_80012DD8: # 07: Heart Container
     addiu   t3, $zero, 0x003D          # t3 = 0000003D
     b       lbl_80012E28
     sw      t3, 0x003C($sp)
-lbl_80012DE4:
+lbl_80012DE4: # 0E: Large Magic Jar
     addiu   t4, $zero, 0x0044          # t4 = 00000044
     b       lbl_80012E28
     sw      t4, 0x003C($sp)
-lbl_80012DF0:
+lbl_80012DF0: # 0F: Small Magic Jar
     addiu   t5, $zero, 0x0043          # t5 = 00000043
     b       lbl_80012E28
     sw      t5, 0x003C($sp)
-lbl_80012DFC:
+lbl_80012DFC: # 15: Deku Shield
     addiu   t6, $zero, 0x0029          # t6 = 00000029
     b       lbl_80012E28
     sw      t6, 0x003C($sp)
-lbl_80012E08:
+lbl_80012E08: # 16: Hylian Shield
     addiu   t7, $zero, 0x002A          # t7 = 0000002A
     b       lbl_80012E28
     sw      t7, 0x003C($sp)
-lbl_80012E14:
+lbl_80012E14: # 17: Zora Tunic
     addiu   t9, $zero, 0x002D          # t9 = 0000002D
     b       lbl_80012E28
     sw      t9, 0x003C($sp)
-lbl_80012E20:
+lbl_80012E20: # 18: Goron Tunic
     addiu   t8, $zero, 0x002C          # t8 = 0000002C
     sw      t8, 0x003C($sp)
 lbl_80012E28:
@@ -1389,7 +1406,7 @@ lbl_80012E58:
     lw      t1, 0x5F50($at)            # 80105F50
     jr      t1
     nop
-lbl_80012E7C:
+lbl_80012E7C: # "Get Item" Collectibles
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80022BB0
     or      a1, s1, $zero              # a1 = 00000000
@@ -1401,7 +1418,7 @@ lbl_80012E7C:
     or      a0, s0, $zero              # a0 = 00000000
     b       lbl_80012FA8
     lw      $ra, 0x0024($sp)
-lbl_80012EA8:
+lbl_80012EA8: # Collectible Drops
     slti    $at, v0, 0x0003
     bne     $at, $zero, lbl_80012EC0
     lui     a3, 0x8010                 # a3 = 80100000
@@ -1480,6 +1497,8 @@ lbl_80012FA8:
 
 func_80012FB8:
 # Main Draw function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a1, 0x002C($sp)
@@ -1498,25 +1517,25 @@ func_80012FB8:
     lw      t9, 0x5F9C($at)            # 80105F9C
     jr      t9
     nop
-lbl_80013000:
+lbl_80013000: # 00-02 & 13-14: Rupees
     or      a0, a2, $zero              # a0 = 00000000
     jal     func_80013150
     lw      a1, 0x002C($sp)
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_80013014:
+lbl_80013014: # 06: Piece of Heart
     or      a0, a2, $zero              # a0 = 00000000
     jal     func_80013498
     lw      a1, 0x002C($sp)
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_80013028:
+lbl_80013028: # 07: Heart Container
     or      a0, a2, $zero              # a0 = 00000000
     jal     func_800133A0
     lw      a1, 0x002C($sp)
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_8001303C:
+lbl_8001303C: # 03: Recovery Heart
     lh      v0, 0x014A(a2)             # 0000014A
     addiu   $at, $zero, 0xFFFF         # $at = FFFFFFFF
     bgezl   v0, lbl_800130E8
@@ -1560,32 +1579,32 @@ lbl_800130B8:
     addiu   a1, $zero, 0x0008          # a1 = 00000008
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_800130E4:
+lbl_800130E4: # 04-05 & 08-11 & 19: Small Key & All non Rupee drops
     or      a0, a2, $zero              # a0 = 00000000
 lbl_800130E8:
     jal     func_80013268
     lw      a1, 0x002C($sp)
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_800130F8:
+lbl_800130F8: # 15: Deku Shield
     lw      a0, 0x002C($sp)
     jal     func_800570C0
     addiu   a1, $zero, 0x001C          # a1 = 0000001C
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_8001310C:
+lbl_8001310C: # 16: Hylian Shield
     lw      a0, 0x002C($sp)
     jal     func_800570C0
     addiu   a1, $zero, 0x002B          # a1 = 0000002B
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_80013120:
+lbl_80013120: # 17: Zora Tunic
     lw      a0, 0x002C($sp)
     jal     func_800570C0
     addiu   a1, $zero, 0x003C          # a1 = 0000003C
     b       lbl_80013144
     lw      $ra, 0x0014($sp)
-lbl_80013134:
+lbl_80013134: # 18: Goron Tunic
     lw      a0, 0x002C($sp)
     jal     func_800570C0
     addiu   a1, $zero, 0x003B          # a1 = 0000003B
@@ -1599,7 +1618,10 @@ lbl_80013144:
 # Functions below this point are related to En_Item00 but are often called from outside
 
 func_80013150:
+# Draw Collectible Rupee (Green/Blue/Red/Orange/Purple)
 # gameplay_keep d. list: 45150
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1674,7 +1696,10 @@ lbl_800131A0:
 
 
 func_80013268:
+# Draw Small Key & non-Rupee Drops (Bomb, Arrow, Stick, Nut, Magic Jar...)
 # gameplay_keep d. list: 41D80
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1759,7 +1784,10 @@ lbl_800132D8:
 
 
 func_800133A0:
+# Draw Heart Container (Early collectible version)
 # gameplay_keep d. list: Piece of Heart - Exterior & Heart Container - Interior [?]
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s1, 0x0018($sp)
     or      s1, a1, $zero              # s1 = 00000000
@@ -1825,7 +1853,7 @@ func_800133A0:
 
 
 func_80013498:
-# En_Item00, draw Piece of Heart
+# Draw Piece of Heart
 # gameplay_keep d. list: Piece of Heart - Interior
 # A0 = Actor Instance
 # A1 = Global Context
@@ -1870,8 +1898,9 @@ func_80013498:
 
 
 func_80013530:
-# En_Item00, Convert to different item based on Link's Age
-# A0 = En_Item00 Item Id
+# Convert collectibles to different items based on Link's Age and other factors like having a Bomb Bag
+# A0 = Collectible Id
+# V0 = New Collectible Id, or -1 to cancel the drop
     sw      a0, 0x0000($sp)
     sll     a0, a0, 16
     lui     v0, 0x8012                 # v0 = 80120000

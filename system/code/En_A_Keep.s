@@ -1,4 +1,4 @@
-# Actor File: En_A_Obj (Gameplay_keep Items, ID=0039)
+# Actor File: En_A_Obj ("Gameplay_keep Items", ID=0039)
 #
 # This actor is a part of "code" for some reason but seems to work the same as any other actor.
 #
@@ -10,6 +10,9 @@
 
 .section .text
 func_800110A0:
+# Set new update routine function for this actor
+# A0 = Actor Instance
+# A1 = Pointer to function
     sw      a1, 0x0154(a0)             # 00000154
     jr      $ra
     nop
@@ -17,6 +20,8 @@ func_800110A0:
 
 func_800110AC:
 # Init function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s0, 0x0018($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -41,35 +46,35 @@ func_800110AC:
     lw      t9, 0x5D60($at)            # 80105D60
     jr      t9
     nop
-lbl_8001110C:
+lbl_8001110C: # 00: Small Grey Stone Block
     lui     a1, 0x3CCC                 # a1 = 3CCC0000
     ori     a1, a1, 0xCCCD             # a1 = 3CCCCCCD
     jal     func_80020F88
     or      a0, s0, $zero              # a0 = 00000000
     b       lbl_80011180
     lh      t0, 0x001C(s0)             # 0000001C
-lbl_80011124:
+lbl_80011124: # 01: Large Grey Stone Block
     lui     a1, 0x3D4C                 # a1 = 3D4C0000
     ori     a1, a1, 0xCCCD             # a1 = 3D4CCCCD
     jal     func_80020F88
     or      a0, s0, $zero              # a0 = 00000000
     b       lbl_80011180
     lh      t0, 0x001C(s0)             # 0000001C
-lbl_8001113C:
+lbl_8001113C: # 02, 05 & 06: Huge Grey Stone Block & Small Grey Stone Cube & ?
     lui     a1, 0x3DCC                 # a1 = 3DCC0000
     ori     a1, a1, 0xCCCD             # a1 = 3DCCCCCD
     jal     func_80020F88
     or      a0, s0, $zero              # a0 = 00000000
     b       lbl_80011180
     lh      t0, 0x001C(s0)             # 0000001C
-lbl_80011154:
+lbl_80011154: # 03: Small Grey Stone Block (with rotation when you stand on it)
     lui     a1, 0x3BA3                 # a1 = 3BA30000
     ori     a1, a1, 0xD70A             # a1 = 3BA3D70A
     jal     func_80020F88
     or      a0, s0, $zero              # a0 = 00000000
     b       lbl_80011180
     lh      t0, 0x001C(s0)             # 0000001C
-lbl_8001116C:
+lbl_8001116C: # 04 & 07+: All other types
     lui     a1, 0x3C23                 # a1 = 3C230000
     ori     a1, a1, 0xD70A             # a1 = 3C23D70A
     jal     func_80020F88
@@ -115,7 +120,7 @@ lbl_800111A4:
     lw      t4, 0x5D7C($at)            # 80105D7C
     jr      t4
     nop
-lbl_80011218:
+lbl_80011218: # 01 & 02: Large & Huge Grey Stone Block
     lw      a0, 0x003C($sp)
     addiu   t5, $zero, 0x0001          # t5 = 00000001
     sw      t5, 0x013C(s0)             # 0000013C
@@ -128,7 +133,7 @@ lbl_80011218:
     lh      a1, 0x001C(s0)             # 0000001C
     b       lbl_8001138C
     lh      t7, 0x001C(s0)             # 0000001C
-lbl_80011248:
+lbl_80011248: # 03 & 04: Small & Large Grey Stone Block (with rotation when you stand on it)
     addiu   t6, $zero, 0x0003          # t6 = 00000003
     sw      t6, 0x013C(s0)             # 0000013C
     lw      a0, 0x003C($sp)
@@ -141,7 +146,7 @@ lbl_80011248:
     lh      a1, 0x001C(s0)             # 0000001C
     b       lbl_8001138C
     lh      t7, 0x001C(s0)             # 0000001C
-lbl_80011278:
+lbl_80011278: # 06: ?
     lui     $at, 0x4120                # $at = 41200000
     mtc1    $at, $f16                  # $f16 = 10.00
     lw      t8, 0x0004(s0)             # 00000004
@@ -158,14 +163,14 @@ lbl_80011278:
     swc1    $f18, 0x006C(s0)           # 0000006C
     b       lbl_8001138C
     lh      t7, 0x001C(s0)             # 0000001C
-lbl_800112B8:
+lbl_800112B8: # 07/08: Grass Clump & Small Tree Stump
     sw      $zero, 0x013C(s0)          # 0000013C
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_80011478
     lh      a1, 0x001C(s0)             # 0000001C
     b       lbl_8001138C
     lh      t7, 0x001C(s0)             # 0000001C
-lbl_800112D0:
+lbl_800112D0: # 09/0A: Square & Directional Signposts
     lh      t1, 0x015C(s0)             # 0000015C
     lui     $at, 0x43FA                # $at = 43FA0000
     mtc1    $at, $f4                   # $f4 = 500.00
@@ -196,7 +201,7 @@ lbl_800112D0:
     sb      t6, 0x00AE(s0)             # 000000AE
     b       lbl_80011388
     sb      $zero, 0x001F(s0)          # 0000001F
-lbl_80011348:
+lbl_80011348: # 0B: ?
     lui     $at, 0xBFC0                # $at = BFC00000
     mtc1    $at, $f8                   # $f8 = -1.50
     sll     a1, a2, 16
@@ -206,7 +211,7 @@ lbl_80011348:
     swc1    $f8, 0x006C(s0)            # 0000006C
     b       lbl_8001138C
     lh      t7, 0x001C(s0)             # 0000001C
-lbl_8001136C:
+lbl_8001136C: # 00 & 05 && 0C+: Small Grey Stone Block & Cube & All other types
     lui     $at, 0xC000                # $at = C0000000
     mtc1    $at, $f10                  # $f10 = -2.00
     sll     a1, a2, 16
@@ -247,6 +252,8 @@ lbl_800113D8:
 
 func_800113EC:
 # Destruct function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -275,6 +282,10 @@ lbl_8001143C:
 
 
 func_80011448:
+# Update routine to idle while dialog state is 2
+# Checks dialog state with 80022AD0 and calls 80011478 if it returns true (which sets update routine to 800114A0)
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80022AD0
@@ -291,6 +302,10 @@ lbl_80011468:
 
 
 func_80011478:
+# Initilization for most types: 00, 05-0A & 0C+
+# Sets update routine to 800114A0
+# A0 = Actor Instance
+# A1 = Actor Variable
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -304,6 +319,9 @@ func_80011478:
 
 
 func_800114A0:
+# Update routine for most types: 00, 05-0A & 0C+
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -357,6 +375,10 @@ lbl_80011548:
 
 
 func_80011554:
+# Initiliation for types 03 & 04 (Small & Large Grey Stone Block, with rotation when you stand on it)
+# Sets update routine to 800115A4 and some initial data in the actor instance
+# A0 = Actor Instance
+# A1 = Actor Variable
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -380,6 +402,9 @@ func_80011554:
 
 
 func_800115A4:
+# Update routine for types 03 & 04 (Small & Large Grey Stone Block, with rotation when you stand on it)
+# A0 = Actor Instance
+# A1 = Global Context
     sw      a1, 0x0004($sp)
     lh      v0, 0x015E(a0)             # 0000015E
     bnel    v0, $zero, lbl_80011624
@@ -463,6 +488,10 @@ lbl_800116BC:
 
 
 func_800116C4:
+# Initlization for type 0B (?)
+# Sets update routine to 800116EC
+# A0 = Actor Instance
+# A1 = Actor Variable
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -476,6 +505,9 @@ func_800116C4:
 
 
 func_800116EC:
+# Update routine for type 0B (?)
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     lui     $at, 0x3F80                # $at = 3F800000
     sw      s0, 0x0020($sp)
@@ -556,6 +588,10 @@ lbl_800117FC:
 
 
 func_8001180C:
+# Initlization for types 01 & 02 (Large & Huge Grey Stone Block)
+# Sets update routine to 8001184C and some float data to Actor + 0xF8 and Actor + 0xFC
+# A0 = Actor Instance
+# A1 = Actor Variable
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -575,6 +611,9 @@ func_8001180C:
 
 
 func_8001184C:
+# Update routine for types 01 & 02 (Large & Huge Grey Stone Block)
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     lui     $at, 0xC020                # $at = C0200000
     sw      s0, 0x0020($sp)
@@ -641,6 +680,8 @@ lbl_8001191C:
 
 func_80011934:
 # Main Update function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s1, 0x0020($sp)
     sw      s0, 0x001C($sp)
@@ -720,6 +761,8 @@ lbl_80011A3C:
 
 func_80011A50:
 # Main Draw function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0030($sp)

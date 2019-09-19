@@ -4616,6 +4616,10 @@ lbl_80022920:
 
 
 func_80022930:
+# Tests if actor flag 0x0100 is set and unsets it if it's the case
+# A0 = Actor Instance
+# A1 = Global Context
+# V0 = 1 if flag was set, else 0
     sw      a1, 0x0004($sp)
     lw      v1, 0x0004(a0)             # 00000004
     addiu   $at, $zero, 0xFEFF         # $at = FFFFFEFF
@@ -4768,6 +4772,10 @@ func_80022A90:
 
 
 func_80022AD0:
+# Checks if the current dialog state is 2
+# A0 = Actor Instance
+# A1 = Global Context
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
