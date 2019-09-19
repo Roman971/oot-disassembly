@@ -897,7 +897,7 @@ lbl_800D6BA0:
 
 
 func_800D6BA8:
-# References Jump Table at 801132C0 to 801132E0
+# References Jump Table 801132C0 to 801132E0
     sw      a1, 0x0004($sp)
     andi    a1, a1, 0xFFFF             # a1 = 00000000
     sltiu   $at, a1, 0x0008

@@ -9233,6 +9233,11 @@ lbl_80026790:
 
 
 func_800267D4:
+# Set Actor Text Id with prefix based on the current scene
+# References Jump Table 80106508 to determine which prefix to use (0x0000-0x7000)
+# A0 = Global Context
+# A1 = Actor Instance
+# A2 = Text Id
     sw      a2, 0x0008($sp)
     sll     a2, a2, 16
     sra     a2, a2, 16
@@ -11745,6 +11750,10 @@ func_80028940:
 
 func_80028974:
 # Generic NPC Text Handler 4
+# References Jump Table 801066E8
+# A0 = Global Context
+# A1 = u16 Jump Table index to use
+# V0 = Text Id
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      a1, 0x0024($sp)
     sll     a1, a1, 16
