@@ -98,6 +98,7 @@ lbl_800591F0:
     lw      t7, 0x77E8($at)            # 801077E8
     jr      t7
     nop
+lbl_80059214:
     lui     a3, 0x8012                 # a3 = 80120000
     addiu   a3, a3, 0xA5D0             # a3 = 8011A5D0
     lui     t8, 0x8010                 # t8 = 80100000
@@ -116,9 +117,7 @@ lbl_800591F0:
     xor     v0, t3, t4
     jr      $ra
     sltiu   v0, v0, 0x0001
-
-
-func_8005925C:
+lbl_8005925C:
     lbu     t7, 0x0003(a0)             # 00000003
     lui     t8, 0x8010                 # t8 = 80100000
     lui     a3, 0x8012                 # a3 = 80120000
@@ -138,9 +137,7 @@ func_8005925C:
     xor     v0, t4, t9
     jr      $ra
     sltiu   v0, v0, 0x0001
-
-
-func_800592A8:
+lbl_800592A8:
     lbu     t7, 0x0003(a0)             # 00000003
     lui     a3, 0x8012                 # a3 = 80120000
     lui     t8, 0x8010                 # t8 = 80100000
@@ -157,9 +154,7 @@ func_800592A8:
     xor     v0, t3, t0
     jr      $ra
     sltiu   v0, v0, 0x0001
-
-
-func_800592E8:
+lbl_800592E8:
     lbu     t4, 0x0003(a0)             # 00000003
     lui     a3, 0x8012                 # a3 = 80120000
     lui     t7, 0x8010                 # t7 = 80100000
@@ -176,9 +171,7 @@ func_800592E8:
     xor     v0, t6, t1
     jr      $ra
     sltiu   v0, v0, 0x0001
-
-
-func_80059328:
+lbl_80059328:
     lui     a3, 0x8012                 # a3 = 80120000
     addiu   a3, a3, 0xA5D0             # a3 = 8011A5D0
     lbu     t4, 0x003A(a3)             # 8011A60A

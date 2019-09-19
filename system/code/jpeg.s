@@ -240,18 +240,22 @@ lbl_8005B3F8:
     nop
     b       lbl_8005B4F4
     nop
+lbl_8005B408:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B418:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B428:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B438:
     lbu     t9, 0x0000(s1)             # 00000000
     addiu   t8, s0, 0x0002             # t8 = 00000004
     or      a0, s0, $zero              # a0 = 00000002
@@ -264,6 +268,7 @@ lbl_8005B3F8:
     sb      t3, 0x0000(s1)             # 00000000
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B468:
     lbu     t5, 0x0010(s1)             # 00000010
     addiu   t4, s0, 0x0002             # t4 = 00000004
     or      a0, s0, $zero              # a0 = 00000002
@@ -276,10 +281,12 @@ lbl_8005B3F8:
     sb      t0, 0x0010(s1)             # 00000010
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B498:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B4A8:
     lbu     v0, 0x0009(s0)             # 0000000B
     bne     s4, v0, lbl_8005B4BC
     nop
@@ -294,11 +301,13 @@ lbl_8005B4C8:
     or      a0, s0, $zero              # a0 = 00000002
     b       lbl_8005B3A8
     addu    s0, s0, v0
+lbl_8005B4D8:
     jal     func_8005B314
     or      a0, s0, $zero              # a0 = 00000002
     addu    s0, s0, v0
     b       lbl_8005B3A8
     sw      s0, 0x0024(s1)             # 00000024
+lbl_8005B4EC:
     b       lbl_8005B3A8
     addiu   s2, $zero, 0x0001          # s2 = 00000001
 lbl_8005B4F4:

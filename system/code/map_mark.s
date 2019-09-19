@@ -433,6 +433,7 @@ func_800673F0:
     addu    $at, $at, t6
     lw      t6, 0x7AA0($at)            # 80107AA0
     jr      t6
+lbl_8006741C:
     nop
     jal     func_80066F14
     nop

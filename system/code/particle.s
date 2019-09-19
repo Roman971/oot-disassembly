@@ -866,6 +866,7 @@ func_80014B74:
     lw      t6, 0x6028($at)            # 80106028
     jr      t6
     nop
+lbl_80014BC0:
     lw      t7, 0x003C($sp)
     mfc1    a2, $f20
     sll     t8, t7,  2
@@ -894,6 +895,7 @@ func_80014B74:
     lh      t1, 0x0012(s0)             # 00000012
     b       lbl_80014F78
     sh      t1, 0x0004(v1)             # 00000004
+lbl_80014C30:
     lw      t2, 0x003C($sp)
     mfc1    a2, $f20
     sll     t3, t2,  2
@@ -924,6 +926,7 @@ func_80014B74:
     lw      v1, 0x0048($sp)
     b       lbl_80014F78
     sh      v0, 0x0004(v1)             # 00000004
+lbl_80014CA8:
     lui     $at, 0x3F00                # $at = 3F000000
     mtc1    $at, $f2                   # $f2 = 0.50
     lw      t7, 0x003C($sp)
@@ -968,6 +971,7 @@ func_80014B74:
     add.s   $f20, $f20, $f20
     b       lbl_80014F78
     sh      v0, 0x0004(v1)             # 00000004
+lbl_80014D58:
     lw      t9, 0x003C($sp)
     lui     $at, 0x3F00                # $at = 3F000000
     mtc1    $at, $f2                   # $f2 = 0.50
