@@ -7,10 +7,10 @@
 
 .section .text
 func_800A1C50:
+# void mainproc(s32 arg)
 # main thread extended entrypoint
-# can be thought of as being "code" file's entrypoint
 # Initializes various threads/stacks
-# A0 = 0
+# A0 = s32 argument passed to graph thread entrypoint (normally 0)
     addiu   $sp, $sp, 0xFEC0           # $sp -= 0x140
     lui     v0, 0x8012                 # v0 = 80120000
     addiu   v0, v0, 0xD2A0             # v0 = 8011D2A0

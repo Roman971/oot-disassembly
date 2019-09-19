@@ -1097,6 +1097,11 @@ func_800CD390:
 
 
 func_800CD3D0:
+# Init controllers (calls osContInit and sets the bit in the pattern for each standard controller)
+# A0 = OSMesgQueue* message queue for available input event
+# A1 = Pointer to controller bit pattern
+# A2 = OSContStatus*  array of controllers status
+# V0 = 0 for succes, else -1
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -4426,8 +4431,9 @@ func_800CFE20:
 # s32 osContInit(OSMesgQueue* mq, u8* bitpattern, OSContStatus* status)
 # Initial Setting for SI Device Use
 # A0 = OSMesgQueue* message queue already initialized and associated with OS_EVENT_SI
-# A1 = Pointer to bit pattern
+# A1 = Pointer to controller bit pattern
 # A2 = OSContStatus* array of controllers status
+# V0 = 0 for success, else -1 (if the SI is busy)
     addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     lui     t6, 0x8010                 # t6 = 80100000
     lw      t6, 0x5CB0(t6)             # 80105CB0
@@ -4527,7 +4533,7 @@ lbl_800CFF80:
 
 func_800CFF90:
 # void __osContGetInitData(u8* bitpattern, OSContStatus* status)
-# A0 = Pointer to bit pattern
+# A0 = Pointer to controller bit pattern
 # A1 = OSContStatus*  array of controllers status
     lui     t7, 0x8013                 # t7 = 80130000
     lbu     t7, -0x439F(t7)            # 8012BC61
@@ -5584,7 +5590,8 @@ func_800D0DC0:
 
 
 func_800D0DD0:
-# Zero the RSP Program Counter
+# s32 osAfterPreNMI(void)
+# Zeroes the RSP Program Counter
 # V0 = 0 if the operation could be done, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)

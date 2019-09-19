@@ -241,7 +241,7 @@ func_800AD128:
     or      a0, s0, $zero              # a0 = 00000000
     jal     func_800ACFA8
     addiu   a1, s0, 0x0040             # a1 = 00000040
-    jal     func_800D0DD0
+    jal     func_800D0DD0              # osAfterPreNMI
     nop
     beq     v0, $zero, lbl_800AD198
     addiu   a0, s0, 0x0258             # a0 = 00000258

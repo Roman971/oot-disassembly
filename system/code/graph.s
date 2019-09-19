@@ -678,9 +678,10 @@ lbl_800A1914:
 
 
 func_800A1934:
+# void graphproc(s32 arg)
 # graph thread entrypoint
 # Main game loop (never returns under normal circumstances)
-# A0 = 0
+# A0 = s32 arg (normally always 0 and unused)
     addiu   $sp, $sp, 0xFCC8           # $sp -= 0x338
     sw      s0, 0x0018($sp)
     lui     s0, 0x800F                 # s0 = 800F0000

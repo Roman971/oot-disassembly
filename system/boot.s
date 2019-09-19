@@ -11,6 +11,7 @@
 
 .section .text
 func_80000460:
+# void cleararena(void)
 # Clears memory from the end of "boot" to the end of RAM
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
@@ -51,7 +52,7 @@ func_80000498:
     lui     $at, 0x8000                # $at = 80000000
     jal     func_80001570
     sw      v0, 0x0318($at)            # 80000318
-    jal     func_80000460
+    jal     func_80000460              # cleararena
     nop
     jal     func_80003070              # osInitialize
     nop
@@ -100,9 +101,10 @@ func_80000498:
 
 
 func_800005A0:
+# void mainx(u32 arg)
 # main thread entrypoint
 # Initiliazes dmamgr thread among other things
-# A0 = 0
+# A0 = s32 argument passed to mainproc (normally 0)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
@@ -136,7 +138,7 @@ func_800005A0:
     sw      t0, 0x0018($sp)
     jal     func_80002E80              # bzero
     subu    a1, t7, a0
-    jal     func_800A1C50
+    jal     func_800A1C50              # mainproc
     lw      a0, 0x0020($sp)
     lw      $ra, 0x0014($sp)
     addiu   $sp, $sp, 0x0020           # $sp += 0x20
@@ -145,9 +147,10 @@ func_800005A0:
 
 
 func_8000063C:
+# void idleproc(u32 arg)
 # idle thread entrypoint
 # Calls osCreateViManager and osCreatePiManager, initializes main thread/stack, etc
-# A0 = 0
+# A0 = s32 argument passed to main thread entrypoint (normally 0)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     sw      a0, 0x0020($sp)
