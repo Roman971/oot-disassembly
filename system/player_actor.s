@@ -10,6 +10,8 @@
 
 .section .text
 func_808301C0:
+# Zeroes out floats at Link Instance + 0x68 (speedXZ) and Link Instance + 0x0828 (linear velocity on XZ plane?)
+# A0 = Link Instance
     mtc1    $zero, $f0                 # $f0 = 0.00
     nop
     swc1    $f0, 0x0068(a0)            # 00000068
@@ -19,6 +21,8 @@ func_808301C0:
 
 
 func_808301D8:
+# Wrapper for 808301C0 which also zeroes out byte at Link Instance + 0x069D
+# A0 = Link Instance
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -32,6 +36,9 @@ func_808301D8:
 
 
 func_80830200:
+# Test if link actor flag 0x0100 is set
+# A0 = Global Context
+# V0 = 0 if true, else 1
     lw      v1, 0x1C44(a0)             # 00001C44
     lw      v0, 0x0004(v1)             # 00000004
     andi    v0, v0, 0x0100             # v0 = 00000000
@@ -42,6 +49,7 @@ func_80830200:
 
 
 func_8083021C:
+# Wrapper for 8008C178 (A3 = A1 and A1 += 0x01A4)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -54,6 +62,7 @@ func_8083021C:
 
 
 func_80830240:
+# Wrapper for 8008C23C (A3 = A1 and A1 += 0x01A4)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a3, a1, $zero              # a3 = 00000000
@@ -66,6 +75,7 @@ func_80830240:
 
 
 func_80830264:
+# Wrapper for 8008C298 (A3 = 3F2AAAAB and A1 += 0x01A4)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -81,6 +91,7 @@ func_80830264:
 
 
 func_80830294:
+# Wrapper for 8008C1D8 (A3 = 3F2AAAAB and A1 += 0x01A4)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -96,6 +107,9 @@ func_80830294:
 
 
 func_808302C4:
+# Increment halfword at Link Instance + 0xB6 (Y rot2) with halfword at (pointer located at Link Instance + 0x01C4) + 0x8
+# Also zeroes out the halfword at (pointer located at Link Instance + 0x01C4) + 0x8
+# A0 = Link Instance
     lw      v0, 0x01C4(a0)             # 000001C4
     lh      t6, 0x00B6(a0)             # 000000B6
     lh      t7, 0x0008(v0)             # 00000008
@@ -107,6 +121,8 @@ func_808302C4:
 
 
 func_808302E4:
+# Unsets Link State II 0x00080000 (crawling?) and zeroes out some Link Instance data
+# A0 = Link Instance
     lw      t6, 0x0670(a0)             # 00000670
     lui     $at, 0xFFFD                # $at = FFFD0000
     ori     $at, $at, 0xFFFF           # $at = FFFDFFFF
@@ -338,6 +354,8 @@ lbl_808305F8:
 
 
 func_80830608:
+# Sets byte at Link Instance + 0x1C24 to 1 if it's currently 0
+# A0 = Link Instance
     lbu     t6, 0x1C24(a0)             # 00001C24
     addiu   t7, $zero, 0x0001          # t7 = 00000001
     bne     t6, $zero, lbl_8083061C
@@ -904,6 +922,8 @@ func_80830CF8:
 
 
 func_80830D84:
+# Zeroes out halfword at (pointer located at Link Instance + 0x01C4) + 0x8
+# A0 = Link Instance
     lw      t6, 0x01C4(a0)             # 000001C4
     sh      $zero, 0x0008(t6)          # 00000008
     jr      $ra
@@ -1076,6 +1096,7 @@ lbl_80830FB4:
 
 
 func_80830FD8:
+# Wrapper for 8008C1D8 (A1 += 0x01A4 and A3 = SP+0x10) and 80830F30 (A2 = A3)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -1097,6 +1118,7 @@ func_80830FD8:
 
 
 func_80831020:
+# Wrapper for 80830FD8 (SP+0x10 = float 1.00)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     $at, 0x3F80                # $at = 3F800000
@@ -1110,6 +1132,7 @@ func_80831020:
 
 
 func_80831048:
+# Wrapper for 80830FD8 (SP+0x10 = float at 808530E8)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     $at, %hi(var_808530E8)     # $at = 80850000
@@ -1123,6 +1146,7 @@ func_80831048:
 
 
 func_80831070:
+# Wrapper for 80831048 (A3 = 0x001C)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80831048
@@ -1134,6 +1158,7 @@ func_80831070:
 
 
 func_80831090:
+# Wrapper for 8008C298 (A1 += 0x01A4 and A3 = SP+0x10) and 80830F30 (A2 = A3)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -1155,6 +1180,7 @@ func_80831090:
 
 
 func_808310D8:
+# Wrapper for 80831090 (SP+0x10 = float 1.00)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     $at, 0x3F80                # $at = 3F800000
@@ -1168,6 +1194,7 @@ func_808310D8:
 
 
 func_80831100:
+# Wrapper for 80831090 (SP+0x10 = float at 808530EC)
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     $at, %hi(var_808530EC)     # $at = 80850000
@@ -1181,6 +1208,7 @@ func_80831100:
 
 
 func_80831128:
+# Wrapper for 80831100 (A3 = 0x001C)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80831100
@@ -1273,6 +1301,7 @@ lbl_80831250:
 
 
 func_80831274:
+# Wrapper for 8008C1D8 (A1 += 0x01A4 and A3 = word at 808514A8)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a1, 0x001C($sp)
@@ -1288,6 +1317,9 @@ func_80831274:
 
 
 func_808312A4:
+# Test if Link State I 0x08000000 (swimming) is set and Iron Boots aren't equipped?
+# A0 = Link Instance
+# V0 = 1 if true, else 0
     lw      v0, 0x066C(a0)             # 0000066C
     lui     $at, 0x0800                # $at = 08000000
     and     v0, v0, $at
@@ -1303,6 +1335,9 @@ lbl_808312C8:
 
 
 func_808312D0:
+# Test if Link State I 0x01000000 is set
+# A0 = Link Instance
+# V0 = 1 if true, else 0
     lw      v0, 0x066C(a0)             # 0000066C
     lui     $at, 0x0100                # $at = 01000000
     and     v0, v0, $at
@@ -1600,6 +1635,9 @@ func_8083164C:
 
 
 func_80831678:
+# Test if Link Item Action (Instance + 0x141) is Sword-Like (03 to 07)
+# A0 = Link Instance
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80079C54
@@ -1665,6 +1703,9 @@ lbl_80831748:
 
 
 func_80831758:
+# Get Item Action Parameter Index
+# A0 = Item Index (C-Item Indexing)
+# V0 = Item Action Parameter Index
     slti    $at, a0, 0x00FE
     bnel    $at, $zero, lbl_80831770
     addiu   $at, $zero, 0x00FC         # $at = 000000FC
@@ -1699,6 +1740,9 @@ func_808317A4:
 
 
 func_808317B4:
+# Test if Link Item Action (Instance + 0x141) is Two-handed Sword-Like (05 to 07)
+# A0 = Link Instance
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80079C78
@@ -1710,6 +1754,10 @@ func_808317B4:
 
 
 func_808317D4:
+# Set Full Deku Stick Size (1.00) in Link Instance
+# Also sets A0 to SP+0x00
+# A0 = ?
+# A1 = Link Instance
     sw      a0, 0x0000($sp)
     lui     $at, 0x3F80                # $at = 3F800000
     mtc1    $at, $f4                   # $f4 = 1.00
@@ -23835,6 +23883,9 @@ func_80844BB8:
 
 
 func_80844DE8:
+# Inner Init function
+# A0 = Global Context
+# A1 = Link Instance
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s2, 0x0030($sp)
     lui     s2, 0x8012                 # s2 = 80120000
@@ -27374,6 +27425,9 @@ lbl_80847F68:
 
 
 func_80847FC8:
+# Inner Main Update function
+# A0 = Global Context
+# A1 = Link Instance
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s0, 0x0030($sp)
     lui     v1, 0x8012                 # v1 = 80120000
@@ -27824,6 +27878,9 @@ lbl_80848670:
 
 
 func_80848680:
+# Inner Main Draw function
+# A0 = Global Context
+# A1 = Link Instance
     addiu   $sp, $sp, 0xFF60           # $sp -= 0xA0
     sw      s0, 0x0034($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -28177,6 +28234,9 @@ lbl_80848BA4:
 
 
 func_80848BB4:
+# Inner Destruct function
+# A0 = Global Context
+# A1 = Link Instance
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      s1, 0x0018($sp)
     sw      s0, 0x0014($sp)
@@ -37946,6 +38006,8 @@ lbl_808512C0:
     nop
 
 .section .data
+
+# Initialization variables for this actor can be found in code/data.s (VRAM: 800FC530-800FC550, VROM: EB490-EB4B0)
 
 var_808512D0: .word \
 0x00000000, 0x00000000, 0x00000101, 0x01010101, \

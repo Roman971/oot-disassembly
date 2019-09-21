@@ -122,7 +122,7 @@ func_8007938C:
 # Tests if Link is busy?
 # A0 = Global Context
 # A1 = Link Instance
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a2, a1, $zero              # a2 = 00000000
@@ -173,7 +173,7 @@ lbl_80079430:
 func_8007943C:
 # Tests if Link is busy (Calls 8007938C, but also checks if talking?)
 # A0 = Global Context
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lw      a1, 0x1C44(a0)             # 00001C44
@@ -193,8 +193,9 @@ lbl_80079468:
 
 
 func_80079478:
+# Tests if Link State I 0x0010 is set
 # A0 = Link Instance
-# V0 = Link Instance + 0x66C & 0x10
+# V0 = 1 if true, else 0
     lw      v0, 0x066C(a0)             # 0000066C
     andi    v0, v0, 0x0010             # v0 = 00000000
     jr      $ra
@@ -204,7 +205,7 @@ func_80079478:
 func_80079488:
 # Test if Link is a Child with Hylian Shield Equipped
 # A0 = Link Instance
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     lui     v0, 0x8012                 # v0 = 80120000
     lw      v0, -0x5A2C(v0)            # 8011A5D4
     sltu    v0, $zero, v0
@@ -221,8 +222,8 @@ lbl_800794A8:
 func_800794B0:
 # Seems to test if Child Link has Hylian Shield "In Hand" (Calls 80079488)
 # A0 = Link Instance
-# A1 = Link Instance + 0x141
-# V0 = 1 if true, 0 if false
+# A1 = s8 Action Parameter
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     lui     v1, 0x800F                 # v1 = 800F0000
@@ -315,7 +316,6 @@ lbl_800795DC:
 
 func_800795E8:
 # Update Link's Held Item?
-# Update Child Link's held item?
 # A0 = Link Instance
 # A1 = Held Item Index
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
@@ -377,7 +377,7 @@ func_800795E8:
 func_800796C0:
 # ? Related to updating Child Link's state if Hylian Shield is equipped
 # A0 = Link Instance
-# A1 = 1 if 800794B0 returns 1, 0 if false
+# A1 = 1 if 800794B0 returns 1, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     addiu   $at, $zero, 0x0001         # $at = 00000001
@@ -529,6 +529,8 @@ lbl_80079894:
 
 
 func_800798A8:
+# Unsets Link State II 0x00008000
+# A0 = Link Instance
     lw      t6, 0x0670(a0)             # 00000670
     addiu   $at, $zero, 0xDFFF         # $at = FFFFDFFF
     sw      $zero, 0x0654(a0)          # 00000654
@@ -623,6 +625,9 @@ func_80079968:
 
 
 func_800799EC:
+# Test if Link State I 0x0080 is set (death)
+# A0 = Global Context
+# V0 = 1 if true, else 0
     lw      v1, 0x1C44(a0)             # 00001C44
     lui     $at, 0x0080                # $at = 00800000
     lw      v0, 0x066C(v1)             # 0000066C
@@ -632,6 +637,10 @@ func_800799EC:
 
 
 func_80079A04:
+# Increments A1 by 1 and writes it to GC + 0x11E5C
+# A0 = Global Context
+# A1 = u8 value to increment then write
+# V0 = 1
     lui     $at, 0x0001                # $at = 00010000
     addu    $at, $at, a0
     addiu   t6, a1, 0x0001             # t6 = 00000001
@@ -642,6 +651,16 @@ func_80079A04:
 
 
 func_80079A20:
+# Test if Link Item Action is Flaming Deku Stick (06) and properly positioned to light something
+# Seems to be used by bombs, webs and bombflower bombs to check if they should trigger
+# A0 = Global Context
+# A1 = Coord ptr of object to light up
+# A2 = float ?
+# A3 = float ?
+# SP+0x10 = Coord ptr ?
+# SP+0x14 = float ?
+# SP+0x18 = float ?
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     mtc1    a2, $f12                   # $f12 = 0.00
     sw      $ra, 0x0014($sp)
@@ -750,7 +769,7 @@ func_80079B54:
 func_80079B64:
 # Test if Link is wearing the Mirror Shield (Instance + 0x13E)
 # A0 = Global Context
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     lw      v1, 0x1C44(a0)             # 00001C44
     lb      v0, 0x013E(v1)             # 0000013E
     xori    v0, v0, 0x0003             # v0 = 00000003
@@ -762,7 +781,7 @@ func_80079B64:
 func_80079B7C:
 # Test if Link is holding a Shield, and Mirror Shield is equipped
 # A0 = Global Context
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     lw      v1, 0x1C44(a0)             # 00001C44
     lbu     v0, 0x014D(v1)             # 0000014D
     xori    v0, v0, 0x000A             # v0 = 0000000A
@@ -778,10 +797,10 @@ lbl_80079BA0:
 
 
 func_80079BA8:
-# Test if Link Item Action is Magic Spell
+# Test if Action Parameter is Magic Spell (15-1A)
 # A0 = Link Instance
 # A1 = s8 Action Parameter
-# V0 = 0-2 for unused spells, 3 = Farore's, 4 = Nayru's, 5 = Din's Fire
+# V0 = 0-2 for unused spells, 3 = Farore's, 4 = Nayru's, 5 = Din's Fire, -1 otherwise
     sw      a0, 0x0000($sp)
     addiu   v0, a1, 0xFFEB             # v0 = FFFFFFEB
     bltz    v0, lbl_80079BC8
@@ -798,9 +817,9 @@ lbl_80079BCC:
 
 
 func_80079BD4:
-# Test if Link Item Action (Instance + 0x141) is Hookshot/Longshot
+# Test if Link Item Action (Instance + 0x141) is Hookshot/Longshot (10/11)
 # A0 = Link Instance
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     lb      v1, 0x0141(a0)             # 00000141
     xori    v0, v1, 0x0010             # v0 = 00000010
     sltiu   v0, v0, 0x0001
@@ -814,9 +833,9 @@ lbl_80079BF0:
 
 
 func_80079BF8:
-# Test if Link Item Action is Hookshot/Longshot, and is not holding an item (Instance + 0x039C)
+# Test if Link Item Action (Instance + 0x141) is Hookshot/Longshot (10/11), and is not holding an item (Instance + 0x039C)
 # A0 = Link Instance
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -836,7 +855,7 @@ lbl_80079C24:
 func_80079C2C:
 # Test if Action Parameter is Sword-Like (03 to 07)
 # A0 = s8 Action Parameter
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     addiu   v0, a0, 0xFFFE             # v0 = FFFFFFFE
     blez    v0, lbl_80079C48
     slti    $at, v0, 0x0006
@@ -852,9 +871,9 @@ lbl_80079C4C:
 
 
 func_80079C54:
-# Wrapper for 80079C2C (A0 = Link Instance + 0x141)
+# Test if Link Item Action (Instance + 0x141) is Sword-Like (03 to 07)
 # A0 = Link Instance
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     or      a1, a0, $zero              # a1 = 00000000
@@ -867,9 +886,9 @@ func_80079C54:
 
 
 func_80079C78:
-# Test if Action Parameter is Two-handed Sword-Like (05 to 07)
+# Test if Link Item Action (Instance + 0x141) is Two-handed Sword-Like (05 to 07)
 # A0 = Link Instance
-# V0 = 1 if true, 0 if false
+# V0 = 1 if true, else 0
     lb      v0, 0x0141(a0)             # 00000141
     slti    $at, v0, 0x0005
     bne     $at, $zero, lbl_80079C98
@@ -886,6 +905,9 @@ lbl_80079C9C:
 
 
 func_80079CA4:
+# Test if Link Item Action is Giant's Knife with enough durability to hit?
+# A0 = Link Instance
+# V0 = 1 if true, else 0
     lb      v0, 0x0141(a0)             # 00000141
     lui     t6, 0x8012                 # t6 = 80120000
     xori    v0, v0, 0x0005             # v0 = 00000005
@@ -913,6 +935,10 @@ lbl_80079CF4:
 
 
 func_80079CFC:
+# Test if Action Parameter is any Bottle (1E to 2A)
+# A0 = Link Instance
+# A1 = s8 Action Parameter
+# V0 = Action Parameter - 0x1E if true, else -1
     sw      a0, 0x0000($sp)
     addiu   v0, a1, 0xFFE2             # v0 = FFFFFFE2
     bltz    v0, lbl_80079D1C
@@ -929,6 +955,9 @@ lbl_80079D20:
 
 
 func_80079D28:
+# Test if Link Item Action is any Bottle (1E to 2A)
+# A0 = Link Instance
+# V0 = Link Item Action - 0x1E if true, else -1
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80079CFC
@@ -940,10 +969,10 @@ func_80079D28:
 
 
 func_80079D48:
-# Tests if Action Parameter is Bomb or Bombchu
+# Test if Action Parameter is Bomb (12) or Bombchu (13)
 # A0 = Link Instance
-# A1 = Action Parameter
-# V0 = 0 if Bomb, 1 if Bombchu, -1 otherwise
+# A1 = s8 Action Parameter
+# V0 = 0 = Bomb, 1 = Bombchu, -1 otherwise
     sw      a0, 0x0000($sp)
     addiu   v0, a1, 0xFFEE             # v0 = FFFFFFEE
     bltz    v0, lbl_80079D68
@@ -960,10 +989,10 @@ lbl_80079D6C:
 
 
 func_80079D74:
-# Test if Link Action is Bomb or Bombchu
+# Test if Link Item Action is Bomb (12) or Bombchu (13)
 # Wrapper for 80079D48 (A0 = Link Instance + 0x141)
 # A0 = Link Instance
-# V0 = 0 if Bomb, 1 if Bombchu, -1 otherwise
+# V0 = 0 = Bomb, 1 = Bombchu, -1 otherwise
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     jal     func_80079D48
@@ -975,6 +1004,10 @@ func_80079D74:
 
 
 func_80079D94:
+# Test if Action Parameter is 01 or a Sword (03 to 05)?
+# A0 = Link Instance
+# A1 = s8 Action Parameter
+# V0 = 0 = 01 or Master Sword, 1 = Kokiri Sowrd, 2 = Giant's Knife/Biggoron Sword, -1 otherwise
     sw      a0, 0x0000($sp)
     addiu   $at, $zero, 0x0001         # $at = 00000001
     beq     a1, $at, lbl_80079DBC
