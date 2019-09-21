@@ -7,6 +7,7 @@
 
 .section .text
 func_80097650:
+# Set 4 inner main functions of the player actor at 8011D030 in memory
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     lui     a0, 0x8084                 # a0 = 80840000
@@ -36,6 +37,9 @@ func_80097650:
 
 
 func_800976B8:
+# Link, Init Routine (Primary, Wrapper for 80844DE8)
+# A0 = Link Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -57,6 +61,9 @@ func_800976B8:
 
 
 func_80097700:
+# Link, Destruct Routine (Primary, Wrapper for 80848BB4)
+# A0 = Link Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
