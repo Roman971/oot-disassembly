@@ -1,5 +1,8 @@
 .section .text
 func_808F9080:
+# Set new update routine function for this actor
+# A0 = Actor Instance
+# A1 = Pointer to function
     sw      a1, 0x0244(a0)             # 00000244
     jr      $ra
     nop
@@ -85,6 +88,9 @@ lbl_808F91A0:
 
 
 func_808F91B8:
+# Init Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s1, 0x0028($sp)
     sw      s0, 0x0024($sp)
@@ -141,6 +147,7 @@ func_808F91B8:
     lw      a1, 0x0038($sp)
     bne     t9, $zero, lbl_808F9314
     or      a2, s0, $zero              # a2 = 00000000
+# Pushable Armos Statue
     addiu   t0, $zero, 0x0001          # t0 = 00000001
     sb      t0, 0x00AF(s0)             # 000000AF
     lui     a3, %hi(var_808FB0C0)      # a3 = 80900000
@@ -172,7 +179,7 @@ func_808F91B8:
     or      a0, s0, $zero              # a0 = 00000000
     b       lbl_808F936C
     addiu   t5, $zero, 0x00FE          # t5 = 000000FE
-lbl_808F9314:
+lbl_808F9314: # Armos Enemy
     lui     a3, %hi(var_808FB0EC)      # a3 = 80900000
     jal     func_8004ACEC
     addiu   a3, a3, %lo(var_808FB0EC)  # a3 = 808FB0EC
@@ -205,6 +212,9 @@ lbl_808F936C:
 
 
 func_808F9384:
+# Destruct Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -381,6 +391,8 @@ lbl_808F95F0:
 
 
 func_808F9614:
+# Called during Pushable Armos Init
+# A0 = Actor Instance
     addiu   $sp, $sp, 0xFFD0           # $sp -= 0x30
     sw      s0, 0x0028($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -1403,6 +1415,9 @@ lbl_808FA45C:
 
 
 func_808FA470:
+# Pushable Armos update routine when spawned
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
     sw      s0, 0x0020($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -1894,6 +1909,9 @@ lbl_808FAB58:
 
 
 func_808FAB64:
+# Main Update Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFF78           # $sp -= 0x88
     sw      s3, 0x0048($sp)
     sw      s2, 0x0044($sp)
@@ -2166,6 +2184,9 @@ lbl_808FAF44:
 
 
 func_808FAF50:
+# Main Draw Function
+# A0 = Actor Instance
+# A1 = Global Context
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s0, 0x0038($sp)
     or      s0, a0, $zero              # s0 = 00000000
@@ -2256,19 +2277,19 @@ lbl_808FB088:
 .section .data
 
 var_808FB0A0: .word 0x00540500, 0x04000015, 0x00380000, 0x0000037C
-.word func_808F91B8
-.word func_808F9384
-.word func_808FAB64
-.word func_808FAF50
-var_808FB0C0: .word \
+.word func_808F91B8 # Init
+.word func_808F9384 # Dest
+.word func_808FAB64 # Main
+.word func_808FAF50 # Draw
+var_808FB0C0: .word \ # Pushable OverlayCollision Type 1 (Overlay)
 0x05000939, 0x10010000, 0x00000000, 0x00000000, \
 0x00000000, 0xFFCFFFFF, 0x00000000, 0x00010100, \
 0x000F0046, 0x00000000, 0x00000000
-var_808FB0EC: .word \
+var_808FB0EC: .word \ # Enemy OverlayCollision Type 1 (Overlay)
 0x09000D00, 0x00010000, 0x00000000, 0x00000000, \
 0x00000000, 0x00400106, 0x00000000, 0x00010000, \
 0x000F0046, 0x00000000, 0x00000000
-var_808FB118: .word \
+var_808FB118: .word \ # Enemy OverlayCollision Type 3 (Overlay)
 0x0A110000, 0x00030000, 0x00000000, 0xFFCFFFFF, \
 0x00080000, 0x00000000, 0x00000000, 0x01000000, \
 0x00000000, 0x00000000, 0x00000000, 0x00000000, \
@@ -2306,4 +2327,3 @@ var_808FB210: .word \
 
 var_808FB2A0: .word 0x458CA000
 var_808FB2A4: .word 0x3FB33333, 0x00000000, 0x00000000
-
