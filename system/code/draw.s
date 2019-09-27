@@ -1,18 +1,20 @@
 # "Draw Items" part of the code file
 #
-# Handles drawing get items and maybe other things.
+# Handles drawing "Get Item" models, ie. the models used for freestanding items and when holding up items above Link's head.
 #
 # General Documentation about Get Items:
-# https://wiki.cloudmodding.com/oot/Ovl_player_actor/Get_Items
+# - https://wiki.cloudmodding.com/oot/Ovl_player_actor/Get_Items
+# - https://docs.google.com/spreadsheets/d/1cPXllFs_qZS3YAlplqaf98hHpdojhfYxJ71DCW__nis/edit#gid=436390466
 #
 # Starts at VRAM: 800570C0 / VROM: ACD020
 #
 
 .section .text
 func_800570C0:
-# Draw Get Item?
+# Draw Get Item (aka. "GI")
+# References "GI Draw Table" at 800EFE30 and calls the corresponding draw function
 # A0 = Global Context
-# A1 = s16 Get Item Model Id (0 = Bottle)
+# A1 = s16 Get Item Draw Id (0 = Bottle)
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      a1, 0x001C($sp)
     sll     a1, a1, 16
@@ -33,6 +35,9 @@ func_800570C0:
 
 
 func_80057104:
+# GI Draw Function for Bombchu and Goron/Zora/Gerudo Masks
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -74,6 +79,9 @@ func_80057104:
 
 
 func_8005719C:
+# GI Draw Function for SOLD OUT
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -116,6 +124,9 @@ func_8005719C:
 
 
 func_80057238:
+# GI Draw Function for Blue Fire
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -224,6 +235,9 @@ func_80057238:
 
 
 func_800573DC:
+# GI Draw Function for Poe and Big Poe
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      s1, 0x003C($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -352,6 +366,9 @@ func_800573DC:
 
 
 func_800575D0:
+# GI Draw Function for Fairy
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFF90           # $sp -= 0x70
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -473,6 +490,9 @@ func_800575D0:
 
 
 func_800577A8:
+# GI Draw Function for Mirror Shield
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -568,6 +588,9 @@ func_800577A8:
 
 
 func_80057918:
+# GI Draw Function for Gold Skulltula Token
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFF98           # $sp -= 0x68
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -661,6 +684,9 @@ func_80057918:
 
 
 func_80057A80:
+# GI Draw Function for Medallions and Pocket/Weird Eggs
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -709,6 +735,9 @@ func_80057A80:
 
 
 func_80057B34:
+# GI Draw Function for Compass
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -774,6 +803,9 @@ func_80057B34:
 
 
 func_80057C2C:
+# GI Draw Function for Red/Green/Blue Potions
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x0038($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -889,6 +921,9 @@ func_80057C2C:
 
 
 func_80057DEC:
+# GI Draw Function for Giant's Knife & Biggoron's Sword (Normal & Broken)
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
@@ -958,6 +993,9 @@ func_80057DEC:
 
 
 func_80057EF4:
+# GI Draw Function for Deku Nut
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
@@ -1030,6 +1068,9 @@ func_80057EF4:
 
 
 func_80058008:
+# GI Draw Function for Recovery Heart
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
@@ -1103,6 +1144,9 @@ func_80058008:
 
 
 func_80058120:
+# GI Draw Function for Fish
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
@@ -1172,6 +1216,9 @@ func_80058120:
 
 
 func_80058228:
+# GI Draw Function for various "single DList" items such as Kokiri Sword, Bomb & Megaton Hammer
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -1213,9 +1260,9 @@ func_80058228:
 
 
 func_800582C0:
-# Draw Get Item (two param)
+# GI Draw Function for various double DList items such as Empty Bottle, Boss Key & Ocarinas
 # A0 = Global Context
-# A1 = s16 Get Item Model Id
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFC0           # $sp -= 0x40
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1282,6 +1329,9 @@ func_800582C0:
 
 
 func_800583BC:
+# GI Draw Function for Heart Container, Piece of Heart & Music Notes
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -1330,6 +1380,9 @@ func_800583BC:
 
 
 func_80058470:
+# GI Draw Function for Cojiro, Chicken & Pocket Cucco and Coins
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1402,6 +1455,9 @@ func_80058470:
 
 
 func_80058584:
+# GI Draw Function for Fire/Ice/Light Arrows
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1474,6 +1530,9 @@ func_80058584:
 
 
 func_80058698:
+# GI Draw Function for Magic Spells (Din's Fire, Farore's Wind & Nayru's Love)
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
@@ -1561,6 +1620,9 @@ func_80058698:
 
 
 func_800587E8:
+# GI Draw Function for Goron/Zora Tunics, Bomb Bags & Quivers
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
@@ -1621,6 +1683,9 @@ func_800587E8:
 
 
 func_800588CC:
+# GI Draw Function for Silver/Golden Gauntlets & Purple/Gold Rupees
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1699,6 +1764,9 @@ func_800588CC:
 
 
 func_800589F8:
+# GI Draw Function for Green/Blue/Red Rupees
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s1, 0x0018($sp)
     lui     $at, 0x8010                # $at = 80100000
@@ -1781,6 +1849,9 @@ func_800589F8:
 
 
 func_80058B34:
+# GI Draw Function for Silver/Gold Scales
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
     sw      $ra, 0x003C($sp)
     sw      s0, 0x0038($sp)
@@ -1872,6 +1943,9 @@ func_80058B34:
 
 
 func_80058C94:
+# GI Draw Function for Bullet Bags
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFB0           # $sp -= 0x50
     sw      $ra, 0x001C($sp)
     sw      s0, 0x0018($sp)
@@ -1956,6 +2030,9 @@ func_80058C94:
 
 
 func_80058DD8:
+# GI Draw Function for Adult/Giant's Wallets
+# A0 = Global Context
+# A1 = u16 GI Draw Id
     addiu   $sp, $sp, 0xFFD8           # $sp -= 0x28
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0028($sp)
