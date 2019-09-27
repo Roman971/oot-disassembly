@@ -346,6 +346,8 @@ func_8007E058:
 
 
 func_8007E09C:
+# Write Jump to Display List 800F8830 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8830             # t8 = 800F8830
@@ -359,6 +361,8 @@ func_8007E09C:
 
 
 func_8007E0C4:
+# Write Jump to Display List 800F8800 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8800             # t8 = 800F8800
@@ -372,6 +376,8 @@ func_8007E0C4:
 
 
 func_8007E0EC:
+# Write Jump to Display List 800F86B0 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x86B0             # t8 = 800F86B0
@@ -385,6 +391,8 @@ func_8007E0EC:
 
 
 func_8007E114:
+# Write Jump to Display List 800F86E0 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x86E0             # t8 = 800F86E0
@@ -398,6 +406,8 @@ func_8007E114:
 
 
 func_8007E13C:
+# Write Jump to Display List 800F8710 on POLY_XLU_DISP
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8710             # t8 = 800F8710
@@ -411,6 +421,8 @@ func_8007E13C:
 
 
 func_8007E164:
+# Write Jump to Display List 800F8740 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8740             # t8 = 800F8740
@@ -424,6 +436,8 @@ func_8007E164:
 
 
 func_8007E18C:
+# Write Jump to Display List 800F8770 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8770             # t8 = 800F8770
@@ -437,6 +451,8 @@ func_8007E18C:
 
 
 func_8007E1B4:
+# Write Jump to Display List 800F87A0 on POLY_XLU_DISP
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x87A0             # t8 = 800F87A0
@@ -450,6 +466,8 @@ func_8007E1B4:
 
 
 func_8007E1DC:
+# Write Jump to Display List 800F8230 on POLY_OPA_DISP
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8230             # t8 = 800F8230
@@ -463,6 +481,8 @@ func_8007E1DC:
 
 
 func_8007E204:
+# Write Jump to Display List 800F8200 on POLY_XLU_DISP
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8200             # t8 = 800F8200
@@ -476,6 +496,7 @@ func_8007E204:
 
 
 func_8007E22C:
+# A0 = Global Context
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0020($sp)
@@ -508,8 +529,7 @@ lbl_8007E28C:
 
 func_8007E298:
 # Write Jump to Display List 800F8200 on POLY_OPA_DISP
-# Get Item Models
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8200             # t8 = 800F8200
@@ -524,8 +544,7 @@ func_8007E298:
 
 func_8007E2C0:
 # Write Jump to Display List 800F8200 on POLY_XLU_DISP
-# Get Item Models
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8200             # t8 = 800F8200
@@ -540,7 +559,7 @@ func_8007E2C0:
 
 func_8007E2E8:
 # Write Jump to Display List 800F8320 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8320             # t8 = 800F8320
@@ -555,7 +574,7 @@ func_8007E2E8:
 
 func_8007E310:
 # Write Jump to Display List 800F8350 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8350             # t8 = 800F8350
@@ -570,7 +589,7 @@ func_8007E310:
 
 func_8007E338:
 # Write Jump to Display List 800F8380 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8380             # t8 = 800F8380
@@ -617,7 +636,7 @@ func_8007E388:
 
 func_8007E3B0:
 # Wrapper for 8007E388 (Writes to POLY_OPA_DISP)
-# A0 = Global Context
+# A0 = Graphics Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -633,7 +652,7 @@ func_8007E3B0:
 
 func_8007E3DC:
 # Write Jump to Display List 800F83E0 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x83E0             # t8 = 800F83E0
@@ -648,7 +667,7 @@ func_8007E3DC:
 
 func_8007E404:
 # Write Jump to Display List 800F8590 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8590             # t8 = 800F8590
@@ -663,7 +682,7 @@ func_8007E404:
 
 func_8007E42C:
 # Write Jump to Display List 800F8410 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8410             # t8 = 800F8410
@@ -694,7 +713,7 @@ func_8007E454:
 
 func_8007E47C:
 # Write Jump to Display List 800F8290 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8290             # t8 = 800F8290
@@ -709,7 +728,7 @@ func_8007E47C:
 
 func_8007E4A4:
 # Write Jump to Display List 800F8560 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8560             # t8 = 800F8560
@@ -724,7 +743,7 @@ func_8007E4A4:
 
 func_8007E4CC:
 # Write Jump to Display List 800F85C0 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x85C0             # t8 = 800F85C0
@@ -739,7 +758,7 @@ func_8007E4CC:
 
 func_8007E4F4:
 # Write Jump to Display List 800F85F0 on OVERLAY_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02B0(a0)             # 000002B0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x85F0             # t8 = 800F85F0
@@ -754,7 +773,7 @@ func_8007E4F4:
 
 func_8007E51C:
 # Write Jump to Display List 800F8470 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8470             # t8 = 800F8470
@@ -769,7 +788,7 @@ func_8007E51C:
 
 func_8007E544:
 # Write Jump to Display List 800F7E10 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x800F                 # t8 = 800F0000
     addiu   t8, t8, 0x7E10             # t8 = 800F7E10
@@ -784,7 +803,7 @@ func_8007E544:
 
 func_8007E56C:
 # Write Jump to Display List 800F8440 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8440             # t8 = 800F8440
@@ -799,7 +818,7 @@ func_8007E56C:
 
 func_8007E594:
 # Write Jump to Display List 800F7DB0 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x800F                 # t8 = 800F0000
     addiu   t8, t8, 0x7DB0             # t8 = 800F7DB0
@@ -830,7 +849,7 @@ func_8007E5BC:
 
 func_8007E5E4:
 # Wrapper for 8007E5BC (Writes to POLY_OPA_DISP)
-# A0 = Global Context
+# A0 = Graphics Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -846,7 +865,7 @@ func_8007E5E4:
 
 func_8007E610:
 # Wrapper for 8007E5BC (Writes to OVERLAY_DISP)
-# A0 = Global Context
+# A0 = Graphics Context
     addiu   $sp, $sp, 0xFFE8           # $sp -= 0x18
     sw      $ra, 0x0014($sp)
     sw      a0, 0x0018($sp)
@@ -879,7 +898,7 @@ func_8007E63C:
 
 func_8007E668:
 # Write Jump to Display List 800F84D0 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x84D0             # t8 = 800F84D0
@@ -894,7 +913,7 @@ func_8007E668:
 
 func_8007E690:
 # Write Jump to Display List 800F8500 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8500             # t8 = 800F8500
@@ -909,7 +928,7 @@ func_8007E690:
 
 func_8007E6B8:
 # Write Jump to Display List 800F8620 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8620             # t8 = 800F8620
@@ -1064,7 +1083,7 @@ func_8007E824:
 
 func_8007E868:
 # Write Jump to Display List 800F8530 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8530             # t8 = 800F8530
@@ -1079,7 +1098,7 @@ func_8007E868:
 
 func_8007E890:
 # Write Jump to Display List 800F8530 on OVERLAY_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02B0(a0)             # 000002B0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8530             # t8 = 800F8530
@@ -1094,7 +1113,7 @@ func_8007E890:
 
 func_8007E8B8:
 # Write Jump to Display List 800F8650 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8650             # t8 = 800F8650
@@ -1109,7 +1128,7 @@ func_8007E8B8:
 
 func_8007E8E0:
 # Write Jump to Display List 800F8680 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8680             # t8 = 800F8680
@@ -1124,7 +1143,7 @@ func_8007E8E0:
 
 func_8007E908:
 # Write Jump to Display List 800F8260 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8260             # t8 = 800F8260
@@ -1139,7 +1158,7 @@ func_8007E908:
 
 func_8007E930:
 # Write DE000000 800F8890, E3001801 000000C0 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8890             # t8 = 800F8890
@@ -1162,7 +1181,7 @@ func_8007E930:
 
 func_8007E978:
 # Write Jump to Display List 800F88C0 on POLY_XLU_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02D0(a0)             # 000002D0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x88C0             # t8 = 800F88C0
@@ -1177,7 +1196,7 @@ func_8007E978:
 
 func_8007E9A0:
 # Write Jump to Display List 800F87D0 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x87D0             # t8 = 800F87D0
@@ -1209,7 +1228,7 @@ func_8007E9C8:
 
 func_8007E9F4:
 # Write Jump to Display List 800F8860 on POLY_OPA_DISP
-# A0 = Global Context
+# A0 = Graphics Context
     lw      v1, 0x02C0(a0)             # 000002C0
     lui     t8, 0x8010                 # t8 = 80100000
     addiu   t8, t8, 0x8860             # t8 = 800F8860
@@ -1343,6 +1362,7 @@ func_8007EB84:
 # SP+0x20 = Upper left T-axis 2
 # SP+0x24 = width (whole units)
 # SP+0x28 = height (whole units)
+# V0 = pointer ?
     lui     v0, 0xE800                 # v0 = E8000000
     lui     t0, 0xF200                 # t0 = F2000000
     lw      v1, 0x02C4(a0)             # 000002C4
@@ -1984,4 +2004,3 @@ func_8007F45C:
     sw      t2, 0x0004(v1)             # 00000004
     jr      $ra
     nop
-
