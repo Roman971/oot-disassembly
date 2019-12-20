@@ -185,50 +185,53 @@ lbl_80063854:
 
 
 func_8006385C:
-# Performs some sort of physics related calculation (float approximation?)
-# A0 = float* velocity y component
-# A1 = float target? (value to reach?)
-# A2 = float delta (increments or decrements the y velocity by this value, trying to reach the target float?)
-# V0 = 1 if it target was reached?, else 0
-    mtc1    a1, $f14                   # $f14 = 0.00
-    mtc1    a2, $f12                   # $f12 = 0.00
+# This function is called over multiple frames to adjust a value up to some target value.
+# (For example, a hidden grotto that turns visible will call this function, increasing
+# its scale by 0.001 until it reaches its final value of 0.01.)
+# A0 = float* pValue
+# A1 = float target (value to reach)
+# A2 = float delta (increments or decrements *pValue by this value, trying to reach the target float)
+#   assumed to be positive
+# V0 = 1 if it target was reached, else 0
+    mtc1    a1, $f14                   # $f14 = target
+    mtc1    a2, $f12                   # $f12 = delta
     mtc1    $zero, $f4                 # $f4 = 0.00
     nop
     c.eq.s  $f12, $f4
     nop
-    bc1tl   lbl_800638CC
-    lwc1    $f4, 0x0000(a0)            # 00000000
-    lwc1    $f0, 0x0000(a0)            # 00000000
-    addiu   v0, $zero, 0x0001          # v0 = 00000001
+    bc1tl   lbl_800638CC               # if delta == 0.0, branch
+    lwc1    $f4, 0x0000(a0)            #     if taken: f4 = *pValue
+    lwc1    $f0, 0x0000(a0)            # f0 = *pValue
+    addiu   v0, $zero, 0x0001          # v0 = 1
     c.lt.s  $f14, $f0
     nop
-    bc1fl   lbl_8006389C
-    add.s   $f6, $f0, $f12
-    neg.s   $f12, $f12
-    add.s   $f6, $f0, $f12
+    bc1fl   lbl_8006389C               # if target < *pValue: (increasing)
+    add.s   $f6, $f0, $f12             #       $f6 = *pValue + delta
+    neg.s   $f12, $f12                 # else: delta = -delta (decreasing)
+    add.s   $f6, $f0, $f12             #       $f6 = *pValue + delta
 lbl_8006389C:
     mtc1    $zero, $f18                # $f18 = 0.00
-    swc1    $f6, 0x0000(a0)            # 00000000
-    lwc1    $f8, 0x0000(a0)            # 00000000
-    sub.s   $f10, $f8, $f14
-    mul.s   $f16, $f10, $f12
-    c.le.s  $f18, $f16
+    swc1    $f6, 0x0000(a0)            # *pValue = $f6
+    lwc1    $f8, 0x0000(a0)            # $f8 = *pValue
+    sub.s   $f10, $f8, $f14            # $f10 = *pValue - target
+    mul.s   $f16, $f10, $f12           # $f16 = (*pValue - target) * delta
+    c.le.s  $f18, $f16                 # // note: $f16 is positive if we passed the target
     nop
-    bc1fl   lbl_800638E8
-    or      v0, $zero, $zero           # v0 = 00000000
-    jr      $ra
-    swc1    $f14, 0x0000(a0)           # 00000000
+    bc1fl   lbl_800638E8               # if $f16 <= 0.0, RETURN v0 = 0
+    or      v0, $zero, $zero
+    jr      $ra                        # else: // passed target
+    swc1    $f14, 0x0000(a0)           #     *pValue = target; RETURN v0 = 1
 lbl_800638C8:
-    lwc1    $f4, 0x0000(a0)            # 00000000
-lbl_800638CC:
+    lwc1    $f4, 0x0000(a0)            # // this line is unreachable?
+lbl_800638CC:                          # delta == 0.0 branch destination
     c.eq.s  $f14, $f4
     nop
-    bc1fl   lbl_800638E8
-    or      v0, $zero, $zero           # v0 = 00000000
-    jr      $ra
-    addiu   v0, $zero, 0x0001          # v0 = 00000001
+    bc1fl   lbl_800638E8               # if *pValue != target:
+    or      v0, $zero, $zero           #     RETURN v0 = 0
+    jr      $ra                        # else:
+    addiu   v0, $zero, 0x0001          #     RETURN v0 = 1
 lbl_800638E4:
-    or      v0, $zero, $zero           # v0 = 00000000
+    or      v0, $zero, $zero           # // this line is unreachable?
 lbl_800638E8:
     jr      $ra
     nop
