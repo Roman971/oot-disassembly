@@ -191,8 +191,8 @@ func_8006385C:
 # A0 = float* pValue
 # A1 = float target (value to reach)
 # A2 = float delta (increments or decrements *pValue by this value, trying to reach the target float)
-#   assumed to be positive
-# V0 = 1 if it target was reached, else 0
+#      assumed to be positive
+# V0 = 1 if target was reached, else 0
     mtc1    a1, $f14                   # $f14 = target
     mtc1    a2, $f12                   # $f12 = delta
     mtc1    $zero, $f4                 # $f4 = 0.00
@@ -222,7 +222,7 @@ lbl_8006389C:
     jr      $ra                        # else: // passed target
     swc1    $f14, 0x0000(a0)           #     *pValue = target; RETURN v0 = 1
 lbl_800638C8:
-    lwc1    $f4, 0x0000(a0)            # // this line is unreachable?
+    lwc1    $f4, 0x0000(a0)            # unreachable (branch likely remnant)
 lbl_800638CC:                          # delta == 0.0 branch destination
     c.eq.s  $f14, $f4
     nop
@@ -231,7 +231,7 @@ lbl_800638CC:                          # delta == 0.0 branch destination
     jr      $ra                        # else:
     addiu   v0, $zero, 0x0001          #     RETURN v0 = 1
 lbl_800638E4:
-    or      v0, $zero, $zero           # // this line is unreachable?
+    or      v0, $zero, $zero           # unreachable (branch likely remnant)
 lbl_800638E8:
     jr      $ra
     nop

@@ -4473,10 +4473,10 @@ func_800226D8:
 
 
 # Get effective distance to actor for targeting purposes
-# a0 = actor instance
-# a1 = ???
-# a2 = ???
-# returns distance in f0
+# A0 = Actor Instance
+# A1 = Link Instance
+# A2 = s16 ???
+# F0 = result (effective distance)
 func_80022754:
     sw      a2, 0x0008($sp)
     sll     a2, a2, 16
@@ -4506,7 +4506,7 @@ lbl_80022794:                          # note: v1 = abs(v0) at this point
     addiu   t3, $zero, 0x4000
     subu    t4, t3, v1                 # t4 = v1 - 0x4000
     sll     t2, t1,  4
-    bgez    t2, lbl_800227CC           if !(actor_flags & 0x08000000) [lock allowed], branch
+    bgez    t2, lbl_800227CC           # if !(actor_flags & 0x08000000) [lock allowed], branch
 lbl_800227C0:
     lui     $at, 0x8010                # $at = 80100000
     jr      $ra
@@ -4539,9 +4539,10 @@ lbl_80022818:
     nop
 
 
-# check if distance to actor is close enough to attract Navi
-# a0 = actor instance
-# a1 = distance squared
+# Check if distance to actor is close enough to attract Navi
+# A0 = Actor Instance
+# A1 = float distance squared
+# V0 = 1 if true, else 0
 func_80022824:
     mtc1    a1, $f12                   # $f12 = distance squared
     nop
@@ -6156,7 +6157,7 @@ func_80023D70:
 # Update Actors
 # gameplay_keep d. list: 52980 x2
 # A0 = Global Context
-# A1 = Global Context + 0x1C24 (actors)
+# A1 = Global Context + 0x1C24 (Actor Context)
     addiu   $sp, $sp, 0xFF88           # $sp -= 0x78
     sw      s1, 0x0024($sp)
     or      s1, a0, $zero              # s1 = 00000000
@@ -7467,7 +7468,7 @@ lbl_80024F5C:
 
 func_80024F98:
 # Bind Actor to Category
-# A0 = Global Context + 0x1C24 (Actor Category Struct)
+# A0 = Global Context + 0x1C24 (Actor Context)
 # A1 = Actor Instance
 # A2 = Category Id
     sw      a2, 0x0008($sp)
@@ -7583,7 +7584,7 @@ lbl_80025104:
 func_80025110:
 # ActorSpawn
 # Spawn Actor
-# A0 = Global Context + 0x1C24
+# A0 = Global Context + 0x1C24 (Actor Context)
 # A1 = Global Context
 # A2 = s16 Actor Id
 # A3 = float x
@@ -7800,7 +7801,7 @@ func_800253F0:
 # New actor + 0x118 will be set to A2
 # Existing Actor + 0x11C will be set to the new actor's ptr
 # the new actor will be bound to the existing actor's room unless spawned actor is global (room = -1)
-# A0 = Global Context + 0x1C24
+# A0 = Global Context + 0x1C24 (Actor Context)
 # A1 = Actor* attachToInstance
 # A2 = Global Context
 # A3 = s16 Actor Id
@@ -7858,7 +7859,7 @@ func_80025488:
 # Spawn Transition Actors
 # Iterates over a list of transition actors to determine which ones to spawn
 # A0 = Global Context
-# A1 = Global Context + 0x1C24
+# A1 = Global Context + 0x1C24 (Actor Context)
     addiu   $sp, $sp, 0xFFB8           # $sp -= 0x48
     sw      s4, 0x0040($sp)
     sw      s3, 0x003C($sp)
@@ -7949,7 +7950,7 @@ func_800255C4:
 # Spawn Actor from Spawn Record
 # (Wrapper for 80025110)
 # Actor Spawn record is the one used in Scene Header commands 0x00 and 0x01
-# A0 = Global Context + 0x1C24
+# A0 = Global Context + 0x1C24 (Actor Context)
 # A1 = Ptr to Actor Spawn Record
 # A2 = Global Context
     addiu   $sp, $sp, 0xFFC8           # $sp -= 0x38
@@ -8085,11 +8086,11 @@ lbl_80025798:
     addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
-# called to determine which object Navi should go to?
-# a0 = actor instance
-# a1 = ???
-# a2 = ???
-# a3 = ???
+# Called to determine which object Navi should go to?
+# A0 = Actor Instance
+# A1 = Global Context + 0x1C24 (Actor Context)
+# A2 = Link Instance
+# A3 = u32 Actor Category Id
 func_800257A0:
     addiu   $sp, $sp, 0xFF70           # $sp -= 0x90
     sw      s8, 0x0060($sp)
@@ -8128,13 +8129,13 @@ lbl_8002581C:
     beql    s0, s2, lbl_8002597C
     lw      s0, 0x0124(s0)             # s0 = next actor
     lw      v0, 0x0004(s0)             # v0 = actor flags
-    addiu   $at, $zero, 0x0001         #
+    addiu   $at, $zero, 0x0001
     andi    t9, v0, 0x0001             # t9 != 0: attracts Navi
     bne     t9, $at, lbl_80025978      # branch if attracts Navi
     addiu   $at, $zero, 0x0028
     bne     s7, $at, lbl_80025888
     andi    t0, v0, 0x0005             # t0 = (flags & 0x05)
-    addiu   $at, $zero, 0x0005         #
+    addiu   $at, $zero, 0x0005
     bnel    t0, $at, lbl_8002588C      # if (flags & 0x05) != 0x05, branch
     lw      t1, 0x0084($sp)
     lwc1    $f0, 0x008C(s0)            # f0 = dist_squared_from_link
