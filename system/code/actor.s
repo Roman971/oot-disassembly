@@ -4472,82 +4472,90 @@ func_800226D8:
     addiu   $sp, $sp, 0x0030           # $sp += 0x30
 
 
+# Get effective distance to actor for targeting purposes
+# a0 = actor instance
+# a1 = ???
+# a2 = ???
+# returns distance in f0
 func_80022754:
     sw      a2, 0x0008($sp)
     sll     a2, a2, 16
-    sra     a2, a2, 16
-    lh      t6, 0x008A(a0)             # 0000008A
+    sra     a2, a2, 16                 # sign extend a2
+    lh      t6, 0x008A(a0)             # link-to-actor-angle
     addiu   $at, $zero, 0x8000         # $at = FFFF8000
-    addu    t9, t6, $at
-    subu    v0, t9, a2
+    addu    t9, t6, $at                # t9 = angle - 7FFF
+    subu    v0, t9, a2                 # v0 = angle - 7FFF - a2
     sll     v0, v0, 16
-    sra     v0, v0, 16
-    bltz    v0, lbl_8002278C
-    subu    v1, $zero, v0
+    sra     v0, v0, 16                 # sign extend v0
+    bltz    v0, lbl_8002278C           # if v0 negative, branch
+    subu    v1, $zero, v0              # v1 = -v0
     sll     v1, v0, 16
     b       lbl_80022794
-    sra     v1, v1, 16
+    sra     v1, v1, 16                 # sign extend v0 into v1
 lbl_8002278C:
     sll     v1, v1, 16
-    sra     v1, v1, 16
-lbl_80022794:
-    lw      t0, 0x0654(a1)             # 00000654
-    slti    $at, v1, 0x4001
+    sra     v1, v1, 16                 # sign extend v1
+lbl_80022794:                          # note: v1 = abs(v0) at this point
+    lw      t0, 0x0654(a1)
+    slti    $at, v1, 0x4001            # at = (v1 < 0x4001)
     beql    t0, $zero, lbl_80022808
-    slti    $at, v1, 0x2AAB
-    beq     $at, $zero, lbl_800227C0
+    slti    $at, v1, 0x2AAB            # if branch taken: at = (v1 < 0x2AAB)
+    beq     $at, $zero, lbl_800227C0   # if v1 > 0x4001, branch
     nop
-    lw      t1, 0x0004(a0)             # 00000004
-    addiu   t3, $zero, 0x4000          # t3 = 00004000
-    subu    t4, t3, v1
+    lw      t1, 0x0004(a0)             # t1 = actor flags
+    addiu   t3, $zero, 0x4000
+    subu    t4, t3, v1                 # t4 = v1 - 0x4000
     sll     t2, t1,  4
-    bgez    t2, lbl_800227CC
+    bgez    t2, lbl_800227CC           if !(actor_flags & 0x08000000) [lock allowed], branch
 lbl_800227C0:
     lui     $at, 0x8010                # $at = 80100000
     jr      $ra
-    lwc1    $f0, 0x64B0($at)           # 801064B0
+    lwc1    $f0, 0x64B0($at)           # f0 = 1e39 (prevent targeting)
 lbl_800227CC:
-    mtc1    t4, $f4                    # $f4 = 0.00
-    lui     $at, 0x3800                # $at = 38000000
-    mtc1    $at, $f8                   # $f8 = 0.00
-    cvt.s.w $f6, $f4
-    lui     $at, 0x8010                # $at = 80100000
-    lwc1    $f16, 0x64B4($at)          # 801064B4
-    lwc1    $f12, 0x008C(a0)           # 0000008C
-    mul.s   $f10, $f6, $f8
+    mtc1    t4, $f4
+    lui     $at, 0x3800
+    mtc1    $at, $f8                   # $f8 = 1.0/32768
+    cvt.s.w $f6, $f4                   # f6 = float(0x4000 - v1) = ang_from_center
+    lui     $at, 0x8010
+    lwc1    $f16, 0x64B4($at)          # appears to be 0.8
+    lwc1    $f12, 0x008C(a0)           # f12 = distance_from_link^2 = dist2
+    mul.s   $f10, $f6, $f8             # f10 = ang_from_center * 1/32768 = ang_frac
     nop
-    mul.s   $f18, $f12, $f16
+    mul.s   $f18, $f12, $f16           # f18 = 0.8 * distance_from_link^2
     nop
-    mul.s   $f4, $f18, $f10
+    mul.s   $f4, $f18, $f10            # f4 = 0.8 * distance_from_link^2 * ang_frac
     jr      $ra
-    sub.s   $f0, $f12, $f4
+    sub.s   $f0, $f12, $f4             # f0 = dist2 - 0.8 * dist2 * ang_frac
 lbl_80022804:
     slti    $at, v1, 0x2AAB
 lbl_80022808:
-    bne     $at, $zero, lbl_80022818
-    lui     $at, 0x8010                # $at = 80100000
+    bne     $at, $zero, lbl_80022818   # if close to center angle, branch
+    lui     $at, 0x8010
     jr      $ra
-    lwc1    $f0, 0x64B8($at)           # 801064B8
+    lwc1    $f0, 0x64B8($at)           # f0 = 1e39 (prevent targeting)
 lbl_80022818:
-    lwc1    $f0, 0x008C(a0)            # 0000008C
+    lwc1    $f0, 0x008C(a0)            # f0 = distance_from_link^2
     jr      $ra
     nop
 
 
+# check if distance to actor is close enough to attract Navi
+# a0 = actor instance
+# a1 = distance squared
 func_80022824:
-    mtc1    a1, $f12                   # $f12 = 0.00
+    mtc1    a1, $f12                   # $f12 = distance squared
     nop
-    lb      t6, 0x001F(a0)             # 0000001F
+    lb      t6, 0x001F(a0)             # read 0x1F byte of actor
     lui     $at, 0x800F                # $at = 800F0000
     or      v0, $zero, $zero           # v0 = 00000000
-    sll     t7, t6,  3
+    sll     t7, t6,  3                 # t7 = array offset = 8 * *(actor + 0x1F)
     addu    $at, $at, t7
-    lwc1    $f4, -0x7D78($at)          # 800E8288
-    c.lt.s  $f12, $f4
+    lwc1    $f4, -0x7D78($at)          # 800E8288 + 8 * t6
+    c.lt.s  $f12, $f4                  # compare array value to distance-squared
     nop
     bc1f    lbl_80022858
     nop
-    addiu   v0, $zero, 0x0001          # v0 = 00000001
+    addiu   v0, $zero, 0x0001          # v0 = 00000001 if distance-squared is less than lookup value
 lbl_80022858:
     jr      $ra
     nop
@@ -8077,6 +8085,11 @@ lbl_80025798:
     addiu   $sp, $sp, 0x0020           # $sp += 0x20
 
 
+# called to determine which object Navi should go to?
+# a0 = actor instance
+# a1 = ???
+# a2 = ???
+# a3 = ???
 func_800257A0:
     addiu   $sp, $sp, 0xFF70           # $sp -= 0x90
     sw      s8, 0x0060($sp)
@@ -8111,51 +8124,51 @@ func_800257A0:
     lw      t8, 0x0130(s0)             # 00000130
 lbl_8002581C:
     beql    t8, $zero, lbl_8002597C
-    lw      s0, 0x0124(s0)             # 00000124
+    lw      s0, 0x0124(s0)             # s0 = next actor
     beql    s0, s2, lbl_8002597C
-    lw      s0, 0x0124(s0)             # 00000124
-    lw      v0, 0x0004(s0)             # 00000004
-    addiu   $at, $zero, 0x0001         # $at = 00000001
-    andi    t9, v0, 0x0001             # t9 = 00000000
-    bne     t9, $at, lbl_80025978
-    addiu   $at, $zero, 0x0028         # $at = 00000028
+    lw      s0, 0x0124(s0)             # s0 = next actor
+    lw      v0, 0x0004(s0)             # v0 = actor flags
+    addiu   $at, $zero, 0x0001         #
+    andi    t9, v0, 0x0001             # t9 != 0: attracts Navi
+    bne     t9, $at, lbl_80025978      # branch if attracts Navi
+    addiu   $at, $zero, 0x0028
     bne     s7, $at, lbl_80025888
-    andi    t0, v0, 0x0005             # t0 = 00000000
-    addiu   $at, $zero, 0x0005         # $at = 00000005
-    bnel    t0, $at, lbl_8002588C
+    andi    t0, v0, 0x0005             # t0 = (flags & 0x05)
+    addiu   $at, $zero, 0x0005         #
+    bnel    t0, $at, lbl_8002588C      # if (flags & 0x05) != 0x05, branch
     lw      t1, 0x0084($sp)
-    lwc1    $f0, 0x008C(s0)            # 0000008C
-    c.lt.s  $f0, $f22
+    lwc1    $f0, 0x008C(s0)            # f0 = dist_squared_from_link
+    c.lt.s  $f0, $f22                  # set if dist_squared_from_link < 250000.0
     nop
-    bc1fl   lbl_8002588C
+    bc1fl   lbl_8002588C               # if dist_squared_from_link > 250000.0, branch
     lw      t1, 0x0084($sp)
-    lwc1    $f4, 0x0000(s4)            # 80118C10
-    c.lt.s  $f0, $f4
+    lwc1    $f4, 0x0000(s4)            # f4 = *80118C10, closest object examined so far
+    c.lt.s  $f0, $f4                   # compare dist_squared_from_link to closest
     nop
-    bc1fl   lbl_8002588C
+    bc1fl   lbl_8002588C               # if dist_squared_from_link > closest, branch
     lw      t1, 0x0084($sp)
-    sw      s0, 0x00FC(s8)             # 000000FC
-    lwc1    $f6, 0x008C(s0)            # 0000008C
-    swc1    $f6, 0x0000(s4)            # 80118C10
+    sw      s0, 0x00FC(s8)             # store actor address
+    lwc1    $f6, 0x008C(s0)
+    swc1    $f6, 0x0000(s4)            # closest = dist_squared_from_link
 lbl_80025888:
     lw      t1, 0x0084($sp)
 lbl_8002588C:
-    or      a0, s0, $zero              # a0 = 00000000
-    or      a1, s2, $zero              # a1 = 00000000
-    beq     s0, t1, lbl_80025978
+    or      a0, s0, $zero
+    or      a1, s2, $zero
+    beq     s0, t1, lbl_80025978       # maybe checks if this object is Link?
     lui     a2, 0x8012                 # a2 = 80120000
-    jal     func_80022754
+    jal     func_80022754              # get targeting distance into f0
     lh      a2, -0x73E8(a2)            # 80118C18
     lwc1    $f8, 0x0000(s5)            # 80118C0C
     mov.s   $f20, $f0
     c.lt.s  $f0, $f8
     nop
     bc1fl   lbl_8002597C
-    lw      s0, 0x0124(s0)             # 00000124
+    lw      s0, 0x0124(s0)             # s0 = next actor
     mfc1    a1, $f0
-    jal     func_80022824
+    jal     func_80022824              # check if targetting distance is close enough (v0)
     or      a0, s0, $zero              # a0 = 00000000
-    beq     v0, $zero, lbl_80025978
+    beq     v0, $zero, lbl_80025978    # if too far away, branch
     or      a0, s3, $zero              # a0 = 00000000
     jal     func_8002574C
     or      a1, s0, $zero              # a1 = 00000000
