@@ -26316,46 +26316,48 @@ lbl_80846FEC:
     addiu   $sp, $sp, 0x0078           # $sp += 0x78
 
 
+; Stone of Agony vibration handler
+; a0 = Link instance
 func_80847014:
     addiu   $sp, $sp, 0xFFE0           # $sp -= 0x20
     sw      $ra, 0x001C($sp)
     lui     t6, 0x8010                 # t6 = 80100000
     lui     t7, 0x8012                 # t7 = 80120000
-    lw      t7, -0x598C(t7)            # 8011A674
-    lw      t6, -0x73BC(t6)            # 800F8C44
-    lui     $at, 0x40A0                # $at = 40A00000
-    and     t8, t6, t7
-    beql    t8, $zero, lbl_808470B0
+    lw      t7, -0x598C(t7)            # 8011A674 (quest items)
+    lw      t6, -0x73BC(t6)            # 800F8C44 (0x20000000)
+    lui     $at, 0x40A0                # $at = 40A00000 (5.0)
+    and     t8, t6, t7                 # check for stone of agony
+    beql    t8, $zero, lbl_808470B0    # bail if no Agony
     lw      $ra, 0x001C($sp)
     mtc1    $zero, $f2                 # $f2 = 0.00
     addiu   a1, $zero, 0x0078          # a1 = 00000078
-    lwc1    $f4, 0x0694(a0)            # 00000694
+    lwc1    $f4, 0x0694(a0)            # dist^2 to closest hidden grotto
     mtc1    $at, $f6                   # $f6 = 5.00
     lui     $at, %hi(var_80853254)     # $at = 80850000
-    lwc1    $f10, %lo(var_80853254)($at)
-    mul.s   $f8, $f4, $f6
+    lwc1    $f10, %lo(var_80853254)($at) # 200000.0
+    mul.s   $f8, $f4, $f6              # f8 = 5.0 * dist^2
     addiu   a2, $zero, 0x0014          # a2 = 00000014
     addiu   a3, $zero, 0x000A          # a3 = 0000000A
-    sub.s   $f0, $f10, $f8
-    c.lt.s  $f0, $f2
+    sub.s   $f0, $f10, $f8             # f0 = 200000.0 - (5.0 * dist^2)
+    c.lt.s  $f0, $f2                   # check f0 < 0.0
     nop
     bc1fl   lbl_8084707C
-    lwc1    $f16, 0x0690(a0)           # 00000690
-    mov.s   $f0, $f2
-    lwc1    $f16, 0x0690(a0)           # 00000690
+    lwc1    $f16, 0x0690(a0)           # f16 = agony vibe counter
+    mov.s   $f0, $f2                   # if f0 < 0.0: f0 = 0.0
+    lwc1    $f16, 0x0690(a0)           # f16 = agony vibe counter
 lbl_8084707C:
     lui     $at, %hi(var_80853258)     # $at = 80850000
-    add.s   $f18, $f16, $f0
-    swc1    $f18, 0x0690(a0)           # 00000690
-    lwc1    $f6, 0x0690(a0)            # 00000690
-    lwc1    $f4, %lo(var_80853258)($at)
-    c.lt.s  $f4, $f6
+    add.s   $f18, $f16, $f0            # f18 = agony vibe counter + f0
+    swc1    $f18, 0x0690(a0)           # agony vibe counter = f18
+    lwc1    $f6, 0x0690(a0)            # f6 = agony vibe counter
+    lwc1    $f4, %lo(var_80853258)($at) # f4 = 4000000.0
+    c.lt.s  $f4, $f6                   # check 4000000.0 < agony vibe counter 
     nop
-    bc1fl   lbl_808470B0
+    bc1fl   lbl_808470B0               # if agony vibe counter >= 4000000.0:
     lw      $ra, 0x001C($sp)
-    swc1    $f2, 0x0690(a0)            # 00000690
-    jal     func_80830624
-    sw      $zero, 0x0010($sp)
+    swc1    $f2, 0x0690(a0)            #     agony vibe counter = 0
+    jal     func_80830624              #     call vibration setting function
+    sw      $zero, 0x0010($sp)         # 00000000
     lw      $ra, 0x001C($sp)
 lbl_808470B0:
     addiu   $sp, $sp, 0x0020           # $sp += 0x20
