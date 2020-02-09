@@ -537,10 +537,19 @@ lbl_800906CC:
 
 
 func_80090720:
-# Loads SRAM to RAM and verifies save file integrity
-    addiu   $sp, $sp, 0xFFA8           # $sp -= 0x58
+; Loads SRAM to RAM and verifies save file integrity
+; a0 = ARG0 = 801C84A0 - menu data structure
+; a1 = ARG1 = pointer to FILE_BUFFER
+;
+; stack:
+; +0x00 to +0x14 - reserved
+; +0x18 to +0x38 - s registers
+; +0x3C          - ra register
+; +0x46          - VAR1 (short)
+; +0x58          - ARG0
+    addiu   $sp, $sp, 0xFFA8           ; $sp -= 0x58
     sw      s7, 0x0034($sp)
-    or      s7, a1, $zero              # s7 = 00000000
+    or      s7, a1, $zero              ; s7 = &FILE_BUFFER
     sw      $ra, 0x003C($sp)
     sw      s8, 0x0038($sp)
     sw      s6, 0x0030($sp)
@@ -551,308 +560,308 @@ func_80090720:
     sw      s1, 0x001C($sp)
     sw      s0, 0x0018($sp)
     sw      a0, 0x0058($sp)
-    lw      a0, 0x0000(s7)             # 00000000
-    jal     func_80002E80              # bzero
-    ori     a1, $zero, 0x8000          # a1 = 00008000
-    lui     a0, 0x0800                 # a0 = 08000000
-    lw      a1, 0x0000(s7)             # 00000000
-    ori     a2, $zero, 0x8000          # a2 = 00008000
-    jal     func_80091474
-    or      a3, $zero, $zero           # a3 = 00000000
-    lui     s3, 0x8012                 # s3 = 80120000
-    addiu   s3, s3, 0xA5D0             # s3 = 8011A5D0
-    lhu     t6, 0x000C(s3)             # 8011A5DC
-    lui     s8, 0x8010                 # s8 = 80100000
-    addiu   s8, s8, 0xBF00             # s8 = 800FBF00
-    or      s4, $zero, $zero           # s4 = 00000000
-    addiu   s2, $zero, 0x0020          # s2 = 00000020
-    sh      t6, 0x0046($sp)
-    sll     t7, s4,  1
-lbl_80090798:
-    addu    s6, s8, t7
-    lhu     s1, 0x0000(s6)             # 00000000
-    lw      t8, 0x0000(s7)             # 00000000
-    or      a0, s3, $zero              # a0 = 8011A5D0
-    addiu   a2, $zero, 0x1354          # a2 = 00001354
-    or      s0, $zero, $zero           # s0 = 00000000
-    jal     func_80057030
-    addu    a1, t8, s1
-    lhu     a1, 0x1352(s3)             # 8011B922
-    sh      $zero, 0x1352(s3)          # 8011B922
-    or      v0, s3, $zero              # v0 = 8011A5D0
-    or      t0, $zero, $zero           # t0 = 00000000
-    or      v1, $zero, $zero           # v1 = 00000000
+    lw      a0, 0x0000(s7)             ; a0 = *ARG1 = FILE_BUFFER (8029F9F0)
+    jal     func_80002E80              ; bzero(buf=FILE_BUFFER, words=0x8000)
+    ori     a1, $zero, 0x8000          ;     a1 = 00008000
+    lui     a0, 0x0800                 ; a0 = 08000000
+    lw      a1, 0x0000(s7)             ; a1 = FILE_BUFFER
+    ori     a2, $zero, 0x8000          ; a2 = 00008000
+    jal     func_80091474              ; transfer_sram(offset=0x08000000+0x0, buf=FILE_BUFFER, size=0x8000, mode=MODE_LOAD)
+    or      a3, $zero, $zero           ;     a3 = MODE_LOAD (0)
+    lui     s3, 0x8012                 ;
+    addiu   s3, s3, 0xA5D0             ; s3 = SAVE_CONTEXT = 8011A5D0
+    lhu     t6, 0x000C(s3)             ; t6 = *(short*)8011A5DC
+    lui     s8, 0x8010                 ;
+    addiu   s8, s8, 0xBF00             ; s8 = SAVE_FILE_DATA = 800FBF00
+    or      s4, $zero, $zero           ; file_number = 0
+    addiu   s2, $zero, 0x0020          ; s2 = 0x20
+    sh      t6, 0x0046($sp)            ; VAR1 = t6 = *(short*)8011A5DC
+    sll     t7, s4,  1                 ; pointer_offset = 0 (initial loop entry)
+lbl_80090798:                          ; LOOP OVER ALL THREE FILES:
+    addu    s6, s8, t7                 ; offset_ptr = (short*)SAVE_FILE_DATA + file_number
+    lhu     s1, 0x0000(s6)             ; offset = SAVE_FILE_DATA->OFFSET[file_number]
+    lw      t8, 0x0000(s7)             ; t8 = FILE_BUFFER
+    or      a0, s3, $zero              ; a0 = SAVE_CONTEXT
+    addiu   a2, $zero, 0x1354          ; a2 = 00001354
+    or      s0, $zero, $zero           ; s0 = 00000000
+    jal     func_80057030              ; memcpy(dest=SAVE_CONTEXT, src=FILE_BUFFER+offset, bytes=0x1354)
+    addu    a1, t8, s1                 ;    a1 = FILE_BUFFER + OFFSET[0]
+    lhu     a1, 0x1352(s3)             ; old_checksum = SAVE_CONTEXT->checksum
+    sh      $zero, 0x1352(s3)          ; SAVE_CONTEXT->checksum = 0
+    or      v0, s3, $zero              ; ptr = SAVE_CONTEXT
+    or      t0, $zero, $zero           ; accum = 00000000
+    or      v1, $zero, $zero           ; v1 = 00000000
 lbl_800907CC:
-    addiu   s0, s0, 0x0002             # s0 = 00000002
-    andi    s0, s0, 0xFFFF             # s0 = 00000002
-    bne     s2, s0, lbl_800907E0
-    addiu   v1, v1, 0x0001             # v1 = 00000001
-    or      s0, $zero, $zero           # s0 = 00000000
+    addiu   s0, s0, 0x0002             ; s0 += 2
+    andi    s0, s0, 0xFFFF             ; s0 &= 0xFFFF
+    bne     s2, s0, lbl_800907E0       ; if s0 != 0x20: goto lbl_800907E0
+    addiu   v1, v1, 0x0001             ;     ++v1
+    or      s0, $zero, $zero           ; s0 = 00000000
 lbl_800907E0:
-    lhu     t9, 0x0000(v0)             # 8011A5D0
-    andi    v1, v1, 0xFFFF             # v1 = 00000001
-    sltiu   $at, v1, 0x09AA
-    addiu   s1, s1, 0x0002             # s1 = 00000002
-    addu    t0, t0, t9
-    andi    s1, s1, 0xFFFF             # s1 = 00000002
-    andi    t0, t0, 0xFFFF             # t0 = 00000000
-    bne     $at, $zero, lbl_800907CC
-    addiu   v0, v0, 0x0002             # v0 = 8011A5D2
-    beq     a1, t0, lbl_8009096C
-    sll     t1, s4,  1
-    addu    s5, s8, t1
-    lhu     s1, 0x0006(s5)             # 00000006
-    lw      t2, 0x0000(s7)             # 00000000
-    or      a0, s3, $zero              # a0 = 8011A5D0
-    addiu   a2, $zero, 0x1354          # a2 = 00001354
-    or      s0, $zero, $zero           # s0 = 00000000
-    jal     func_80057030
-    addu    a1, t2, s1
-    lhu     a1, 0x1352(s3)             # 8011B922
-    sh      $zero, 0x1352(s3)          # 8011B922
-    or      v0, s3, $zero              # v0 = 8011A5D0
-    or      t0, $zero, $zero           # t0 = 00000000
-    or      v1, $zero, $zero           # v1 = 00000000
-lbl_80090840:
-    addiu   s0, s0, 0x0002             # s0 = 00000002
-    andi    s0, s0, 0xFFFF             # s0 = 00000002
+    lhu     t9, 0x0000(v0)             ; t9 = *(short*)ptr
+    andi    v1, v1, 0xFFFF             ; v1 &= 0xFFFF
+    sltiu   $at, v1, 0x09AA            ; at = (v1 < 0x09AA)
+    addiu   s1, s1, 0x0002             ; s1 += 2
+    addu    t0, t0, t9                 ; accum += *(short*)ptr
+    andi    s1, s1, 0xFFFF             ; s1 &= 0xFFFF
+    andi    t0, t0, 0xFFFF             ; accum &= 0xFFFF
+    bne     $at, $zero, lbl_800907CC   ; if at: goto lbl_800907CC
+    addiu   v0, v0, 0x0002             ;     ++(short*)ptr
+    beq     a1, t0, lbl_8009096C       ; if old_checksum == accum: goto lbl_8009096C
+    sll     t1, s4,  1                 ;     t1 = file_number * 2
+    addu    s5, s8, t1                 ; s5 = (short*)SAVE_FILE_DATA + file_number
+    lhu     s1, 0x0006(s5)             ; offset = SAVE_FILE_DATA->OFFSET[file_number + 3]
+    lw      t2, 0x0000(s7)             ; t2 = FILE_BUFFER
+    or      a0, s3, $zero              ; a0 = SAVE_CONTEXT
+    addiu   a2, $zero, 0x1354          ; a2 = 00001354
+    or      s0, $zero, $zero           ; s0 = 00000000
+    jal     func_80057030              ; memcpy(dest=SAVE_CONTEXT, src=FILE_BUFFER+offset, bytes=0x1354)
+    addu    a1, t2, s1                 ;    a1 = FILE_BUFFER + offset
+    lhu     a1, 0x1352(s3)             ; old_checksum = SAVE_CONTEXT->checksum
+    sh      $zero, 0x1352(s3)          ; SAVE_CONTEXT->checksum = 0
+    or      v0, s3, $zero              ; ptr = SAVE_CONTEXT
+    or      t0, $zero, $zero           ; accum = 00000000
+    or      v1, $zero, $zero           ; v1 = 00000000
+lbl_80090840:                          ; checksum code - same as above
+    addiu   s0, s0, 0x0002
+    andi    s0, s0, 0xFFFF
     bne     s2, s0, lbl_80090854
-    addiu   v1, v1, 0x0001             # v1 = 00000001
-    or      s0, $zero, $zero           # s0 = 00000000
+    addiu   v1, v1, 0x0001
+    or      s0, $zero, $zero
 lbl_80090854:
-    lhu     t3, 0x0000(v0)             # 8011A5D0
-    andi    v1, v1, 0xFFFF             # v1 = 00000001
+    lhu     t3, 0x0000(v0)
+    andi    v1, v1, 0xFFFF
     sltiu   $at, v1, 0x09AA
-    addiu   s1, s1, 0x0002             # s1 = 00000004
+    addiu   s1, s1, 0x0002
     addu    t0, t0, t3
-    andi    s1, s1, 0xFFFF             # s1 = 00000004
-    andi    t0, t0, 0xFFFF             # t0 = 00000000
+    andi    s1, s1, 0xFFFF
+    andi    t0, t0, 0xFFFF
     bne     $at, $zero, lbl_80090840
-    addiu   v0, v0, 0x0002             # v0 = 8011A5D2
-    beq     a1, t0, lbl_80090950
-    or      a0, s3, $zero              # a0 = 8011A5D0
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    jal     func_80002E80              # bzero
-    or      s0, $zero, $zero           # s0 = 00000000
-    lui     a0, 0x8012                 # a0 = 80120000
-    addiu   a0, a0, 0xA5D4             # a0 = 8011A5D4
-    jal     func_80002E80              # bzero
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    lui     a0, 0x8012                 # a0 = 80120000
-    addiu   a0, a0, 0xA5D8             # a0 = 8011A5D8
-    jal     func_80002E80              # bzero
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    lui     a0, 0x8012                 # a0 = 80120000
-    addiu   a0, a0, 0xA5DC             # a0 = 8011A5DC
-    jal     func_80002E80              # bzero
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    lui     a0, 0x8012                 # a0 = 80120000
-    addiu   a0, a0, 0xA5E0             # a0 = 8011A5E0
-    jal     func_80002E80              # bzero
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    lui     a0, 0x8012                 # a0 = 80120000
-    addiu   a0, a0, 0xA5E4             # a0 = 8011A5E4
-    jal     func_80002E80              # bzero
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    lui     a0, 0x8012                 # a0 = 80120000
-    addiu   a0, a0, 0xA5E8             # a0 = 8011A5E8
-    jal     func_80002E80              # bzero
-    addiu   a1, $zero, 0x0004          # a1 = 00000004
-    jal     func_8008FFC0
+    addiu   v0, v0, 0x0002
+    beq     a1, t0, lbl_80090950       ; if old_checksum == accum: goto lbl_80090950
+    or      a0, s3, $zero              ;    a0 = SAVE_CONTEXT
+    addiu   a1, $zero, 0x0004          ; a1 = 00000004
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT, words=4)
+    or      s0, $zero, $zero           ;     s0 = 00000000
+    lui     a0, 0x8012                 ; 
+    addiu   a0, a0, 0xA5D4             ; a0 = 8011A5D4
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT+4, words=4)
+    addiu   a1, $zero, 0x0004          ;     a1 = 00000004
+    lui     a0, 0x8012                 ;
+    addiu   a0, a0, 0xA5D8             ; a0 = 8011A5D8
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT+8, words=4)
+    addiu   a1, $zero, 0x0004          ;     a1 = 00000004
+    lui     a0, 0x8012                 ;
+    addiu   a0, a0, 0xA5DC             ; a0 = 8011A5DC
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT+12, words=4)
+    addiu   a1, $zero, 0x0004          ;     a1 = 00000004
+    lui     a0, 0x8012                 ; 
+    addiu   a0, a0, 0xA5E0             ; a0 = 8011A5E0
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT+16, words=4)
+    addiu   a1, $zero, 0x0004          ;     a1 = 00000004
+    lui     a0, 0x8012                 ; 
+    addiu   a0, a0, 0xA5E4             ; a0 = 8011A5E4
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT+20, words=4)
+    addiu   a1, $zero, 0x0004          ;     a1 = 00000004
+    lui     a0, 0x8012                 ; 
+    addiu   a0, a0, 0xA5E8             ; a0 = 8011A5E8
+    jal     func_80002E80              ; bzero(buf=SAVE_CONTEXT+24, words=4)
+    addiu   a1, $zero, 0x0004          ;     a1 = 00000004
+    jal     func_8008FFC0              ; create_new_file_at_save_context()
     nop
-    or      v0, s3, $zero              # v0 = 8011A5D0
-    or      t0, $zero, $zero           # t0 = 00000000
-    or      v1, $zero, $zero           # v1 = 00000000
-lbl_80090900:
-    addiu   s0, s0, 0x0001             # s0 = 00000001
-    andi    s0, s0, 0xFFFF             # s0 = 00000001
+    or      v0, s3, $zero              ; v0 = SAVE_CONTEXT
+    or      t0, $zero, $zero           ; t0 = 00000000
+    or      v1, $zero, $zero           ; v1 = 00000000
+lbl_80090900:                          ; perform checksum check again
+    addiu   s0, s0, 0x0001
+    andi    s0, s0, 0xFFFF
     bne     s2, s0, lbl_80090914
-    addiu   v1, v1, 0x0001             # v1 = 00000001
-    or      s0, $zero, $zero           # s0 = 00000000
+    addiu   v1, v1, 0x0001
+    or      s0, $zero, $zero
 lbl_80090914:
-    lhu     t4, 0x0000(v0)             # 8011A5D0
-    andi    v1, v1, 0xFFFF             # v1 = 00000001
+    lhu     t4, 0x0000(v0)
+    andi    v1, v1, 0xFFFF
     sltiu   $at, v1, 0x09AA
     addu    t0, t0, t4
-    andi    t0, t0, 0xFFFF             # t0 = 00000000
+    andi    t0, t0, 0xFFFF
     bne     $at, $zero, lbl_80090900
-    addiu   v0, v0, 0x0002             # v0 = 8011A5D2
-    lhu     v1, 0x0006(s5)             # 00000006
-    lui     $at, 0x0800                # $at = 08000000
-    sh      t0, 0x1352(s3)             # 8011B922
-    or      a1, s3, $zero              # a1 = 8011A5D0
-    addiu   a2, $zero, 0x1450          # a2 = 00001450
-    addiu   a3, $zero, 0x0001          # a3 = 00000001
-    jal     func_80091474
-    addu    a0, v1, $at
-lbl_80090950:
-    lhu     v1, 0x0000(s6)             # 00000000
-    lui     $at, 0x0800                # $at = 08000000
-    or      a1, s3, $zero              # a1 = 8011A5D0
-    addiu   a2, $zero, 0x1450          # a2 = 00001450
-    addiu   a3, $zero, 0x0001          # a3 = 00000001
-    jal     func_80091474
-    addu    a0, v1, $at
-lbl_8009096C:
-    addiu   s4, s4, 0x0001             # s4 = 00000001
-    andi    s4, s4, 0xFFFF             # s4 = 00000001
-    slti    $at, s4, 0x0003
-    bnel    $at, $zero, lbl_80090798
-    sll     t7, s4,  1
-    lw      a0, 0x0000(s7)             # 00000000
-    jal     func_80002E80              # bzero
-    ori     a1, $zero, 0x8000          # a1 = 00008000
-    lui     a0, 0x0800                 # a0 = 08000000
-    lw      a1, 0x0000(s7)             # 00000000
-    ori     a2, $zero, 0x8000          # a2 = 00008000
-    jal     func_80091474
-    or      a3, $zero, $zero           # a3 = 00000000
-    lhu     t5, 0x0046($sp)
+    addiu   v0, v0, 0x0002
+    lhu     v1, 0x0006(s5)             ; offset = SAVE_FILE_DATA->OFFSET[file_number + 3]
+    lui     $at, 0x0800                ; $at = 08000000
+    sh      t0, 0x1352(s3)             ; SAVE_FILE->OFFSET[file_number + 3] = accum
+    or      a1, s3, $zero              ; a1 = SAVE_CONTEXT
+    addiu   a2, $zero, 0x1450          ; a2 = 00001450
+    addiu   a3, $zero, 0x0001          ; a3 = MODE_SAVE
+    jal     func_80091474              ; transfer_sram(offset=08000000+offset, buf=SAVE_CONTEXT, size=0x1450, mode=MODE_SAVE)
+    addu    a0, v1, $at                ;     a0 = 08000000 + offset
+lbl_80090950:                          ; code jumps here if backup file is valid
+    lhu     v1, 0x0000(s6)             ; offset = SAVE_FILE_DATA->OFFSET[file_number]
+    lui     $at, 0x0800                ; $at = 08000000
+    or      a1, s3, $zero              ; a1 = SAVE_CONTEXT
+    addiu   a2, $zero, 0x1450          ; a2 = 00001450
+    addiu   a3, $zero, 0x0001          ; a3 = MODE_SAVE
+    jal     func_80091474              ; transfer_sram(offset=08000000+offset, buf=SAVE_CONTEXT, size=0x1450, mode=MODE_SAVE)
+    addu    a0, v1, $at                ;     a0 = 08000000 + offset
+lbl_8009096C:                          ; code jumps here if main file is valid
+    addiu   s4, s4, 0x0001             ; ++file_number
+    andi    s4, s4, 0xFFFF             ; file_number &= 0xFFFF
+    slti    $at, s4, 0x0003            ;
+    bnel    $at, $zero, lbl_80090798   ; if file_number < 3: goto lbl_80090798
+    sll     t7, s4,  1                 ;     if taken: pointer_offset = file_number * 2
+    lw      a0, 0x0000(s7)             ; a0 = FILE_BUFFER
+    jal     func_80002E80              ; bzero(buf=FILE_BUFFER, words=0x8000)
+    ori     a1, $zero, 0x8000          ;     a1 = 00008000
+    lui     a0, 0x0800                 ; a0 = 08000000
+    lw      a1, 0x0000(s7)             ; a1 = FILE_BUFFER
+    ori     a2, $zero, 0x8000          ; a2 = 00008000
+    jal     func_80091474              ; transfer_sram(offset=08000000+0, buf=FILE_BUFFER, size=0x8000, mode=MODE_LOAD)
+    or      a3, $zero, $zero           ;     a3 = 00000000
+    lhu     t5, 0x0046($sp)            ; t5 = VAR1
+    lw      a0, 0x0058($sp)            ; a0 = ARG0
+    lui     $at, 0x0001                ; $at = 00010000
+    sh      t5, 0x000C(s3)             ; *(short*)(SAVE_CONTEXT + 0xC) = VAR1
+    lw      a1, 0x0000(s7)             ; a1 = FILE_BUFFER
+    ori     $at, $at, 0xC9EE           ; $at = 0001C9EE
+    addiu   a2, $zero, 0x0002          ; a2 = 00000002
+    addu    a0, a0, $at                ; a0 = ARG0 + 1C9EE (801E4E8E)
+    jal     func_80057030              ; memcpy(dest=801E4E8E, src=FILE_BUFFER->FILES[0].deaths, size=2)
+    addiu   a1, a1, 0x0042             ;     a1 = FILE_BUFFER->FILES[0].deaths
     lw      a0, 0x0058($sp)
-    lui     $at, 0x0001                # $at = 00010000
-    sh      t5, 0x000C(s3)             # 8011A5DC
-    lw      a1, 0x0000(s7)             # 00000000
-    ori     $at, $at, 0xC9EE           # $at = 0001C9EE
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xC9F0           ; $at = 0001C9F0
+    addiu   a2, $zero, 0x0002          ; a2 = 00000002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x0042             # a1 = 00000042
+    jal     func_80057030              ; memcpy(dest=801E4E90, src=FILE_BUFFER->FILES[1].deaths, size=2)
+    addiu   a1, a1, 0x1492
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xC9F0           # $at = 0001C9F0
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xC9F2
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x1492             # a1 = 00001492
+    jal     func_80057030              ; memcpy(dest=801E4E92, src=FILE_BUFFER->FILES[2].deaths, size=2)
+    addiu   a1, a1, 0x28E2
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xC9F2           # $at = 0001C9F2
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xC9F4
+    addiu   a2, $zero, 0x0008
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x28E2             # a1 = 000028E2
+    jal     func_80057030              ; memcpy(dest=801E4E94, src=FILE_BUFFER->FILES[0].name, size=8)
+    addiu   a1, a1, 0x0044
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xC9F4           # $at = 0001C9F4
-    addiu   a2, $zero, 0x0008          # a2 = 00000008
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xC9FC
+    addiu   a2, $zero, 0x0008
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x0044             # a1 = 00000044
+    jal     func_80057030              ; memcpy(dest=801E4E9C, src=FILE_BUFFER->FILES[1].name, size=8)
+    addiu   a1, a1, 0x1494
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xC9FC           # $at = 0001C9FC
-    addiu   a2, $zero, 0x0008          # a2 = 00000008
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA04
+    addiu   a2, $zero, 0x0008
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x1494             # a1 = 00001494
+    jal     func_80057030              ; memcpy(dest=801E4EA4, src=FILE_BUFFER->FILES[2].name, size=8)
+    addiu   a1, a1, 0x28E4
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA04           # $at = 0001CA04
-    addiu   a2, $zero, 0x0008          # a2 = 00000008
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA0C
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x28E4             # a1 = 000028E4
+    jal     func_80057030              ; memcpy(dest=801E4EAC, src=FILE_BUFFER->FILES[0].hearts, size=2)
+    addiu   a1, a1, 0x004E
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA0C           # $at = 0001CA0C
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA0E
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x004E             # a1 = 0000004E
+    jal     func_80057030              ; memcpy(dest=801E4EAE, src=FILE_BUFFER->FILES[1].hearts, size=2)
+    addiu   a1, a1, 0x149E
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA0E           # $at = 0001CA0E
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA10
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x149E             # a1 = 0000149E
+    jal     func_80057030              ; memcpy(dest=801E4EB0, src=FILE_BUFFER->FILES[2].hearts, size=2)
+    addiu   a1, a1, 0x28EE
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA10           # $at = 0001CA10
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA14
+    addiu   a2, $zero, 0x0004
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x28EE             # a1 = 000028EE
+    jal     func_80057030              ; memcpy(dest=801E4EB4, src=FILE_BUFFER->FILES[0].questitems, size=4)
+    addiu   a1, a1, 0x00C4
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA14           # $at = 0001CA14
-    addiu   a2, $zero, 0x0004          # a2 = 00000004
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA18
+    addiu   a2, $zero, 0x0004
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x00C4             # a1 = 000000C4
+    jal     func_80057030              ; memcpy(dest=801E4EB8, src=FILE_BUFFER->FILES[1].questitems, size=4)
+    addiu   a1, a1, 0x1514
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA18           # $at = 0001CA18
-    addiu   a2, $zero, 0x0004          # a2 = 00000004
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA1C
+    addiu   a2, $zero, 0x0004
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x1514             # a1 = 00001514
+    jal     func_80057030              ; memcpy(dest=801E4EBC, src=FILE_BUFFER->FILES[2].questitems, size=4)
+    addiu   a1, a1, 0x2964
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA1C           # $at = 0001CA1C
-    addiu   a2, $zero, 0x0004          # a2 = 00000004
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA20
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x2964             # a1 = 00002964
+    jal     func_80057030              ; memcpy(dest=801E4EC0, src=FILE_BUFFER->FILES[0].diskdrive, size=2)
+    addiu   a1, a1, 0x004C
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA20           # $at = 0001CA20
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA22
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x004C             # a1 = 0000004C
+    jal     func_80057030              ; memcpy(dest=801E4EC2, src=FILE_BUFFER->FILES[1].diskdrive, size=2)
+    addiu   a1, a1, 0x149C
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA22           # $at = 0001CA22
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA24
+    addiu   a2, $zero, 0x0002
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x149C             # a1 = 0000149C
+    jal     func_80057030              ; memcpy(dest=801E4EC4, src=FILE_BUFFER->FILES[2].diskdrive, size=2)
+    addiu   a1, a1, 0x28EC
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA24           # $at = 0001CA24
-    addiu   a2, $zero, 0x0002          # a2 = 00000002
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA26
+    addiu   a2, $zero, 0x0001
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x28EC             # a1 = 000028EC
+    jal     func_80057030              ; memcpy(dest=801E4EC6, src=FILE_BUFFER->FILES[0].doubledefense, size=1)
+    addiu   a1, a1, 0x00EF
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA26           # $at = 0001CA26
-    addiu   a2, $zero, 0x0001          # a2 = 00000001
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA27
+    addiu   a2, $zero, 0x0001
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x00EF             # a1 = 000000EF
+    jal     func_80057030              ; memcpy(dest=801E4EC7, src=FILE_BUFFER->FILES[1].doubledefense, size=1)
+    addiu   a1, a1, 0x153F
     lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA27           # $at = 0001CA27
-    addiu   a2, $zero, 0x0001          # a2 = 00000001
+    lw      a1, 0x0000(s7)
+    lui     $at, 0x0001
+    ori     $at, $at, 0xCA28
+    addiu   a2, $zero, 0x0001
     addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x153F             # a1 = 0000153F
-    lw      a0, 0x0058($sp)
-    lw      a1, 0x0000(s7)             # 00000000
-    lui     $at, 0x0001                # $at = 00010000
-    ori     $at, $at, 0xCA28           # $at = 0001CA28
-    addiu   a2, $zero, 0x0001          # a2 = 00000001
-    addu    a0, a0, $at
-    jal     func_80057030
-    addiu   a1, a1, 0x298F             # a1 = 0000298F
+    jal     func_80057030              ; memcpy(dest=801E4EC8, src=FILE_BUFFER->FILES[2].doubledefense, size=1)
+    addiu   a1, a1, 0x298F
     lw      $ra, 0x003C($sp)
     lw      s0, 0x0018($sp)
     lw      s1, 0x001C($sp)
@@ -864,8 +873,7 @@ lbl_8009096C:
     lw      s7, 0x0034($sp)
     lw      s8, 0x0038($sp)
     jr      $ra
-    addiu   $sp, $sp, 0x0058           # $sp += 0x58
-
+    addiu   $sp, $sp, 0x0058           ; $sp += 0x58
 
 func_80090C18:
 # Create New File Function
